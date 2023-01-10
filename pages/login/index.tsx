@@ -7,8 +7,8 @@ import Link from 'next/link';
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
-    background: #403f83;
-    border-bothrefm: solid 1px #403f83;
+    background: #8677a8;
+    border-bothrefm: solid 1px #8677a8;
   }
   header#myHeader.navbar .search #quick_search{
     color: #fff;
@@ -28,7 +28,7 @@ const GlobalStyles = createGlobalStyle`
   }
   @media only screen and (max-width: 1199px) {
     .navbar{
-      background: #403f83;
+      background: #8677a8;
     }
     .navbar .menu-line, .navbar .menu-line1, .navbar .menu-line2{
       background: #fff;
