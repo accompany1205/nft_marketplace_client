@@ -1,6 +1,7 @@
 import axios from "axios";
-const MAIN_URL = process.env.REACT_APP_PUBLIC_PATH;
-const instance = axios.create({ baseURL: 'https://api.designbook.app/marketplace/api/v1/' })
+const MAIN_URL = process.env.NEXT_PUBLIC_API_PATH;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const instance = axios.create({ baseURL: MAIN_URL })
 import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import type { AxiosRequestConfig, AxiosError } from 'axios'
 
@@ -27,22 +28,29 @@ const methods = {
 
 export default methods;
 
-export const axiosBaseQuery =
-  (
-    { baseUrl }: { baseUrl: string } = { baseUrl: '' }
-  ): BaseQueryFn<
-    {
-      url: string
-      method: AxiosRequestConfig['method']
-      data?: AxiosRequestConfig['data']
-      params?: AxiosRequestConfig['params']
-    },
-    unknown,
-    unknown
-  > =>
-  async ({ url, method, data, params }) => {
+export const axiosBaseQuery = (): BaseQueryFn<
+  {
+    url: string
+    method: AxiosRequestConfig['method']
+    data?: AxiosRequestConfig['data']
+    params?: AxiosRequestConfig['params']
+  },
+  unknown,
+  unknown
+> =>
+  async ({ url, method, data, params }: any) => {
     try {
-      const result = await axios({ url: baseUrl + url, method, data, params })
+      const result = await axios({
+        url: MAIN_URL + url, method,
+
+        data: {
+          "x-api-key": API_KEY,
+          ...data
+        },
+
+
+        params
+      })
       return { data: result.data }
     } catch (axiosError) {
       let err = axiosError as AxiosError

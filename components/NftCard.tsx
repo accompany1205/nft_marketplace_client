@@ -38,14 +38,14 @@ const NftCard = ({ nft, className = 'd-item col-lg-3 col-md-6 col-sm-6 col-xs-12
           </Outer>
         </div>
         <div className="nft__item_info">
-          <span onClick={()=>{
+          <span onClick={() => {
             router.push(`product/${nft.id}`)
           }} >
             <h4>{nft.specs.productName}</h4>
           </span>
 
           <div className="has_offers">
-            {nft.specs.price}  ETH  
+            {nft.specs.price}  ETH
           </div>
           <div className="nft__item_action">
             <span > Buy Now </span>

@@ -5,6 +5,7 @@ import SliderParticles from '../components/SliderParticles';
 import SliderImage from '../public/images/particleBg.jpg'
 import Products from '../components/Products';
 import { createGlobalStyle } from 'styled-components';
+import Footer from "../components/Footer";
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -47,7 +48,12 @@ const Home = () => {
 
   return <div>
     <GlobalStyles />
-    <section className="jumbotron no-bg" style={{ backgroundImage: `url(${SliderImage.src})` }}>
+    <section className="jumbotron no-bg" style={{
+      backgroundImage: `url(${SliderImage.src})`, backgroundPosition: "center",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      height:'61.5vh'
+    }}>
       <Particle />
       <SliderParticles />
     </section>
@@ -63,6 +69,7 @@ const Home = () => {
       </div>
       <Products />
     </section>
+      <Footer />
 
   </div>
 };

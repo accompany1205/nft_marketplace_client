@@ -1,14 +1,11 @@
-import React, { memo } from "react";
+import React from "react";
 import NftCard from "./NftCard";
 import { INFT } from "../types/nft.type";
 import authApi from "../redux/service/appService";
 import Loader from "./Loader";
 
 const Products = function () {
-
-  // const { data: nft, isLoading } = useGetProductsQuery();
   const { data: nft, isLoading } = authApi.endpoints.getProducts.useQuery();
-  console.log('nft', nft);
   return (
     <>
       {isLoading ? <div className="d-flex justify-content-center align-items-center"><Loader /></div> :
@@ -23,4 +20,4 @@ const Products = function () {
     </>
   );
 }
-export default memo(Products);
+export default Products;
