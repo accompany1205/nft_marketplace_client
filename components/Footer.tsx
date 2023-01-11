@@ -57,7 +57,7 @@ const footer= () => (
                                 </div>
                             </form>
                             <div className="spacer-10"></div>
-                            <small>Your email is safe with us. We don't spam.</small>
+                            <small>Your email is safe with us. We dont spam.</small>
                         </div>
                     </div>
                 </div>

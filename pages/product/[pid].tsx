@@ -4,7 +4,7 @@ import authApi from "../../redux/service/appService";
 
 const NftDetail = () => {
   const router = useRouter();
-  const { data: details, isLoading } = authApi.endpoints.getProductDetails.useQuery(router.query.pid);
+  const { data: details, isLoading } = authApi.endpoints.getProductDetails.useQuery(router.query.pid && typeof router.query.pid === 'string' ? router.query.pid : '');
   console.log(router.query.pid, 'pid')
   const nft = {
     title: "Nike",

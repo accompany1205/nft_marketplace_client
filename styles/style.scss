@@ -13,8 +13,8 @@ $general: #727272;
 $black_soft: #333;
 $black_col: #2e333c;
 $black_more: #0f0f0f;
-$color: #8364E2;
-$color_more: #403f83;
+$color: #685692; // #8364E2; 
+$color_more: #8677a8; // #403f83; 
 
 .col-white {
   color: $white;
@@ -723,7 +723,7 @@ p.lead {
   width: max-content;
   text-align: center;
   color: #fff !important;
-  background: #8364E2;
+  background: #685692;
   border-radius: 6px;
   letter-spacing: normal;
   outline: 0;
@@ -2747,7 +2747,7 @@ i.font60 {
   transition: .7s;
 
   &:hover {
-    background: #403f83;
+    background: #8677a8;
     transition: .7s;
   }
 }
@@ -5414,7 +5414,7 @@ blockquote {
 
   &:hover {
     background: rgba(131, 100, 226, .1);
-    border-color: #8364e2;
+    border-color: #685692;
     box-shadow: 2px 2px 30px 0px rgba(20, 20, 20, 0.1);
     transition: .3s;
   }
@@ -5429,7 +5429,7 @@ blockquote {
   a {
     text-align: center;
     color: #fff !important;
-    background: #8364E2;
+    background: #685692;
     border-radius: 6px;
     letter-spacing: normal;
     outline: 0;
@@ -5835,7 +5835,7 @@ blockquote {
     padding: 17px 0;
     text-align: center;
     z-index: 2;
-    background: #8364e2;
+    background: #685692;
     border-radius: 30px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;

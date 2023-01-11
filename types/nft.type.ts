@@ -24,6 +24,8 @@ export interface INftSpecs {
   avatar: string;
   priceover: string;
   url: string;
+  views: number;
+  likes: number;
 }
 
 export interface INFT {
