@@ -1,13 +1,45 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import appSlice from './service/appService'
+import authReducer from './slices/authSlice'
+import { authApi } from "./service/authService";
+
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage';
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist:[
+    "auth"
+  ]
+}
+
+//not save the error and loading state on refresh
+const authPersistConfig = {
+  key:"authentication",
+  storage,
+  whitelist:[
+    "user",
+    "token",
+    "refreshToken"
+  ]
+}
+
+const rootReducer = combineReducers({
+  [appSlice.reducerPath]: appSlice.reducer,
+  [authApi.reducerPath]:authApi.reducer,
+  auth:persistReducer(authPersistConfig,authReducer)
+})
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
-  reducer:{
-    [appSlice.reducerPath]: appSlice.reducer
-  },
+  reducer:persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({}).concat(appSlice.middleware),
+    getDefaultMiddleware({}).concat(appSlice.middleware).concat(authApi.middleware),
 });
+
+export const persistor = persistStore(store)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

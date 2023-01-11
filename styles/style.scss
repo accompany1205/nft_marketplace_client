@@ -3967,14 +3967,20 @@ img.img-rounded {
 }
 
 /*** login ***/
-.field-set label {
-  color: #606060;
-  font-weight: 500;
+.field-set {
+  margin-bottom: 20px;
+  label {
+    color: #606060;
+    font-weight: 500;
+  }
+
+  .error-message{
+    color: red;
+  }
 }
 
 .form-control {
   padding: 8px;
-  margin-bottom: 20px;
   border: none;
   border: solid 1px #cccccc;
   background: none;

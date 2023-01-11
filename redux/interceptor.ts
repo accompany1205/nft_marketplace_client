@@ -1,10 +1,10 @@
 import axios from "axios";
 const MAIN_URL = process.env.NEXT_PUBLIC_API_PATH;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-const instance = axios.create({ baseURL: MAIN_URL })
-import type { BaseQueryFn } from '@reduxjs/toolkit/query'
-import type { AxiosRequestConfig, AxiosError } from 'axios'
-
+const instance = axios.create({ baseURL: MAIN_URL });
+import type { BaseQueryFn } from "@reduxjs/toolkit/query";
+import type { AxiosRequestConfig, AxiosError } from "axios";
+import { RootState } from "./store";
 
 instance.interceptors.response.use(
   (response) => {
@@ -28,37 +28,78 @@ const methods = {
 
 export default methods;
 
-export const axiosBaseQuery = (): BaseQueryFn<
-  {
-    url: string
-    method: AxiosRequestConfig['method']
-    data?: AxiosRequestConfig['data']
-    params?: AxiosRequestConfig['params']
-  },
-  unknown,
-  unknown
-> =>
+export const axiosBaseQuery =
+  (): BaseQueryFn<
+    {
+      url: string;
+      method: AxiosRequestConfig["method"];
+      data?: AxiosRequestConfig["data"];
+      params?: AxiosRequestConfig["params"];
+    },
+    unknown,
+    unknown
+  > =>
   async ({ url, method, data, params }: any) => {
     try {
       const result = await axios({
-        url: MAIN_URL + url, method,
+        url: MAIN_URL + url,
+        method,
 
         data: {
           "x-api-key": API_KEY,
-          ...data
+          ...data,
         },
 
-
-        params
-      })
-      return { data: result.data }
+        params,
+      });
+      return { data: result.data };
     } catch (axiosError) {
-      let err = axiosError as AxiosError
+      let err = axiosError as AxiosError;
       return {
         error: {
           status: err.response?.status,
           data: err.response?.data || err.message,
         },
-      }
+      };
     }
-  }
+  };
+
+const designBookInstance = axios.create({
+  baseURL: "https://api.designbook.app",
+});
+
+//create logic for refreshtoken in interceptor
+
+export const designbookAxiosBaseQuery =
+  (): BaseQueryFn<
+    {
+      url: string;
+      method: AxiosRequestConfig["method"];
+      data?: AxiosRequestConfig["data"];
+      params?: AxiosRequestConfig["params"];
+    },
+    unknown,
+    unknown
+  > =>
+  async ({ url, method, data, params }, { getState }) => {
+    try {
+      const result = await designBookInstance({
+        url,
+        method,
+        data,
+        params,
+        headers: {
+          "x-api-key": (getState() as RootState).auth.token,
+        },
+      });
+      return { data: result.data };
+    } catch (axiosError) {
+      let err = axiosError as AxiosError;
+      return {
+        error: {
+          status: err.response?.status,
+          data: err.response?.data || err.message,
+        },
+      };
+    }
+  };
