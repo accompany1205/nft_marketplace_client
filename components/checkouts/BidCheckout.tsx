@@ -19,7 +19,7 @@ const BidCheckout: React.FC<CheckoutProps> = ({
         </div>
         <p>
           You are about to purchase a{" "}
-          <span className="bold">{product.productName}</span>
+          <span className="bold">{product.productName}&nbsp;</span>
           <span className="bold">from {product.owner.username}</span>
         </p>
         <div className="detailcheckout mt-4">

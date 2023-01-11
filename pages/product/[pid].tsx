@@ -25,6 +25,7 @@ const NftDetail = () => {
       username: "Rameez Raja",
     },
   };
+
   return (
     <div className="greyscheme">
       {isLoading ? (
@@ -115,7 +116,10 @@ const NftDetail = () => {
                       </div>
                     </div>
                     <div className="d-flex flex-row mt-5">
-                      <button className="btn-main lead mb-5 me-3">
+                      <button
+                        className="btn-main lead mb-5 me-3"
+                        onClick={() => setIsCheckout(true)}
+                      >
                         Buy Now
                       </button>
                       <button
