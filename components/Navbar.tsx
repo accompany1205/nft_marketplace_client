@@ -84,7 +84,7 @@ const Header = function ({ className }: any) {
           <div className="search">
             <input
               id="quick_search"
-              className="xs-hide border border-1 border-color"
+              className="xs-hide"
               name="quick_search"
               placeholder="search item here..."
               type="text"

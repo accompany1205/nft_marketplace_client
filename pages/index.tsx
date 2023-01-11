@@ -45,15 +45,19 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const Home = () => {
-
-  return <div>
+  return (
+    <div>
     <GlobalStyles />
-    <section className="jumbotron no-bg" style={{
-      backgroundImage: `url(${SliderImage.src})`, backgroundPosition: "center",
+      <section
+        className="jumbotron no-bg"
+        style={{
+          backgroundImage: `url(${SliderImage.src})`,
+          backgroundPosition: "center",
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
-      height:'61.5vh'
-    }}>
+          minHeight: "61.5vh",
+        }}
+      >
       <Particle />
       <SliderParticles />
     </section>
@@ -72,6 +76,7 @@ const Home = () => {
       <Footer />
 
   </div>
+  );
 };
 
 export default Home;
