@@ -10,6 +10,10 @@ export interface IUser {
   password?: string;
 }
 
+export interface ILoginRequest {
+  email: string;
+  password: string;
+}
 export interface IUserResponse {
   success: boolean;
   user: IUser;
@@ -17,9 +21,8 @@ export interface IUserResponse {
   refreshToken: string;
 }
 
-export interface ILoginRequest {
-  email: string;
-  password: string;
+export interface IRegisterResponse {
+  success: boolean;
 }
 
 export const authApi = createApi({
@@ -32,7 +35,14 @@ export const authApi = createApi({
         data: credentials,
       }),
     }),
+    register: builder.mutation<IRegisterResponse, IUser>({
+      query: (user) => ({
+        url: "/users/api/v1/auth/registerbody",
+        method: "POST",
+        data: user,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation } = authApi;

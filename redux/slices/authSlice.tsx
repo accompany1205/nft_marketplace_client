@@ -1,54 +1,54 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { authApi, IUser } from '../service/authService'
-import { RootState } from '../store'
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { authApi, IUser } from "../service/authService";
+import { RootState } from "../store";
 
 type AuthState = {
-  error:string|null
-  user: IUser | null
-  token: string | null
-  refreshToken:string | null
-}
+  error: string | null;
+  user: IUser | null;
+  token: string | null;
+  refreshToken: string | null;
+};
 
-const initialState:AuthState = { user: null, token: null, refreshToken:null, error:null };
+const initialState: AuthState = {
+  user: null,
+  token: null,
+  refreshToken: null,
+  error: null,
+};
 
 const slice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    setCredentials: (
-      state,
-      { payload: { user, token,refreshToken } }: PayloadAction<{ user: IUser; token: string; refreshToken:string}>
-    ) => {
-      state.user = user
-      state.token = token
-      state.refreshToken = refreshToken
+    reset: () => {
+      return initialState;
     },
-    reset:()=>{
-      return initialState
-    }
   },
   extraReducers: (builder) => {
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
       (state, { payload }) => {
-        state.token = payload.token
-        state.user = payload.user
-        state.refreshToken = payload.refreshToken
+        state.token = payload.token;
+        state.user = payload.user;
+        state.refreshToken = payload.refreshToken;
       }
-    )
+    );
     builder.addMatcher(
       authApi.endpoints.login.matchRejected,
       (state, { payload }) => {
-        console.log("auth Error",payload);
-        return {...initialState, error: payload?.data?.message || "unknown Error"}
+        console.log("auth Error", payload);
+        return {
+          ...initialState,
+          error: payload?.data?.message || "unknown Error",
+        };
       }
-    )
+    );
   },
-})
+});
 
-export const { setCredentials, reset } = slice.actions
+export const { reset } = slice.actions;
 
-export default slice.reducer
+export default slice.reducer;
 
-export const selectCurrentUser = (state: RootState) => state.auth.user
+export const selectCurrentUser = (state: RootState) => state.auth.user;

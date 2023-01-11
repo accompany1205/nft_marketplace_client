@@ -4,6 +4,8 @@ import { Form, Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import SliderImage from '../../public/images/particleBg.jpg'
 import Link from 'next/link';
+import { IUser, useRegisterMutation } from '../../redux/service/authService';
+import { useRouter } from 'next/router';
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -76,10 +78,19 @@ const initialValues = {
     birthdate:"",
 };
 
-const Login = () => {
+const Register = () => {
+
+    const router = useRouter()
+    const [register, { isLoading }] = useRegisterMutation()
 
     const handleSubmitForm = async (values: {}) => {
-        console.log(values)
+        try {
+            await register(values as IUser)
+            alert("User registered successfully")
+            router.replace("/login")
+        } catch (error) {
+            alert(error)
+        }
     }
 
     return (
@@ -169,4 +180,4 @@ const Login = () => {
         </div>
     )
 };
-export default Login;
+export default Register;

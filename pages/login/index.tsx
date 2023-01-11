@@ -6,6 +6,7 @@ import SliderImage from '../../public/images/particleBg.jpg'
 import Link from 'next/link';
 import { ILoginRequest, useLoginMutation } from '../../redux/service/authService';
 import { useTypedSelector } from '../../hooks/store';
+import { useRouter } from 'next/router';
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -58,7 +59,8 @@ const initialValues = {
 };
 
 const Login = () => {
-    const {error} = useTypedSelector(state=>state.auth)
+    const router = useRouter()
+    const {error,token} = useTypedSelector(state=>state.auth)
     const [login, { isLoading }] = useLoginMutation()
 
     const handleSubmitForm = async (values: {}) => {
@@ -72,6 +74,11 @@ const Login = () => {
     useEffect(() => {
         error && alert(error)
     }, [error])
+
+    useEffect(() => {
+        token && router.replace("/")
+    }, [token,router])
+    
     
 
     return (
