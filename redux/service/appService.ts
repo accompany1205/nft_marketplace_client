@@ -1,23 +1,23 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { axiosBaseQuery } from "../interceptor";
+import { designbookAxiosBaseQuery } from "../interceptor";
 
 import { INFT } from "../../types/nft.type";
 
 const appSlice = createApi({
   reducerPath: "app",
-  baseQuery: axiosBaseQuery(),
-  endpoints: (builder) => ({
+  baseQuery: designbookAxiosBaseQuery(),
+  endpoints: (builder: any) => ({
     getProducts: builder.query<{ data: INFT[] }, void>({
       query: () => ({
-        url:"listings",
-        method:'GET'
-       })
+        url: "/marketplace/api/v1/listings",
+        method: "GET",
+      }),
     }),
-     getProductDetails: builder.query<{ data: INFT}, string>({
-      query: (id) => ({
-        url:`listing?listingId=${id}`,
-        method:'GET',
-       })
+    getProductDetails: builder.query<{ data: INFT[] }, void>({
+      query: (id: any) => ({
+        url: `/marketplace/api/v1/listing?listingId=${id}`,
+        method: "GET",
+      }),
     }),
   }),
 });

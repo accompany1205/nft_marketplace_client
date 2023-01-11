@@ -1,64 +1,45 @@
 import axios from "axios";
 const MAIN_URL = process.env.NEXT_PUBLIC_API_PATH;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-const instance = axios.create({ baseURL: MAIN_URL })
-import type { BaseQueryFn } from '@reduxjs/toolkit/query'
-import type { AxiosRequestConfig, AxiosError } from 'axios'
+import type { BaseQueryFn } from "@reduxjs/toolkit/query";
+import type { AxiosRequestConfig, AxiosError } from "axios";
+import { RootState } from "./store";
 
-
-instance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    return Promise.reject(error);
-  }
-);
-instance.interceptors.request.use((config) => {
-  return config;
+const designBookInstance = axios.create({
+  baseURL: MAIN_URL,
 });
 
-const methods = {
-  get: instance.get,
-  post: instance.post,
-  put: instance.put,
-  delete: instance.delete,
-  patch: instance.patch,
-};
+//create logic for refreshtoken in interceptor
 
-export default methods;
-
-export const axiosBaseQuery = (): BaseQueryFn<
-  {
-    url: string
-    method: AxiosRequestConfig['method']
-    data?: AxiosRequestConfig['data']
-    params?: AxiosRequestConfig['params']
-  },
-  unknown,
-  unknown
-> =>
-  async ({ url, method, data, params }: any) => {
+export const designbookAxiosBaseQuery =
+  (): BaseQueryFn<
+    {
+      url: string;
+      method: AxiosRequestConfig["method"];
+      data?: AxiosRequestConfig["data"];
+      params?: AxiosRequestConfig["params"];
+    },
+    unknown,
+    unknown
+  > =>
+  async ({ url, method, data, params }, { getState }) => {
     try {
-      const result = await axios({
-        url: MAIN_URL + url, method,
-
-        data: {
-          "x-api-key": API_KEY,
-          ...data
+      const result = await designBookInstance({
+        url,
+        method,
+        data,
+        params,
+        headers: {
+          "x-api-key": (getState() as RootState).auth.token,
         },
-
-
-        params
-      })
-      return { data: result.data }
+      });
+      return { data: result.data };
     } catch (axiosError) {
-      let err = axiosError as AxiosError
+      let err = axiosError as AxiosError;
       return {
         error: {
           status: err.response?.status,
           data: err.response?.data || err.message,
         },
-      }
+      };
     }
-  }
+  };

@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { Form, Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import SliderImage from '../../public/images/particleBg.jpg'
 import Link from 'next/link';
-import { ILoginRequest, useLoginMutation } from '../../redux/service/authService';
-import { useTypedSelector } from '../../hooks/store';
+import { IUser, useRegisterMutation } from '../../redux/service/authService';
 import { useRouter } from 'next/router';
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
-    background: #8677a8;
-    border-bothrefm: solid 1px #8677a8;
+    background: #403f83;
+    border-bothrefm: solid 1px #403f83;
   }
   header#myHeader.navbar .search #quick_search{
     color: #fff;
@@ -31,7 +30,7 @@ const GlobalStyles = createGlobalStyle`
   }
   @media only screen and (max-width: 1199px) {
     .navbar{
-      background: #8677a8;
+      background: #403f83;
     }
     .navbar .menu-line, .navbar .menu-line1, .navbar .menu-line2{
       background: #fff;
@@ -51,35 +50,48 @@ const validationSchema = Yup.object().shape({
         Yup.string()
             .required('Password is required')
     ),
+    first_name: Yup.lazy(() =>
+        Yup.string()
+            .required('First Name is required')
+    ),
+    last_name: Yup.lazy(() =>
+        Yup.string()
+            .required('Last Name is required')
+    ),
+    country: Yup.lazy(() =>
+        Yup.string()
+            .required('Country is required')
+    ),
+    birthdate: Yup.lazy(() =>
+        Yup.string()
+            .required('Date of Birth is required')
+    ),
+ 
 });
 
 const initialValues = {
-    email: 'test1@test.co',
-    password: '123566!'
+    email: '',
+    password: '',
+    first_name:"",
+    last_name:"",
+    country:"",
+    birthdate:"",
 };
 
-const Login = () => {
+const Register = () => {
+
     const router = useRouter()
-    const {error,token} = useTypedSelector(state=>state.auth)
-    const [login, { isLoading }] = useLoginMutation()
+    const [register, { isLoading }] = useRegisterMutation()
 
     const handleSubmitForm = async (values: {}) => {
         try {
-            await login(values as ILoginRequest)
+            await register(values as IUser)
+            alert("User registered successfully")
+            router.replace("/login")
         } catch (error) {
             alert(error)
         }
     }
-
-    useEffect(() => {
-        error && alert(error)
-    }, [error])
-
-    useEffect(() => {
-        token && router.replace("/")
-    }, [token,router])
-    
-    
 
     return (
         <div>
@@ -96,13 +108,13 @@ const Login = () => {
                         <div className='row align-items-center'>
                             <div className="col-lg-5 text-light wow fadeInRight" data-wow-delay=".5s">
                                 <div className="spacer-10"></div>
-                                <h1>Create, sell or collect digital items.</h1>
-                                <p className="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim.</p>
+                                <h1>Create account</h1>
+                                {/* <p className="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim.</p> */}
                             </div>
                             <div className="col-lg-4 offset-lg-2 wow fadeIn" data-wow-delay=".5s">
                                 <div className="box-login">
-                                    <h3 className="mb10">Sign In</h3>
-                                    <p>Login using an existing account or create a new account <Link href="/register"><span>here</span></Link>.</p>
+                                    <h3 className="mb10">Sign Up</h3>
+                                    <p>Already have an account? <Link href="/login"><span>Login</span></Link></p>
                                     <Formik
                                         enableReinitialize
                                         validationSchema={validationSchema}
@@ -120,23 +132,39 @@ const Login = () => {
                                                 return (
                                                     <Form className="form-border">
                                                         <div className="field-set">
+                                                            <Field placeholder='First Name' className="form-control" type="text" name="first_name" />
+                                                            <ErrorMessage className='error-message' name="first_name" component="div" />
+                                                        </div>
+                                                        <div className="field-set">
+                                                            <Field placeholder='Last Name' className="form-control" type="text" name="last_name" />
+                                                            <ErrorMessage className='error-message' name="last_name" component="div" />
+                                                        </div>
+                                                        <div className="field-set">
                                                             <Field placeholder='Email' className="form-control" type="email" name="email" />
-                                                            <ErrorMessage name="email" component="div" />
+                                                            <ErrorMessage className='error-message' name="email" component="div" />
                                                         </div>
                                                         <div className="field-set">
                                                             <Field placeholder='Password' className="form-control" type="password" name="password" />
-                                                            <ErrorMessage name="password" component="div" />
+                                                            <ErrorMessage className='error-message' name="password" component="div" />
+                                                        </div>
+                                                        <div className="field-set">
+                                                            <Field placeholder='Country' className="form-control" type="text" name="country" />
+                                                            <ErrorMessage className='error-message' name="country" component="div" />
+                                                        </div>
+                                                        <div className="field-set">
+                                                            <Field placeholder='Date of Birth' className="form-control" type="date" name="birthdate" />
+                                                            <ErrorMessage className='error-message' name="birthdate" component="div" />
                                                         </div>
                                                         <div className="field-set">
                                                             <input type='submit' id='send_message' value='Submit' className="btn btn-main btn-fullwidth color-2" />
                                                         </div>
                                                         <div className="clearfix"></div>
-                                                        <div className="spacer-single"></div>
+                                                        {/* <div className="spacer-single"></div>
                                                         <ul className="list s3">
                                                             <li>Login with:</li>
                                                             <li><span >Facebook</span></li>
                                                             <li><span >Google</span></li>
-                                                        </ul>
+                                                        </ul> */}
                                                         <div className="spacer-half"></div>
                                                     </Form>
                                                 )
@@ -152,4 +180,4 @@ const Login = () => {
         </div>
     )
 };
-export default Login;
+export default Register;

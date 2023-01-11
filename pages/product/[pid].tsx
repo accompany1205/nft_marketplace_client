@@ -16,6 +16,7 @@ const NftDetail = () => {
       username: 'Rameez Raja',
     }
   }
+
   return (
     <div className="greyscheme">
       {isLoading ? <div className="d-flex  justify-content-center align-items-center" style={{ height: '100vh' }}><Loader /></div> :

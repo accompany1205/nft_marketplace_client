@@ -6,6 +6,7 @@ import Loader from "./Loader";
 
 const Products = function () {
   const { data: nft, isLoading } = authApi.endpoints.getProducts.useQuery();
+  
   return (
     <>
       {isLoading ? <div className="d-flex justify-content-center align-items-center"><Loader /></div> :
