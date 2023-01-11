@@ -34,4 +34,5 @@ export interface INFT {
   sale_status: string;
   serial: number;
   specs: INftSpecs;
+  ipfs:string;
 }

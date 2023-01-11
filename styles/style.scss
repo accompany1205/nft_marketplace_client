@@ -992,7 +992,22 @@ a {
   }
 
   .nav-icon {
-    display: none;
+    display: none; 
+  }
+  &.sticky {
+    .search {
+      #quick_search{
+        border-radius: 5px;
+      border: solid 1px #dddddd;
+      background:#685692;
+       
+      }
+      ::-webkit-input-placeholder{
+        color:white;
+        padding: 6px 12px;
+        width:100%;
+      }
+    }
   }
 
   @media only screen and (max-width: 1199px) {
@@ -1006,7 +1021,8 @@ a {
     }
 
     &.navbar {
-      position: relative;
+      position: absolute;
+      background:transparent;
 
       .logo {
         position: relative;
@@ -1174,6 +1190,7 @@ a {
       width: 274px;
       height: 34px;
       outline: none;
+      border: solid 1px #dddddd;
     }
   }
 }

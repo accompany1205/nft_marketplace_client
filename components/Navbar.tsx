@@ -75,8 +75,14 @@ const Header = function ({ className }: any) {
               </NavLink>
             </div>
           </div>
-          <div className='search'>
-            <input id="quick_search" className="xs-hide border border-1 border-color" name="quick_search" placeholder="search item here..." type="text" />
+          <div className="search">
+            <input
+              id="quick_search"
+              className="xs-hide"
+              name="quick_search"
+              placeholder="search item here..."
+              type="text"
+            />
           </div>
           <BreakpointProvider>
             <Breakpoint l down>
@@ -111,13 +117,13 @@ const Header = function ({ className }: any) {
                   <div className='navbar-item'>
                     <div >
                       About
-                    </div>
+                  </div>
                   </div>
                   <div className='navbar-item'>
                     <div >
                       Sell
-                    </div>
                   </div>
+                </div>
                 </div>
               }
             </Breakpoint>
