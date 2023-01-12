@@ -20,7 +20,7 @@ const NftDetail = () => {
   const nftImageUrl = useImage(details?.data);
 
   const [purchaseDetails, setPurchaseDetails] = useState<PurchaseDetails>();
-  const [ askDetails, setAskDetails ] = useState<PurchaseDetails>();
+  const [askDetails, setAskDetails] = useState<PurchaseDetails>();
   const [isBidCheckout, setIsBidCheckout] = useState(false);
   const [isPlaceAsk, setPlaceAsk] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
@@ -118,14 +118,16 @@ const NftDetail = () => {
                             </div>
                           </div>
                         </div>
-                        {details?.data?.specs?.size && (
+                        {details?.data?.variants && (
                           <div className="row mt-5">
-                            <div className="col-lg-4 col-md-6 col-sm-6">
-                              <div className="nft_attr">
-                                <h4>{details?.data?.specs?.size}</h4>
-                                <span>BID</span>
+                            {details?.data?.variants.map((variant) => (
+                              <div className="col-lg-4 col-md-6 col-sm-6">
+                                <div className="nft_attr">
+                                  <h4>{variant.size}</h4>
+                                  <span>BID</span>
+                                </div>
                               </div>
-                            </div>
+                            ))}
                           </div>
                         )}
                       </div>
