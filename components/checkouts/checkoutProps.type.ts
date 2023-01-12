@@ -10,4 +10,5 @@ export interface CheckoutProps {
   product: OwnedProduct;
   onClose: () => void;
   onCheckout: (payload: { bid: number; quantity: number }) => void;
+  orderType?:string
 }

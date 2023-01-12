@@ -178,6 +178,7 @@ const NftDetail = () => {
                 setIsBidCheckout(false);
                 setIsPurchase(true);
               }}
+              orderType="Bid"
             />
           )}
           {isPlaceAsk && !!details?.data.specs && (
@@ -191,6 +192,7 @@ const NftDetail = () => {
                 setPlaceAsk(false);
                 setAskDetails({ checkout: ask });
               }}
+              orderType="Ask"
             />
           )}
           {isCheckout && !!details?.data.specs && (
