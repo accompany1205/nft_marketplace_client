@@ -5,6 +5,7 @@ const BidCheckout: React.FC<CheckoutProps> = ({
   product,
   onClose,
   onCheckout,
+  orderType
 }) => {
   const [bid, setBid] = useState(parseFloat(product.price));
   const [quantity, setQuantity] = useState(1);
@@ -15,7 +16,7 @@ const BidCheckout: React.FC<CheckoutProps> = ({
           x
         </button>
         <div className="heading">
-          <h3>Place a Bid</h3>
+          <h3>Place a {orderType}</h3>
         </div>
         <p>
           You are about to purchase a{" "}

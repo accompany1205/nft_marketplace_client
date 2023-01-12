@@ -102,7 +102,7 @@ const Login = () => {
                             <div className="col-lg-4 offset-lg-2 wow fadeIn" data-wow-delay=".5s">
                                 <div className="box-login">
                                     <h3 className="mb10">Sign In</h3>
-                                    <p>Login using an existing account or create a new account <Link href="/register"><span>here</span></Link>.</p>
+                                    <p>Login using an existing account or <Link href="/register"><span className="text-primary">create a new account here</span></Link>.</p>
                                     <Formik
                                         enableReinitialize
                                         validationSchema={validationSchema}
@@ -131,11 +131,8 @@ const Login = () => {
                                                             <input type='submit' id='send_message' value='Submit' className="btn btn-main btn-fullwidth color-2" />
                           </div>
                           <div className="clearfix"></div>
-                          <div className="spacer-single"></div>
                           <ul className="list s3">
-                            <li>Login with:</li>
-                                                            <li><span >Facebook</span></li>
-                                                            <li><span >Google</span></li>
+                          <Link href="/register"><li><span >Signup</span></li></Link>
                           </ul>
                           <div className="spacer-half"></div>
                         </Form>
