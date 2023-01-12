@@ -992,20 +992,22 @@ a {
   }
 
   .nav-icon {
-    display: none; 
+    display: none;
   }
+
   &.sticky {
     .search {
-      #quick_search{
+      #quick_search {
         border-radius: 5px;
-      border: solid 1px #dddddd;
-      background:#685692;
-       
+        border: solid 1px #dddddd;
+        background: #685692;
+
       }
-      ::-webkit-input-placeholder{
-        color:white;
+
+      ::-webkit-input-placeholder {
+        color: white;
         padding: 6px 12px;
-        width:100%;
+        width: 100%;
       }
     }
   }
@@ -1022,7 +1024,7 @@ a {
 
     &.navbar {
       position: absolute;
-      background:transparent;
+      background: transparent;
 
       .logo {
         position: relative;
@@ -3986,12 +3988,13 @@ img.img-rounded {
 /*** login ***/
 .field-set {
   margin-bottom: 20px;
+
   label {
     color: #606060;
     font-weight: 500;
   }
 
-  .error-message{
+  .error-message {
     color: red;
   }
 }
@@ -6123,7 +6126,7 @@ blockquote {
 
 
 /* shipping */
-.shipping {
+.purchase {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6152,7 +6155,7 @@ blockquote {
     text-align: center;
   }
 
-  .main-shipping {
+  .main-purchase {
     position: relative;
     border-radius: 8px;
     background: $white;
@@ -6176,8 +6179,10 @@ blockquote {
       }
     }
 
-    .react-select {
-      margin-bottom: 20px;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
 
     .btn-main {
@@ -6190,9 +6195,28 @@ blockquote {
       color: $black;
       font-weight: bold;
     }
+
+    .summary {
+      th {
+        text-align: right;
+        vertical-align: top;
+      }
+
+      td {
+        padding: 0 15px;
+      }
+
+      address{
+        margin: 0;
+      }
+    }
   }
 }
 
+.error-message {
+  color: red;
+  font-size: small;
+}
 
 @media only screen and (max-width: 600px) {}
 

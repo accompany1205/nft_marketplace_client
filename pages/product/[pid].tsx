@@ -1,24 +1,30 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import BidCheckout from "../../components/checkouts/BidCheckout";
-import Checkout from "../../components/checkouts/Checkout";
+import {
+  BidCheckout,
+  Checkout,
+  Purchase,
+  PurchaseDetails
+} from "../../components/checkouts";
 import Loader from "../../components/Loader";
-import authApi from "../../redux/service/appService";
+import { useGetProductDetailsQuery } from "../../redux/service/appService";
+import { store } from "../../redux/store";
 import useImage from "../../utils/hooks/FetchNftImage";
 
 const NftDetail = () => {
   const router = useRouter();
-  const { data: details, isLoading } =
-    authApi.endpoints.getProductDetails.useQuery(
-      router.query.pid && typeof router.query.pid === "string"
-        ? router.query.pid
-        : ""
-    );
-
-  const [isBidCheckout, setIsBidCheckout] = useState(false);
-  const [isCheckout, setIsCheckout] = useState(false);
+  const { data: details, isLoading } = useGetProductDetailsQuery(
+    router.query.pid && typeof router.query.pid === "string"
+      ? router.query.pid
+      : ""
+  );
 
   const nftImageUrl = useImage(details?.data);
+
+  const [purchaseDetails, setPurchaseDetails] = useState<PurchaseDetails>();
+  const [isBidCheckout, setIsBidCheckout] = useState(false);
+  const [isCheckout, setIsCheckout] = useState(false);
+  const [isPurchase, setIsPurchase] = useState(false);
 
   const nft = {
     title: "Nike",
@@ -29,6 +35,12 @@ const NftDetail = () => {
     owner: {
       username: "Rameez Raja",
     },
+  };
+
+  const onPurchase = () => {
+    setIsPurchase(false);
+    if (!store.getState().auth.user) return router.push("/login");
+    //TODO: check for wallet and funds then process purchase
   };
 
   return (
@@ -154,8 +166,9 @@ const NftDetail = () => {
                 ...details?.data.specs,
               }}
               onCheckout={(checkout) => {
-                console.log(checkout);
+                setPurchaseDetails({ ...purchaseDetails, checkout });
                 setIsBidCheckout(false);
+                setIsPurchase(true);
               }}
             />
           )}
@@ -167,9 +180,18 @@ const NftDetail = () => {
                 ...details?.data.specs,
               }}
               onCheckout={(checkout) => {
-                console.log(checkout);
+                setPurchaseDetails({ ...purchaseDetails, checkout });
                 setIsCheckout(false);
+                setIsPurchase(true);
               }}
+            />
+          )}
+          {isPurchase && purchaseDetails && (
+            <Purchase
+              onClose={() => setIsPurchase(false)}
+              purchaseDetails={purchaseDetails}
+              setPurchaseDetails={setPurchaseDetails}
+              onPurchase={onPurchase}
             />
           )}
         </section>
