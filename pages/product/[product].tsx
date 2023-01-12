@@ -121,7 +121,7 @@ const NftDetail = () => {
                         {details?.data?.variants && (
                           <div className="row mt-5">
                             {details?.data?.variants.map((variant, index) => (
-                              <div className="col-lg-4 col-md-6 col-sm-6" key={key}>
+                              <div className="col-lg-4 col-md-6 col-sm-6" key={index}>
                                 <div className="nft_attr">
                                   <h4>{variant.size}</h4>
                                   <span>BID</span>
