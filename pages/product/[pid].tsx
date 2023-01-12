@@ -4,6 +4,7 @@ import BidCheckout from "../../components/checkouts/BidCheckout";
 import Checkout from "../../components/checkouts/Checkout";
 import Loader from "../../components/Loader";
 import authApi from "../../redux/service/appService";
+import useImage from "../../utils/hooks/FetchNftImage";
 
 const NftDetail = () => {
   const router = useRouter();
@@ -13,8 +14,12 @@ const NftDetail = () => {
         ? router.query.pid
         : ""
     );
+
   const [isBidCheckout, setIsBidCheckout] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
+
+  const nftImageUrl = useImage(details?.data);
+
   const nft = {
     title: "Nike",
     category: "Sports Shoes",
@@ -40,7 +45,11 @@ const NftDetail = () => {
           <div className="row mt-md-5 pt-md-4">
             <div className="col-md-6 text-center">
               <img
-                src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                src={
+                  nftImageUrl
+                    ? `https://ipfs.io/ipfs/${nftImageUrl}`
+                    : "https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                }
                 className="img-fluid img-rounded mb-sm-30"
                 alt=""
               />
@@ -97,14 +106,16 @@ const NftDetail = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="row mt-5">
-                          <div className="col-lg-4 col-md-6 col-sm-6">
-                            <div className="nft_attr">
-                              <h4>{details?.data?.specs?.size}</h4>
-                              <span>BID</span>
+                        {details?.data?.specs?.size && (
+                          <div className="row mt-5">
+                            <div className="col-lg-4 col-md-6 col-sm-6">
+                              <div className="nft_attr">
+                                <h4>{details?.data?.specs?.size}</h4>
+                                <span>BID</span>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     </div>
                     <div className="detailcheckout mt-4">
