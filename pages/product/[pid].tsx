@@ -22,7 +22,7 @@ const NftDetail = () => {
   const nftImageUrl = useImage(details?.data);
 
   const [purchaseDetails, setPurchaseDetails] = useState<PurchaseDetails>();
-  const [askDetails, setAskDetails] = useState<PurchaseDetails>();
+  const [ askDetails, setAskDetails ] = useState<PurchaseDetails>();
   const [isBidCheckout, setIsBidCheckout] = useState(false);
   const [isPlaceAsk, setPlaceAsk] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
