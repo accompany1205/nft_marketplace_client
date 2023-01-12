@@ -22,7 +22,9 @@ const NftDetail = () => {
   const nftImageUrl = useImage(details?.data);
 
   const [purchaseDetails, setPurchaseDetails] = useState<PurchaseDetails>();
+  const [askDetails, setAskDetails] = useState<PurchaseDetails>();
   const [isBidCheckout, setIsBidCheckout] = useState(false);
+  const [isPlaceAsk, setPlaceAsk] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
   const [isPurchase, setIsPurchase] = useState(false);
 
@@ -146,10 +148,16 @@ const NftDetail = () => {
                         Buy Now
                       </button>
                       <button
-                        className="btn-main btn2 lead mb-5"
+                        className="btn-main btn2 lead mb-5 me-3"
                         onClick={() => setIsBidCheckout(true)}
                       >
                         Place Bid
+                      </button>
+                      <button
+                        className="btn-main btn2 lead mb-5"
+                        onClick={() => setPlaceAsk(true)}
+                      >
+                        Place Ask
                       </button>
                     </div>
                   </div>
@@ -169,6 +177,19 @@ const NftDetail = () => {
                 setPurchaseDetails({ ...purchaseDetails, checkout });
                 setIsBidCheckout(false);
                 setIsPurchase(true);
+              }}
+            />
+          )}
+          {isPlaceAsk && !!details?.data.specs && (
+            <BidCheckout
+              onClose={() => setPlaceAsk(false)}
+              product={{
+                owner: nft.owner,
+                ...details?.data.specs,
+              }}
+              onCheckout={(ask) => {
+                setPlaceAsk(false);
+                setAskDetails({ checkout: ask });
               }}
             />
           )}
