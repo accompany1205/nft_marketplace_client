@@ -11,7 +11,6 @@ const NftDetail = () => {
 
   const nftImageUrl = useImage(details?.data);
 
-  console.log(router.query.pid, 'pid')
   const nft = {
     title: "Nike",
     category: 'Sports Shoes',

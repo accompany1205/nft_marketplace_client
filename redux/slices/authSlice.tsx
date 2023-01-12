@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 import { authApi, IUser } from "../service/authService";
 import { RootState } from "../store";
 
@@ -36,7 +35,7 @@ const slice = createSlice({
     );
     builder.addMatcher(
       authApi.endpoints.login.matchRejected,
-      (state, { payload }) => {
+      (state, { payload }: {payload: any}) => {
         console.log("auth Error", payload);
         return {
           ...initialState,
