@@ -14,9 +14,7 @@ import useImage from "../../utils/hooks/FetchNftImage";
 const NftDetail = () => {
   const router = useRouter();
   const { data: details, isLoading } = useGetProductDetailsQuery(
-    router.query.pid && typeof router.query.pid === "string"
-      ? router.query.pid
-      : ""
+    router.query.product ? router.query.product.toString() : ""
   );
 
   const nftImageUrl = useImage(details?.data);

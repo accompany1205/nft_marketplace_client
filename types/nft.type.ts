@@ -1,5 +1,3 @@
-
-
 export interface INftSpecs {
   brand: string;
   coRoyalty: number;
@@ -15,7 +13,7 @@ export interface INftSpecs {
   price: string;
   productName: string;
   releaseDate: string;
-  royalty: number
+  royalty: number;
   rrp: string;
   serialNumber: string;
   size: string;
@@ -29,10 +27,20 @@ export interface INftSpecs {
 }
 
 export interface INFT {
-  hedera_token_id: string;
+  hederaTokenId: string;
   id: number;
-  sale_status: string;
+  hed: string;
+  saleStatus: string;
   serial: number;
   specs: INftSpecs;
-  ipfs:string;
+  ipfs: string;
+  variants: {
+    id: number;
+    size: string;
+  }[];
+}
+
+export interface INFTItem {
+  brand: string;
+  products: INFT[];
 }
