@@ -6,14 +6,14 @@ import { INFT } from "../../types/nft.type";
 const appSlice = createApi({
   reducerPath: "app",
   baseQuery: designbookAxiosBaseQuery(),
-  endpoints: (builder: any) => ({
+  endpoints: (builder) => ({
     getProducts: builder.query<{ data: INFT[] }, void>({
       query: () => ({
         url: "/marketplace/api/v1/listings",
         method: "GET",
       }),
     }),
-    getProductDetails: builder.query<{ data: INFT[] }, void>({
+    getProductDetails: builder.query<{ data: INFT }, string>({
       query: (id: any) => ({
         url: `/marketplace/api/v1/listing?listingId=${id}`,
         method: "GET",
