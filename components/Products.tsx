@@ -1,11 +1,11 @@
 import React from "react";
 import NftCard from "./NftCard";
 import { INFT } from "../types/nft.type";
-import authApi from "../redux/service/appService";
+import { useGetProductsQuery } from "../redux/service/appService";
 import Loader from "./Loader";
 
 const Products = function () {
-  const { data: nft, isLoading } = authApi.endpoints.getProducts.useQuery();
+  const { data: nft, isLoading } = useGetProductsQuery();
   
   return (
     <>

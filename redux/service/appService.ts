@@ -14,7 +14,7 @@ const appSlice = createApi({
       }),
     }),
     getProductDetails: builder.query<{ data: INFT }, string>({
-      query: (id: any) => ({
+      query: (id: string) => ({
         url: `/marketplace/api/v1/listing?listingId=${id}`,
         method: "GET",
       }),
@@ -23,3 +23,5 @@ const appSlice = createApi({
 });
 
 export default appSlice;
+
+export const { useGetProductDetailsQuery, useGetProductsQuery } = appSlice;
