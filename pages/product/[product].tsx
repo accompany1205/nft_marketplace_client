@@ -1,11 +1,14 @@
 import { useRouter } from "next/router";
 import Loader from "../../components/Loader";
-import authApi from "../../redux/service/appService";
+import { useGetProductDetailsQuery } from "../../redux/service/appService";
 import useImage from "../../utils/hooks/FetchNftImage";
 
 const NftDetail = () => {
   const router = useRouter();
-  const { data: details, isLoading } = authApi.endpoints.getProductDetails.useQuery(router.query.pid && typeof router.query.pid === 'string' ? router.query.pid : '');
+  const { data: details, isLoading } = useGetProductDetailsQuery(
+    router.query.product ? router.query.product.toString() : ""
+  );
+
   const nftImageUrl = useImage(details?.data);
 
   console.log(router.query.pid, 'pid')

@@ -1,17 +1,19 @@
-import React from "react";
-import NftCard from "./NftCard";
+import { map } from "lodash";
+import { useGetProductsQuery } from "../redux/service/appService";
 import { INFT } from "../types/nft.type";
-import authApi from "../redux/service/appService";
 import Loader from "./Loader";
+import NftCard from "./NftCard";
 
 const Products = function () {
-  const { data: nft, isLoading } = authApi.endpoints.getProducts.useQuery();
-  
+  const { data, isLoading } = useGetProductsQuery();
+
+  const nfts = map(data?.data, ({products}) => products).flat(1);
+
   return (
     <>
       {isLoading ? <div className="d-flex justify-content-center align-items-center"><Loader /></div> :
         <div className='row'>
-          {nft?.data && nft?.data.map((nft: INFT, index: number) => {
+         {nfts?.length && nfts.map((nft: INFT, index: number) => {
             return (
               <NftCard key={index} nft={nft} />
             )
