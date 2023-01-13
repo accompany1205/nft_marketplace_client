@@ -3809,7 +3809,7 @@ i.font60 {
     display: inline-block;
     margin-right: 5px;
 
-    span {
+    button {
       position: relative;
       padding: 10px 20px;
       margin-right: 5px;
@@ -3818,7 +3818,7 @@ i.font60 {
       text-decoration: none;
       color: $color;
       font-size: 15px;
-      cursor: poInter;
+      border: none;
       -webkit-border-radius: 3px;
 
       &:before {
@@ -3831,7 +3831,7 @@ i.font60 {
       }
     }
 
-    &.active span {
+    &.active button {
       color: $white;
       background: $color_more;
     }
@@ -3899,6 +3899,14 @@ i.font60 {
   .de_nav {
     text-align: left;
     margin-bottom: 30px;
+  }
+
+  .product-variant {
+    visibility: hidden;
+  }
+
+  .product-variant:checked ~ .nft_attr {
+    border: 2px solid $color_more;
   }
 }
 
@@ -4335,7 +4343,7 @@ img.img-rounded {
     li {
       margin: 0 10px 0 0;
 
-      span {
+      button {
         padding: 35px 10px;
         color: rgba(0, 0, 0, .6);
         background: none;
@@ -4347,6 +4355,7 @@ img.img-rounded {
         vertical-align: middle;
         border-radius: 12px;
         min-width: 140px;
+        border: none;
 
         i {
           display: block;
@@ -4356,7 +4365,7 @@ img.img-rounded {
       }
 
       &.active {
-        span {
+        button {
           border-color: $color;
 
           i {
@@ -4738,6 +4747,7 @@ img.img-rounded {
 
     .detailcheckout {
       display: flex;
+      
       justify-content: space-between;
       align-items: center;
 

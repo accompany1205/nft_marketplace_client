@@ -44,3 +44,24 @@ export interface INFTItem {
   brand: string;
   products: INFT[];
 }
+
+export interface BidPayload {
+  listing_id: number;
+  user_id: number;
+  amount: number;
+}
+
+export interface BidResponse {
+  success: boolean;
+  message?: string;
+}
+
+export interface Bid {
+  id: number;
+  user_id: number;
+  amount: number;
+  listing_id: number;
+  datetime_created: string;
+  first_name: string;
+  last_name: string;
+}

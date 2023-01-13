@@ -15,11 +15,14 @@ export type OnNextStep = (
   nextStep?: PurchaseForms
 ) => void;
 
+export interface CheckoutDetails {
+  bid: number;
+  quantity: number;
+}
+
 export interface PurchaseDetails {
-  checkout?: {
-    bid: number;
-    quantity: number;
-  };
+  variantId?: number;
+  checkout?: CheckoutDetails;
   shipping?: {
     name: string;
     addressLine1: string;

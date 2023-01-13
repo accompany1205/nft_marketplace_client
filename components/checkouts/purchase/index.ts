@@ -1,2 +1,2 @@
 export { default as Purchase } from "./Purchase";
-export { type PurchaseDetails } from "./purchaseProps.type";
+export * from "./purchaseProps.type";
