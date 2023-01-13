@@ -1,11 +1,12 @@
-"use client"
-import React from "react";
+'use client';
+
+import React from 'react';
+import { createGlobalStyle } from 'styled-components';
 import Particle from '../components/Particle';
 import SliderParticles from '../components/SliderParticles';
-import SliderImage from '../public/images/particleBg.jpg'
+import SliderImage from '../public/images/particleBg.jpg';
 import Products from '../components/Products';
-import { createGlobalStyle } from 'styled-components';
-import Footer from "../components/Footer";
+import Footer from '../components/Footer';
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -44,39 +45,36 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const Home = () => {
-  return (
-    <div>
+const Home = () => (
+  <div>
     <GlobalStyles />
-      <section
-        className="jumbotron no-bg"
-        style={{
-          backgroundImage: `url(${SliderImage.src})`,
-          backgroundPosition: "center",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-          minHeight: "61.5vh",
-        }}
-      >
+    <section
+      className="jumbotron no-bg"
+      style={{
+        backgroundImage: `url(${SliderImage.src})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '61.5vh',
+      }}
+    >
       <Particle />
       <SliderParticles />
     </section>
 
-    <section className='container'>
-      <div className='row'>
-        <div className='col-lg-12'>
-          <div className='text-center'>
+    <section className="container">
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="text-center">
             <h2>Popular Items</h2>
-            <div className="small-border"></div>
+            <div className="small-border" />
           </div>
         </div>
       </div>
       <Products />
     </section>
-      <Footer />
-
+    <Footer />
   </div>
-  );
-};
+);
 
 export default Home;

@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import { Form } from "formik";
+import { Form } from 'formik';
 
-import { cities, countries } from "../../../constants";
-import { FormFieldLayout, FormLayout, ReactSelectFormField } from "../../forms";
-import { shippingDetailsSchema } from "../../schema";
-import { PurchaseForms } from "./purchaseProps.type";
-import { ShippingInformationProps } from "./shippingInformationProps.type";
+import { cities, countries } from '../../../constants';
+import { FormFieldLayout, FormLayout, ReactSelectFormField } from '../../forms';
+import { shippingDetailsSchema } from '../../schema';
+import { PurchaseForms } from './purchaseProps.type';
+import { ShippingInformationProps } from './shippingInformationProps.type';
 
 const ShippingDetails: React.FC<ShippingInformationProps> = ({
   onNextStep,
@@ -25,7 +25,7 @@ const ShippingDetails: React.FC<ShippingInformationProps> = ({
     {
       assert: false,
       stripUnknown: true,
-    }
+    },
   );
 
   return (
@@ -46,7 +46,7 @@ const ShippingDetails: React.FC<ShippingInformationProps> = ({
                 type="text"
                 name="name"
                 id="name"
-                classes={{ field: "form-control" }}
+                classes={{ field: 'form-control' }}
               />
             </div>
             <div>
@@ -55,7 +55,7 @@ const ShippingDetails: React.FC<ShippingInformationProps> = ({
                 type="text"
                 name="addressLine1"
                 id="address_line_1"
-                classes={{ field: "form-control" }}
+                classes={{ field: 'form-control' }}
               />
             </div>
             <div>
@@ -64,7 +64,7 @@ const ShippingDetails: React.FC<ShippingInformationProps> = ({
                 type="text"
                 name="addressLine2"
                 id="address_line_2"
-                classes={{ field: "form-control" }}
+                classes={{ field: 'form-control' }}
               />
             </div>
             <div>
@@ -91,7 +91,7 @@ const ShippingDetails: React.FC<ShippingInformationProps> = ({
                 type="text"
                 name="postCode"
                 id="post_code"
-                classes={{ field: "form-control" }}
+                classes={{ field: 'form-control' }}
               />
             </div>
             <button
