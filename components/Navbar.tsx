@@ -24,7 +24,6 @@ const Header = ({ className }: any) => {
   const dispatch = useDispatch();
 
   const isLoggedIn = useMemo(() => !!token, [token]);
-
   const [openMenu, setOpenMenu] = useState(false);
 
   const handleBtnClick = () => {
