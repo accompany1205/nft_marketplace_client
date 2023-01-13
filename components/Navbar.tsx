@@ -191,25 +191,33 @@ const Header = function ({ className }: any) {
                     </div>
                   </div>
                 </div>
+                <div className="navbar-item">
+                  <div className="mainside" >
+                    <div className="connect-wal">
+                      <NavLink href="/register">Sign Up</NavLink>
+                    </div>
+                  </div>
+                </div>
+                <div className="navbar-item">
+                  {isLoggedIn ? (
+                    <div className="mainside">
+                        <div className="connect-wal"  onClick={handleLogout}>
+                          <NavLink href="/login">Logout</NavLink>
+                        </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="mainside">
+                        <div className="connect-wal">
+                          <NavLink href="/login">Login</NavLink>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             </Breakpoint>
           </BreakpointProvider>
-
-          {isLoggedIn ? (
-            <div className="mainside">
-              <div className="connect-wal">
-                <button className="btn-main lead" onClick={handleLogout}>
-                  Logout
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="mainside">
-              <div className="connect-wal">
-                <NavLink href="/login">Login</NavLink>
-              </div>
-            </div>
-          )}
         </div>
 
         <button className="nav-icon" onClick={() => btn_icon(!showmenu)}>
