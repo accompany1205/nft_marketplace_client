@@ -27,7 +27,7 @@ const NftDetail = () => {
   const router = useRouter();
 
   const { data: details, isLoading } = useGetProductDetailsQuery(
-    router.query.product ? router.query.product.toString() : ""
+    router.query.product ? router.query.product.toString() : '',
   );
 
   const nftImageUrl = useImage(details?.data);
@@ -43,20 +43,20 @@ const NftDetail = () => {
   const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.DETAILS);
 
   const nft = {
-    title: "Nike",
-    category: "Sports Shoes",
+    title: 'Nike',
+    category: 'Sports Shoes',
     views: 190,
     likes: 200,
-    description: "Best Shoe for sports",
+    description: 'Best Shoe for sports',
     owner: {
-      username: "Rameez Raja",
+      username: 'Rameez Raja',
     },
   };
 
   const onPurchase = () => {
     setIsPurchase(false);
-    if (!store.getState().auth.user) return router.push("/login");
-    //TODO: check for wallet and funds then process purchase
+    if (!store.getState().auth.user) return router.push('/login');
+    // TODO: check for wallet and funds then process purchase
   };
 
   if (isLoading || !details?.data)
@@ -64,7 +64,7 @@ const NftDetail = () => {
       <div className="greyscheme">
         <div
           className="d-flex  justify-content-center align-items-center"
-          style={{ height: "100vh" }}
+          style={{ height: '100vh' }}
         >
           <Loader />
         </div>
@@ -137,7 +137,7 @@ const NftDetail = () => {
                                   src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
                                   alt=""
                                 />
-                                <i className="fa fa-check"></i>
+                                <i className="fa fa-check" />
                               </span>
                             </div>
                             <div className="author_list_info">

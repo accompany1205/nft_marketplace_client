@@ -1,25 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 import {
   ErrorMessage,
   Field,
   FieldAttributes,
   FieldProps,
-  useFormikContext
-} from "formik";
+  useFormikContext,
+} from 'formik';
 
-export interface FormFieldProps extends Partial<FieldAttributes<any>> {
-  classes?: {
-    field?: string;
-    error?: string;
-    container?: string;
-  };
-}
+export type FormFieldProps = Partial<FieldAttributes<any>>
 
 const FormFieldLayout: React.FC<FormFieldProps> = ({
   name,
-  type = "text",
-  renderError,
+  type = 'text',
   children,
   classes,
   ...props
@@ -36,7 +29,7 @@ const FormFieldLayout: React.FC<FormFieldProps> = ({
     <Field name={name}>
       {({ field, meta, ...formProps }: FieldProps<any>) => (
         <div className={classes?.container}>
-          {!!children && typeof children === "function" ? (
+          {!!children && typeof children === 'function' ? (
             children({
               name,
               type,

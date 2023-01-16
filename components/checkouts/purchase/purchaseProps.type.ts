@@ -1,19 +1,19 @@
 export enum PurchaseForms {
-  SHIPPING_INFORMATION = "shippingInformation",
-  SUMMARY = "summary",
+  SHIPPING_INFORMATION = 'shippingInformation',
+  SUMMARY = 'summary',
 }
 
 export interface PurchaseProps {
-  onClose: () => void;
-  purchaseDetails: PurchaseDetails;
-  setPurchaseDetails: (PurchaseDetails: PurchaseDetails) => void;
-  onPurchase: (details: PurchaseDetails) => void;
+  onClose: () => void
+  purchaseDetails: PurchaseDetails
+  setPurchaseDetails: (PurchaseDetails: PurchaseDetails) => void
+  onPurchase: (details: PurchaseDetails) => void
 }
 
 export type OnNextStep = (
-  purchaseDetails: PurchaseDetails,
+  purchaseInfo: PurchaseDetails,
   nextStep?: PurchaseForms
-) => void;
+) => void
 
 export interface CheckoutDetails {
   bid: number;
@@ -24,12 +24,12 @@ export interface PurchaseDetails {
   variantId?: number;
   checkout?: CheckoutDetails;
   shipping?: {
-    name: string;
-    addressLine1: string;
-    city: string;
-    country: string;
-    postCode: string;
-    addressLine2?: string;
-  };
-  tax?: number;
+    name: string
+    addressLine1: string
+    city: string
+    country: string
+    postCode: string
+    addressLine2?: string
+  }
+  tax?: number
 }

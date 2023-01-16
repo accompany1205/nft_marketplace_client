@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { designbookAxiosBaseQuery } from "../interceptor";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { designbookAxiosBaseQuery } from '../interceptor';
 
 export interface IUser {
   id: number;
@@ -31,15 +31,15 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation<IUserResponse, ILoginRequest>({
       query: (credentials) => ({
-        url: "/users/api/v1/auth/login",
-        method: "POST",
+        url: '/users/api/v1/auth/login',
+        method: 'POST',
         data: credentials,
       }),
     }),
     register: builder.mutation<IRegisterResponse, IUser>({
       query: (user) => ({
-        url: "/users/api/v1/auth/registerbody",
-        method: "POST",
+        url: '/users/api/v1/auth/registerbody',
+        method: 'POST',
         data: user,
       }),
     }),

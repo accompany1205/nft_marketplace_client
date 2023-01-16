@@ -1,10 +1,10 @@
-import { INftSpecs } from "../../types/nft.type";
+import { INftSpecs } from '../../types/nft.type';
 
 interface OwnedProduct extends INftSpecs {
   id: number;
   owner: {
-    username: string;
-  };
+    username: string
+  }
 }
 
 export enum OrderType {

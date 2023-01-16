@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 export const bidDetailsSchema = Yup.object()
   .shape({
@@ -23,3 +23,4 @@ export const shippingDetailsSchema = Yup.object()
     postCode: Yup.string().required().ensure(),
   })
   .required();
+export default shippingDetailsSchema;

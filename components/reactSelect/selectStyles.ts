@@ -1,11 +1,11 @@
-export const customStyles = {
+const customStyles = {
   option: (base: any, state: any) => ({
     ...base,
-    background: "#fff",
-    color: "#333",
-    borderRadius: state.isFocused ? "0" : 0,
-    "&:hover": {
-      background: "#eee",
+    background: '#fff',
+    color: '#333',
+    borderRadius: state.isFocused ? '0' : 0,
+    '&:hover': {
+      background: '#eee',
     },
   }),
   menu: (base: any) => ({
@@ -17,7 +17,7 @@ export const customStyles = {
     ...base,
     padding: 0,
   }),
-  control: (base: any, state: any) => ({
+  control: (base: any) => ({
     ...base,
     padding: 2,
   }),
@@ -26,3 +26,4 @@ export const customStyles = {
     zIndex: 9999,
   }),
 };
+export default customStyles;

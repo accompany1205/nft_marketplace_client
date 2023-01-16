@@ -1,9 +1,9 @@
-import { SummaryProps } from "./summaryProps.type";
+import { SummaryProps } from './summaryProps.type';
 
 const Summary: React.FC<SummaryProps> = ({ purchaseDetails, onNextStep }) => {
   const { checkout, shipping, tax } = purchaseDetails;
 
-  if (!shipping || !checkout) return <></>;
+  if (!shipping || !checkout) return <div />;
 
   return (
     <>
@@ -30,13 +30,17 @@ const Summary: React.FC<SummaryProps> = ({ purchaseDetails, onNextStep }) => {
                     <br />
                   </>
                 )}
-                {shipping.city}, {shipping.country}, {shipping.postCode}
+                {shipping.city}
+                ,
+                {shipping.country}
+                ,
+                {shipping.postCode}
               </address>
             </td>
           </tr>
           <tr>
             <th className="bold">Tax :</th>
-            <td>{tax ? tax : "--/--"}</td>
+            <td>{tax || '--/--'}</td>
           </tr>
           <tr>
             <th className="bold">Total :</th>
@@ -45,6 +49,7 @@ const Summary: React.FC<SummaryProps> = ({ purchaseDetails, onNextStep }) => {
         </tbody>
       </table>
       <button
+        type="button"
         className="btn-main lead mb-5"
         onClick={() => onNextStep(purchaseDetails)}
       >
