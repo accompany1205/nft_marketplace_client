@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import Particle from '../components/Particle';
 import SliderParticles from '../components/SliderParticles';
 import SliderImage from '../public/images/particleBg.jpg';
 import Products from '../components/Products';
@@ -58,7 +57,6 @@ const Home = () => (
         minHeight: '61.5vh',
       }}
     >
-      <Particle />
       <SliderParticles />
     </section>
 

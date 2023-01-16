@@ -59,9 +59,9 @@ const initialValues = {
 const Login = () => {
   const router = useRouter();
   const { error, token } = useTypedSelector((state) => state.auth);
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
-  const handleSubmitForm = async (values: {}) => {
+  const handleSubmitForm = async (values: object) => {
     try {
       await login(values as ILoginRequest);
     } catch (err) {
@@ -70,11 +70,11 @@ const Login = () => {
   };
 
   useEffect(() => {
-    error && alert(error);
+    if (error) alert(error);
   }, [error]);
 
   useEffect(() => {
-    token && router.replace('/');
+    if (token) router.replace('/');
   }, [token, router]);
 
   return (
@@ -118,7 +118,7 @@ const Login = () => {
                     }}
                   >
                     {
-                      ({ values, isSubmitting, isValid }) => (
+                      () => (
                         <Form className="form-border">
                           <div className="field-set">
                             <Field placeholder="Email" className="form-control" type="email" name="email" />

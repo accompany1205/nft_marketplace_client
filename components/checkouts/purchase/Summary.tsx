@@ -3,7 +3,7 @@ import { SummaryProps } from './summaryProps.type';
 const Summary: React.FC<SummaryProps> = ({ purchaseDetails, onNextStep }) => {
   const { checkout, shipping, tax } = purchaseDetails;
 
-  if (!shipping || !checkout) return <></>;
+  if (!shipping || !checkout) return <div />;
 
   return (
     <>

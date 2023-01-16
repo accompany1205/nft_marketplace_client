@@ -17,9 +17,9 @@ const Purchase: React.FC<PurchaseProps> = ({
 }) => {
   const [step, setStep] = useState<PurchaseForms>(PurchaseForms.SHIPPING_INFORMATION);
 
-  const onNextStep: OnNextStep = (purchaseDetails, nextStep) => {
-    setPurchaseDetails(purchaseDetails);
-    if (!nextStep) return onPurchase(purchaseDetails);
+  const onNextStep: OnNextStep = (purchaseInfo, nextStep) => {
+    setPurchaseDetails(purchaseInfo);
+    if (!nextStep) return onPurchase(purchaseInfo);
     setStep(nextStep);
   };
 

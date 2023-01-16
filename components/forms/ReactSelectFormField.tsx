@@ -20,9 +20,9 @@ const ReactSelectFormField: React.FC<Props> = ({ name, label, ...props }) => (
         <ReactSelect
           {...props}
           value={value}
-          onChange={(value: any) => {
-            form?.setFieldValue(field.name, value);
-            if (props?.onChange) props?.onChange();
+          onChange={(element: any) => {
+            form?.setFieldValue(field.name, element);
+            if (props?.onChange) props?.onChange(element);
           }}
           onBlur={() => form.setFieldTouched(field.name)}
         />

@@ -11,7 +11,7 @@ export interface PurchaseProps {
 }
 
 export type OnNextStep = (
-  purchaseDetails: PurchaseDetails,
+  purchaseInfo: PurchaseDetails,
   nextStep?: PurchaseForms
 ) => void
 

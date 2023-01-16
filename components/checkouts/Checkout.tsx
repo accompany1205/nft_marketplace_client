@@ -36,7 +36,7 @@ const Checkout: React.FC<CheckoutProps> = ({ product, onClose, onCheckout }) => 
               name="buy_now_qty"
               id="buy_now_qty"
               value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
+              onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
               className="form-control"
             />
           </div>

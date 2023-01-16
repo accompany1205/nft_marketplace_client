@@ -64,7 +64,9 @@
         "unnamedComponents": "arrow-function"
       }
     ],
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "no-use-before-define": "off",
+    "no-shadow": "off"
   },
   "overrides": [
     {

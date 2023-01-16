@@ -4,7 +4,7 @@ import { Form } from 'formik';
 
 import { cities, countries } from '../../../constants';
 import { FormFieldLayout, FormLayout, ReactSelectFormField } from '../../forms';
-import { shippingDetailsSchema } from '../../schema';
+import shippingDetailsSchema from '../../schema';
 import { PurchaseForms } from './purchaseProps.type';
 import { ShippingInformationProps } from './shippingInformationProps.type';
 

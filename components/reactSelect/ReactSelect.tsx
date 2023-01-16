@@ -9,7 +9,7 @@ export interface SelectOption {
 }
 
 export interface SelectProps extends Omit<Props, 'onChange'> {
-  onChange?: Function
+  onChange?: (v: any) => void
 }
 
 export const handleSelectChange = (

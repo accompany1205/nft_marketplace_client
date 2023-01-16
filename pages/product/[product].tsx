@@ -42,7 +42,7 @@ const NftDetail = () => {
     if (!store.getState().auth.user) return router.push('/login');
     // TODO: check for wallet and funds then process purchase
   };
-
+  console.log(askDetails);
   return (
     <div className="greyscheme">
       {isLoading ? (

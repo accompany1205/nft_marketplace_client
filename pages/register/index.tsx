@@ -63,9 +63,9 @@ const initialValues = {
 
 const Register = () => {
   const router = useRouter();
-  const [register, { isLoading }] = useRegisterMutation();
+  const [register] = useRegisterMutation();
 
-  const handleSubmitForm = async (values: {}) => {
+  const handleSubmitForm = async (values: object) => {
     try {
       await register(values as IUser);
       alert('User registered successfully');
@@ -125,7 +125,7 @@ const Register = () => {
                       resetForm();
                     }}
                   >
-                    {({ values, isSubmitting, isValid }) => (
+                    {() => (
                       <Form className="form-border">
                         <div className="field-set">
                           <Field

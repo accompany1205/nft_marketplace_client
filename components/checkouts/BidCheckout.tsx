@@ -12,7 +12,7 @@ const BidCheckout: React.FC<CheckoutProps> = ({
   return (
     <div className="checkout">
       <div className="maincheckout">
-        <button className="btn-close" onClick={() => onClose()}>
+        <button type="button" className="btn-close" onClick={() => onClose()}>
           x
         </button>
         <div className="heading">
@@ -55,7 +55,7 @@ const BidCheckout: React.FC<CheckoutProps> = ({
               name="buy_now_qty"
               id="buy_now_qty"
               value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
+              onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
               className="form-control"
             />
           </div>

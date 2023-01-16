@@ -8,18 +8,11 @@ import {
   useFormikContext,
 } from 'formik';
 
-export interface FormFieldProps extends Partial<FieldAttributes<any>> {
-  classes?: {
-    field?: string
-    error?: string
-    container?: string
-  }
-}
+export type FormFieldProps = Partial<FieldAttributes<any>>
 
 const FormFieldLayout: React.FC<FormFieldProps> = ({
   name,
   type = 'text',
-  renderError,
   children,
   classes,
   ...props

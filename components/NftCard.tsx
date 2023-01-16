@@ -15,17 +15,16 @@ const Outer = styled.div`
 
 interface IProps {
   nft: INFT
-  className: string
+  // className?: string
 }
 
 const NftCard = ({
   nft,
-  className = 'd-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4',
 }: IProps) => {
   const nftImageUrl = useImage(nft);
   const router = useRouter();
   return (
-    <div className={className}>
+    <div className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4">
       <div className="nft__item m-0">
         <div className="author_list_pp">
           <span>
