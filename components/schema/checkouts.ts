@@ -1,6 +1,6 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
-export const shippingDetailsSchema = Yup.object()
+const shippingDetailsSchema = Yup.object()
   .shape({
     name: Yup.string().required().ensure(),
     addressLine1: Yup.string().required().ensure(),
@@ -10,3 +10,4 @@ export const shippingDetailsSchema = Yup.object()
     postCode: Yup.string().required().ensure(),
   })
   .required();
+export default shippingDetailsSchema;

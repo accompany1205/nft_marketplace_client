@@ -1,6 +1,6 @@
-import { OnNextStep, PurchaseDetails } from "./purchaseProps.type";
+import { OnNextStep, PurchaseDetails } from './purchaseProps.type';
 
 export interface ShippingInformationProps {
-  onNextStep: OnNextStep;
-  purchaseDetails: PurchaseDetails;
+  onNextStep: OnNextStep
+  purchaseDetails: PurchaseDetails
 }

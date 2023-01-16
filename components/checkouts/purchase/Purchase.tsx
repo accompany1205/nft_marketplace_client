@@ -1,14 +1,12 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
-import { OnNextStep, PurchaseForms, PurchaseProps } from "./purchaseProps.type";
+import { OnNextStep, PurchaseForms, PurchaseProps } from './purchaseProps.type';
 
 const purchaseForms = {
-  [PurchaseForms.SHIPPING_INFORMATION]: dynamic(
-    () => import("./ShippingDetails")
-  ),
-  [PurchaseForms.SUMMARY]: dynamic(() => import("./Summary")),
+  [PurchaseForms.SHIPPING_INFORMATION]: dynamic(() => import('./ShippingDetails')),
+  [PurchaseForms.SUMMARY]: dynamic(() => import('./Summary')),
 };
 
 const Purchase: React.FC<PurchaseProps> = ({
@@ -17,13 +15,11 @@ const Purchase: React.FC<PurchaseProps> = ({
   setPurchaseDetails,
   onPurchase,
 }) => {
-  const [step, setStep] = useState<PurchaseForms>(
-    PurchaseForms.SHIPPING_INFORMATION
-  );
+  const [step, setStep] = useState<PurchaseForms>(PurchaseForms.SHIPPING_INFORMATION);
 
-  const onNextStep: OnNextStep = (purchaseDetails, nextStep) => {
-    setPurchaseDetails(purchaseDetails);
-    if (!nextStep) return onPurchase(purchaseDetails);
+  const onNextStep: OnNextStep = (purchaseInfo, nextStep) => {
+    setPurchaseDetails(purchaseInfo);
+    if (!nextStep) return onPurchase(purchaseInfo);
     setStep(nextStep);
   };
 
@@ -32,13 +28,10 @@ const Purchase: React.FC<PurchaseProps> = ({
   return (
     <div className="purchase">
       <div className="main-purchase">
-        <button className="btn-close" onClick={onClose}>
+        <button type="button" className="btn-close" onClick={onClose}>
           x
         </button>
-        <CurrentStep
-          onNextStep={onNextStep}
-          purchaseDetails={purchaseDetails}
-        />
+        <CurrentStep onNextStep={onNextStep} purchaseDetails={purchaseDetails} />
       </div>
     </div>
   );

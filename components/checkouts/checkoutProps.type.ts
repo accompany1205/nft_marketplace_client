@@ -1,14 +1,14 @@
-import { INftSpecs } from "../../types/nft.type";
+import { INftSpecs } from '../../types/nft.type';
 
 interface OwnedProduct extends INftSpecs {
   owner: {
-    username: string;
-  };
+    username: string
+  }
 }
 
 export interface CheckoutProps {
-  product: OwnedProduct;
-  onClose: () => void;
-  onCheckout: (payload: { bid: number; quantity: number }) => void;
-  orderType?:string
+  product: OwnedProduct
+  onClose: () => void
+  onCheckout: (payload: { bid: number; quantity: number }) => void
+  orderType?: string
 }
