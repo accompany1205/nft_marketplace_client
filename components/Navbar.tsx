@@ -11,7 +11,6 @@ import { useTypedSelector } from '../hooks/store';
 import { reset } from '../redux/slices/authSlice';
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
-
 interface INavProps {
   children: JSX.Element | string
   href: string
