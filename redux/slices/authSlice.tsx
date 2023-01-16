@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { authApi, IUser } from "../service/authService";
-import { RootState } from "../store";
+import { createSlice } from '@reduxjs/toolkit';
+import { authApi, IUser } from '../service/authService';
+import { RootState } from '../store';
 
 type AuthState = {
   error: string | null;
@@ -17,12 +17,10 @@ const initialState: AuthState = {
 };
 
 const slice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
-    reset: () => {
-      return initialState;
-    },
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -31,17 +29,17 @@ const slice = createSlice({
         state.token = payload.token;
         state.user = payload.user;
         state.refreshToken = payload.refreshToken;
-      }
+      },
     );
     builder.addMatcher(
       authApi.endpoints.login.matchRejected,
       (state, { payload }: {payload: any}) => {
-        console.log("auth Error", payload);
+        console.log('auth Error', payload);
         return {
           ...initialState,
-          error: payload?.data?.message || "unknown Error",
+          error: payload?.data?.message || 'unknown Error',
         };
-      }
+      },
     );
   },
 });
