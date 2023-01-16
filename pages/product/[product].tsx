@@ -1,20 +1,20 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import {
   BidCheckout,
   Checkout,
   Purchase,
-  PurchaseDetails
-} from "../../components/checkouts";
-import Loader from "../../components/Loader";
-import { useGetProductDetailsQuery } from "../../redux/service/appService";
-import { store } from "../../redux/store";
-import useImage from "../../utils/hooks/FetchNftImage";
+  PurchaseDetails,
+} from '../../components/checkouts';
+import Loader from '../../components/Loader';
+import { useGetProductDetailsQuery } from '../../redux/service/appService';
+import { store } from '../../redux/store';
+import useImage from '../../utils/hooks/FetchNftImage';
 
 const NftDetail = () => {
   const router = useRouter();
   const { data: details, isLoading } = useGetProductDetailsQuery(
-    router.query.product ? router.query.product.toString() : ""
+    router.query.product ? router.query.product.toString() : '',
   );
 
   const nftImageUrl = useImage(details?.data);
@@ -27,28 +27,28 @@ const NftDetail = () => {
   const [isPurchase, setIsPurchase] = useState(false);
 
   const nft = {
-    title: "Nike",
-    category: "Sports Shoes",
+    title: 'Nike',
+    category: 'Sports Shoes',
     views: 190,
     likes: 200,
-    description: "Best Shoe for sports",
+    description: 'Best Shoe for sports',
     owner: {
-      username: "Rameez Raja",
+      username: 'Rameez Raja',
     },
   };
 
   const onPurchase = () => {
     setIsPurchase(false);
-    if (!store.getState().auth.user) return router.push("/login");
-    //TODO: check for wallet and funds then process purchase
+    if (!store.getState().auth.user) return router.push('/login');
+    // TODO: check for wallet and funds then process purchase
   };
-
+  console.log(askDetails);
   return (
     <div className="greyscheme">
       {isLoading ? (
         <div
           className="d-flex  justify-content-center align-items-center"
-          style={{ height: "100vh" }}
+          style={{ height: '100vh' }}
         >
           <Loader />
         </div>
@@ -60,7 +60,7 @@ const NftDetail = () => {
                 src={
                   nftImageUrl
                     ? `https://ipfs.io/ipfs/${nftImageUrl}`
-                    : "https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                    : 'https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
                 }
                 className="img-fluid img-rounded mb-sm-30"
                 alt=""
@@ -71,20 +71,20 @@ const NftDetail = () => {
                 <h2>{details?.data?.specs?.productName}</h2>
                 <div className="item_info_counts">
                   <div className="item_info_type">
-                    <i className="fa fa-image"></i>
-                    {details?.data.specs.brand}
+                    <i className="fa fa-image" />
+                    {details?.data?.specs?.brand}
                   </div>
                   <div className="item_info_views">
-                    <i className="fa fa-eye"></i>
-                    {details?.data.specs.views}
+                    <i className="fa fa-eye" />
+                    {details?.data?.specs?.views}
                   </div>
                   <div className="item_info_like">
-                    <i className="fa fa-heart"></i>
-                    {details?.data.specs.likes}
+                    <i className="fa fa-heart" />
+                    {details?.data?.specs?.likes}
                   </div>
                 </div>
                 <p>{details?.data?.specs?.description}</p>
-                <div className="spacer-40"></div>
+                <div className="spacer-40" />
                 <div className="de_tab">
                   <ul className="de_nav">
                     <li id="Mainbtn0" className="active">
@@ -110,7 +110,7 @@ const NftDetail = () => {
                                   src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
                                   alt=""
                                 />
-                                <i className="fa fa-check"></i>
+                                <i className="fa fa-check" />
                               </span>
                             </div>
                             <div className="author_list_info">
@@ -121,7 +121,10 @@ const NftDetail = () => {
                         {details?.data?.variants && (
                           <div className="row mt-5">
                             {details?.data?.variants.map((variant, index) => (
-                              <div className="col-lg-4 col-md-6 col-sm-6" key={index}>
+                              <div
+                                className="col-lg-4 col-md-6 col-sm-6"
+                                key={index}
+                              >
                                 <div className="nft_attr">
                                   <h4>{variant.size}</h4>
                                   <span>BID</span>
@@ -135,25 +138,26 @@ const NftDetail = () => {
                     <div className="detailcheckout mt-4">
                       <div className="listcheckout">
                         <h5>Price</h5>
-                        <div className="subtotal">
-                          {details?.data?.specs?.price}
-                        </div>
+                        <div className="subtotal">{details?.data?.specs?.price}</div>
                       </div>
                     </div>
                     <div className="d-flex flex-row mt-5">
                       <button
+                        type="button"
                         className="btn-main lead mb-5 me-3"
                         onClick={() => setIsCheckout(true)}
                       >
                         Buy Now
                       </button>
                       <button
+                        type="button"
                         className="btn-main btn2 lead mb-5 me-3"
                         onClick={() => setIsBidCheckout(true)}
                       >
                         Place Bid
                       </button>
                       <button
+                        type="button"
                         className="btn-main btn2 lead mb-5"
                         onClick={() => setPlaceAsk(true)}
                       >

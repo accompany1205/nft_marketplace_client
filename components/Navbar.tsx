@@ -1,33 +1,28 @@
-"use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  Breakpoint,
-  BreakpointProvider,
-  setDefaultBreakpoints,
-} from "react-socks";
-import Link from "next/link";
-import useOnclickOutside from "react-cool-onclickoutside";
-import { useAppDispatch, useTypedSelector } from "../hooks/store";
-import { useDispatch } from "react-redux";
-import { reset } from "../redux/slices/authSlice";
+'use client';
+
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
+import { Breakpoint, BreakpointProvider, setDefaultBreakpoints } from 'react-socks';
+import Link from 'next/link';
+import useOnclickOutside from 'react-cool-onclickoutside';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../hooks/store';
+import { reset } from '../redux/slices/authSlice';
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
-
 interface INavProps {
-  children: JSX.Element | string;
-  href: string;
+  children: JSX.Element | string
+  href: string
 }
 
-const NavLink = (props: INavProps) => {
-  return <Link className="non-active" {...props} />;
-};
+const NavLink = (props: INavProps) => <Link className="non-active" {...props} />;
 
-const Header = function ({ className }: any) {
+const Header = ({ className }: any) => {
   const { token } = useTypedSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const isLoggedIn = useMemo(() => !!token, [token]);
-
   const [openMenu, setOpenMenu] = useState(false);
 
   const handleBtnClick = () => {
@@ -42,32 +37,32 @@ const Header = function ({ className }: any) {
     closeMenu();
   });
 
-  const [showmenu, btn_icon] = useState(false);
+  const [showmenu, btnIcon] = useState(false);
 
   const handleLogout = useCallback(() => {
     dispatch(reset());
   }, [dispatch]);
 
   useEffect(() => {
-    const header = document.getElementById("myHeader");
-    const totop = document.getElementById("scroll-to-top");
+    const header = document.getElementById('myHeader');
+    const totop = document.getElementById('scroll-to-top');
     const sticky = header?.offsetTop;
-    const scrollCallBack = window.addEventListener("scroll", () => {
-      btn_icon(false);
-      if (window.pageYOffset > (sticky ? sticky : 0)) {
-        header?.classList.add("sticky");
-        totop?.classList.add("show");
+    const scrollCallBack = window.addEventListener('scroll', () => {
+      btnIcon(false);
+      if (window.pageYOffset > (sticky || 0)) {
+        header?.classList.add('sticky');
+        totop?.classList.add('show');
       } else {
-        header?.classList.remove("sticky");
-        totop?.classList.remove("show");
+        header?.classList.remove('sticky');
+        totop?.classList.remove('show');
       }
-      if (window.pageYOffset > (sticky ? sticky : 0)) {
+      if (window.pageYOffset > (sticky || 0)) {
         closeMenu();
       }
     });
     return () => {
       // @ts-ignore
-      window.removeEventListener("scroll", scrollCallBack);
+      window.removeEventListener('scroll', scrollCallBack);
     };
   }, []);
   return (
@@ -142,7 +137,7 @@ const Header = function ({ className }: any) {
                       onMouseLeave={closeMenu}
                     >
                       Browse
-                      <span className="lines"></span>
+                      <span className="lines" />
                       {openMenu && (
                         <div className="item-dropdown">
                           <div className="dropdown" onClick={closeMenu}>
@@ -163,7 +158,7 @@ const Header = function ({ className }: any) {
                   <div>
                     <div className="dropdown-custom btn">
                       <NavLink href="/nft/pid">News</NavLink>
-                      <span className="lines"></span>
+                      <span className="lines" />
                     </div>
                   </div>
                 </div>
@@ -171,7 +166,7 @@ const Header = function ({ className }: any) {
                   <div>
                     <div className="dropdown-custom btn">
                       About
-                      <span className="lines"></span>
+                      <span className="lines" />
                     </div>
                   </div>
                 </div>
@@ -179,7 +174,7 @@ const Header = function ({ className }: any) {
                   <NavLink href="/activity">
                     <>
                       Help
-                      <span className="lines"></span>
+                      <span className="lines" />
                     </>
                   </NavLink>
                 </div>
@@ -187,7 +182,7 @@ const Header = function ({ className }: any) {
                   <div>
                     <div className="dropdown-custom btn">
                       Sell
-                      <span className="lines"></span>
+                      <span className="lines" />
                     </div>
                   </div>
                 </div>
@@ -198,7 +193,7 @@ const Header = function ({ className }: any) {
           {isLoggedIn ? (
             <div className="mainside">
               <div className="connect-wal">
-                <button className="btn-main lead" onClick={handleLogout}>
+                <button type="button" className="btn-main lead" onClick={handleLogout}>
                   Logout
                 </button>
               </div>
@@ -212,10 +207,10 @@ const Header = function ({ className }: any) {
           )}
         </div>
 
-        <button className="nav-icon" onClick={() => btn_icon(!showmenu)}>
-          <div className="menu-line white"></div>
-          <div className="menu-line1 white"></div>
-          <div className="menu-line2 white"></div>
+        <button type="button" className="nav-icon" onClick={() => btnIcon(!showmenu)}>
+          <div className="menu-line white" />
+          <div className="menu-line1 white" />
+          <div className="menu-line2 white" />
         </button>
       </div>
     </header>
