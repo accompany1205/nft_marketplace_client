@@ -8,7 +8,7 @@ interface Props {
   bidType: OrderType;
 }
 
-const BidList: React.FC<Props> = ({ bids, bidType }) => {
+const Histories: React.FC<Props> = ({ bids, bidType }) => {
   if (!bids.length) return <></>;
 
   return (
@@ -39,4 +39,4 @@ const BidList: React.FC<Props> = ({ bids, bidType }) => {
   );
 };
 
-export default BidList;
+export default Histories;

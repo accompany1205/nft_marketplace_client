@@ -1,24 +1,17 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 
-import {
-  BidCheckout,
-  Checkout,
-  OrderType,
-  Purchase,
-  PurchaseDetails,
-} from "../../components/checkouts";
-import Loader from "../../components/Loader";
-import { Asks, Bids } from "../../components/productDetails";
-import { useGetProductDetailsQuery } from "../../redux/service/appService";
-import { store } from "../../redux/store";
-import useImage from "../../utils/hooks/FetchNftImage";
+import { Buy, PurchaseDetails, Sell } from '../../components/checkouts';
+import Loader from '../../components/Loader';
+import { Asks, Bids } from '../../components/productDetails';
+import { useGetProductDetailsQuery } from '../../redux/service/appService';
+import useImage from '../../utils/hooks/FetchNftImage';
 
 enum Tabs {
-  DETAILS = "Details",
-  BIDS = "Bids",
-  HISTORY = "History",
+  DETAILS = 'Details',
+  BIDS = 'Bids',
+  HISTORY = 'History',
 }
 
 const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.HISTORY];
@@ -36,10 +29,8 @@ const NftDetail = () => {
     variantId: details?.data?.id,
   });
 
-  const [isBidCheckout, setIsBidCheckout] = useState(false);
-  const [isPlaceAsk, setPlaceAsk] = useState(false);
-  const [isCheckout, setIsCheckout] = useState(false);
-  const [isPurchase, setIsPurchase] = useState(false);
+  const [isBuy, setIsBuy] = useState(false);
+  const [isSell, setIsSell] = useState(false);
   const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.DETAILS);
 
   const nft = {
@@ -53,19 +44,12 @@ const NftDetail = () => {
     },
   };
 
-  const onPurchase = () => {
-    setIsPurchase(false);
-    if (!store.getState().auth.user) return router.push('/login');
-    // TODO: check for wallet and funds then process purchase
-  };
-
   if (isLoading || !details?.data)
     return (
       <div className="greyscheme">
         <div
           className="d-flex  justify-content-center align-items-center"
-          style={{ height: '100vh' }}
-        >
+          style={{ height: '100vh' }}>
           <Loader />
         </div>
       </div>
@@ -86,7 +70,7 @@ const NftDetail = () => {
               src={
                 nftImageUrl
                   ? `https://ipfs.io/ipfs/${nftImageUrl}`
-                  : "https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                  : 'https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
               }
               className="img-fluid img-rounded mb-sm-30"
               alt=""
@@ -111,14 +95,12 @@ const NftDetail = () => {
               </div>
               <p>{details?.data?.specs?.description}</p>
               <div className="spacer-40"></div>
-
               <div className="de_tab">
                 <ul className="de_nav">
-                  {tabList.map((tab) => (
+                  {tabList.map(tab => (
                     <li
-                      className={currentTab === tab ? "active" : ""}
-                      key={`tab-${tab}`}
-                    >
+                      className={currentTab === tab ? 'active' : ''}
+                      key={`tab-${tab}`}>
                       <button onClick={() => setCurrentTab(tab)}>{tab}</button>
                     </li>
                   ))}
@@ -147,17 +129,16 @@ const NftDetail = () => {
                         </div>
                         {details?.data?.variants && (
                           <div className="row mt-5">
-                            {details?.data?.variants.map((variant) => (
+                            {details?.data?.variants.map(variant => (
                               <div
                                 className="col-lg-4 col-md-6 col-sm-6"
-                                key={`variant-${variant.id}`}
-                              >
+                                key={`variant-${variant.id}`}>
                                 <input
                                   id={String(variant.id)}
                                   type="radio"
                                   value={variant.id}
                                   name="variant"
-                                  onChange={(e) => {
+                                  onChange={e => {
                                     setPurchaseDetails({
                                       ...purchaseDetails,
                                       variantId: parseInt(e.target.value),
@@ -167,10 +148,9 @@ const NftDetail = () => {
                                 />
                                 <label
                                   htmlFor={String(variant.id)}
-                                  className="nft_attr"
-                                >
+                                  className="nft_attr">
                                   <h4>{variant.size}</h4>
-                                  <span>BID</span>
+                                  <h4>{variant.colour}</h4>
                                 </label>
                               </div>
                             ))}
@@ -199,65 +179,38 @@ const NftDetail = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="d-flex flex-row mt-5">
-                    <button
-                      className="btn-main lead mb-5 me-3"
-                      onClick={() => setIsCheckout(true)}
-                    >
-                      Buy Now
-                    </button>
-                    <button
-                      className="btn-main btn2 lead mb-5 me-3"
-                      onClick={() => setIsBidCheckout(true)}
-                    >
-                      Place Bid
-                    </button>
-                    <button
-                      className="btn-main btn2 lead mb-5"
-                      onClick={() => setPlaceAsk(true)}
-                    >
-                      Place Ask
-                    </button>
-                  </div>
+                </div>
+              </div>
+              <div className="mt-5">
+                <div className="d-flex flex-row mb-2">
+                  <button
+                    className="btn-main lead me-3"
+                    onClick={() => setIsBuy(true)}>
+                    Buy
+                  </button>
+                  <button
+                    className="btn-main btn2 lead me-3"
+                    onClick={() => setIsSell(true)}>
+                    Sell
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
         {/* details?.data.specs is kept in condition to make sure we have info */}
-        {isBidCheckout && !!details?.data.specs && (
-          <BidCheckout
-            onClose={() => setIsBidCheckout(false)}
-            product={product}
-            onCheckout={() => setIsBidCheckout(false)}
-            orderType={OrderType.BID}
-          />
-        )}
-        {isPlaceAsk && !!details?.data.specs && (
-          <BidCheckout
-            onClose={() => setPlaceAsk(false)}
-            product={product}
-            onCheckout={() => setPlaceAsk(false)}
-            orderType={OrderType.ASK}
-          />
-        )}
-        {isCheckout && !!details?.data.specs && (
-          <Checkout
-            onClose={() => setIsCheckout(false)}
-            product={product}
-            onCheckout={(checkout) => {
-              setPurchaseDetails({ ...purchaseDetails, checkout });
-              setIsCheckout(false);
-              setIsPurchase(true);
-            }}
-          />
-        )}
-        {isPurchase && purchaseDetails && (
-          <Purchase
-            onClose={() => setIsPurchase(false)}
+        {isBuy && !!details?.data.specs && (
+          <Buy
+            onClose={() => setIsBuy(false)}
             purchaseDetails={purchaseDetails}
             setPurchaseDetails={setPurchaseDetails}
-            onPurchase={onPurchase}
+          />
+        )}
+        {isSell && !!details?.data.specs && (
+          <Sell
+            onClose={() => setIsSell(false)}
+            purchaseDetails={purchaseDetails}
+            setPurchaseDetails={setPurchaseDetails}
           />
         )}
       </section>

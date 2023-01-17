@@ -37,6 +37,15 @@ export interface INFT {
   variants: {
     id: number;
     size: string;
+    colour: string;
+    lowestAsk: {
+      id: number;
+      amount: number;
+    };
+    highestBid: {
+      id: number;
+      amount: number;
+    };
   }[];
 }
 
@@ -64,4 +73,10 @@ export interface Bid {
   datetime_created: string;
   first_name: string;
   last_name: string;
+}
+
+export interface DealPayload {
+  listing_id: number;
+  price_id: number;
+  status: string;
 }

@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { designbookAxiosBaseQuery } from '../interceptor';
 
-import { Bid, BidPayload, BidResponse, INFT, INFTItem } from "../../types";
+import { Bid, BidPayload, BidResponse, DealPayload, INFT, INFTItem } from "../../types";
 
 const appSlice = createApi({
   reducerPath: 'app',
@@ -29,6 +29,13 @@ const appSlice = createApi({
     makeAsk: builder.mutation<BidResponse, BidPayload>({
       query: (bid) => ({
         url: "/marketplace/api/v1/ask/new",
+        method: "POST",
+        data: bid,
+      }),
+    }),
+    makeDeal: builder.mutation<BidResponse, DealPayload>({
+      query: bid => ({
+        url: "/marketplace/api/v1/deal/new",
         method: "POST",
         data: bid,
       }),
@@ -71,4 +78,5 @@ export const {
   useGetBidsQuery,
   useGetLastAskQuery,
   useGetLastBidQuery,
+  useMakeDealMutation
 } = appSlice;

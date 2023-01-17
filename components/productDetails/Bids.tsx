@@ -1,6 +1,6 @@
 import { useGetBidsQuery } from "../../redux/service/appService";
 import { OrderType } from "../checkouts";
-import BidList from "./BidList";
+import Histories from "./Histories";
 
 interface Props {
   listingId: number;
@@ -13,7 +13,7 @@ const Bids: React.FC<Props> = ({ listingId }) => {
 
   return (
     <div className="tab-1 onStep fadeIn">
-      <BidList bidType={OrderType.BID} bids={data.data} />
+      <Histories bidType={OrderType.BID} bids={data.data} />
     </div>
   );
 };
