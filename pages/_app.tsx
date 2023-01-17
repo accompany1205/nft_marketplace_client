@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import { persistor, store } from '../redux/store';
 import appSlice from '../redux/service/appService';
 import RouteGuard from '../components/RouteGuard';
+import WalletProvider from '../services/WalletService/WalletProvider';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -14,10 +15,12 @@ export default function App({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <RouteGuard>
           <PersistGate persistor={persistor} loading={null}>
+          <WalletProvider>
             <div className="wraper">
               <Navbar />
               <Component {...pageProps} />
             </div>
+          </WalletProvider>
           </PersistGate>
         </RouteGuard>
       </Provider>

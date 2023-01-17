@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   BidCheckout,
   Checkout,
@@ -10,6 +10,8 @@ import Loader from '../../components/Loader';
 import { useGetProductDetailsQuery } from '../../redux/service/appService';
 import { store } from '../../redux/store';
 import useImage from '../../utils/hooks/FetchNftImage';
+import WalletContext, { WalletServiceProviders } from '../../services/WalletService/WalletContext';
+import { WalletConnector } from '../../components/WalletConnector';
 
 const NftDetail = () => {
   const router = useRouter();
@@ -25,6 +27,8 @@ const NftDetail = () => {
   const [isPlaceAsk, setPlaceAsk] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
   const [isPurchase, setIsPurchase] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
 
   const nft = {
     title: 'Nike',
@@ -43,6 +47,8 @@ const NftDetail = () => {
     // TODO: check for wallet and funds then process purchase
   };
   console.log(askDetails);
+  const connectWallet = useContext(WalletContext).connectWallet;
+
   return (
     <div className="greyscheme">
       {isLoading ? (
@@ -54,6 +60,8 @@ const NftDetail = () => {
         </div>
       ) : (
         <section className="container">
+          <WalletConnector showModal={showModal} setShowModal={setShowModal} />
+
           <div className="row mt-md-5 pt-md-4">
             <div className="col-md-6 text-center">
               <img
@@ -141,29 +149,34 @@ const NftDetail = () => {
                         <div className="subtotal">{details?.data?.specs?.price}</div>
                       </div>
                     </div>
-                    <div className="d-flex flex-row mt-5">
+                    <div className="d-flex flex-row mt-5 mb-5">
                       <button
                         type="button"
-                        className="btn-main lead mb-5 me-3"
+                        className="btn-main lead me-3"
                         onClick={() => setIsCheckout(true)}
                       >
                         Buy Now
                       </button>
                       <button
                         type="button"
-                        className="btn-main btn2 lead mb-5 me-3"
+                        className="btn-main btn2 lead me-3"
                         onClick={() => setIsBidCheckout(true)}
                       >
                         Place Bid
                       </button>
                       <button
                         type="button"
-                        className="btn-main btn2 lead mb-5"
+                        className="btn-main btn2 lead"
                         onClick={() => setPlaceAsk(true)}
                       >
                         Place Ask
                       </button>
                     </div>
+                    </div>
+                    <div className="d-flex flex-row">
+                      <button type="button" className=" btn-main lead mb-5 me-3" onClick={() => setShowModal(true)}>
+                      Connect To Wallet
+                      </button>
                   </div>
                 </div>
               </div>
