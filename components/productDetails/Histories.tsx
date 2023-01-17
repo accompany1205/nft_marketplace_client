@@ -1,5 +1,5 @@
-import { Bid } from "../../types";
-import { OrderType } from "../checkouts";
+import { OrderType } from '../../hooks';
+import { Bid } from '../../types';
 
 //TODO: replace static image with user's avatar
 
@@ -9,7 +9,13 @@ interface Props {
 }
 
 const Histories: React.FC<Props> = ({ bids, bidType }) => {
-  if (!bids.length) return <></>;
+  if (!bids.length) {
+    return (
+      <div>
+        No {bidType === OrderType.ASK ? 'asks' : 'bids'} are placed yet.
+      </div>
+    );
+  }
 
   return (
     <div className="tab-1 onStep fadeIn">
@@ -26,10 +32,10 @@ const Histories: React.FC<Props> = ({ bids, bidType }) => {
             </span>
           </div>
           <div className="p_list_info">
-            {bidType === OrderType.ASK ? "Ask" : "Bid"}&nbsp;
+            {bidType === OrderType.ASK ? 'Ask' : 'Bid'}&nbsp;
             <b>{bid.amount}</b>
             <span>
-              by <b>{bid.first_name}</b> at{" "}
+              by <b>{bid.first_name}</b> at{' '}
               {new Date(bid.datetime_created).toLocaleString()}
             </span>
           </div>

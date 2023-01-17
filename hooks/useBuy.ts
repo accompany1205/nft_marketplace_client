@@ -15,7 +15,7 @@ export const useBuy = (
   const [makeDeal, { isLoading }] = useMakeDealMutation();
 
   const handleSubmit = async () => {
-    if (!user?.id) return router.push('/login');
+    if (!user?.id || !variant.lowestAsk.id) return router.push('/login');
 
     const formattedBid = {
       listing_id: variant.id,

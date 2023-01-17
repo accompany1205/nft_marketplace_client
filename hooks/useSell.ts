@@ -1,14 +1,9 @@
-
 import { get } from 'lodash';
 import { useRouter } from 'next/router';
 
-import {
-  useMakeDealMutation
-} from '../redux/service/appService';
+import { useMakeDealMutation } from '../redux/service/appService';
 import { store } from '../redux/store';
 import { INFTVariant } from '../types';
-
-
 
 export const useSell = (
   variant: INFTVariant,
@@ -20,7 +15,7 @@ export const useSell = (
   const [makeDeal, { isLoading }] = useMakeDealMutation();
 
   const handleSubmit = async () => {
-    if (!user?.id) return router.push('/login');
+    if (!user?.id || !variant.highestBid.id) return router.push('/login');
 
     const formattedBid = {
       listing_id: variant.id,

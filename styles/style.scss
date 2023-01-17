@@ -4726,6 +4726,26 @@ img.img-rounded {
     height: max-content;
     margin: 30px 0 0;
 
+    .de_nav {
+      display: flex;
+      justify-content: space-evenly;
+  
+      button {
+        background-color: transparent;
+        color: $general;
+        font-weight: 500;
+      }
+  
+      .active {
+        border-bottom: 3px solid $color;
+  
+        button {
+          background-color: transparent;
+          color: $color;
+        }
+      }
+    }
+
     .heading {
       display: flex;
       justify-content: space-between;

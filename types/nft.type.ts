@@ -30,14 +30,8 @@ export interface INFTVariant {
   id: number;
   size: string;
   colour: string;
-  lowestAsk: {
-    id: number;
-    amount: number;
-  };
-  highestBid: {
-    id: number;
-    amount: number;
-  };
+  lowestAsk: Partial<Bid>;
+  highestBid: Partial<Bid>;
 }
 export interface INFT {
   hederaTokenId: string;

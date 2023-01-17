@@ -2,19 +2,20 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import { Buy, PurchaseDetails, Sell } from '../../components/checkouts';
+import { Buy, Sell } from '../../components/checkouts';
 import Loader from '../../components/Loader';
 import { Asks, Bids } from '../../components/productDetails';
 import { useGetProductDetailsQuery } from '../../redux/service/appService';
+import { INFTVariant } from '../../types';
 import useImage from '../../utils/hooks/FetchNftImage';
 
 enum Tabs {
   DETAILS = 'Details',
   BIDS = 'Bids',
-  HISTORY = 'History',
+  ASKS = 'Asks',
 }
 
-const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.HISTORY];
+const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 
 const NftDetail = () => {
   const router = useRouter();
@@ -23,11 +24,9 @@ const NftDetail = () => {
     router.query.product ? router.query.product.toString() : '',
   );
 
-  const nftImageUrl = useImage(details?.data);
+  const [variant, setVariant] = useState<INFTVariant>();
 
-  const [purchaseDetails, setPurchaseDetails] = useState<PurchaseDetails>({
-    variantId: details?.data?.id,
-  });
+  const nftImageUrl = useImage(details?.data);
 
   const [isBuy, setIsBuy] = useState(false);
   const [isSell, setIsSell] = useState(false);
@@ -127,30 +126,28 @@ const NftDetail = () => {
                             </div>
                           </div>
                         </div>
+
                         {details?.data?.variants && (
                           <div className="row mt-5">
-                            {details?.data?.variants.map(variant => (
+                            {details?.data?.variants.map(option => (
                               <div
                                 className="col-lg-4 col-md-6 col-sm-6"
-                                key={`variant-${variant.id}`}>
+                                key={`option-${option.id}`}>
                                 <input
-                                  id={String(variant.id)}
+                                  id={String(option.id)}
                                   type="radio"
-                                  value={variant.id}
+                                  value={option.id}
                                   name="variant"
                                   onChange={e => {
-                                    setPurchaseDetails({
-                                      ...purchaseDetails,
-                                      variantId: parseInt(e.target.value),
-                                    });
+                                    setVariant(option);
                                   }}
                                   className="product-variant"
                                 />
                                 <label
-                                  htmlFor={String(variant.id)}
+                                  htmlFor={String(option.id)}
                                   className="nft_attr">
-                                  <h4>{variant.size}</h4>
-                                  <h4>{variant.colour}</h4>
+                                  <h4>{option.size}</h4>
+                                  <h4>{option.colour}</h4>
                                 </label>
                               </div>
                             ))}
@@ -164,7 +161,7 @@ const NftDetail = () => {
                       <Bids listingId={product.id} />
                     </div>
                   )}
-                  {currentTab === Tabs.HISTORY && (
+                  {currentTab === Tabs.ASKS && (
                     <div className="tab-3 onStep fadeIn">
                       <Asks listingId={product.id} />
                     </div>
@@ -185,12 +182,16 @@ const NftDetail = () => {
                 <div className="d-flex flex-row mb-2">
                   <button
                     className="btn-main lead me-3"
-                    onClick={() => setIsBuy(true)}>
+                    onClick={() => {
+                      if (variant) setIsBuy(true);
+                    }}>
                     Buy
                   </button>
                   <button
                     className="btn-main btn2 lead me-3"
-                    onClick={() => setIsSell(true)}>
+                    onClick={() => {
+                      if (variant) setIsSell(true);
+                    }}>
                     Sell
                   </button>
                 </div>
@@ -199,18 +200,26 @@ const NftDetail = () => {
           </div>
         </div>
         {/* details?.data.specs is kept in condition to make sure we have info */}
-        {isBuy && !!details?.data.specs && (
+        {isBuy && variant && (
           <Buy
             onClose={() => setIsBuy(false)}
-            purchaseDetails={purchaseDetails}
-            setPurchaseDetails={setPurchaseDetails}
+            product={{
+              id: product.id,
+              owner: product.owner,
+              productName: product.productName,
+              variant,
+            }}
           />
         )}
-        {isSell && !!details?.data.specs && (
+        {isSell && variant && (
           <Sell
             onClose={() => setIsSell(false)}
-            purchaseDetails={purchaseDetails}
-            setPurchaseDetails={setPurchaseDetails}
+            product={{
+              id: product.id,
+              owner: product.owner,
+              productName: product.productName,
+              variant,
+            }}
           />
         )}
       </section>

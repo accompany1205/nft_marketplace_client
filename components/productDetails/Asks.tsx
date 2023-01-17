@@ -1,5 +1,5 @@
+import { OrderType } from "../../hooks";
 import { useGetAsksQuery } from "../../redux/service/appService";
-import { OrderType } from "../checkouts";
 import Histories from "./Histories";
 
 interface Props {

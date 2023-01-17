@@ -3,6 +3,7 @@ import { INFTVariant } from '../../types';
 
 export interface Product {
   id: number;
+  productName: string;
   owner: {
     username: string;
   };

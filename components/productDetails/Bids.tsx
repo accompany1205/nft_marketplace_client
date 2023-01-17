@@ -1,6 +1,6 @@
-import { useGetBidsQuery } from "../../redux/service/appService";
-import { OrderType } from "../checkouts";
-import Histories from "./Histories";
+import { OrderType } from '../../hooks';
+import { useGetBidsQuery } from '../../redux/service/appService';
+import Histories from './Histories';
 
 interface Props {
   listingId: number;
