@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/router';
 
+import { head } from 'lodash';
 import { Buy, Sell } from '../../components/checkouts';
 import Loader from '../../components/Loader';
 import { Asks, Bids } from '../../components/productDetails';
@@ -24,24 +25,13 @@ const NftDetail = () => {
     router.query.product ? router.query.product.toString() : '',
   );
 
-  const [variant, setVariant] = useState<INFTVariant>();
-
+  const [variant, setVariant] = useState<INFTVariant | undefined>(
+    head(details?.data.variants),
+  );
   const nftImageUrl = useImage(details?.data);
-
   const [isBuy, setIsBuy] = useState(false);
   const [isSell, setIsSell] = useState(false);
   const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.DETAILS);
-
-  const nft = {
-    title: 'Nike',
-    category: 'Sports Shoes',
-    views: 190,
-    likes: 200,
-    description: 'Best Shoe for sports',
-    owner: {
-      username: 'Rameez Raja',
-    },
-  };
 
   if (isLoading || !details?.data)
     return (
@@ -54,11 +44,37 @@ const NftDetail = () => {
       </div>
     );
 
+  const nft = {
+    title: 'Nike',
+    category: 'Sports Shoes',
+    views: 190,
+    likes: 200,
+    description: 'Best Shoe for sports',
+    owner: {
+      username: 'Rameez Raja',
+    },
+  };
+
   const product = {
     owner: nft.owner,
     id: details.data.id,
     ...details?.data.specs,
   };
+
+  const priceDetails = [
+    {
+      label: 'Price',
+      amount: product.price,
+    },
+    {
+      label: 'Lowest Ask',
+      amount: variant?.lowestAsk.amount || product.price,
+    },
+    {
+      label: 'Highest Bid',
+      amount: variant?.highestBid.amount || product.price,
+    },
+  ];
 
   return (
     <div className="greyscheme">
@@ -104,55 +120,60 @@ const NftDetail = () => {
                     </li>
                   ))}
                 </ul>
-                <div className="de_tab_content">
+                <div className="de_tab_content mb-3">
                   {currentTab === Tabs.DETAILS && (
                     <div className="tab-1 onStep fadeIn">
-                      <div className="d-block mb-3">
-                        <div className="mr40">
-                          <h6>Owner</h6>
-                          <div className="item_author">
-                            <div className="author_list_pp">
-                              <span>
-                                <img
-                                  className="lazy"
-                                  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-                                  alt=""
-                                />
-                                <i className="fa fa-check" />
-                              </span>
-                            </div>
-                            <div className="author_list_info">
-                              <span>{nft.owner.username}</span>
-                            </div>
+                      <div className="mr40">
+                        <h6>Owner</h6>
+                        <div className="item_author">
+                          <div className="author_list_pp">
+                            <span>
+                              <img
+                                className="lazy"
+                                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                                alt=""
+                              />
+                              <i className="fa fa-check" />
+                            </span>
+                          </div>
+                          <div className="author_list_info">
+                            <span>{nft.owner.username}</span>
                           </div>
                         </div>
-
-                        {details?.data?.variants && (
-                          <div className="row mt-5">
-                            {details?.data?.variants.map(option => (
-                              <div
-                                className="col-lg-4 col-md-6 col-sm-6"
-                                key={`option-${option.id}`}>
-                                <input
-                                  id={String(option.id)}
-                                  type="radio"
-                                  value={option.id}
-                                  name="variant"
-                                  onChange={e => {
-                                    setVariant(option);
-                                  }}
-                                  className="product-variant"
-                                />
-                                <label
-                                  htmlFor={String(option.id)}
-                                  className="nft_attr">
-                                  <h4>{option.size}</h4>
-                                  <h4>{option.colour}</h4>
-                                </label>
-                              </div>
-                            ))}
+                      </div>
+                      {details?.data?.variants && (
+                        <div className="row mt-3">
+                          {details?.data?.variants.map(option => (
+                            <div
+                              className="col-lg-4 col-md-6 col-sm-6"
+                              key={`option-${option.id}`}>
+                              <input
+                                id={String(option.id)}
+                                type="radio"
+                                value={option.id}
+                                name="variant"
+                                onChange={e => {
+                                  setVariant(option);
+                                }}
+                                className="product-variant"
+                              />
+                              <label
+                                htmlFor={String(option.id)}
+                                className="nft_attr">
+                                <h4>{option.size}</h4>
+                                <h4>{option.colour}</h4>
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <div className="mt-2 row">
+                        {priceDetails.map(({ label, amount }) => (
+                          <div className="col-lg-4 col-md-6 col-sm-6 mt-3">
+                            <h5>{label}</h5>
+                            <div className="subtotal">{amount}</div>
                           </div>
-                        )}
+                        ))}
                       </div>
                     </div>
                   )}
@@ -166,16 +187,6 @@ const NftDetail = () => {
                       <Asks listingId={product.id} />
                     </div>
                   )}
-                </div>
-                <div className="de_tab_content">
-                  <div className="detailcheckout mt-4">
-                    <div className="listcheckout">
-                      <h5>Price</h5>
-                      <div className="subtotal">
-                        {details?.data?.specs?.price}
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div className="mt-5">

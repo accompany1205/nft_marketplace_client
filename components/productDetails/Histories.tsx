@@ -9,16 +9,8 @@ interface Props {
 }
 
 const Histories: React.FC<Props> = ({ bids, bidType }) => {
-  if (!bids.length) {
-    return (
-      <div>
-        No {bidType === OrderType.ASK ? 'asks' : 'bids'} are placed yet.
-      </div>
-    );
-  }
-
   return (
-    <div className="tab-1 onStep fadeIn">
+    <div className="bid_history">
       {bids.map((bid: Bid) => (
         <div className="p_list" key={`bid-${bidType}-${bid.id}`}>
           <div className="p_list_pp">
@@ -35,7 +27,7 @@ const Histories: React.FC<Props> = ({ bids, bidType }) => {
             {bidType === OrderType.ASK ? 'Ask' : 'Bid'}&nbsp;
             <b>{bid.amount}</b>
             <span>
-              by <b>{bid.first_name}</b> at{' '}
+              by <b>{bid.first_name}</b> at&nbsp;
               {new Date(bid.datetime_created).toLocaleString()}
             </span>
           </div>

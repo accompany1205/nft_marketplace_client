@@ -9,11 +9,13 @@ interface Props {
 const Bids: React.FC<Props> = ({ listingId }) => {
   const { data } = useGetBidsQuery(listingId);
 
-  if (!data?.data?.length) return <></>;
-
   return (
     <div className="tab-1 onStep fadeIn">
-      <Histories bidType={OrderType.BID} bids={data.data} />
+      {!data?.data?.length ? (
+        <div>No bids are placed yet.</div>
+      ) : (
+        <Histories bidType={OrderType.BID} bids={data.data} />
+      )}
     </div>
   );
 };

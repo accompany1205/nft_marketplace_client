@@ -1,6 +1,6 @@
-import { OrderType } from "../../hooks";
-import { useGetAsksQuery } from "../../redux/service/appService";
-import Histories from "./Histories";
+import { OrderType } from '../../hooks';
+import { useGetAsksQuery } from '../../redux/service/appService';
+import Histories from './Histories';
 
 interface Props {
   listingId: number;
@@ -9,11 +9,13 @@ interface Props {
 const Bids: React.FC<Props> = ({ listingId }) => {
   const { data } = useGetAsksQuery(listingId);
 
-  if (!data?.data?.length) return <></>;
-
   return (
     <div className="tab-1 onStep fadeIn">
-      <Histories bidType={OrderType.ASK} bids={data.data} />
+      {!data?.data?.length ? (
+        <div>No asks are placed yet.</div>
+      ) : (
+        <Histories bidType={OrderType.ASK} bids={data.data} />
+      )}
     </div>
   );
 };
