@@ -8,6 +8,4 @@ const nextConfig = {
 
 const plugins = [withTM];
 
-module.exports = plugins.reduce((acc, next) => {
-  return next(acc);
-}, nextConfig);
+module.exports = plugins.reduce((acc, next) => next(acc), nextConfig);

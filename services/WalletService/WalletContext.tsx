@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { AccountId } from "@hashgraph/sdk";
-import { createContext } from "react";
+import { AccountId } from '@hashgraph/sdk';
+import { createContext } from 'react';
 
 // create a provider enum: blade || hashpack
 export enum WalletServiceProviders {
-  BLADE = "blade",
-  HASHPACK = "hashpack",
+  BLADE = 'blade',
+  HASHPACK = 'hashpack',
 }
 
 export interface WalletContextType {
@@ -23,12 +23,12 @@ export interface WalletContextType {
 const WalletContext = createContext<WalletContextType>({
   provider: undefined,
   accountId: undefined,
-  network: "testnet",
-  connectWallet: async () => { console.log('test connectWallet ')},
+  network: 'testnet',
+  connectWallet: async () => { console.log('test connectWallet '); },
   disconnectWallet: async () => { },
   toggleConnectWalletModal: () => { },
   openConnectWalletModal: () => { },
-  closeConnectWalletModal: () => { }
+  closeConnectWalletModal: () => { },
 });
 
 export default WalletContext;

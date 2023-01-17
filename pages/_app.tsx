@@ -15,12 +15,12 @@ export default function App({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <RouteGuard>
           <PersistGate persistor={persistor} loading={null}>
-          <WalletProvider>
-            <div className="wraper">
-              <Navbar />
-              <Component {...pageProps} />
-            </div>
-          </WalletProvider>
+            <WalletProvider>
+              <div className="wraper">
+                <Navbar />
+                <Component {...pageProps} />
+              </div>
+            </WalletProvider>
           </PersistGate>
         </RouteGuard>
       </Provider>

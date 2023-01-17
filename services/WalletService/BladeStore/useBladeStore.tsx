@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 import {
   AccountId,
   Signer,
-} from "@hashgraph/sdk";
-import { BladeSigner } from "@bladelabs/blade-web3.js";
+} from '@hashgraph/sdk';
+import { BladeSigner } from '@bladelabs/blade-web3.js';
 
 export interface BladeStoreState {
   signer: Signer | null;
@@ -20,12 +20,11 @@ const useBladeStore = () => {
 
   const connectToExtension = async () => {
     if (state.hasSession) {
-      console.log("Session was there");
-      return;
+      console.log('Session was there');
     } else {
       try {
         const signer = new BladeSigner();
-        await signer.createSession()
+        await signer.createSession();
         signer.onWalletLocked(() => {
           setState({
             signer: null,
@@ -41,7 +40,7 @@ const useBladeStore = () => {
         });
         return true;
       } catch (err: any) {
-        alert("Could not connect to the extention");
+        alert('Could not connect to the extention');
       }
     }
   };
