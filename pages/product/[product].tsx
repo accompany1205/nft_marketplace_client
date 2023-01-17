@@ -43,6 +43,8 @@ const NftDetail = () => {
     // TODO: check for wallet and funds then process purchase
   };
   console.log(askDetails);
+  // const { connectWallet } = useContext(WalletContext);
+
   return (
     <div className="greyscheme">
       {isLoading ? (
@@ -141,24 +143,24 @@ const NftDetail = () => {
                         <div className="subtotal">{details?.data?.specs?.price}</div>
                       </div>
                     </div>
-                    <div className="d-flex flex-row mt-5">
+                    <div className="d-flex flex-row mt-5 mb-5">
                       <button
                         type="button"
-                        className="btn-main lead mb-5 me-3"
+                        className="btn-main lead me-3"
                         onClick={() => setIsCheckout(true)}
                       >
                         Buy Now
                       </button>
                       <button
                         type="button"
-                        className="btn-main btn2 lead mb-5 me-3"
+                        className="btn-main btn2 lead me-3"
                         onClick={() => setIsBidCheckout(true)}
                       >
                         Place Bid
                       </button>
                       <button
                         type="button"
-                        className="btn-main btn2 lead mb-5"
+                        className="btn-main btn2 lead"
                         onClick={() => setPlaceAsk(true)}
                       >
                         Place Ask
