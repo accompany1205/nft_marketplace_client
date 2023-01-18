@@ -33,7 +33,7 @@ const slice = createSlice({
     );
     builder.addMatcher(
       authApi.endpoints.login.matchRejected,
-      (state, { payload }: {payload: any}) => {
+      (state, { payload }: { payload: any }) => {
         console.log('auth Error', payload);
         return {
           ...initialState,

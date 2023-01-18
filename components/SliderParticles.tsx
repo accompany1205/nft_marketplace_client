@@ -48,7 +48,9 @@ const SliderParticles = () => (
           duration={900}
           triggerOnce
         >
-          <p className="lead col-white">The New Jordan x Retro Collection is here</p>
+          <p className="lead col-white">
+            The New Jordan x Retro Collection is here
+          </p>
         </Reveal>
         <div className="spacer-10" />
         <Reveal

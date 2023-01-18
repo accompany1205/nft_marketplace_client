@@ -2,9 +2,13 @@ import {
   Formik, FormikConfig, FormikProps, FormikValues,
 } from 'formik';
 
-type Props = FormikConfig<FormikValues>
+type Props = FormikConfig<FormikValues>;
 
-const FormLayout: React.FC<Props> = ({ children, onSubmit, ...formikProps }) => (
+const FormLayout: React.FC<Props> = ({
+  children,
+  onSubmit,
+  ...formikProps
+}) => (
   <Formik
     onSubmit={async (input, actions) => {
       actions.setSubmitting(true);

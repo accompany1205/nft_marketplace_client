@@ -16,20 +16,30 @@ const BuyNow: React.FC<Props> = ({ product, onClose }) => {
         <h3>Price Computation</h3>
       </div>
       <p>
-        You are about to purchase a{' '}
-        <span className="bold">{product.productName}&nbsp;</span>
+        You are about to purchase a
+        {' '}
         <span className="bold">
-          from {product.variant.lowestAsk.first_name}{' '}
+          {product.productName}
+          &nbsp;
+        </span>
+        <span className="bold">
+          from
+          {' '}
+          {product.variant.lowestAsk.first_name}
+          {' '}
           {product.variant.lowestAsk.last_name}
         </span>
       </p>
       <div>
-        <b>Total :</b> {product.variant.lowestAsk.amount}
+        <b>Total :</b>
+        {' '}
+        {product.variant.lowestAsk.amount}
       </div>
       <button
         className="btn-main lead mb-5"
         onClick={handleSubmit}
-        disabled={isLoading}>
+        disabled={isLoading}
+      >
         Complete Purchase
       </button>
     </div>

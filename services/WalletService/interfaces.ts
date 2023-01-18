@@ -5,8 +5,8 @@ export enum ConnectionStatus {
 }
 
 export enum HashConnectConnectionState {
-  Connecting='Connecting',
-  Connected='Connected',
-  Disconnected='Disconnected',
-  Paired='Paired'
+  Connecting = 'Connecting',
+  Connected = 'Connected',
+  Disconnected = 'Disconnected',
+  Paired = 'Paired',
 }

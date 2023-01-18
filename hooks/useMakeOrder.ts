@@ -24,7 +24,7 @@ export const useMakeOrder = (
 
   const [makeAsk, { isLoading: isMakeAskLoading }] = useMakeAskMutation();
 
-  const user = store.getState().auth.user;
+  const { user } = store.getState().auth;
 
   const handleMakeBid = (bid: BidPayload) => {
     switch (orderType) {
@@ -39,16 +39,15 @@ export const useMakeOrder = (
     if (!user?.id) return router.push('/login');
 
     const formattedBid: BidPayload = {
-      listing_id: listing_id,
-      amount: amount,
+      listing_id,
+      amount,
       user_id: user.id,
     };
 
     try {
       const data = await handleMakeBid(formattedBid);
 
-      if (!get(data, 'data.success'))
-        return alert(get(data, 'data.message.message'));
+      if (!get(data, 'data.success')) return alert(get(data, 'data.message.message'));
 
       if (onCompleted) return onCompleted();
     } catch (err) {

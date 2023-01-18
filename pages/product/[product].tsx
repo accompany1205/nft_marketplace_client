@@ -33,16 +33,18 @@ const NftDetail = () => {
   const [isSell, setIsSell] = useState(false);
   const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.DETAILS);
 
-  if (isLoading || !details?.data)
+  if (isLoading || !details?.data) {
     return (
       <div className="greyscheme">
         <div
           className="d-flex  justify-content-center align-items-center"
-          style={{ height: '100vh' }}>
+          style={{ height: '100vh' }}
+        >
           <Loader />
         </div>
       </div>
     );
+  }
 
   const nft = {
     title: 'Nike',
@@ -96,26 +98,27 @@ const NftDetail = () => {
               <h2>{details?.data?.specs?.productName}</h2>
               <div className="item_info_counts">
                 <div className="item_info_type">
-                  <i className="fa fa-image"></i>
+                  <i className="fa fa-image" />
                   {details?.data.specs.brand}
                 </div>
                 <div className="item_info_views">
-                  <i className="fa fa-eye"></i>
+                  <i className="fa fa-eye" />
                   {details?.data.specs.views}
                 </div>
                 <div className="item_info_like">
-                  <i className="fa fa-heart"></i>
+                  <i className="fa fa-heart" />
                   {details?.data.specs.likes}
                 </div>
               </div>
               <p>{details?.data?.specs?.description}</p>
-              <div className="spacer-40"></div>
+              <div className="spacer-40" />
               <div className="de_tab">
                 <ul className="de_nav">
-                  {tabList.map(tab => (
+                  {tabList.map((tab) => (
                     <li
                       className={currentTab === tab ? 'active' : ''}
-                      key={`tab-${tab}`}>
+                      key={`tab-${tab}`}
+                    >
                       <button onClick={() => setCurrentTab(tab)}>{tab}</button>
                     </li>
                   ))}
@@ -143,23 +146,25 @@ const NftDetail = () => {
                       </div>
                       {details?.data?.variants && (
                         <div className="row mt-3">
-                          {details?.data?.variants.map(option => (
+                          {details?.data?.variants.map((option) => (
                             <div
                               className="col-lg-4 col-md-6 col-sm-6"
-                              key={`option-${option.id}`}>
+                              key={`option-${option.id}`}
+                            >
                               <input
                                 id={String(option.id)}
                                 type="radio"
                                 value={option.id}
                                 name="variant"
-                                onChange={e => {
+                                onChange={(e) => {
                                   setVariant(option);
                                 }}
                                 className="product-variant"
                               />
                               <label
                                 htmlFor={String(option.id)}
-                                className="nft_attr">
+                                className="nft_attr"
+                              >
                                 <h4>{option.size}</h4>
                                 <h4>{option.colour}</h4>
                               </label>
@@ -195,14 +200,16 @@ const NftDetail = () => {
                     className="btn-main lead me-3"
                     onClick={() => {
                       if (variant) setIsBuy(true);
-                    }}>
+                    }}
+                  >
                     Buy
                   </button>
                   <button
                     className="btn-main btn2 lead me-3"
                     onClick={() => {
                       if (variant) setIsSell(true);
-                    }}>
+                    }}
+                  >
                     Sell
                   </button>
                 </div>

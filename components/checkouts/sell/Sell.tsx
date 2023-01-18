@@ -27,10 +27,11 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
         </button>
         <div className="de_tab">
           <ul className="de_nav">
-            {tabList.map(tab => (
+            {tabList.map((tab) => (
               <li
                 className={activeTab === tab ? 'active' : ''}
-                key={`tab-${tab}`}>
+                key={`tab-${tab}`}
+              >
                 <button onClick={() => setActiveTab(tab)}>{tab}</button>
               </li>
             ))}

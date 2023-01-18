@@ -10,7 +10,7 @@ export const useSell = (
   onCompleted?: (d?: any) => void,
 ) => {
   const router = useRouter();
-  const user = store.getState().auth.user;
+  const { user } = store.getState().auth;
 
   const [makeDeal, { isLoading }] = useMakeDealMutation();
 
@@ -26,8 +26,7 @@ export const useSell = (
     try {
       const data = await makeDeal(formattedBid);
 
-      if (!get(data, 'data.success'))
-        return alert(get(data, 'data.message.message'));
+      if (!get(data, 'data.success')) return alert(get(data, 'data.message.message'));
 
       if (onCompleted) return onCompleted();
     } catch (err) {
@@ -37,6 +36,6 @@ export const useSell = (
 
   return {
     handleSubmit,
-    isLoading: isLoading,
+    isLoading,
   };
 };

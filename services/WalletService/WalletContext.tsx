@@ -24,11 +24,13 @@ const WalletContext = createContext<WalletContextType>({
   provider: undefined,
   accountId: undefined,
   network: 'testnet',
-  connectWallet: async () => { console.log('test connectWallet '); },
-  disconnectWallet: async () => { },
-  toggleConnectWalletModal: () => { },
-  openConnectWalletModal: () => { },
-  closeConnectWalletModal: () => { },
+  connectWallet: async () => {
+    console.log('test connectWallet ');
+  },
+  disconnectWallet: async () => {},
+  toggleConnectWalletModal: () => {},
+  openConnectWalletModal: () => {},
+  closeConnectWalletModal: () => {},
 });
 
 export default WalletContext;

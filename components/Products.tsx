@@ -15,11 +15,11 @@ const Products = () => {
     </div>
   ) : (
     <div className="row">
-      {nfts?.length && nfts.map((nft: INFT, index: number) => (
-        <NftCard key={index} nft={nft} />
-      ))}
+      {nfts?.length
+        && nfts.map((nft: INFT, index: number) => (
+          <NftCard key={index} nft={nft} />
+        ))}
     </div>
-
   );
 };
 export default Products;
