@@ -18,7 +18,7 @@ enum Tabs {
 
 const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 
-const NftDetail = () => {
+const NftDetail: React.FC = () => {
   const router = useRouter();
 
   const { data: details, isLoading } = useGetProductDetailsQuery(
@@ -114,12 +114,14 @@ const NftDetail = () => {
               <div className="spacer-40" />
               <div className="de_tab">
                 <ul className="de_nav">
-                  {tabList.map((tab) => (
+                  {tabList.map((tab: Tabs) => (
                     <li
                       className={currentTab === tab ? 'active' : ''}
                       key={`tab-${tab}`}
                     >
-                      <button onClick={() => setCurrentTab(tab)}>{tab}</button>
+                      <button type="button" onClick={() => setCurrentTab(tab)}>
+                        {tab}
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -156,9 +158,7 @@ const NftDetail = () => {
                                 type="radio"
                                 value={option.id}
                                 name="variant"
-                                onChange={(e) => {
-                                  setVariant(option);
-                                }}
+                                onChange={() => setVariant(option)}
                                 className="product-variant"
                               />
                               <label
@@ -197,6 +197,7 @@ const NftDetail = () => {
               <div className="mt-5">
                 <div className="d-flex flex-row mb-2">
                   <button
+                    type="button"
                     className="btn-main lead me-3"
                     onClick={() => {
                       if (variant) setIsBuy(true);
@@ -205,6 +206,7 @@ const NftDetail = () => {
                     Buy
                   </button>
                   <button
+                    type="button"
                     className="btn-main btn2 lead me-3"
                     onClick={() => {
                       if (variant) setIsSell(true);

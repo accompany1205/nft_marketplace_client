@@ -36,6 +36,7 @@ const SellNow: React.FC<Props> = ({ product, onClose }) => {
         {product.variant.highestBid.amount}
       </div>
       <button
+        type="button"
         className="btn-main lead mb-5"
         disabled={isLoading}
         onClick={handleSubmit}

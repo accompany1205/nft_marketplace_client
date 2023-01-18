@@ -13,11 +13,16 @@ export enum OrderType {
   'ASK',
 }
 
-export const useMakeOrder = (
+type UseMakeOrder = (
   listing_id: number,
   orderType: OrderType,
-  onCompleted?: (d?: any) => void,
+  onCompleted?: ((d?: any) => void) | undefined,
 ) => {
+  handleSubmit: (amount: number) => Promise<boolean | void>;
+  isLoading: boolean;
+};
+
+const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
   const router = useRouter();
 
   const [makeBid, { isLoading }] = useMakeBidMutation();
@@ -27,19 +32,17 @@ export const useMakeOrder = (
   const { user } = store.getState().auth;
 
   const handleMakeBid = (bid: BidPayload) => {
-    switch (orderType) {
-      case OrderType.BID:
-        return makeBid(bid);
-      case OrderType.ASK:
-        return makeAsk(bid);
+    if (orderType === OrderType.BID) {
+      return makeBid(bid);
     }
+    return makeAsk(bid);
   };
 
   const handleSubmit = async (amount: number) => {
     if (!user?.id) return router.push('/login');
 
     const formattedBid: BidPayload = {
-      listing_id,
+      listing_id: listingId,
       amount,
       user_id: user.id,
     };
@@ -47,7 +50,9 @@ export const useMakeOrder = (
     try {
       const data = await handleMakeBid(formattedBid);
 
-      if (!get(data, 'data.success')) return alert(get(data, 'data.message.message'));
+      if (!get(data, 'data.success')) {
+        return alert(get(data, 'data.message.message'));
+      }
 
       if (onCompleted) return onCompleted();
     } catch (err) {
@@ -60,3 +65,5 @@ export const useMakeOrder = (
     isLoading: isLoading || isMakeAskLoading,
   };
 };
+
+export default useMakeOrder;

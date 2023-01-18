@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { SellNow } from '.';
 import { OrderType } from '../../../hooks';
 import { Product } from '../checkout.types';
 import MakeOrder from '../MakeOrder';
-import SellNow from './SellNow';
 
 type Props = {
   onClose: () => void;
@@ -32,7 +32,9 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
                 className={activeTab === tab ? 'active' : ''}
                 key={`tab-${tab}`}
               >
-                <button onClick={() => setActiveTab(tab)}>{tab}</button>
+                <button type="button" onClick={() => setActiveTab(tab)}>
+                  {tab}
+                </button>
               </li>
             ))}
           </ul>

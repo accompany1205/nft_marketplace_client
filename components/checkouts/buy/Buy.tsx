@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+
 import { OrderType } from '../../../hooks';
 import { Product } from '../checkout.types';
 import MakeOrder from '../MakeOrder';
-import BuyNow from './BuyNow';
+import { BuyNow } from '.';
 
 enum Tabs {
   BUY_NOW = 'Buy Now',
@@ -32,7 +33,7 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
                 className={activeTab === tab ? 'active' : ''}
                 key={`tab-${tab}`}
               >
-                <button onClick={() => setActiveTab(tab)}>{tab}</button>
+                <button type="button" onClick={() => setActiveTab(tab)}>{tab}</button>
               </li>
             ))}
           </ul>

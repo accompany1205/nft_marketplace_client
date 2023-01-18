@@ -1,3 +1,3 @@
-export * from './useBuy';
-export * from './useMakeOrder';
-export * from './useSell';
+export { default as useBuy } from './useBuy';
+export { default as useMakeOrder, OrderType } from './useMakeOrder';
+export { default as useSell } from './useSell';

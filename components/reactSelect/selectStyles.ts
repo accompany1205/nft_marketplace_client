@@ -1,5 +1,7 @@
+import { CSSObjectWithLabel } from 'react-select';
+
 const customStyles = {
-  option: (base: any, state: any) => ({
+  option: (base: CSSObjectWithLabel, state: any) => ({
     ...base,
     background: '#fff',
     color: '#333',
@@ -8,20 +10,20 @@ const customStyles = {
       background: '#eee',
     },
   }),
-  menu: (base: any) => ({
+  menu: (base: CSSObjectWithLabel) => ({
     ...base,
     borderRadius: 0,
     marginTop: 0,
   }),
-  menuList: (base: any) => ({
+  menuList: (base: CSSObjectWithLabel) => ({
     ...base,
     padding: 0,
   }),
-  control: (base: any) => ({
+  control: (base: CSSObjectWithLabel) => ({
     ...base,
     padding: 2,
   }),
-  menuPortal: (provided: any) => ({
+  menuPortal: (provided: CSSObjectWithLabel) => ({
     ...provided,
     zIndex: 9999,
   }),

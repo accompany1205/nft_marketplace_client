@@ -31,7 +31,7 @@ const MakeOrder: React.FC<Props> = ({ product, onClose, orderType }) => {
             name="amount"
             id="amount"
             value={amount}
-            onChange={(e) => setAmount(parseInt(e.target.value || '0'))}
+            onChange={(e) => setAmount(parseInt(e.target.value || '0', 10))}
             className="form-control"
           />
           {!amount && (
@@ -47,6 +47,7 @@ const MakeOrder: React.FC<Props> = ({ product, onClose, orderType }) => {
         <div className="subtotal">{amount}</div>
       </div>
       <button
+        type="button"
         className="btn-main lead mb-5"
         disabled={!amount || isLoading}
         onClick={() => handleSubmit(amount)}

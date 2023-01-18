@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useBuy } from '../../../hooks';
 import { Product } from '../checkout.types';
 
@@ -36,6 +37,7 @@ const BuyNow: React.FC<Props> = ({ product, onClose }) => {
         {product.variant.lowestAsk.amount}
       </div>
       <button
+        type="button"
         className="btn-main lead mb-5"
         onClick={handleSubmit}
         disabled={isLoading}

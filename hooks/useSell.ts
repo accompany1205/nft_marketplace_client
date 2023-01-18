@@ -5,10 +5,15 @@ import { useMakeDealMutation } from '../redux/service/appService';
 import { store } from '../redux/store';
 import { INFTVariant } from '../types';
 
-export const useSell = (
+type UseSell = (
   variant: INFTVariant,
-  onCompleted?: (d?: any) => void,
+  onCompleted?: ((d?: any) => void) | undefined,
 ) => {
+  handleSubmit: () => Promise<boolean | void>;
+  isLoading: boolean;
+};
+
+const useSell: UseSell = (variant, onCompleted) => {
   const router = useRouter();
   const { user } = store.getState().auth;
 
@@ -26,7 +31,9 @@ export const useSell = (
     try {
       const data = await makeDeal(formattedBid);
 
-      if (!get(data, 'data.success')) return alert(get(data, 'data.message.message'));
+      if (!get(data, 'data.success')) {
+        return alert(get(data, 'data.message.message'));
+      }
 
       if (onCompleted) return onCompleted();
     } catch (err) {
@@ -39,3 +46,5 @@ export const useSell = (
     isLoading,
   };
 };
+
+export default useSell;
