@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
+
+const withTM = require('next-transpile-modules')(['@bladelabs/blade-web3.js', 'hashconnect']);
+
 const nextConfig = {
   reactStrictMode: true,
 };
 
-module.exports = nextConfig;
+const plugins = [withTM];
+
+module.exports = plugins.reduce((acc, next) => next(acc), nextConfig);
