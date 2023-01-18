@@ -1,5 +1,5 @@
 {
-  "parser": "@babel/eslint-parser", 
+  "parser": "@babel/eslint-parser",
   "settings": {
     "react": {
       "version": "detect"
@@ -72,12 +72,8 @@
     {
       "files": ["**/*.ts", "**/*.tsx"],
       "parser": "@typescript-eslint/parser",
-      "plugins": [
-        "@typescript-eslint"
-      ],
-      "extends": [
-        "plugin:@typescript-eslint/recommended"
-      ],
+      "plugins": ["@typescript-eslint"],
+      "extends": ["plugin:@typescript-eslint/recommended"],
       "rules": {
         "react/prop-types": "off",
         "@typescript-eslint/no-unused-vars": "error",

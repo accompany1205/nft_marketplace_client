@@ -43,16 +43,18 @@ const TransferNft = () => {
                     <div className="detailcheckout mt-4">
                       <div className="listcheckout">
                         <h5>Price</h5>
-                        <div className="subtotal">
-                          {nft?.price}
-                        </div>
+                        <div className="subtotal">{nft?.price}</div>
                       </div>
                     </div>
                     <div className="d-flex flex-row mt-5">
                       <button
-                        className="btn-main lead mb-5 me-3"
                         type="button"
+                        className=" btn-main lead mb-5 me-3"
+                        onClick={() => setShowModal(true)}
                       >
+                        Connect To Wallet
+                      </button>
+                      <button className="btn-main lead mb-5 me-3" type="button">
                         Pay Now
                       </button>
                     </div>

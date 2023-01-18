@@ -14,13 +14,11 @@ const Outer = styled.div`
 `;
 
 interface IProps {
-  nft: INFT
+  nft: INFT;
   // className?: string
 }
 
-const NftCard = ({
-  nft,
-}: IProps) => {
+const NftCard = ({ nft }: IProps) => {
   const nftImageUrl = useImage(nft);
   const router = useRouter();
   return (

@@ -25,18 +25,22 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
-      (state, { payload }) => {
-        state.token = payload.token;
-        state.user = payload.user;
-        state.refreshToken = payload.refreshToken;
-      },
+      (state, { payload }) => ({
+        ...state,
+        token: payload.token,
+        user: payload.user,
+        refreshToken: payload.refreshToken,
+      }),
     );
     builder.addMatcher(
       authApi.endpoints.login.matchRejected,
-      (state, { payload }: {payload: any}) => ({
-        ...initialState,
-        error: payload?.data?.message || 'unknown Error',
-      }),
+      (state, { payload }: { payload: any }) => {
+        console.log('auth Error', payload);
+        return {
+          ...initialState,
+          error: payload?.data?.message || 'unknown Error',
+        };
+      },
     );
   },
 });

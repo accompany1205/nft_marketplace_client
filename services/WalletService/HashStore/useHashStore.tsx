@@ -48,9 +48,10 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     acknowledgeData: undefined,
   });
 
-  const sessionData: SavedPairingData | null = useMemo(() => JSON.parse(
-    window?.localStorage?.getItem('hashpack') || 'null',
-  ), []);
+  const sessionData: SavedPairingData | null = useMemo(
+    () => JSON.parse(window?.localStorage?.getItem('hashpack') || 'null'),
+    [],
+  );
 
   const initializeHashConnect = useCallback(async () => {
     try {
@@ -81,7 +82,10 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
           hashConnect: hashConnectInstance,
         }));
       } else {
-        await hashConnectInstance.init(APP_CONFIG, (sessionData.privKey || 'testnet') as TNetwork);
+        await hashConnectInstance.init(
+          APP_CONFIG,
+          (sessionData.privKey || 'testnet') as TNetwork,
+        );
 
         const state = await hashConnectInstance.connect(
           sessionData?.pairingData.topic,
@@ -143,7 +147,12 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
         privKey: hashState.privKey!,
       });
     },
-    [debug, saveDataInLocalStorage, hashState.availableExtension, hashState.privKey],
+    [
+      debug,
+      saveDataInLocalStorage,
+      hashState.availableExtension,
+      hashState.privKey,
+    ],
   );
 
   const acknowledgeEventHandler = useCallback(

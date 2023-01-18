@@ -23,7 +23,8 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
         provider: WalletServiceProviders.BLADE,
         accountId: bladeStore.accountId?.toString(),
       };
-    } if (
+    }
+    if (
       hashStore.status === HashConnectConnectionState.Connected
       && !bladeStore.hasSession
     ) {
@@ -31,7 +32,8 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
         provider: WalletServiceProviders.HASHPACK,
         accountId: hashStore.accountId,
       };
-    } if (
+    }
+    if (
       hashStore.status === HashConnectConnectionState.Connected
       && bladeStore.hasSession
     ) {
@@ -112,9 +114,7 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
   ]);
 
   return (
-    <WalletContext.Provider
-      value={walletValues}
-    >
+    <WalletContext.Provider value={walletValues}>
       {props.children}
     </WalletContext.Provider>
   );
