@@ -1,12 +1,17 @@
-import React, { useEffect, useMemo } from 'react';
+import React, {
+  useEffect, useMemo,
+} from 'react';
+import { useDispatch } from 'react-redux';
 import { HashConnectConnectionState } from './interfaces';
 import useBladeStore from './BladeStore/useBladeStore';
 import useHashStore from './HashStore/useHashStore';
 import WalletContext, { WalletServiceProviders } from './WalletContext';
+import { showToast } from '../../redux/slices/layoutSlice';
 
 const WalletProvider = (props: { children: React.ReactNode }) => {
   const bladeStore = useBladeStore();
   const hashStore = useHashStore({ network: 'testnet', debug: false });
+  const dispatch = useDispatch();
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentlyConnected = useMemo(() => {
@@ -32,23 +37,30 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
       hashStore.status === HashConnectConnectionState.Connected
       && bladeStore.hasSession
     ) {
-      alert('You were connected to both wallets. Please reload the page');
+      dispatch(showToast({
+        message: 'You were connected to both wallets. Please reload the page',
+        type: 'danger',
+      }));
       hashStore.disconnectFromExtension();
       bladeStore.disconnectFromExtension();
       return undefined;
     }
     return undefined;
-
-    // return undefined;
   }, [bladeStore, hashStore]);
 
   useEffect(() => {
     if (currentlyConnected?.provider === WalletServiceProviders.BLADE) {
-      alert('Successfully connected to blade wallet');
+      dispatch(showToast({
+        message: 'Successfully connected to Blade wallet',
+        type: 'success',
+      }));
     } else if (
       currentlyConnected?.provider === WalletServiceProviders.HASHPACK
     ) {
-      alert('Successfully connected to hash pack wallet');
+      dispatch(showToast({
+        message: 'Successfully connected to Hashpack wallet',
+        type: 'success',
+      }));
     }
   }, [currentlyConnected?.provider]);
 
@@ -56,7 +68,10 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
     type: WalletServiceProviders = WalletServiceProviders.BLADE,
   ) => {
     if (currentlyConnected?.provider) {
-      alert('You are already connected');
+      dispatch(showToast({
+        message: 'You are already connected',
+        type: 'danger',
+      }));
       return;
     }
 
@@ -71,38 +86,32 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
     type: WalletServiceProviders = WalletServiceProviders.BLADE,
   ) => {
     if (!currentlyConnected?.provider) {
-      alert('You are not connected to any extension.');
+      dispatch(showToast({
+        message: 'You are not connected to any extension.',
+        type: 'danger',
+      }));
       return;
     }
     if (type === WalletServiceProviders.BLADE) {
       await bladeStore.disconnectFromExtension();
     } else if (type === WalletServiceProviders.HASHPACK) {
-      hashStore.disconnectFromExtension();
+      await hashStore.disconnectFromExtension();
     }
+    dispatch(showToast({
+      message: 'Wallet Disconnected',
+      type: 'success',
+    }));
   };
 
-  // const toggleConnectWalletModal = useCallback(() => setIsModalOpen((old) => !old), []);
-  // const closeConnectWalletModal = useCallback(() => setIsModalOpen(false), []);
-  // const openConnectWalletModal = useCallback(() => setIsModalOpen(true), []);
-
-  const walletValues = useMemo<any>(
-    () => ({
-      connectWallet: connectToExtension,
-      disconnectWallet,
-      network: 'testnet',
-      accountId: currentlyConnected?.accountId,
-      provider: currentlyConnected?.provider,
-      // toggleConnectWalletModal,
-      // openConnectWalletModal,
-      // closeConnectWalletModal,
-    }),
-    [
-      connectToExtension,
-      currentlyConnected?.accountId,
-      currentlyConnected?.provider,
-      disconnectWallet,
-    ],
-  );
+  const walletValues = useMemo<any>(() => ({
+    connectWallet: connectToExtension,
+    disconnectWallet,
+    network: 'testnet',
+    accountId: currentlyConnected?.accountId,
+    provider: currentlyConnected?.provider,
+  }), [connectToExtension, currentlyConnected?.accountId, currentlyConnected?.provider,
+    disconnectWallet,
+  ]);
 
   return (
     <WalletContext.Provider value={walletValues}>

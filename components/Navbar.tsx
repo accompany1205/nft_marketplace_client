@@ -1,7 +1,5 @@
-'use client';
-
 import React, {
-  useCallback, useEffect, useMemo, useState,
+  useCallback, useContext, useEffect, useMemo, useState,
 } from 'react';
 import {
   Breakpoint,
@@ -13,6 +11,8 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../hooks/store';
 import { reset } from '../redux/slices/authSlice';
+import WalletContext, { WalletServiceProviders } from '../services/WalletService/WalletContext';
+import WalletConnector from './WalletConnector';
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 interface INavProps {
@@ -27,7 +27,7 @@ const NavLink = (props: INavProps) => (
 const Header = ({ className }: any) => {
   const { token } = useTypedSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+  const [showModal, setShowModal] = useState(false);
   const isLoggedIn = useMemo(() => !!token, [token]);
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -53,6 +53,7 @@ const Header = ({ className }: any) => {
     const header = document.getElementById('myHeader');
     const totop = document.getElementById('scroll-to-top');
     const sticky = header?.offsetTop;
+
     const scrollCallBack = window.addEventListener('scroll', () => {
       btnIcon(false);
       if (window.pageYOffset > (sticky || 0)) {
@@ -71,8 +72,11 @@ const Header = ({ className }: any) => {
       window.removeEventListener('scroll', scrollCallBack);
     };
   }, []);
+  const { disconnectWallet, accountId } = useContext(WalletContext);
   return (
     <header className={`navbar white ${className}`} id="myHeader">
+      <WalletConnector showModal={showModal} setShowModal={setShowModal} />
+
       <div className="container">
         <div className="row w-100-nav">
           <div className="logo px-0">
@@ -194,8 +198,16 @@ const Header = ({ className }: any) => {
                 </div>
                 <div className="navbar-item">
                   <div className="mainside">
-                    <div className="connect-wal">
-                      <NavLink href="/register">Sign Up</NavLink>
+                    <div
+                      className="connect-wal"
+                      onClick={() => {
+                        if (accountId) disconnectWallet(WalletServiceProviders.HASHPACK);
+                        else {
+                          setShowModal(true);
+                        }
+                      }}
+                    >
+                      <NavLink href="/deals/50/buyer/pay">{accountId ? 'Disconnect Wallet' : 'Connect Wallet'}</NavLink>
                     </div>
                   </div>
                 </div>

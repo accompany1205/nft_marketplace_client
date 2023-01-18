@@ -1,9 +1,4 @@
-import { useState } from 'react';
-import WalletConnector from '../../../../components/WalletConnector';
-
 const TransferNft = () => {
-  const [showModal, setShowModal] = useState(false);
-
   const nft = {
     productName: 'Nike limited edition',
     brand: 'Nike',
@@ -25,7 +20,6 @@ const TransferNft = () => {
         style={{ height: '100vh' }}
       >
         <section className="container">
-          <WalletConnector showModal={showModal} setShowModal={setShowModal} />
           <div className="row mt-md-5 pt-md-4">
             <div className="col-md-6 text-center">
               <img
@@ -53,13 +47,6 @@ const TransferNft = () => {
                       </div>
                     </div>
                     <div className="d-flex flex-row mt-5">
-                      <button
-                        type="button"
-                        className=" btn-main lead mb-5 me-3"
-                        onClick={() => setShowModal(true)}
-                      >
-                        Connect To Wallet
-                      </button>
                       <button className="btn-main lead mb-5 me-3" type="button">
                         Pay Now
                       </button>

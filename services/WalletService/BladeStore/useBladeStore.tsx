@@ -1,6 +1,8 @@
 import React from 'react';
 import { AccountId, Signer } from '@hashgraph/sdk';
 import { BladeSigner } from '@bladelabs/blade-web3.js';
+import { useDispatch } from 'react-redux';
+import { showToast } from '../../../redux/slices/layoutSlice';
 
 export interface BladeStoreState {
   signer: Signer | null;
@@ -14,6 +16,7 @@ const useBladeStore = () => {
     accountId: null,
     hasSession: false,
   });
+  const dispatch = useDispatch();
 
   const connectToExtension = async () => {
     if (state.hasSession) {
@@ -37,7 +40,10 @@ const useBladeStore = () => {
         });
         return true;
       } catch (err: any) {
-        alert('Could not connect to the extention');
+        dispatch(showToast({
+          message: 'Could not connect to the extention',
+          type: 'danger',
+        }));
       }
     }
   };
