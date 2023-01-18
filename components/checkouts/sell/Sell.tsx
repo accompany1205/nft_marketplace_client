@@ -47,7 +47,7 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
             {activeTab === Tabs.PLACE_ASK && (
               <MakeOrder
                 product={product}
-                onClose={onClose}
+                onSubmit={onClose}
                 orderType={OrderType.ASK}
               />
             )}

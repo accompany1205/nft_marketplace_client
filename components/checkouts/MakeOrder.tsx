@@ -1,22 +1,16 @@
 import { useState } from 'react';
 
-import { OrderType, useMakeOrder } from '../../hooks';
+import { OrderType } from '../../hooks';
 import { Product } from './checkout.types';
 
 export interface Props {
   product: Product;
-  onClose: () => void;
+  onSubmit: (amount: number) => void;
   orderType: OrderType;
 }
 
-const MakeOrder: React.FC<Props> = ({ product, onClose, orderType }) => {
-  const [amount, setAmount] = useState(product.variant.lowestAsk.amount || 1);
-
-  const { handleSubmit, isLoading } = useMakeOrder(
-    product.variant.id,
-    orderType,
-    onClose,
-  );
+const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
+  const [amount, setAmount] = useState(product.variant.lowestAsk.amount || 10);
 
   return (
     <div>
@@ -49,8 +43,8 @@ const MakeOrder: React.FC<Props> = ({ product, onClose, orderType }) => {
       <button
         type="button"
         className="btn-main lead mb-5"
-        disabled={!amount || isLoading}
-        onClick={() => handleSubmit(amount)}
+        disabled={!amount}
+        onClick={() => onSubmit(amount)}
       >
         Checkout
       </button>

@@ -1,24 +1,61 @@
 import React, { useState } from 'react';
 
-import { OrderType } from '../../../hooks';
+import dynamic from 'next/dynamic';
+import WalletConnector from '../../WalletConnector';
 import { Product } from '../checkout.types';
-import MakeOrder from '../MakeOrder';
-import { BuyNow } from '.';
 
-enum Tabs {
+export enum CheckoutType {
   BUY_NOW = 'Buy Now',
   PLACE_BID = 'Place Bid',
 }
 
-const tabList = [Tabs.BUY_NOW, Tabs.PLACE_BID];
-
-type Props = {
+interface Props {
   onClose: () => void;
   product: Product;
+}
+
+export interface CheckoutDetails {
+  type: CheckoutType;
+  amount?: number;
+  askId?: number;
+  isWalletConnected?: boolean;
+}
+
+export enum CheckoutSteps {
+  CHECKOUT_DETAILS = 'Checkout Details',
+  WALLET_CONNECTION = 'Wallet Connection',
+  SUMMARY = 'Summary',
+}
+
+const checkoutSteps = {
+  [CheckoutSteps.CHECKOUT_DETAILS]: dynamic(() => import('./CheckoutDetails')),
+  [CheckoutSteps.SUMMARY]: dynamic(() => import('./Summary')),
 };
 
 const Buy: React.FC<Props> = ({ onClose, product }) => {
-  const [activeTab, setActiveTab] = useState(Tabs.BUY_NOW);
+  const [activeStep, setActiveStep] = useState<CheckoutSteps>(CheckoutSteps.CHECKOUT_DETAILS);
+  const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
+  const [checkoutDetails, setCheckoutDetails] = useState<CheckoutDetails>({
+    type: CheckoutType.BUY_NOW,
+  });
+
+  const handleSubmit = (detail: CheckoutDetails, nextStep?: CheckoutSteps) => {
+    setCheckoutDetails(detail);
+    switch (nextStep) {
+      case CheckoutSteps.CHECKOUT_DETAILS:
+        return setActiveStep(nextStep);
+      case CheckoutSteps.WALLET_CONNECTION:
+        return setShowWalletConnectionModal(true);
+      case CheckoutSteps.SUMMARY:
+        return setActiveStep(nextStep);
+      default:
+        // TODO: create deal or place bid
+    }
+  };
+
+  const CurrentStep = activeStep === CheckoutSteps.WALLET_CONNECTION
+    ? null
+    : checkoutSteps[activeStep];
 
   return (
     <div className="checkout">
@@ -26,32 +63,17 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
         <button className="btn-close" type="button" onClick={onClose}>
           x
         </button>
-        <div className="de_tab">
-          <ul className="de_nav">
-            {tabList.map((tab) => (
-              <li
-                className={activeTab === tab ? 'active' : ''}
-                key={`tab-${tab}`}
-              >
-                <button type="button" onClick={() => setActiveTab(tab)}>{tab}</button>
-              </li>
-            ))}
-          </ul>
-          <div className="de_tab_content">
-            {activeTab === Tabs.BUY_NOW && (
-              <div className="tab-2 onStep fadeIn">
-                <BuyNow product={product} onClose={onClose} />
-              </div>
-            )}
-            {activeTab === Tabs.PLACE_BID && (
-              <MakeOrder
-                product={product}
-                onClose={onClose}
-                orderType={OrderType.BID}
-              />
-            )}
-          </div>
-        </div>
+        {CurrentStep && (
+          <CurrentStep
+            handleSubmit={handleSubmit}
+            checkoutDetails={checkoutDetails}
+            product={product}
+          />
+        )}
+        <WalletConnector
+          showModal={showWalletConnectionModal}
+          setShowModal={setShowWalletConnectionModal}
+        />
       </div>
     </div>
   );

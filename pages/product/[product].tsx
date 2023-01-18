@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
@@ -25,9 +25,14 @@ const NftDetail: React.FC = () => {
     router.query.product ? router.query.product.toString() : '',
   );
 
-  const [variant, setVariant] = useState<INFTVariant | undefined>(
-    head(details?.data.variants),
-  );
+  const [variant, setVariant] = useState<INFTVariant | undefined>();
+
+  useEffect(() => {
+    if (!variant) {
+      setVariant(head(details?.data?.variants));
+    }
+  }, [details]);
+
   const nftImageUrl = useImage(details?.data);
   const [isBuy, setIsBuy] = useState(false);
   const [isSell, setIsSell] = useState(false);
@@ -174,7 +179,7 @@ const NftDetail: React.FC = () => {
                       )}
                       <div className="mt-2 row">
                         {priceDetails.map(({ label, amount }) => (
-                          <div className="col-lg-4 col-md-6 col-sm-6 mt-3">
+                          <div className="col-lg-4 col-md-6 col-sm-6 mt-3" key={`${label}-${amount}`}>
                             <h5>{label}</h5>
                             <div className="subtotal">{amount}</div>
                           </div>
