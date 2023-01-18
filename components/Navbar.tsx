@@ -198,17 +198,27 @@ const Header = ({ className }: any) => {
                 </div>
                 <div className="navbar-item">
                   <div className="mainside">
-                    <div
-                      className="connect-wal"
-                      onClick={() => {
-                        if (accountId) disconnectWallet(WalletServiceProviders.HASHPACK);
-                        else {
-                          setShowModal(true);
-                        }
-                      }}
-                    >
-                      <NavLink href="/deals/50/buyer/pay">{accountId ? 'Disconnect Wallet' : 'Connect Wallet'}</NavLink>
-                    </div>
+                    {isLoggedIn
+                      ? (
+                        <div
+                          className="connect-wal"
+                          onClick={() => {
+                            if (accountId) disconnectWallet(WalletServiceProviders.HASHPACK);
+                            else {
+                              setShowModal(true);
+                            }
+                          }}
+                        >
+                          <NavLink href="/deals/50/buyer/pay">{accountId ? 'Disconnect Wallet' : 'Connect Wallet'}</NavLink>
+                        </div>
+                      )
+                      : (
+                        <div className="mainside">
+                          <div className="connect-wal">
+                            <NavLink href="/register">Sign Up</NavLink>
+                          </div>
+                        </div>
+                      )}
                   </div>
                 </div>
                 <div className="navbar-item">
