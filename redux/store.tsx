@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import appSlice from './service/appService';
+import toastSlice from './slices/layoutSlice';
 import authReducer from './slices/authSlice';
 import { authApi } from './service/authService';
 
@@ -22,12 +23,14 @@ const rootReducer = combineReducers({
   [appSlice.reducerPath]: appSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
   auth: persistReducer(authPersistConfig, authReducer),
+  toast: toastSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  // eslint-disable-next-line max-len
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({}).concat(appSlice.middleware).concat(authApi.middleware),
 });
 

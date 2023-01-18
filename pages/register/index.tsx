@@ -6,8 +6,10 @@ import {
 import * as Yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import SliderImage from '../../public/images/particleBg.jpg';
 import { IUser, useRegisterMutation } from '../../redux/service/authService';
+import { showToast } from '../../redux/slices/layoutSlice';
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -64,11 +66,15 @@ const initialValues = {
 const Register = () => {
   const router = useRouter();
   const [register] = useRegisterMutation();
+  const dispatch = useDispatch();
 
   const handleSubmitForm = async (values: object) => {
     try {
       await register(values as IUser);
-      alert('User registered successfully');
+      dispatch(showToast({
+        message: 'User registered successfully',
+        type: 'success',
+      }));
       router.replace('/login');
     } catch (error) {
       alert(error);

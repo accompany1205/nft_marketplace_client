@@ -33,13 +33,10 @@ const slice = createSlice({
     );
     builder.addMatcher(
       authApi.endpoints.login.matchRejected,
-      (state, { payload }: {payload: any}) => {
-        console.log('auth Error', payload);
-        return {
-          ...initialState,
-          error: payload?.data?.message || 'unknown Error',
-        };
-      },
+      (state, { payload }: {payload: any}) => ({
+        ...initialState,
+        error: payload?.data?.message || 'unknown Error',
+      }),
     );
   },
 });

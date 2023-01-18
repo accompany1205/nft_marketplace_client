@@ -14,9 +14,13 @@ const WalletConnector = ({ setShowModal, showModal }: any) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="d-flex p-5 justify-content-between">
+        <div className="d-flex p-5 justify-content-between flex-wrap">
           <div>
-            <div onClick={() => connectWallet(WalletServiceProviders.HASHPACK)}>
+            <div onClick={() => {
+              connectWallet(WalletServiceProviders.HASHPACK);
+              setShowModal(false);
+            }}
+            >
               <Image src="/images/hashpack.jpg" alt="Hash Logo" width={200} height={200} />
               <h5>Hash Wallet</h5>
             </div>
@@ -25,7 +29,11 @@ const WalletConnector = ({ setShowModal, showModal }: any) => {
             </Link>
           </div>
           <div>
-            <div onClick={async () => connectWallet(WalletServiceProviders.BLADE)}>
+            <div onClick={async () => {
+              connectWallet(WalletServiceProviders.BLADE);
+              setShowModal(false);
+            }}
+            >
               <Image src="/images/blade.png" alt="Blade Logo" width={200} height={200} />
               <h5>Blade Wallet</h5>
             </div>

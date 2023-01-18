@@ -43,8 +43,6 @@ const NftDetail = () => {
     // TODO: check for wallet and funds then process purchase
   };
   console.log(askDetails);
-  // const { connectWallet } = useContext(WalletContext);
-
   return (
     <div className="greyscheme">
       {isLoading ? (
@@ -144,6 +142,7 @@ const NftDetail = () => {
                       </div>
                     </div>
                     <div className="d-flex flex-row mt-5 mb-5">
+
                       <button
                         type="button"
                         className="btn-main lead me-3"
