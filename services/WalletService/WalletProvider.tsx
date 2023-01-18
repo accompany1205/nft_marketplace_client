@@ -1,6 +1,4 @@
-import React, {
-  useEffect, useMemo,
-} from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { HashConnectConnectionState } from './interfaces';
 import useBladeStore from './BladeStore/useBladeStore';
 import useHashStore from './HashStore/useHashStore';
@@ -20,7 +18,8 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
         provider: WalletServiceProviders.BLADE,
         accountId: bladeStore.accountId?.toString(),
       };
-    } if (
+    }
+    if (
       hashStore.status === HashConnectConnectionState.Connected
       && !bladeStore.hasSession
     ) {
@@ -28,7 +27,8 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
         provider: WalletServiceProviders.HASHPACK,
         accountId: hashStore.accountId,
       };
-    } if (
+    }
+    if (
       hashStore.status === HashConnectConnectionState.Connected
       && bladeStore.hasSession
     ) {
@@ -85,23 +85,27 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
   // const closeConnectWalletModal = useCallback(() => setIsModalOpen(false), []);
   // const openConnectWalletModal = useCallback(() => setIsModalOpen(true), []);
 
-  const walletValues = useMemo<any>(() => ({
-    connectWallet: connectToExtension,
-    disconnectWallet,
-    network: 'testnet',
-    accountId: currentlyConnected?.accountId,
-    provider: currentlyConnected?.provider,
-    // toggleConnectWalletModal,
-    // openConnectWalletModal,
-    // closeConnectWalletModal,
-  }), [connectToExtension, currentlyConnected?.accountId, currentlyConnected?.provider,
-    disconnectWallet,
-  ]);
+  const walletValues = useMemo<any>(
+    () => ({
+      connectWallet: connectToExtension,
+      disconnectWallet,
+      network: 'testnet',
+      accountId: currentlyConnected?.accountId,
+      provider: currentlyConnected?.provider,
+      // toggleConnectWalletModal,
+      // openConnectWalletModal,
+      // closeConnectWalletModal,
+    }),
+    [
+      connectToExtension,
+      currentlyConnected?.accountId,
+      currentlyConnected?.provider,
+      disconnectWallet,
+    ],
+  );
 
   return (
-    <WalletContext.Provider
-      value={walletValues}
-    >
+    <WalletContext.Provider value={walletValues}>
       {props.children}
     </WalletContext.Provider>
   );

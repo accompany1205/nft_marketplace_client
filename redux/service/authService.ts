@@ -1,7 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { designbookAxiosBaseQuery } from '../interceptor';
 
 export interface IUser {
+  id: number;
   email: string;
   first_name: string;
   last_name: string;

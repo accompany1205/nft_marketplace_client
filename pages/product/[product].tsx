@@ -1,30 +1,50 @@
-import { useRouter } from 'next/router';
 import { useState } from 'react';
-import {
-  BidCheckout,
-  Checkout,
-  Purchase,
-  PurchaseDetails,
-} from '../../components/checkouts';
+
+import { useRouter } from 'next/router';
+
+import { head } from 'lodash';
+import { Buy, Sell } from '../../components/checkouts';
 import Loader from '../../components/Loader';
+import { Asks, Bids } from '../../components/productDetails';
 import { useGetProductDetailsQuery } from '../../redux/service/appService';
-import { store } from '../../redux/store';
+import { INFTVariant } from '../../types';
 import useImage from '../../utils/hooks/FetchNftImage';
 
-const NftDetail = () => {
+enum Tabs {
+  DETAILS = 'Details',
+  BIDS = 'Bids',
+  ASKS = 'Asks',
+}
+
+const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
+
+const NftDetail: React.FC = () => {
   const router = useRouter();
+
   const { data: details, isLoading } = useGetProductDetailsQuery(
     router.query.product ? router.query.product.toString() : '',
   );
 
+  const [variant, setVariant] = useState<INFTVariant | undefined>(
+    head(details?.data.variants),
+  );
   const nftImageUrl = useImage(details?.data);
+  const [isBuy, setIsBuy] = useState(false);
+  const [isSell, setIsSell] = useState(false);
+  const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.DETAILS);
 
-  const [purchaseDetails, setPurchaseDetails] = useState<PurchaseDetails>();
-  const [askDetails, setAskDetails] = useState<PurchaseDetails>();
-  const [isBidCheckout, setIsBidCheckout] = useState(false);
-  const [isPlaceAsk, setPlaceAsk] = useState(false);
-  const [isCheckout, setIsCheckout] = useState(false);
-  const [isPurchase, setIsPurchase] = useState(false);
+  if (isLoading || !details?.data) {
+    return (
+      <div className="greyscheme">
+        <div
+          className="d-flex  justify-content-center align-items-center"
+          style={{ height: '100vh' }}
+        >
+          <Loader />
+        </div>
+      </div>
+    );
+  }
 
   const nft = {
     title: 'Nike',
@@ -37,194 +57,192 @@ const NftDetail = () => {
     },
   };
 
-  const onPurchase = () => {
-    setIsPurchase(false);
-    if (!store.getState().auth.user) return router.push('/login');
-    // TODO: check for wallet and funds then process purchase
+  const product = {
+    owner: nft.owner,
+    id: details.data.id,
+    ...details?.data.specs,
   };
-  console.log(askDetails);
-  // const { connectWallet } = useContext(WalletContext);
+
+  const priceDetails = [
+    {
+      label: 'Price',
+      amount: product.price,
+    },
+    {
+      label: 'Lowest Ask',
+      amount: variant?.lowestAsk.amount || product.price,
+    },
+    {
+      label: 'Highest Bid',
+      amount: variant?.highestBid.amount || product.price,
+    },
+  ];
 
   return (
     <div className="greyscheme">
-      {isLoading ? (
-        <div
-          className="d-flex  justify-content-center align-items-center"
-          style={{ height: '100vh' }}
-        >
-          <Loader />
-        </div>
-      ) : (
-        <section className="container">
-          <div className="row mt-md-5 pt-md-4">
-            <div className="col-md-6 text-center">
-              <img
-                src={
-                  nftImageUrl
-                    ? `https://ipfs.io/ipfs/${nftImageUrl}`
-                    : 'https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
-                }
-                className="img-fluid img-rounded mb-sm-30"
-                alt=""
-              />
-            </div>
-            <div className="col-md-6">
-              <div className="item_info">
-                <h2>{details?.data?.specs?.productName}</h2>
-                <div className="item_info_counts">
-                  <div className="item_info_type">
-                    <i className="fa fa-image" />
-                    {details?.data?.specs?.brand}
-                  </div>
-                  <div className="item_info_views">
-                    <i className="fa fa-eye" />
-                    {details?.data?.specs?.views}
-                  </div>
-                  <div className="item_info_like">
-                    <i className="fa fa-heart" />
-                    {details?.data?.specs?.likes}
-                  </div>
+      <section className="container">
+        <div className="row mt-md-5 pt-md-4">
+          <div className="col-md-6 text-center">
+            <img
+              src={
+                nftImageUrl
+                  ? `https://ipfs.io/ipfs/${nftImageUrl}`
+                  : 'https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
+              }
+              className="img-fluid img-rounded mb-sm-30"
+              alt=""
+            />
+          </div>
+          <div className="col-md-6">
+            <div className="item_info">
+              <h2>{details?.data?.specs?.productName}</h2>
+              <div className="item_info_counts">
+                <div className="item_info_type">
+                  <i className="fa fa-image" />
+                  {details?.data.specs.brand}
                 </div>
-                <p>{details?.data?.specs?.description}</p>
-                <div className="spacer-40" />
-                <div className="de_tab">
-                  <ul className="de_nav">
-                    <li id="Mainbtn0" className="active">
-                      <span>Details</span>
+                <div className="item_info_views">
+                  <i className="fa fa-eye" />
+                  {details?.data.specs.views}
+                </div>
+                <div className="item_info_like">
+                  <i className="fa fa-heart" />
+                  {details?.data.specs.likes}
+                </div>
+              </div>
+              <p>{details?.data?.specs?.description}</p>
+              <div className="spacer-40" />
+              <div className="de_tab">
+                <ul className="de_nav">
+                  {tabList.map((tab: Tabs) => (
+                    <li
+                      className={currentTab === tab ? 'active' : ''}
+                      key={`tab-${tab}`}
+                    >
+                      <button type="button" onClick={() => setCurrentTab(tab)}>
+                        {tab}
+                      </button>
                     </li>
-                    <li id="Mainbtn">
-                      <span>Bids</span>
-                    </li>
-                    <li id="Mainbtn1" className="">
-                      <span>History</span>
-                    </li>
-                  </ul>
-                  <div className="de_tab_content">
+                  ))}
+                </ul>
+                <div className="de_tab_content mb-3">
+                  {currentTab === Tabs.DETAILS && (
                     <div className="tab-1 onStep fadeIn">
-                      <div className="d-block mb-3">
-                        <div className="mr40">
-                          <h6>Owner</h6>
-                          <div className="item_author">
-                            <div className="author_list_pp">
-                              <span>
-                                <img
-                                  className="lazy"
-                                  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-                                  alt=""
-                                />
-                                <i className="fa fa-check" />
-                              </span>
-                            </div>
-                            <div className="author_list_info">
-                              <span>{nft.owner.username}</span>
-                            </div>
+                      <div className="mr40">
+                        <h6>Owner</h6>
+                        <div className="item_author">
+                          <div className="author_list_pp">
+                            <span>
+                              <img
+                                className="lazy"
+                                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                                alt=""
+                              />
+                              <i className="fa fa-check" />
+                            </span>
+                          </div>
+                          <div className="author_list_info">
+                            <span>{nft.owner.username}</span>
                           </div>
                         </div>
-                        {details?.data?.variants && (
-                          <div className="row mt-5">
-                            {details?.data?.variants.map((variant, index) => (
-                              <div
-                                className="col-lg-4 col-md-6 col-sm-6"
-                                key={index}
+                      </div>
+                      {details?.data?.variants && (
+                        <div className="row mt-3">
+                          {details?.data?.variants.map((option) => (
+                            <div
+                              className="col-lg-4 col-md-6 col-sm-6"
+                              key={`option-${option.id}`}
+                            >
+                              <input
+                                id={String(option.id)}
+                                type="radio"
+                                value={option.id}
+                                name="variant"
+                                onChange={() => setVariant(option)}
+                                className="product-variant"
+                              />
+                              <label
+                                htmlFor={String(option.id)}
+                                className="nft_attr"
                               >
-                                <div className="nft_attr">
-                                  <h4>{variant.size}</h4>
-                                  <span>BID</span>
-                                </div>
-                              </div>
-                            ))}
+                                <h4>{option.size}</h4>
+                                <h4>{option.colour}</h4>
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <div className="mt-2 row">
+                        {priceDetails.map(({ label, amount }) => (
+                          <div className="col-lg-4 col-md-6 col-sm-6 mt-3">
+                            <h5>{label}</h5>
+                            <div className="subtotal">{amount}</div>
                           </div>
-                        )}
+                        ))}
                       </div>
                     </div>
-                    <div className="detailcheckout mt-4">
-                      <div className="listcheckout">
-                        <h5>Price</h5>
-                        <div className="subtotal">{details?.data?.specs?.price}</div>
-                      </div>
+                  )}
+                  {currentTab === Tabs.BIDS && (
+                    <div className="tab-2 onStep fadeIn">
+                      <Bids listingId={product.id} />
                     </div>
-                    <div className="d-flex flex-row mt-5 mb-5">
-                      <button
-                        type="button"
-                        className="btn-main lead me-3"
-                        onClick={() => setIsCheckout(true)}
-                      >
-                        Buy Now
-                      </button>
-                      <button
-                        type="button"
-                        className="btn-main btn2 lead me-3"
-                        onClick={() => setIsBidCheckout(true)}
-                      >
-                        Place Bid
-                      </button>
-                      <button
-                        type="button"
-                        className="btn-main btn2 lead"
-                        onClick={() => setPlaceAsk(true)}
-                      >
-                        Place Ask
-                      </button>
+                  )}
+                  {currentTab === Tabs.ASKS && (
+                    <div className="tab-3 onStep fadeIn">
+                      <Asks listingId={product.id} />
                     </div>
-                  </div>
+                  )}
+                </div>
+              </div>
+              <div className="mt-5">
+                <div className="d-flex flex-row mb-2">
+                  <button
+                    type="button"
+                    className="btn-main lead me-3"
+                    onClick={() => {
+                      if (variant) setIsBuy(true);
+                    }}
+                  >
+                    Buy
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-main btn2 lead me-3"
+                    onClick={() => {
+                      if (variant) setIsSell(true);
+                    }}
+                  >
+                    Sell
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          {/* details?.data.specs is kept in condition to make sure we have info */}
-          {isBidCheckout && !!details?.data.specs && (
-            <BidCheckout
-              onClose={() => setIsBidCheckout(false)}
-              product={{
-                owner: nft.owner,
-                ...details?.data.specs,
-              }}
-              onCheckout={(checkout) => {
-                setPurchaseDetails({ ...purchaseDetails, checkout });
-                setIsBidCheckout(false);
-                setIsPurchase(true);
-              }}
-              orderType="Bid"
-            />
-          )}
-          {isPlaceAsk && !!details?.data.specs && (
-            <BidCheckout
-              onClose={() => setPlaceAsk(false)}
-              product={{
-                owner: nft.owner,
-                ...details?.data.specs,
-              }}
-              onCheckout={(ask) => {
-                setPlaceAsk(false);
-                setAskDetails({ checkout: ask });
-              }}
-              orderType="Ask"
-            />
-          )}
-          {isCheckout && !!details?.data.specs && (
-            <Checkout
-              onClose={() => setIsCheckout(false)}
-              product={{
-                owner: nft.owner,
-                ...details?.data.specs,
-              }}
-              onCheckout={(checkout) => {
-                setPurchaseDetails({ ...purchaseDetails, checkout });
-                setIsCheckout(false);
-                setIsPurchase(true);
-              }}
-            />
-          )}
-          {isPurchase && purchaseDetails && (
-            <Purchase
-              onClose={() => setIsPurchase(false)}
-              purchaseDetails={purchaseDetails}
-              setPurchaseDetails={setPurchaseDetails}
-              onPurchase={onPurchase}
-            />
-          )}
-        </section>
-      )}
+        </div>
+        {/* details?.data.specs is kept in condition to make sure we have info */}
+        {isBuy && variant && (
+          <Buy
+            onClose={() => setIsBuy(false)}
+            product={{
+              id: product.id,
+              owner: product.owner,
+              productName: product.productName,
+              variant,
+            }}
+          />
+        )}
+        {isSell && variant && (
+          <Sell
+            onClose={() => setIsSell(false)}
+            product={{
+              id: product.id,
+              owner: product.owner,
+              productName: product.productName,
+              variant,
+            }}
+          />
+        )}
+      </section>
     </div>
   );
 };

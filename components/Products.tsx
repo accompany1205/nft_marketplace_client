@@ -4,7 +4,7 @@ import { INFT } from '../types/nft.type';
 import Loader from './Loader';
 import NftCard from './NftCard';
 
-const Products = () => {
+const Products: React.FC = () => {
   const { data, isLoading } = useGetProductsQuery();
 
   const nfts = map(data?.data, ({ products }) => products).flat(1);
@@ -15,11 +15,11 @@ const Products = () => {
     </div>
   ) : (
     <div className="row">
-      {nfts?.length && nfts.map((nft: INFT, index: number) => (
-        <NftCard key={index} nft={nft} />
-      ))}
+      {nfts?.length
+        && nfts.map((nft: INFT, index: number) => (
+          <NftCard key={index} nft={nft} />
+        ))}
     </div>
-
   );
 };
 export default Products;

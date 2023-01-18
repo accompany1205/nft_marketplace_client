@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  AccountId,
-  Signer,
-} from '@hashgraph/sdk';
+import { AccountId, Signer } from '@hashgraph/sdk';
 import { BladeSigner } from '@bladelabs/blade-web3.js';
 
 export interface BladeStoreState {

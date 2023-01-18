@@ -3,7 +3,11 @@
 import React, {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
-import { Breakpoint, BreakpointProvider, setDefaultBreakpoints } from 'react-socks';
+import {
+  Breakpoint,
+  BreakpointProvider,
+  setDefaultBreakpoints,
+} from 'react-socks';
 import Link from 'next/link';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
@@ -12,11 +16,13 @@ import { reset } from '../redux/slices/authSlice';
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 interface INavProps {
-  children: JSX.Element | string
-  href: string
+  children: JSX.Element | string;
+  href: string;
 }
 
-const NavLink = (props: INavProps) => <Link className="non-active" {...props} />;
+const NavLink = (props: INavProps) => (
+  <Link className="non-active" {...props} />
+);
 
 const Header = ({ className }: any) => {
   const { token } = useTypedSelector((state) => state.auth);
@@ -211,10 +217,13 @@ const Header = ({ className }: any) => {
               </div>
             </Breakpoint>
           </BreakpointProvider>
-
         </div>
 
-        <button type="button" className="nav-icon" onClick={() => btnIcon(!showmenu)}>
+        <button
+          type="button"
+          className="nav-icon"
+          onClick={() => btnIcon(!showmenu)}
+        >
           <div className="menu-line white" />
           <div className="menu-line1 white" />
           <div className="menu-line2 white" />

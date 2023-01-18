@@ -14,10 +14,10 @@ const designBookInstance = axios.create({
 // eslint-disable-next-line import/prefer-default-export
 export const designbookAxiosBaseQuery = (): BaseQueryFn<
     {
-      url: string
-      method: AxiosRequestConfig['method']
-      data?: AxiosRequestConfig['data']
-      params?: AxiosRequestConfig['params']
+      url: string;
+      method: AxiosRequestConfig['method'];
+      data?: AxiosRequestConfig['data'];
+      params?: AxiosRequestConfig['params'];
     },
     unknown,
     unknown

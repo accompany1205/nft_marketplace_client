@@ -46,9 +46,10 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     acknowledgeData: undefined,
   });
 
-  const sessionData: SavedPairingData | null = useMemo(() => JSON.parse(
-    window?.localStorage?.getItem('hashpack') || 'null',
-  ), []);
+  const sessionData: SavedPairingData | null = useMemo(
+    () => JSON.parse(window?.localStorage?.getItem('hashpack') || 'null'),
+    [],
+  );
 
   const initializeHashConnect = useCallback(async () => {
     try {
@@ -84,7 +85,10 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
           hashConnect: hashConnectInstance,
         }));
       } else {
-        await hashConnectInstance.init(APP_CONFIG, (sessionData.privKey || 'testnet') as TNetwork);
+        await hashConnectInstance.init(
+          APP_CONFIG,
+          (sessionData.privKey || 'testnet') as TNetwork,
+        );
 
         const state = await hashConnectInstance.connect(
           sessionData?.pairingData.topic,
@@ -130,7 +134,8 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
         pairingData: data.pairingData!,
       };
       if (debug) console.log('DATA TO SAVE: ', data);
-      window && window.localStorage.setItem('hashpack', JSON.stringify(dataToSave));
+      window
+        && window.localStorage.setItem('hashpack', JSON.stringify(dataToSave));
     },
     [debug],
   );
@@ -145,7 +150,12 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
         privKey: hashState.privKey!,
       });
     },
-    [debug, saveDataInLocalStorage, hashState.availableExtension, hashState.privKey],
+    [
+      debug,
+      saveDataInLocalStorage,
+      hashState.availableExtension,
+      hashState.privKey,
+    ],
   );
 
   const acknowledgeEventHandler = useCallback(
@@ -182,7 +192,13 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
       );
       hashState.hashConnect.connectionStatusChangeEvent.off(onStatusChange);
     };
-  }, [hashState.hashConnect, foundExtensionEventHandler, pairingEventHandler, acknowledgeEventHandler, onStatusChange]);
+  }, [
+    hashState.hashConnect,
+    foundExtensionEventHandler,
+    pairingEventHandler,
+    acknowledgeEventHandler,
+    onStatusChange,
+  ]);
 
   const connectToExtension = async () => {
     if (hashState.state === HashConnectConnectionState.Connected) {

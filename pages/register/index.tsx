@@ -103,7 +103,10 @@ const Register = () => {
                 <div className="spacer-10" />
                 <h1>Create account</h1>
               </div>
-              <div className="col-lg-4 offset-lg-2 wow fadeIn" data-wow-delay=".5s">
+              <div
+                className="col-lg-4 offset-lg-2 wow fadeIn"
+                data-wow-delay=".5s"
+              >
                 <div className="box-login">
                   <h3 className="mb10">Sign Up</h3>
                   <p>
@@ -117,7 +120,9 @@ const Register = () => {
                     enableReinitialize
                     validationSchema={validationSchema}
                     initialValues={initialValues}
-                    validateOnMount={validationSchema.isValidSync(initialValues)}
+                    validateOnMount={validationSchema.isValidSync(
+                      initialValues,
+                    )}
                     onSubmit={async (values, { setSubmitting, resetForm }) => {
                       setSubmitting(true);
                       await handleSubmitForm(values);
