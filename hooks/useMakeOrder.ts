@@ -51,7 +51,7 @@ const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
       const data = await handleMakeBid(formattedBid);
 
       if (!get(data, 'data.success')) {
-        return alert(get(data, 'data.message.message'));
+        return alert(get(data, 'data.message'));
       }
 
       if (onCompleted) return onCompleted();

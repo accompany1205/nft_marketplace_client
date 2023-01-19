@@ -3,15 +3,15 @@ import { useContext, useEffect, useState } from 'react';
 import { OrderType, useBuy, useMakeOrder } from '../../../hooks';
 import WalletContext from '../../../services/WalletService/WalletContext';
 import Loader from '../../Loader';
-import { CheckoutStepProps } from './Buy';
+import { CheckoutStepProps, CheckoutType } from './Buy';
 
-const Summary: React.FC<CheckoutStepProps> = ({ checkoutDetails, product, onClose }) => {
+const Summary: React.FC<CheckoutStepProps> = ({ checkoutInformation, product, onClose }) => {
   const { accountId, getAccountBalance } = useContext(WalletContext);
   const [accountBalance, setAccountBalance] = useState<BigNumber>();
 
-  const { isLoading } = useBuy(onClose);
+  const { handleSubmit: handleBuyNow, isLoading } = useBuy(onClose);
 
-  const { isLoading: isPlaceBidLoading } = useMakeOrder(
+  const { handleSubmit: handlePlaceBid, isLoading: isPlaceBidLoading } = useMakeOrder(
     product.id,
     OrderType.BID,
     onClose,
@@ -26,7 +26,7 @@ const Summary: React.FC<CheckoutStepProps> = ({ checkoutDetails, product, onClos
     if (accountId) getBalance();
   }, [accountId]);
 
-  if (!accountBalance || !checkoutDetails.amount) {
+  if (!accountBalance || !checkoutInformation.amount) {
     return (
       <div className="d-flex justify-content-center align-items-center">
         <Loader />
@@ -35,9 +35,11 @@ const Summary: React.FC<CheckoutStepProps> = ({ checkoutDetails, product, onClos
   }
 
   const handleSubmit = () => {
-    // if (checkoutDetails.type === CheckoutType.BUY_NOW && product.variant.lowestAsk.id) {
-    //   return handleBuyNow(product.variant.id, product.variant.lowestAsk.id);
-    // }
+    if (checkoutInformation.type === CheckoutType.BUY_NOW && product.variant.lowestAsk) {
+      return handleBuyNow(product.variant.id, product.variant.lowestAsk.id);
+    }
+
+    return handlePlaceBid(checkoutInformation.amount);
   };
 
   return (
@@ -51,20 +53,20 @@ const Summary: React.FC<CheckoutStepProps> = ({ checkoutDetails, product, onClos
       </div>
       <div className="heading">
         <p>You will pay</p>
-        <div className="subtotal">{checkoutDetails.amount}</div>
+        <div className="subtotal">{checkoutInformation.amount}</div>
       </div>
       <button
         type="button"
         className="btn-main lead mb-5"
         disabled={
           !accountBalance
-          || accountBalance.lt(checkoutDetails.amount)
+          || accountBalance.lt(checkoutInformation.amount)
           || isLoading
           || isPlaceBidLoading
         }
         onClick={() => handleSubmit()}
       >
-        {accountBalance.lt(checkoutDetails.amount) ? 'Insufficient balance' : 'Complete Purchase'}
+        {accountBalance.lt(checkoutInformation.amount) ? 'Insufficient balance' : 'Complete Purchase'}
       </button>
     </>
   );

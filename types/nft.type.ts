@@ -26,19 +26,26 @@ export interface INftSpecs {
   likes: number;
 }
 
+export interface LiteBid {
+  id: number;
+  amount: number;
+  first_name: string;
+  last_name: string;
+}
+
 export interface INFTVariant {
   id: number;
   size: string;
   colour: string;
-  lowestAsk: Partial<Bid>;
-  highestBid: Partial<Bid>;
+  hederaTokenId: string;
+  serialNumber: number;
+  lowestAsk?: LiteBid;
+  highestBid?: LiteBid;
 }
 export interface INFT {
-  hederaTokenId: string;
   id: number;
   hed: string;
   saleStatus: string;
-  serial: number;
   specs: INftSpecs;
   ipfs: string;
   variants: INFTVariant[];
@@ -70,8 +77,22 @@ export interface Bid {
   last_name: string;
 }
 
-export interface DealPayload {
+export interface BuyPayload {
+  listing_id: number;
+  ask_id: number | null;
+  bid_id: null;
+}
+
+export interface SellPayload {
+  listing_id: number;
+  bid_id: number;
+  ask_id: null;
+}
+
+export interface Deal {
+  id: number;
   listing_id: number;
   ask_id: number | null;
   bid_id: number | null;
+  status: string;
 }

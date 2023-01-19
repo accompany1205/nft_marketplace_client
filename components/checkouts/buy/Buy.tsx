@@ -17,9 +17,8 @@ interface Props {
 
 export interface CheckoutInformation {
   type: CheckoutType;
-  amount?: number;
+  amount: number;
   askId?: number;
-  isWalletConnected?: boolean;
 }
 
 export enum CheckoutSteps {
@@ -28,7 +27,7 @@ export enum CheckoutSteps {
 }
 
 export interface CheckoutStepProps {
-  checkoutDetails: CheckoutInformation;
+  checkoutInformation: CheckoutInformation;
   onNextStep: (d: CheckoutInformation) => void;
   onClose: () => void;
   product: Product;
@@ -46,8 +45,9 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
 
   const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
 
-  const [checkoutDetails, setCheckoutDetails] = useState<CheckoutInformation>({
-    type: CheckoutType.BUY_NOW,
+  const [checkoutInformation, setCheckoutDetails] = useState<CheckoutInformation>({
+    type: product.variant.lowestAsk ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
+    amount: product.variant.lowestAsk?.amount || 100,
   });
 
   const { provider } = useContext(WalletContext);
@@ -80,7 +80,7 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
         </button>
         {CurrentStep && (
           <CurrentStep
-            checkoutDetails={checkoutDetails}
+            checkoutInformation={checkoutInformation}
             product={product}
             onNextStep={onNextStep}
             onClose={onClose}

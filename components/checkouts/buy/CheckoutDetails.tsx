@@ -11,14 +11,6 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState(CheckoutType.BUY_NOW);
 
-  const onSubmit = (type: CheckoutType, amount?: number, askId?: number): void => onNextStep(
-    {
-      type,
-      amount: amount || product.variant.lowestAsk.amount,
-      askId,
-    },
-  );
-
   return (
     <div className="de_tab">
       <ul className="de_nav">
@@ -56,21 +48,21 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
           <div className="onStep fadeIn">
             <BuyNow
               product={product}
-              onSubmit={() => onSubmit(
-                CheckoutType.BUY_NOW,
-                product.variant.lowestAsk.amount,
-                product.variant.lowestAsk.id,
-              )}
+              onSubmit={() => product.variant?.lowestAsk && onNextStep({
+                type: CheckoutType.BUY_NOW,
+                amount: product.variant.lowestAsk.amount,
+                askId: product.variant.lowestAsk.id,
+              })}
             />
           </div>
         )}
         {activeTab === CheckoutType.PLACE_BID && (
           <MakeOrder
             product={product}
-            onSubmit={(amount: number) => onSubmit(
-              CheckoutType.PLACE_BID,
+            onSubmit={(amount: number) => onNextStep({
+              type: CheckoutType.PLACE_BID,
               amount,
-            )}
+            })}
             orderType={OrderType.BID}
           />
         )}

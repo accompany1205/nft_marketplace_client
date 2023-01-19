@@ -20,7 +20,7 @@ const useSell: UseSell = (variant, onCompleted) => {
   const [makeDeal, { isLoading }] = useMakeDealMutation();
 
   const handleSubmit = async () => {
-    if (!user?.id || !variant.highestBid.id) return router.push('/login');
+    if (!user?.id || !variant.highestBid) return router.push('/login');
 
     const formattedBid = {
       listing_id: variant.id,
@@ -32,7 +32,7 @@ const useSell: UseSell = (variant, onCompleted) => {
       const data = await makeDeal(formattedBid);
 
       if (!get(data, 'data.success')) {
-        return alert(get(data, 'data.message.message'));
+        return alert(get(data, 'data.message'));
       }
 
       if (onCompleted) return onCompleted();
