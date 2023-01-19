@@ -25,15 +25,15 @@ const SellNow: React.FC<Props> = ({ product, onClose }) => {
         <span className="bold">
           to
           {' '}
-          {product.variant.highestBid.first_name}
+          {product.variant.highestBid?.first_name}
           {' '}
-          {product.variant.highestBid.last_name}
+          {product.variant.highestBid?.last_name}
         </span>
       </p>
       <div>
         <b>Total :</b>
         {' '}
-        {product.variant.highestBid.amount}
+        {product.variant.highestBid?.amount}
       </div>
       <button
         type="button"
