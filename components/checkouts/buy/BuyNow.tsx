@@ -22,15 +22,15 @@ const BuyNow: React.FC<Props> = ({ product, onSubmit }) => (
       <span className="bold">
         from
         {' '}
-        {product.variant.lowestAsk.first_name}
+        {product.variant.lowestAsk?.first_name}
         {' '}
-        {product.variant.lowestAsk.last_name}
+        {product.variant.lowestAsk?.last_name}
       </span>
     </p>
     <div>
       <b>Total :</b>
       {' '}
-      {product.variant.lowestAsk.amount}
+      {product.variant.lowestAsk?.amount}
     </div>
     <button
       type="button"

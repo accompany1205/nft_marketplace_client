@@ -75,11 +75,11 @@ const NftDetail: React.FC = () => {
     },
     {
       label: 'Lowest Ask',
-      amount: variant?.lowestAsk.amount || product.price,
+      amount: variant?.lowestAsk?.amount || product.price,
     },
     {
       label: 'Highest Bid',
-      amount: variant?.highestBid.amount || product.price,
+      amount: variant?.highestBid?.amount || product.price,
     },
   ];
 

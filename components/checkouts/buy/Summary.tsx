@@ -35,7 +35,7 @@ const Summary: React.FC<CheckoutStepProps> = ({ checkoutInformation, product, on
   }
 
   const handleSubmit = () => {
-    if (checkoutInformation.type === CheckoutType.BUY_NOW && product.variant.lowestAsk) {
+    if (checkoutInformation.type === CheckoutType.BUY_NOW && product.variant?.lowestAsk) {
       return handleBuyNow(product.variant.id, product.variant.lowestAsk.id);
     }
 
