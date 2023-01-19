@@ -227,6 +227,22 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     }));
   };
 
+  const getAccountBalance = async () => {
+    const accountId = hashState.pairingData?.accountIds[0].toString();
+
+    if (!accountId || !hashState.pairingData?.topic) return alert('Please connect to your wallet');
+
+    const provider = hashState.hashConnect?.getProvider(
+      network,
+      hashState.pairingData?.topic,
+      accountId,
+    );
+
+    const balance = await provider?.getAccountBalance(accountId);
+
+    return balance?.hbars.toBigNumber();
+  };
+
   return {
     ...hashState,
     connectToExtension,
@@ -235,6 +251,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
       : HashConnectConnectionState.Disconnected,
     disconnectFromExtension,
     accountId: hashState.pairingData?.accountIds[0].toString(),
+    getAccountBalance,
   };
 };
 

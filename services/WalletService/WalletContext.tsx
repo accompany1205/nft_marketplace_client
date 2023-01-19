@@ -1,6 +1,7 @@
 'use client';
 
 import { AccountId } from '@hashgraph/sdk';
+import BigNumber from 'bignumber.js';
 import { createContext } from 'react';
 
 // create a provider enum: blade || hashpack
@@ -18,6 +19,7 @@ export interface WalletContextType {
   toggleConnectWalletModal: () => void;
   openConnectWalletModal: () => void;
   closeConnectWalletModal: () => void;
+  getAccountBalance: () => Promise<void | BigNumber>;
 }
 
 const WalletContext = createContext<WalletContextType>({
@@ -31,6 +33,7 @@ const WalletContext = createContext<WalletContextType>({
   toggleConnectWalletModal: () => {},
   openConnectWalletModal: () => {},
   closeConnectWalletModal: () => {},
+  getAccountBalance: async () => {},
 });
 
 export default WalletContext;

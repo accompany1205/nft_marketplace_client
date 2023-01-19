@@ -53,11 +53,20 @@ const useBladeStore = () => {
     });
   };
 
+  const getAccountBalance = async () => {
+    if (!state.signer) return alert('Please connect to your wallet');
+
+    const balance = await state.signer?.getAccountBalance();
+
+    return balance.hbars.toBigNumber();
+  };
+
   return {
     accountId: state.accountId,
     hasSession: !!state.signer && !!state.accountId,
     connectToExtension,
     disconnectFromExtension,
+    getAccountBalance,
   };
 };
 

@@ -17,6 +17,7 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
       return {
         provider: WalletServiceProviders.BLADE,
         accountId: bladeStore.accountId?.toString(),
+        getAccountBalance: bladeStore.getAccountBalance,
       };
     }
     if (
@@ -26,6 +27,7 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
       return {
         provider: WalletServiceProviders.HASHPACK,
         accountId: hashStore.accountId,
+        getAccountBalance: hashStore.getAccountBalance,
       };
     }
     if (
@@ -92,6 +94,7 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
       network: 'testnet',
       accountId: currentlyConnected?.accountId,
       provider: currentlyConnected?.provider,
+      getAccountBalance: currentlyConnected?.getAccountBalance,
       // toggleConnectWalletModal,
       // openConnectWalletModal,
       // closeConnectWalletModal,
