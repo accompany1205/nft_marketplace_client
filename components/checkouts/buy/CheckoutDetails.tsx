@@ -1,28 +1,22 @@
 import { useState } from 'react';
+
 import { OrderType } from '../../../hooks';
-import { Product } from '../checkout.types';
 import MakeOrder from '../MakeOrder';
-import { CheckoutDetails, CheckoutSteps, CheckoutType } from './Buy';
+import { CheckoutStepProps, CheckoutType } from './Buy';
 import BuyNow from './BuyNow';
 
-interface Props {
-  handleSubmit: (d: CheckoutDetails, nextStep?: CheckoutSteps) => void;
-  product: Product;
-}
-
-const CheckoutDetails: React.FC<Props> = ({
-  handleSubmit,
+const CheckoutDetails: React.FC<CheckoutStepProps> = ({
+  onNextStep,
   product,
 }) => {
   const [activeTab, setActiveTab] = useState(CheckoutType.BUY_NOW);
 
-  const onSubmit = (type: CheckoutType, amount?: number, askId?: number): void => handleSubmit(
+  const onSubmit = (type: CheckoutType, amount?: number, askId?: number): void => onNextStep(
     {
       type,
       amount: amount || product.variant.lowestAsk.amount,
       askId,
     },
-    CheckoutSteps.WALLET_CONNECTION,
   );
 
   return (
@@ -58,7 +52,7 @@ const CheckoutDetails: React.FC<Props> = ({
         </li>
       </ul>
       <div className="de_tab_content">
-        {activeTab === CheckoutType.BUY_NOW && product.variant.lowestAsk && (
+        {activeTab === CheckoutType.BUY_NOW && (
           <div className="onStep fadeIn">
             <BuyNow
               product={product}
