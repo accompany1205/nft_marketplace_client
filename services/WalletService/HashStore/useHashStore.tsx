@@ -3,6 +3,8 @@ import { HashConnectConnectionState } from 'hashconnect/dist/types';
 import {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
+import { useDispatch } from 'react-redux';
+import { showToast } from '../../../redux/slices/layoutSlice';
 
 export interface PropTypes {
   network: string;
@@ -55,22 +57,17 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     try {
       const hashConnectInstance = new HashConnect(debug);
       if (!sessionData) {
-        // first init and store the private key for later
         const initData = await hashConnectInstance.init(APP_CONFIG, 'testnet');
         if (debug) console.log('initData', initData);
 
         const privateKey = initData.encryptionKey;
         if (debug) console.log('PRIVATE KEY: ', privateKey);
-
-        // then connect, storing the new topic for later
         const state = await hashConnectInstance.connect();
         if (debug) console.log('STATE: ', state);
         hashConnectInstance.findLocalWallets();
 
-        // const topic = state.topic;
         const { topic } = initData;
 
-        // generate a pairing string, which you can display and generate a QR code from
         const pairingString = hashConnectInstance.generatePairingString(
           state,
           network,
@@ -134,8 +131,8 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
         pairingData: data.pairingData!,
       };
       if (debug) console.log('DATA TO SAVE: ', data);
-      window
-        && window.localStorage.setItem('hashpack', JSON.stringify(dataToSave));
+      // eslint-disable-next-line no-unused-expressions
+      window && window.localStorage.setItem('hashpack', JSON.stringify(dataToSave));
     },
     [debug],
   );
@@ -173,6 +170,9 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     },
     [debug],
   );
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     initializeHashConnect();
   }, [initializeHashConnect]);
@@ -192,26 +192,30 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
       );
       hashState.hashConnect.connectionStatusChangeEvent.off(onStatusChange);
     };
-  }, [
-    hashState.hashConnect,
-    foundExtensionEventHandler,
-    pairingEventHandler,
-    acknowledgeEventHandler,
-    onStatusChange,
-  ]);
+  }, [hashState.hashConnect, foundExtensionEventHandler,
+    pairingEventHandler, acknowledgeEventHandler, onStatusChange]);
 
   const connectToExtension = async () => {
     if (hashState.state === HashConnectConnectionState.Connected) {
-      alert('Already connected');
+      dispatch(showToast({
+        message: 'Already connected',
+        type: 'danger',
+      }));
       return false;
     }
     if (!hashState.availableExtension) {
-      alert('Could not connect to the Hashpack extension');
+      dispatch(showToast({
+        message: 'Could not connect to the Hashpack extension',
+        type: 'danger',
+      }));
       return false;
     }
 
     if (!hashState.hashConnect) {
-      alert('An unexpected error occoured. Please reload');
+      dispatch(showToast({
+        message: 'An unexpected error occoured. Please reload',
+        type: 'danger',
+      }));
       return false;
     }
     hashState.hashConnect.connectToLocalWallet();
@@ -219,7 +223,9 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
   };
 
   const disconnectFromExtension = () => {
-    window && window.localStorage.removeItem('hashpack');
+    if (window) {
+      window.localStorage.removeItem('hashpack');
+    }
     setState!((exData) => ({
       ...exData,
       pairingData: null,
