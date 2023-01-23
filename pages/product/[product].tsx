@@ -172,6 +172,20 @@ const NftDetail: React.FC = () => {
                               >
                                 <h4>{option.size}</h4>
                                 <h4>{option.colour}</h4>
+                                {option.highestBid?.amount && (
+                                <p className="m-0">
+                                  Highest Bid :
+                                  {' '}
+                                  {option.highestBid?.amount}
+                                </p>
+                                )}
+                                {option.lowestAsk?.amount && (
+                                <p className="m-0">
+                                  Lowest Ask :
+                                  {' '}
+                                  {option.lowestAsk?.amount}
+                                </p>
+                                )}
                               </label>
                             </div>
                           ))}
