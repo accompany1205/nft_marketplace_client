@@ -14,10 +14,10 @@ enum Tabs {
   PLACE_ASK = 'Place ASK',
 }
 
-const tabList = [Tabs.SELL_NOW, Tabs.PLACE_ASK];
-
 const Sell: React.FC<Props> = ({ onClose, product }) => {
-  const [activeTab, setActiveTab] = useState(Tabs.SELL_NOW);
+  const [activeTab, setActiveTab] = useState<Tabs>(
+    product.highestBid?.id ? Tabs.SELL_NOW : Tabs.PLACE_ASK,
+  );
 
   return (
     <div className="checkout Sell">
@@ -27,16 +27,30 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
         </button>
         <div className="de_tab">
           <ul className="de_nav">
-            {tabList.map((tab) => (
+            {product.highestBid?.id && (
               <li
-                className={activeTab === tab ? 'active' : ''}
-                key={`tab-${tab}`}
+                className={activeTab === Tabs.SELL_NOW ? 'active' : ''}
+                key={`tab-${Tabs.SELL_NOW}`}
               >
-                <button type="button" onClick={() => setActiveTab(tab)}>
-                  {tab}
+                <button
+                  type="button"
+                  onClick={() => setActiveTab(Tabs.SELL_NOW)}
+                >
+                  {Tabs.SELL_NOW}
                 </button>
               </li>
-            ))}
+            )}
+            <li
+              className={activeTab === Tabs.PLACE_ASK ? 'active' : ''}
+              key={`tab-${Tabs.PLACE_ASK}`}
+            >
+              <button
+                type="button"
+                onClick={() => setActiveTab(Tabs.PLACE_ASK)}
+              >
+                {Tabs.PLACE_ASK}
+              </button>
+            </li>
           </ul>
           <div className="de_tab_content">
             {activeTab === Tabs.SELL_NOW && (

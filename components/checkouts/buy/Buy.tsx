@@ -18,7 +18,6 @@ interface Props {
 export interface CheckoutInformation {
   type: CheckoutType;
   amount: number;
-  askId?: number;
 }
 
 export enum CheckoutSteps {
@@ -45,8 +44,8 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
 
   const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
 
-  const [checkoutInformation, setCheckoutDetails] = useState<CheckoutInformation>({
-    type: product.lowestAsk ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
+  const [checkoutInformation, setCheckoutInformation] = useState<CheckoutInformation>({
+    type: product.lowestAsk?.id ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
     amount: product.lowestAsk?.amount || 100,
   });
 
@@ -65,7 +64,7 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
   };
 
   const onNextStep = (detail: CheckoutInformation): void => {
-    setCheckoutDetails(detail);
+    setCheckoutInformation(detail);
 
     return handleShowWalletConnectionModal(true);
   };

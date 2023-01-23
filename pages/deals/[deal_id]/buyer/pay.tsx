@@ -1,34 +1,4 @@
-import { get } from 'lodash';
-import { useContext } from 'react';
-import { useCreateBuyerPaymentMutation } from '../../../../redux/service/appService';
-import WalletContext, { WalletServiceProviders } from '../../../../services/WalletService/WalletContext';
-
 const BuyNft = () => {
-  const {
-    accountId,
-    connectWallet,
-  } = useContext(WalletContext);
-
-  const [createBuyerPayment] = useCreateBuyerPaymentMutation();
-
-  const handleSubmit = async () => {
-    const treasureAccountId = process.env.NEXT_PUBLIC_TREASURE_ACCOUNT_ID;
-
-    if (!treasureAccountId || !accountId) return connectWallet(WalletServiceProviders.HASHPACK);
-
-    const data = await createBuyerPayment({ accountId: accountId as string, dealId: 10 });
-
-    const transactionBuffer = get(data, 'data.transaction');
-
-    if (!transactionBuffer) {
-      return console.log('Transaction', transactionBuffer);
-    }
-
-    // const transaction = Transaction.fromBytes(Buffer.from(transactionBuffer, 'hex'));
-
-    // const sentTransaction = await sendTransaction(transaction.toBytes(), accountId as string);
-  };
-
   const nft = {
     productName: 'Nike limited edition',
     brand: 'Nike',
@@ -78,7 +48,7 @@ const BuyNft = () => {
                       </div>
                     </div>
                     <div className="d-flex flex-row mt-5">
-                      <button className="btn-main lead mb-5 me-3" type="button" onClick={handleSubmit}>
+                      <button className="btn-main lead mb-5 me-3" type="button">
                         Pay Now
                       </button>
                     </div>

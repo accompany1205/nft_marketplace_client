@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { AccountId, Transaction } from '@hashgraph/sdk';
+import { AccountId } from '@hashgraph/sdk';
 import BigNumber from 'bignumber.js';
-import { MessageTypes } from 'hashconnect';
 import { createContext } from 'react';
 
 export enum WalletServiceProviders {
@@ -20,16 +19,6 @@ export interface WalletContextType {
   closeConnectWalletModal: () => void;
   getAccountBalance: () => Promise<void | BigNumber>;
   disconnectWallet: (type: WalletServiceProviders) => Promise<void>;
-  sendTransaction: (
-    trans: Uint8Array,
-    accountToSign: string,
-    returnTransaction?: boolean,
-    hideNft?: boolean
-  ) => Promise<MessageTypes.TransactionResponse | undefined | void>;
-  signTransaction: (
-    transaction: Transaction,
-    accountId: string
-  ) => Promise<Transaction | undefined | void>;
 }
 
 const WalletContext = createContext<WalletContextType>({
@@ -43,8 +32,6 @@ const WalletContext = createContext<WalletContextType>({
   getAccountBalance: async () => {},
   connectWallet: async () => { },
   disconnectWallet: async () => {},
-  sendTransaction: async () => {},
-  signTransaction: async () => {},
 });
 
 export default WalletContext;

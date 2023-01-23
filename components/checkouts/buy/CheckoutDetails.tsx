@@ -8,13 +8,14 @@ import BuyNow from './BuyNow';
 const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   onNextStep,
   product,
+  checkoutInformation,
 }) => {
-  const [activeTab, setActiveTab] = useState(CheckoutType.BUY_NOW);
+  const [activeTab, setActiveTab] = useState(checkoutInformation.type);
 
   return (
     <div className="de_tab">
       <ul className="de_nav">
-        {product.lowestAsk && (
+        {product.lowestAsk?.id && (
           <li
             className={
               activeTab === CheckoutType.BUY_NOW ? 'active' : undefined
@@ -51,7 +52,6 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
               onSubmit={() => product?.lowestAsk && onNextStep({
                 type: CheckoutType.BUY_NOW,
                 amount: product.lowestAsk.amount,
-                askId: product.lowestAsk.id,
               })}
             />
           </div>
