@@ -21,8 +21,8 @@ const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 const NftDetail: React.FC = () => {
   const router = useRouter();
 
-  const { data: details, isLoading } = useGetProductDetailsQuery(
-    router.query.product ? router.query.product.toString() : '',
+  const { data: details, isLoading, refetch } = useGetProductDetailsQuery(
+    router.query.product?.toString() || '',
   );
 
   const [variant, setVariant] = useState<INFTVariant | undefined>();
@@ -32,6 +32,10 @@ const NftDetail: React.FC = () => {
       setVariant(head(details?.data?.variants));
     }
   }, [details]);
+
+  useEffect(() => {
+    if (!details?.data) refetch();
+  }, [router.query.product]);
 
   const nftImageUrl = useImage(details?.data);
   const [isBuy, setIsBuy] = useState(false);
@@ -70,16 +74,12 @@ const NftDetail: React.FC = () => {
 
   const priceDetails = [
     {
-      label: 'Price',
-      amount: product.price,
-    },
-    {
       label: 'Lowest Ask',
-      amount: variant?.lowestAsk.amount || product.price,
+      amount: variant?.lowestAsk?.amount || product.price,
     },
     {
       label: 'Highest Bid',
-      amount: variant?.highestBid.amount || product.price,
+      amount: variant?.highestBid?.amount || product.price,
     },
   ];
 
@@ -172,6 +172,20 @@ const NftDetail: React.FC = () => {
                               >
                                 <h4>{option.size}</h4>
                                 <h4>{option.colour}</h4>
+                                {option.highestBid?.amount && (
+                                <p className="m-0">
+                                  Highest Bid :
+                                  {' '}
+                                  {option.highestBid?.amount}
+                                </p>
+                                )}
+                                {option.lowestAsk?.amount && (
+                                <p className="m-0">
+                                  Lowest Ask :
+                                  {' '}
+                                  {option.lowestAsk?.amount}
+                                </p>
+                                )}
                               </label>
                             </div>
                           ))}
@@ -189,12 +203,12 @@ const NftDetail: React.FC = () => {
                   )}
                   {currentTab === Tabs.BIDS && (
                     <div className="tab-2 onStep fadeIn">
-                      <Bids listingId={product.id} />
+                      <Bids listingId={variant?.id || product.id} />
                     </div>
                   )}
                   {currentTab === Tabs.ASKS && (
                     <div className="tab-3 onStep fadeIn">
-                      <Asks listingId={product.id} />
+                      <Asks listingId={variant?.id || product.id} />
                     </div>
                   )}
                 </div>
@@ -229,10 +243,9 @@ const NftDetail: React.FC = () => {
           <Buy
             onClose={() => setIsBuy(false)}
             product={{
-              id: product.id,
+              ...variant,
               owner: product.owner,
               productName: product.productName,
-              variant,
             }}
           />
         )}
@@ -240,10 +253,9 @@ const NftDetail: React.FC = () => {
           <Sell
             onClose={() => setIsSell(false)}
             product={{
-              id: product.id,
+              ...variant,
               owner: product.owner,
               productName: product.productName,
-              variant,
             }}
           />
         )}

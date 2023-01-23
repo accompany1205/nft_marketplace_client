@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import dynamic from 'next/dynamic';
+import WalletContext from '../../../services/WalletService/WalletContext';
 import WalletConnector from '../../WalletConnector';
 import { Product } from '../checkout.types';
 
@@ -14,17 +15,21 @@ interface Props {
   product: Product;
 }
 
-export interface CheckoutDetails {
+export interface CheckoutInformation {
   type: CheckoutType;
-  amount?: number;
-  askId?: number;
-  isWalletConnected?: boolean;
+  amount: number;
 }
 
 export enum CheckoutSteps {
   CHECKOUT_DETAILS = 'Checkout Details',
-  WALLET_CONNECTION = 'Wallet Connection',
   SUMMARY = 'Summary',
+}
+
+export interface CheckoutStepProps {
+  checkoutInformation: CheckoutInformation;
+  onNextStep: (d: CheckoutInformation) => void;
+  onClose: () => void;
+  product: Product;
 }
 
 const checkoutSteps = {
@@ -33,29 +38,38 @@ const checkoutSteps = {
 };
 
 const Buy: React.FC<Props> = ({ onClose, product }) => {
-  const [activeStep, setActiveStep] = useState<CheckoutSteps>(CheckoutSteps.CHECKOUT_DETAILS);
+  const [activeStep, setActiveStep] = useState<CheckoutSteps>(
+    CheckoutSteps.CHECKOUT_DETAILS,
+  );
+
   const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
-  const [checkoutDetails, setCheckoutDetails] = useState<CheckoutDetails>({
-    type: CheckoutType.BUY_NOW,
+
+  const [checkoutInformation, setCheckoutInformation] = useState<CheckoutInformation>({
+    type: product.lowestAsk?.id ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
+    amount: product.lowestAsk?.amount || 100,
   });
 
-  const handleSubmit = (detail: CheckoutDetails, nextStep?: CheckoutSteps) => {
-    setCheckoutDetails(detail);
-    switch (nextStep) {
-      case CheckoutSteps.CHECKOUT_DETAILS:
-        return setActiveStep(nextStep);
-      case CheckoutSteps.WALLET_CONNECTION:
-        return setShowWalletConnectionModal(true);
-      case CheckoutSteps.SUMMARY:
-        return setActiveStep(nextStep);
-      default:
-        // TODO: create deal or place bid
+  const { provider } = useContext(WalletContext);
+
+  const handleShowWalletConnectionModal = (show: boolean): void => {
+    if (show && provider) return setActiveStep(CheckoutSteps.SUMMARY);
+
+    if (!show) {
+      if (!provider) setActiveStep(CheckoutSteps.CHECKOUT_DETAILS);
+
+      else setActiveStep(CheckoutSteps.SUMMARY);
     }
+
+    return setShowWalletConnectionModal(show);
   };
 
-  const CurrentStep = activeStep === CheckoutSteps.WALLET_CONNECTION
-    ? null
-    : checkoutSteps[activeStep];
+  const onNextStep = (detail: CheckoutInformation): void => {
+    setCheckoutInformation(detail);
+
+    return handleShowWalletConnectionModal(true);
+  };
+
+  const CurrentStep = checkoutSteps[activeStep];
 
   return (
     <div className="checkout">
@@ -65,14 +79,15 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
         </button>
         {CurrentStep && (
           <CurrentStep
-            handleSubmit={handleSubmit}
-            checkoutDetails={checkoutDetails}
+            checkoutInformation={checkoutInformation}
             product={product}
+            onNextStep={onNextStep}
+            onClose={onClose}
           />
         )}
         <WalletConnector
           showModal={showWalletConnectionModal}
-          setShowModal={setShowWalletConnectionModal}
+          setShowModal={handleShowWalletConnectionModal}
         />
       </div>
     </div>

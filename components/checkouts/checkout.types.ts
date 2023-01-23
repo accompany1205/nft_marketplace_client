@@ -1,13 +1,12 @@
 import { OrderType } from '../../hooks';
 import { INFTVariant } from '../../types';
 
-export interface Product {
+export interface Product extends INFTVariant {
   id: number;
   productName: string;
   owner: {
     username: string;
   };
-  variant: INFTVariant;
 }
 
 export interface MakeOrderProps {

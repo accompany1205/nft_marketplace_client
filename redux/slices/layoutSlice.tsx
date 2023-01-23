@@ -14,14 +14,11 @@ const toastSlice = createSlice({
   name: 'toast',
   initialState,
   reducers: {
-    showToast: (state, action: PayloadAction<ToastState>) => {
-      state.message = action.payload.message;
-      state.type = action.payload.type;
-    },
-    hideToast: (state) => {
-      state.message = '';
-      state.type = '';
-    },
+    showToast: (state, action: PayloadAction<ToastState>) => ({
+      message: action.payload.message,
+      type: action.payload.type,
+    }),
+    hideToast: () => initialState,
   },
 });
 
