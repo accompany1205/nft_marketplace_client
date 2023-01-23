@@ -21,8 +21,8 @@ const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 const NftDetail: React.FC = () => {
   const router = useRouter();
 
-  const { data: details, isLoading } = useGetProductDetailsQuery(
-    router.query.product ? router.query.product.toString() : '',
+  const { data: details, isLoading, refetch } = useGetProductDetailsQuery(
+    router.query.product?.toString() || '',
   );
 
   const [variant, setVariant] = useState<INFTVariant | undefined>();
@@ -32,6 +32,10 @@ const NftDetail: React.FC = () => {
       setVariant(head(details?.data?.variants));
     }
   }, [details]);
+
+  useEffect(() => {
+    if (!details?.data) refetch();
+  }, [router.query.product]);
 
   const nftImageUrl = useImage(details?.data);
   const [isBuy, setIsBuy] = useState(false);
@@ -69,10 +73,6 @@ const NftDetail: React.FC = () => {
   };
 
   const priceDetails = [
-    {
-      label: 'Price',
-      amount: product.price,
-    },
     {
       label: 'Lowest Ask',
       amount: variant?.lowestAsk?.amount || product.price,

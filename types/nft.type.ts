@@ -75,24 +75,24 @@ export interface Bid {
   datetime_created: string;
   first_name: string;
   last_name: string;
+  size: number;
+  colour: string;
 }
 
-export interface BuyPayload {
-  listing_id: number;
-  ask_id: number | null;
-  bid_id: null;
+export enum DealType {
+  BUY = 'buy',
+  SELL = 'sell',
 }
-
-export interface SellPayload {
+export interface DealPayload {
   listing_id: number;
-  bid_id: number;
-  ask_id: null;
+  user_id: number;
+  type: DealType;
 }
 
 export interface Deal {
   id: number;
   listing_id: number;
-  ask_id: number | null;
-  bid_id: number | null;
+  amount: number;
   status: string;
+  datetime_created: string;
 }

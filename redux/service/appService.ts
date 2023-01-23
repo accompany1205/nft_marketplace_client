@@ -5,11 +5,10 @@ import {
   Bid,
   BidPayload,
   BidResponse,
-  BuyPayload,
   Deal,
+  DealPayload,
   INFT,
   INFTItem,
-  SellPayload,
 } from '../../types';
 
 const appSlice = createApi({
@@ -42,7 +41,7 @@ const appSlice = createApi({
         data: bid,
       }),
     }),
-    makeDeal: builder.mutation<{ data: Deal }, BuyPayload | SellPayload>({
+    makeDeal: builder.mutation<{ data: Deal }, DealPayload>({
       query: (bid) => ({
         url: '/marketplace/api/v1/deal/new',
         method: 'POST',

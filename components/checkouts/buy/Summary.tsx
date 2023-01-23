@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { useContext, useEffect, useState } from 'react';
-import { OrderType, useBuy, useMakeOrder } from '../../../hooks';
+import { OrderType, useCreateDeal, useMakeOrder } from '../../../hooks';
 import WalletContext from '../../../services/WalletService/WalletContext';
+import { DealType } from '../../../types';
 import Loader from '../../Loader';
 import { CheckoutStepProps, CheckoutType } from './Buy';
 
@@ -9,7 +10,7 @@ const Summary: React.FC<CheckoutStepProps> = ({ checkoutInformation, product, on
   const { accountId, getAccountBalance } = useContext(WalletContext);
   const [accountBalance, setAccountBalance] = useState<BigNumber>();
 
-  const { handleSubmit: handleBuyNow, isLoading } = useBuy(onClose);
+  const { handleSubmit: handleCreateDeal, isLoading } = useCreateDeal(product.id, onClose);
 
   const { handleSubmit: handlePlaceBid, isLoading: isPlaceBidLoading } = useMakeOrder(
     product.id,
@@ -35,9 +36,7 @@ const Summary: React.FC<CheckoutStepProps> = ({ checkoutInformation, product, on
   }
 
   const handleSubmit = () => {
-    if (checkoutInformation.type === CheckoutType.BUY_NOW && product.variant?.lowestAsk) {
-      return handleBuyNow(product.variant.id, product.variant.lowestAsk.id);
-    }
+    if (checkoutInformation.type === CheckoutType.BUY_NOW) return handleCreateDeal(DealType.BUY);
 
     return handlePlaceBid(checkoutInformation.amount);
   };
