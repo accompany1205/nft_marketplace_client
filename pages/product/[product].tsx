@@ -189,12 +189,12 @@ const NftDetail: React.FC = () => {
                   )}
                   {currentTab === Tabs.BIDS && (
                     <div className="tab-2 onStep fadeIn">
-                      <Bids listingId={product.id} />
+                      <Bids listingId={variant?.id || product.id} />
                     </div>
                   )}
                   {currentTab === Tabs.ASKS && (
                     <div className="tab-3 onStep fadeIn">
-                      <Asks listingId={product.id} />
+                      <Asks listingId={variant?.id || product.id} />
                     </div>
                   )}
                 </div>
@@ -229,10 +229,9 @@ const NftDetail: React.FC = () => {
           <Buy
             onClose={() => setIsBuy(false)}
             product={{
-              id: product.id,
+              ...variant,
               owner: product.owner,
               productName: product.productName,
-              variant,
             }}
           />
         )}
@@ -240,10 +239,9 @@ const NftDetail: React.FC = () => {
           <Sell
             onClose={() => setIsSell(false)}
             product={{
-              id: product.id,
+              ...variant,
               owner: product.owner,
               productName: product.productName,
-              variant,
             }}
           />
         )}

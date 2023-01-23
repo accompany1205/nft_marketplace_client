@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSell } from '../../../hooks';
+import { useCreateDeal } from '../../../hooks';
+import { DealType } from '../../../types';
 import { Product } from '../checkout.types';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const SellNow: React.FC<Props> = ({ product, onClose }) => {
-  const { handleSubmit, isLoading } = useSell(product.variant, onClose);
+  const { handleSubmit, isLoading } = useCreateDeal(product.id, onClose);
 
   return (
     <div>
@@ -25,21 +26,21 @@ const SellNow: React.FC<Props> = ({ product, onClose }) => {
         <span className="bold">
           to
           {' '}
-          {product.variant.highestBid?.first_name}
+          {product.highestBid?.first_name}
           {' '}
-          {product.variant.highestBid?.last_name}
+          {product.highestBid?.last_name}
         </span>
       </p>
       <div>
         <b>Total :</b>
         {' '}
-        {product.variant.highestBid?.amount}
+        {product.highestBid?.amount}
       </div>
       <button
         type="button"
         className="btn-main lead mb-5"
         disabled={isLoading}
-        onClick={handleSubmit}
+        onClick={() => handleSubmit(DealType.SELL)}
       >
         Complete Purchase
       </button>

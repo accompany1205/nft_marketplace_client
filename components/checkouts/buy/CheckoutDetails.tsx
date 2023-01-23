@@ -14,7 +14,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   return (
     <div className="de_tab">
       <ul className="de_nav">
-        {product.variant.lowestAsk && (
+        {product.lowestAsk && (
           <li
             className={
               activeTab === CheckoutType.BUY_NOW ? 'active' : undefined
@@ -48,10 +48,10 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
           <div className="onStep fadeIn">
             <BuyNow
               product={product}
-              onSubmit={() => product.variant?.lowestAsk && onNextStep({
+              onSubmit={() => product?.lowestAsk && onNextStep({
                 type: CheckoutType.BUY_NOW,
-                amount: product.variant.lowestAsk.amount,
-                askId: product.variant.lowestAsk.id,
+                amount: product.lowestAsk.amount,
+                askId: product.lowestAsk.id,
               })}
             />
           </div>

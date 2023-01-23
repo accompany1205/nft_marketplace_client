@@ -46,8 +46,8 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
   const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
 
   const [checkoutInformation, setCheckoutDetails] = useState<CheckoutInformation>({
-    type: product.variant.lowestAsk ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
-    amount: product.variant.lowestAsk?.amount || 100,
+    type: product.lowestAsk ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
+    amount: product.lowestAsk?.amount || 100,
   });
 
   const { provider } = useContext(WalletContext);
