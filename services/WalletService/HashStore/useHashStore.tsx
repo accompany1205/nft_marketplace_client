@@ -1,6 +1,3 @@
-import {
-  AccountId, PrivateKey, Transaction, TransactionId,
-} from '@hashgraph/sdk';
 import { HashConnect, HashConnectTypes, MessageTypes } from 'hashconnect';
 import { HashConnectConnectionState } from 'hashconnect/dist/types';
 import {
@@ -58,7 +55,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
 
   const initializeHashConnect = useCallback(async () => {
     try {
-      const hashConnectInstance = new HashConnect(true);
+      const hashConnectInstance = new HashConnect(debug);
       if (!sessionData) {
         const initData = await hashConnectInstance.init(APP_CONFIG, 'testnet');
         if (debug) console.log('initData', initData);
@@ -252,45 +249,6 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     return balance?.hbars.toBigNumber();
   };
 
-  const signTransaction = async (transaction: Transaction, accountId: string) => {
-    if (!hashState.privKey) return console.log('hashState.privKey', hashState.privKey);
-
-    const privateKey = PrivateKey.fromString(hashState.privKey);
-    const { publicKey } = privateKey;
-
-    const nodeId = [new AccountId(3)];
-    const transactionId = TransactionId.generate(accountId);
-
-    transaction.setNodeAccountIds(nodeId);
-    transaction.setTransactionId(transactionId);
-
-    const frozenTransaction = transaction.freeze();
-
-    const signature = privateKey.signTransaction(frozenTransaction);
-
-    return transaction.addSignature(publicKey, signature);
-  };
-
-  const sendTransaction = async (
-    transactionBuffer: Uint8Array,
-    accountToSign: string,
-    returnTransaction = false,
-    hideNft = false,
-  ):Promise<MessageTypes.TransactionResponse | undefined> => {
-    const transaction: MessageTypes.Transaction = {
-      topic: hashState.pairingData?.topic || '',
-      byteArray: transactionBuffer,
-
-      metadata: {
-        accountToSign,
-        returnTransaction,
-        hideNft,
-      },
-    };
-
-    return hashState.hashConnect?.sendTransaction(hashState.topic || '', transaction);
-  };
-
   return {
     ...hashState,
     connectToExtension,
@@ -300,8 +258,6 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     disconnectFromExtension,
     accountId: hashState.pairingData?.accountIds[0].toString(),
     getAccountBalance,
-    sendTransaction,
-    signTransaction,
   };
 };
 

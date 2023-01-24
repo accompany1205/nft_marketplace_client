@@ -10,7 +10,11 @@ export interface Props {
 }
 
 const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
-  const [amount, setAmount] = useState(product.lowestAsk?.amount || 100);
+  const [amount, setAmount] = useState(
+    (orderType === OrderType.ASK
+      ? product.lowestAsk?.amount
+      : product.highestBid?.amount) || 100,
+  );
 
   return (
     <div>

@@ -72,13 +72,6 @@ const appSlice = createApi({
         method: 'GET',
       }),
     }),
-    createBuyerPayment: builder.mutation<Uint8Array, { accountId: string, dealId: number }>({
-      query: (data) => ({
-        url: '/marketplace/api/v1/deal/buyer/pay',
-        method: 'POST',
-        data,
-      }),
-    }),
   }),
 });
 
@@ -94,5 +87,4 @@ export const {
   useGetLastAskQuery,
   useGetLastBidQuery,
   useMakeDealMutation,
-  useCreateBuyerPaymentMutation,
 } = appSlice;
