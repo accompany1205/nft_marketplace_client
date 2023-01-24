@@ -1,10 +1,13 @@
 import { Transaction } from '@hashgraph/sdk';
 import { get } from 'lodash';
+import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { useCreateBuyerPaymentMutation } from '../../../../redux/service/appService';
 import WalletContext, { WalletServiceProviders } from '../../../../services/WalletService/WalletContext';
 
 const BuyNft = () => {
+  const router = useRouter();
+  const dealId = router.query.deal_id?.toString();
   const {
     accountId,
     connectWallet,
@@ -16,11 +19,14 @@ const BuyNft = () => {
   const handleSubmit = async () => {
     const treasureAccountId = process.env.NEXT_PUBLIC_TREASURE_ACCOUNT_ID;
 
-    if (!treasureAccountId) return console.log('Server misconfigured');
+    if (!treasureAccountId || !dealId) return console.log('Server misconfigured');
 
     if (!accountId) return connectWallet(WalletServiceProviders.HASHPACK);
 
-    const data = await createBuyerPayment({ accountId: accountId as string, dealId: 10 });
+    const data = await createBuyerPayment({
+      accountId: accountId as string,
+      dealId: parseInt(dealId, 10),
+    });
 
     const transactionBuffer = get(data, 'data.transaction');
 
