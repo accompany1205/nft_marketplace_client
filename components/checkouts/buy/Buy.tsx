@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
 
 import dynamic from 'next/dynamic';
+import { useDispatch } from 'react-redux';
+
+import { showToast } from '../../../redux/slices/layoutSlice';
 import WalletContext from '../../../services/WalletService/WalletContext';
-import WalletConnector from '../../WalletConnector';
 import { Product } from '../checkout.types';
 
 export enum CheckoutType {
@@ -42,8 +44,6 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
     CheckoutSteps.CHECKOUT_DETAILS,
   );
 
-  const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
-
   const [checkoutInformation, setCheckoutInformation] = useState<CheckoutInformation>({
     type: product.lowestAsk?.id ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
     amount: product.lowestAsk?.amount || 100,
@@ -51,22 +51,21 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
 
   const { provider } = useContext(WalletContext);
 
-  const handleShowWalletConnectionModal = (show: boolean): void => {
-    if (show && provider) return setActiveStep(CheckoutSteps.SUMMARY);
+  const dispatch = useDispatch();
 
-    if (!show) {
-      if (!provider) setActiveStep(CheckoutSteps.CHECKOUT_DETAILS);
-
-      else setActiveStep(CheckoutSteps.SUMMARY);
+  const onNextStep = (detail: CheckoutInformation) => {
+    if (!provider) {
+      return dispatch(
+        showToast({
+          message: 'Please connect wallet.',
+          type: 'danger',
+        }),
+      );
     }
 
-    return setShowWalletConnectionModal(show);
-  };
-
-  const onNextStep = (detail: CheckoutInformation): void => {
     setCheckoutInformation(detail);
 
-    return handleShowWalletConnectionModal(true);
+    return setActiveStep(CheckoutSteps.SUMMARY);
   };
 
   const CurrentStep = checkoutSteps[activeStep];
@@ -77,17 +76,11 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
         <button className="btn-close" type="button" onClick={onClose}>
           x
         </button>
-        {CurrentStep && (
-          <CurrentStep
-            checkoutInformation={checkoutInformation}
-            product={product}
-            onNextStep={onNextStep}
-            onClose={onClose}
-          />
-        )}
-        <WalletConnector
-          showModal={showWalletConnectionModal}
-          setShowModal={handleShowWalletConnectionModal}
+        <CurrentStep
+          checkoutInformation={checkoutInformation}
+          product={product}
+          onNextStep={onNextStep}
+          onClose={onClose}
         />
       </div>
     </div>

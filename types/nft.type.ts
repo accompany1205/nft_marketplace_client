@@ -89,10 +89,16 @@ export interface DealPayload {
   type: DealType;
 }
 
-export interface Deal {
+export interface LiteDeal {
   id: number;
   listing_id: number;
   amount: number;
   status: string;
   datetime_created: string;
+}
+
+export interface Deal extends Partial<LiteDeal> {
+  nft_data: INftSpecs;
+  hedera_token_id: string;
+  ipfs: string;
 }

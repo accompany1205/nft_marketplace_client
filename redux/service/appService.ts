@@ -9,6 +9,7 @@ import {
   DealPayload,
   INFT,
   INFTItem,
+  LiteDeal,
 } from '../../types';
 
 const appSlice = createApi({
@@ -41,7 +42,7 @@ const appSlice = createApi({
         data: bid,
       }),
     }),
-    makeDeal: builder.mutation<{ data: Deal }, DealPayload>({
+    makeDeal: builder.mutation<{ data: LiteDeal }, DealPayload>({
       query: (bid) => ({
         url: '/marketplace/api/v1/deal/new',
         method: 'POST',
@@ -72,11 +73,26 @@ const appSlice = createApi({
         method: 'GET',
       }),
     }),
-    createBuyerPayment: builder.mutation<Uint8Array, { accountId: string, dealId: number }>({
+    getBuyerTransaction: builder.mutation<string, { accountId: string, dealId: number }>({
       query: (data) => ({
-        url: '/marketplace/api/v1/deal/buyer/pay',
+        url: '/marketplace/api/v1/deal/buyer/transaction',
         method: 'POST',
         data,
+      }),
+    }),
+    executeBuyerTransaction: builder.mutation<{ success: boolean }, string>({
+      query: (transactionBuffer) => ({
+        url: '/marketplace/api/v1/deal/buyer/pay',
+        method: 'POST',
+        data: {
+          transactionBuffer,
+        },
+      }),
+    }),
+    getDeal: builder.query<{ data: Deal }, string>({
+      query: (dealId) => ({
+        url: `/marketplace/api/v1/deal?dealId=${dealId}`,
+        method: 'GET',
       }),
     }),
   }),
@@ -94,5 +110,7 @@ export const {
   useGetLastAskQuery,
   useGetLastBidQuery,
   useMakeDealMutation,
-  useCreateBuyerPaymentMutation,
+  useGetBuyerTransactionMutation,
+  useExecuteBuyerTransactionMutation,
+  useGetDealQuery,
 } = appSlice;
