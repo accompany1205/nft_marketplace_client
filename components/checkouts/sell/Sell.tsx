@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SellNow } from '.';
-import { OrderType } from '../../../hooks';
+import { OrderType, useMakeOrder } from '../../../hooks';
 import { Product } from '../checkout.types';
 import MakeOrder from '../MakeOrder';
 
@@ -18,6 +18,8 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
   const [activeTab, setActiveTab] = useState<Tabs>(
     product.highestBid?.id ? Tabs.SELL_NOW : Tabs.PLACE_ASK,
   );
+
+  const { handleSubmit } = useMakeOrder(product.id, OrderType.ASK, onClose);
 
   return (
     <div className="checkout Sell">
@@ -61,7 +63,7 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
             {activeTab === Tabs.PLACE_ASK && (
               <MakeOrder
                 product={product}
-                onSubmit={onClose}
+                onSubmit={handleSubmit}
                 orderType={OrderType.ASK}
               />
             )}

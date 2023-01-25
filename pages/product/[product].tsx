@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 
+import { head } from 'lodash';
 import { useRouter } from 'next/router';
 
-import { head } from 'lodash';
 import { Buy, Sell } from '../../components/checkouts';
 import Loader from '../../components/Loader';
 import { Asks, Bids } from '../../components/productDetails';
+import Redirect from '../../components/Redirect';
 import { useGetProductDetailsQuery } from '../../redux/service/appService';
 import { INFTVariant } from '../../types';
 import useImage from '../../utils/hooks/FetchNftImage';
@@ -42,7 +43,7 @@ const NftDetail: React.FC = () => {
   const [isSell, setIsSell] = useState(false);
   const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.DETAILS);
 
-  if (isLoading || !details?.data) {
+  if (isLoading) {
     return (
       <div className="greyscheme">
         <div
@@ -54,6 +55,8 @@ const NftDetail: React.FC = () => {
       </div>
     );
   }
+
+  if (!details?.data) return <Redirect path="/" />;
 
   const nft = {
     title: 'Nike',
