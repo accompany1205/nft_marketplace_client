@@ -1,9 +1,3 @@
-import {
-  AccountId,
-  PrivateKey,
-  Transaction,
-  TransactionId,
-} from '@hashgraph/sdk';
 import { HashConnect, HashConnectTypes, MessageTypes } from 'hashconnect';
 import { HashConnectConnectionState } from 'hashconnect/dist/types';
 import {
@@ -274,55 +268,25 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
   };
 
   const signTransaction = async (
-    transaction: Transaction,
-    accountId: string,
-  ) => {
-    if (!hashState.privKey) {
-      return dispatch(
-        showToast({
-          message: 'Missing private key',
-          type: 'danger',
-        }),
-      );
-    }
-
-    const privateKey = PrivateKey.fromString(hashState.privKey);
-    const { publicKey } = privateKey;
-
-    const nodeId = [new AccountId(3)];
-    const transactionId = TransactionId.generate(accountId);
-
-    transaction.setNodeAccountIds(nodeId);
-    transaction.setTransactionId(transactionId);
-
-    const frozenTransaction = transaction.freeze();
-
-    const signature = privateKey.signTransaction(frozenTransaction);
-
-    return transaction.addSignature(publicKey, signature);
-  };
-
-  const sendTransaction = async (
     transactionBuffer: Uint8Array,
     accountToSign: string,
-    returnTransaction = false,
-    hideNft = false,
-  ): Promise<MessageTypes.TransactionResponse | undefined> => {
+  ):Promise<string | Uint8Array | undefined> => {
     const transaction: MessageTypes.Transaction = {
       topic: hashState.pairingData?.topic || '',
       byteArray: transactionBuffer,
 
       metadata: {
         accountToSign,
-        returnTransaction,
-        hideNft,
+        returnTransaction: true,
       },
     };
 
-    return hashState.hashConnect?.sendTransaction(
+    const signedTransactionDetails = await hashState.hashConnect?.sendTransaction(
       hashState.pairingData?.topic || '',
       transaction,
     );
+
+    return signedTransactionDetails?.signedTransaction;
   };
 
   return {
@@ -335,7 +299,6 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     accountId: hashState.pairingData?.accountIds[0].toString(),
     getAccountBalance,
     signTransaction,
-    sendTransaction,
     initializeHashConnect,
   };
 };

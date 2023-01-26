@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Transaction } from '@hashgraph/sdk';
 import { get } from 'lodash';
 import { useRouter } from 'next/router';
 
@@ -16,7 +15,7 @@ const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { accountId, sendTransaction } = useContext(WalletContext);
+  const { accountId, signTransaction } = useContext(WalletContext);
 
   const [getBuyerTransaction, { isLoading }] = useGetBuyerTransactionMutation();
 
@@ -65,17 +64,12 @@ const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
         );
       }
 
-      const transaction = Transaction.fromBytes(
+      const signedTransaction = await signTransaction(
         Buffer.from(transactionBuffer, 'hex'),
+        accountId as string,
       );
 
-      const signedTransaction = await sendTransaction(
-        transaction.toBytes(),
-          accountId as string,
-          true,
-      );
-
-      if (!signedTransaction?.signedTransaction) {
+      if (!signedTransaction) {
         return dispatch(
           showToast({
             message:
@@ -86,7 +80,7 @@ const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
       }
 
       const executeTransactionResponse = await executeBuyerTransaction(
-        Buffer.from(signedTransaction?.signedTransaction).toString('hex'),
+        Buffer.from(signedTransaction).toString('hex'),
       );
 
       if (!get(executeTransactionResponse, 'data.success')) {

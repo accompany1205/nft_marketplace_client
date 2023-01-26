@@ -23,6 +23,7 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
         provider: WalletServiceProviders.BLADE,
         accountId: bladeStore.accountId?.toString(),
         getAccountBalance: bladeStore.getAccountBalance,
+        signTransaction: bladeStore.signTransaction,
       };
     }
     if (
@@ -33,7 +34,6 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
         provider: WalletServiceProviders.HASHPACK,
         accountId: hashStore.accountId,
         getAccountBalance: hashStore.getAccountBalance,
-        sendTransaction: hashStore.sendTransaction,
         signTransaction: hashStore.signTransaction,
       };
     }
@@ -115,7 +115,6 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
       accountId: currentlyConnected?.accountId,
       provider: currentlyConnected?.provider,
       getAccountBalance: currentlyConnected?.getAccountBalance,
-      sendTransaction: currentlyConnected?.sendTransaction,
       signTransaction: currentlyConnected?.signTransaction,
     }),
     [

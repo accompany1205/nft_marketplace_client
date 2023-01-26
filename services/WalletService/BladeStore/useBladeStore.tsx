@@ -1,5 +1,5 @@
 import React from 'react';
-import { AccountId, Signer } from '@hashgraph/sdk';
+import { AccountId, Signer, Transaction } from '@hashgraph/sdk';
 import { BladeSigner } from '@bladelabs/blade-web3.js';
 import { useDispatch } from 'react-redux';
 import { showToast } from '../../../redux/slices/layoutSlice';
@@ -67,12 +67,23 @@ const useBladeStore = () => {
     return balance.hbars.toBigNumber();
   };
 
+  const signTransaction = async (
+    transactionBuffer: Uint8Array,
+  ): Promise<Uint8Array | undefined> => {
+    const transaction = Transaction.fromBytes(transactionBuffer);
+
+    const signedTransaction = await state.signer?.signTransaction(transaction);
+
+    return signedTransaction?.toBytes();
+  };
+
   return {
     accountId: state.accountId,
     hasSession: !!state.signer && !!state.accountId,
     connectToExtension,
     disconnectFromExtension,
     getAccountBalance,
+    signTransaction,
   };
 };
 
