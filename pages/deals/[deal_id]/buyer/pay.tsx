@@ -1,21 +1,50 @@
+import { useContext, useState } from 'react';
+
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+
 import Loader from '../../../../components/Loader';
 import Redirect from '../../../../components/Redirect';
+import WalletConnector from '../../../../components/WalletConnector';
 import useBuyerPayment from '../../../../hooks/useBuyerPayment';
 import { useGetDealQuery } from '../../../../redux/service/appService';
+import { showToast } from '../../../../redux/slices/layoutSlice';
+import WalletContext from '../../../../services/WalletService/WalletContext';
 import useImage from '../../../../utils/hooks/FetchNftImage';
 
 const BuyNft = () => {
   const router = useRouter();
   const dealId = router.query.deal_id?.toString();
 
+  const dispatch = useDispatch();
+
+  const { provider } = useContext(WalletContext);
+
+  const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
+
   const { data, isLoading } = useGetDealQuery(dealId || '');
+
   const nftImageUrl = useImage(data?.data);
 
   const { handleSubmit, isLoading: isPaymentLoading } = useBuyerPayment(
     dealId ? parseInt(dealId, 10) : undefined,
     () => router.push('/'),
   );
+
+  const onSubmit = () => {
+    if (!provider) {
+      dispatch(
+        showToast({
+          message: 'Please connect wallet.',
+          type: 'danger',
+        }),
+      );
+
+      return setShowWalletConnectionModal(true);
+    }
+
+    return handleSubmit();
+  };
 
   if (isLoading) {
     return (
@@ -74,7 +103,7 @@ const BuyNft = () => {
                       <button
                         className="btn-main lead mb-5 me-3"
                         type="button"
-                        onClick={handleSubmit}
+                        onClick={onSubmit}
                         disabled={isPaymentLoading}
                       >
                         Pay Now
@@ -85,6 +114,10 @@ const BuyNft = () => {
               </div>
             </div>
           </div>
+          <WalletConnector
+            showModal={showWalletConnectionModal}
+            setShowModal={setShowWalletConnectionModal}
+          />
         </section>
       </div>
     </div>

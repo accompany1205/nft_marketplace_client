@@ -60,7 +60,7 @@ const useCreateDeal: UseCreateDeal = (listingId) => {
       );
 
       return router.push(
-        `/deals/${get(data, 'data.id')}/${
+        `/deals/${get(data, 'data.data.id')}/${
           type === DealType.BUY ? 'buyer' : 'seller'
         }/pay`,
       );

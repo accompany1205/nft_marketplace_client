@@ -77,11 +77,19 @@ const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
       dispatch(
         showToast({
           message: `Placed ${orderType} successfully.`,
-          type: 'danger',
+          type: 'success',
         }),
       );
 
-      if (onCompleted) return onCompleted();
+      const dealId = get(data, 'data.data.id');
+
+      if (!dealId && onCompleted) return onCompleted();
+
+      return router.push(
+        `/deals/${dealId}/${
+          orderType === OrderType.BID ? 'buyer' : 'seller'
+        }/pay`,
+      );
     } catch (err) {
       dispatch(
         showToast({
