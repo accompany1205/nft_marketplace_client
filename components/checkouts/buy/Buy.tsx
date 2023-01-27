@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 
 import { showToast } from '../../../redux/slices/layoutSlice';
 import WalletContext from '../../../services/WalletService/WalletContext';
-import { Product } from '../checkout.types';
+import { Product } from '../../../pages/product/[product]';
+import WalletConnector from '../../WalletConnector';
 
 export enum CheckoutType {
   BUY_NOW = 'Buy Now',
@@ -44,6 +45,8 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
     CheckoutSteps.CHECKOUT_DETAILS,
   );
 
+  const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
+
   const [checkoutInformation, setCheckoutInformation] = useState<CheckoutInformation>({
     type: product.lowestAsk?.id ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
     amount: product.lowestAsk?.amount || 100,
@@ -54,16 +57,18 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
   const dispatch = useDispatch();
 
   const onNextStep = (detail: CheckoutInformation) => {
+    setCheckoutInformation(detail);
+
     if (!provider) {
-      return dispatch(
+      dispatch(
         showToast({
           message: 'Please connect wallet.',
           type: 'danger',
         }),
       );
-    }
 
-    setCheckoutInformation(detail);
+      return setShowWalletConnectionModal(true);
+    }
 
     return setActiveStep(CheckoutSteps.SUMMARY);
   };
@@ -81,6 +86,10 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
           product={product}
           onNextStep={onNextStep}
           onClose={onClose}
+        />
+        <WalletConnector
+          showModal={showWalletConnectionModal}
+          setShowModal={setShowWalletConnectionModal}
         />
       </div>
     </div>

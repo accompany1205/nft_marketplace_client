@@ -15,7 +15,7 @@ type UseCreateDeal = (
   isLoading: boolean;
 };
 
-const useCreateDeal: UseCreateDeal = (listingId, onCompleted) => {
+const useCreateDeal: UseCreateDeal = (listingId) => {
   const router = useRouter();
   const [makeDeal, { isLoading }] = useMakeDealMutation();
   const dispatch = useDispatch();
@@ -59,7 +59,11 @@ const useCreateDeal: UseCreateDeal = (listingId, onCompleted) => {
         }),
       );
 
-      if (onCompleted) return onCompleted();
+      return router.push(
+        `/deals/${get(data, 'data.id')}/${
+          type === DealType.BUY ? 'buyer' : 'seller'
+        }/pay`,
+      );
     } catch (err) {
       showToast({
         message: 'There is an error. Please tye again.',

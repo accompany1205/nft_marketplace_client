@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCreateDeal } from '../../../hooks';
+import { Product } from '../../../pages/product/[product]';
 import { DealType } from '../../../types';
-import { Product } from '../checkout.types';
 
 interface Props {
   product: Product;

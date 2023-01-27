@@ -11,8 +11,8 @@ import { store } from '../redux/store';
 import { BidPayload } from '../types';
 
 export enum OrderType {
-  'BID',
-  'ASK',
+  BID = 'Bid',
+  ASK = 'Ask',
 }
 
 type UseMakeOrder = (

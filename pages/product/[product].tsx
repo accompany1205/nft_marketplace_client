@@ -17,6 +17,14 @@ enum Tabs {
   ASKS = 'Asks',
 }
 
+export interface Product extends INFTVariant {
+  id: number;
+  productName: string;
+  owner: {
+    username: string;
+  };
+}
+
 const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 
 const NftDetail: React.FC = () => {

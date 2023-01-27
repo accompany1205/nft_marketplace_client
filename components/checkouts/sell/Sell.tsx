@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SellNow } from '.';
 import { OrderType, useMakeOrder } from '../../../hooks';
-import { Product } from '../checkout.types';
+import { Product } from '../../../pages/product/[product]';
 import MakeOrder from '../MakeOrder';
 
 type Props = {
