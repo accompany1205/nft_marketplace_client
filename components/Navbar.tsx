@@ -209,7 +209,9 @@ const Header = ({ className }: any) => {
                             }
                           }}
                         >
-                          <NavLink href="/deals/50/buyer/pay">{accountId ? 'Disconnect Wallet' : 'Connect Wallet'}</NavLink>
+                          <span>
+                            {accountId ? 'Disconnect Wallet' : 'Connect Wallet'}
+                          </span>
                         </div>
                       )
                       : (
