@@ -1,5 +1,13 @@
 import React from 'react';
-import { AccountId, Signer } from '@hashgraph/sdk';
+import {
+  AccountId,
+  Client,
+  NftId,
+  PrivateKey,
+  Signer,
+  TokenId,
+  TokenNftInfoQuery,
+} from '@hashgraph/sdk';
 import { BladeSigner } from '@bladelabs/blade-web3.js';
 import { useDispatch } from 'react-redux';
 import { showToast } from '../../../redux/slices/layoutSlice';
@@ -66,6 +74,30 @@ const useBladeStore = () => {
 
     return balance.hbars.toBigNumber();
   };
+  const hasNft = async (token: string, serial: number) => {
+    try {
+      const accountId = state?.accountId?.toString();
+      const privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY || '';
+
+      console.log(accountId, privateKey);
+
+      const client = Client.forTestnet();
+      const treasuryId = AccountId.fromString(token);
+      const treasuryKey = PrivateKey.fromString(privateKey);
+      client.setOperator(treasuryId, treasuryKey);
+
+      console.log('quering TokenNftInfoQuery');
+
+      const info = await new TokenNftInfoQuery()
+        .setNftId(new NftId(TokenId.fromString(token), serial))
+        .execute(client);
+      console.log('info', info);
+      return info[0].accountId.toString() === accountId;
+    } catch (err) {
+      console.log('err', err);
+      return false;
+    }
+  };
 
   return {
     accountId: state.accountId,
@@ -73,6 +105,7 @@ const useBladeStore = () => {
     connectToExtension,
     disconnectFromExtension,
     getAccountBalance,
+    hasNft,
   };
 };
 

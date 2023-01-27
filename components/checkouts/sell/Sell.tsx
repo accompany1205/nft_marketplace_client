@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { SellNow } from '.';
 import { OrderType } from '../../../hooks';
+import WalletContext from '../../../services/WalletService/WalletContext';
+import WalletConnector from '../../WalletConnector';
 import { Product } from '../checkout.types';
 import MakeOrder from '../MakeOrder';
 
@@ -18,6 +20,23 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
   const [activeTab, setActiveTab] = useState<Tabs>(
     product.highestBid?.id ? Tabs.SELL_NOW : Tabs.PLACE_ASK,
   );
+  const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
+
+  const { provider, hasNft } = useContext(WalletContext);
+
+  const handleShowWalletConnectionModal = (show: boolean): void => {
+    setShowWalletConnectionModal(show);
+  };
+
+  useEffect(() => {
+    if (hasNft) hasNft('0.0.49240678', 1);
+
+    if (!provider) {
+      setShowWalletConnectionModal(true);
+    } else {
+      setShowWalletConnectionModal(false);
+    }
+  }, [provider, product]);
 
   return (
     <div className="checkout Sell">
@@ -65,6 +84,10 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
                 orderType={OrderType.ASK}
               />
             )}
+            <WalletConnector
+              showModal={showWalletConnectionModal}
+              setShowModal={handleShowWalletConnectionModal}
+            />
           </div>
         </div>
       </div>
