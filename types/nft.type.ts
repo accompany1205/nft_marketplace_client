@@ -64,7 +64,7 @@ export interface BidPayload {
 
 export interface BidResponse {
   success: boolean;
-  message?: string;
+  data?: LiteDeal;
 }
 
 export interface Bid {
@@ -82,11 +82,6 @@ export interface Bid {
 export enum DealType {
   BUY = 'buy',
   SELL = 'sell',
-}
-export interface DealPayload {
-  listing_id: number;
-  user_id: number;
-  type: DealType;
 }
 
 export interface LiteDeal {

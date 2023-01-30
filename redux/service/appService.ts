@@ -6,10 +6,8 @@ import {
   BidPayload,
   BidResponse,
   Deal,
-  DealPayload,
   INFT,
   INFTItem,
-  LiteDeal,
 } from '../../types';
 
 const appSlice = createApi({
@@ -38,13 +36,6 @@ const appSlice = createApi({
     makeAsk: builder.mutation<BidResponse, BidPayload>({
       query: (bid) => ({
         url: '/marketplace/api/v1/ask/new',
-        method: 'POST',
-        data: bid,
-      }),
-    }),
-    makeDeal: builder.mutation<{ data: LiteDeal }, DealPayload>({
-      query: (bid) => ({
-        url: '/marketplace/api/v1/deal/new',
         method: 'POST',
         data: bid,
       }),
@@ -109,7 +100,6 @@ export const {
   useGetBidsQuery,
   useGetLastAskQuery,
   useGetLastBidQuery,
-  useMakeDealMutation,
   useGetBuyerTransactionMutation,
   useExecuteBuyerTransactionMutation,
   useGetDealQuery,
