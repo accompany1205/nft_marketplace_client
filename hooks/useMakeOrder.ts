@@ -18,7 +18,7 @@ export enum OrderType {
 type UseMakeOrder = (
   listing_id: number,
   orderType: OrderType,
-  onCompleted?: ((d?: any) => void) | undefined,
+  onCompleted?: ((dealId?: number) => void) | undefined,
 ) => {
   handleSubmit: (amount: number) => Promise<boolean | void>;
   isLoading: boolean;
@@ -65,7 +65,8 @@ const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
       if (!get(data, 'data.success')) {
         dispatch(
           showToast({
-            message: get(data, 'error.data.message')
+            message:
+              get(data, 'error.data.message')
               || `There is an error while placing ${orderType}. Please try again.`,
             type: 'danger',
           }),
@@ -81,15 +82,7 @@ const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
         }),
       );
 
-      const dealId = get(data, 'data.data.id');
-
-      if (!dealId && onCompleted) return onCompleted();
-
-      return router.push(
-        `/deals/${dealId}/${
-          orderType === OrderType.BID ? 'buyer' : 'seller'
-        }/pay`,
-      );
+      if (onCompleted) return onCompleted(get(data, 'data.data.id'));
     } catch (err) {
       dispatch(
         showToast({

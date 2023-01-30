@@ -1,7 +1,6 @@
 import React from 'react';
-import { useCreateDeal } from '../../../hooks';
+import { OrderType, useMakeOrder } from '../../../hooks';
 import { Product } from '../../../pages/product/[product]';
-import { DealType } from '../../../types';
 
 interface Props {
   product: Product;
@@ -9,7 +8,7 @@ interface Props {
 }
 
 const SellNow: React.FC<Props> = ({ product, onClose }) => {
-  const { handleSubmit, isLoading } = useCreateDeal(product.id, onClose);
+  const { handleSubmit, isLoading } = useMakeOrder(product.id, OrderType.ASK, onClose);
 
   return (
     <div>
@@ -40,7 +39,7 @@ const SellNow: React.FC<Props> = ({ product, onClose }) => {
         type="button"
         className="btn-main lead mb-5"
         disabled={isLoading}
-        onClick={() => handleSubmit(DealType.SELL)}
+        onClick={() => product.highestBid?.amount && handleSubmit(product.highestBid?.amount)}
       >
         Complete Purchase
       </button>

@@ -8,9 +8,10 @@ import BuyNow from './BuyNow';
 const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   onNextStep,
   product,
-  checkoutInformation,
 }) => {
-  const [activeTab, setActiveTab] = useState(checkoutInformation.type);
+  const [activeTab, setActiveTab] = useState(
+    product.lowestAsk?.id ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
+  );
 
   return (
     <div className="de_tab">
@@ -49,20 +50,14 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
           <div className="onStep fadeIn">
             <BuyNow
               product={product}
-              onSubmit={() => product?.lowestAsk && onNextStep({
-                type: CheckoutType.BUY_NOW,
-                amount: product.lowestAsk.amount,
-              })}
+              onSubmit={() => product?.lowestAsk && onNextStep(product.lowestAsk.amount)}
             />
           </div>
         )}
         {activeTab === CheckoutType.PLACE_BID && (
           <MakeOrder
             product={product}
-            onSubmit={(amount: number) => onNextStep({
-              type: CheckoutType.PLACE_BID,
-              amount,
-            })}
+            onSubmit={onNextStep}
             orderType={OrderType.BID}
           />
         )}
