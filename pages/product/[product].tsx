@@ -18,6 +18,14 @@ enum Tabs {
 
 const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 
+export interface Product extends INFTVariant {
+  id: number;
+  productName: string;
+  owner: {
+    username: string;
+  };
+}
+
 const NftDetail: React.FC = () => {
   const router = useRouter();
 

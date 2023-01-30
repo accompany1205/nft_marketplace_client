@@ -7,6 +7,7 @@ import {
   BidResponse,
   Deal,
   DealPayload,
+  GetNftOwnerPayload,
   INFT,
   INFTItem,
 } from '../../types';
@@ -72,6 +73,12 @@ const appSlice = createApi({
         method: 'GET',
       }),
     }),
+    getNftOwner: builder.query<{ data: string }, GetNftOwnerPayload>({
+      query: ({ hederaTokenId, serialNumber }) => ({
+        url: `/marketplace/api/v1/nft/owner?serialNumber=${serialNumber}&hederaTokenId=${hederaTokenId}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -87,4 +94,5 @@ export const {
   useGetLastAskQuery,
   useGetLastBidQuery,
   useMakeDealMutation,
+  useGetNftOwnerQuery,
 } = appSlice;

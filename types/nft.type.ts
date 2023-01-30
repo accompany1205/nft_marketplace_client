@@ -96,3 +96,8 @@ export interface Deal {
   status: string;
   datetime_created: string;
 }
+
+export interface GetNftOwnerPayload {
+  hederaTokenId: string;
+  serialNumber: number;
+}
