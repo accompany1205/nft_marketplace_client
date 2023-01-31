@@ -57,9 +57,8 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, product, onClose }) => {
         type="button"
         className="btn-main lead mb-5"
         disabled={!isNftOwner || isLoading}
-        onClick={() => handlePlaceAsk(amount)}
-      >
-        {isNftOwner ? 'Invalid NFT Ownership' : 'Complete Purchase'}
+        onClick={() => handlePlaceAsk(amount)}>
+        {!isNftOwner ? 'Invalid NFT Ownership' : 'Complete Purchase'}
       </button>
     </>
   );
