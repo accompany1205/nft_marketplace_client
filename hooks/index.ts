@@ -1,2 +1,2 @@
-export { default as useCreateDeal } from './useCreateDeal';
+export { default as useBuyerPayment } from './useBuyerPayment';
 export { default as useMakeOrder, OrderType } from './useMakeOrder';

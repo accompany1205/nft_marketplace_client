@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { OrderType } from '../../hooks';
-import { Product } from './checkout.types';
+import { Product } from '../../pages/product/[product]';
 
 export interface Props {
   product: Product;

@@ -6,7 +6,6 @@ import {
   BidPayload,
   BidResponse,
   Deal,
-  DealPayload,
   GetNftOwnerPayload,
   INFT,
   INFTItem,
@@ -42,13 +41,6 @@ const appSlice = createApi({
         data: bid,
       }),
     }),
-    makeDeal: builder.mutation<{ data: Deal }, DealPayload>({
-      query: (bid) => ({
-        url: '/marketplace/api/v1/deal/new',
-        method: 'POST',
-        data: bid,
-      }),
-    }),
     getBids: builder.query<{ data: Bid[] }, number>({
       query: (listingId) => ({
         url: `/marketplace/api/v1/listing/bids?listingId=${listingId}`,
@@ -79,6 +71,28 @@ const appSlice = createApi({
         method: 'GET',
       }),
     }),
+    getBuyerTransaction: builder.mutation<string, { accountId: string, dealId: number }>({
+      query: (data) => ({
+        url: '/marketplace/api/v1/deal/buyer/transaction',
+        method: 'POST',
+        data,
+      }),
+    }),
+    executeBuyerTransaction: builder.mutation<{ success: boolean }, string>({
+      query: (transactionBuffer) => ({
+        url: '/marketplace/api/v1/deal/buyer/pay',
+        method: 'POST',
+        data: {
+          transactionBuffer,
+        },
+      }),
+    }),
+    getDeal: builder.query<{ data: Deal }, string>({
+      query: (dealId) => ({
+        url: `/marketplace/api/v1/deal?dealId=${dealId}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -93,6 +107,8 @@ export const {
   useGetBidsQuery,
   useGetLastAskQuery,
   useGetLastBidQuery,
-  useMakeDealMutation,
   useGetNftOwnerQuery,
+  useGetBuyerTransactionMutation,
+  useExecuteBuyerTransactionMutation,
+  useGetDealQuery,
 } = appSlice;

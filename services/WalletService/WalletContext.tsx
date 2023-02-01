@@ -20,6 +20,10 @@ export interface WalletContextType {
   getAccountBalance: () => Promise<void | BigNumber>;
   disconnectWallet: (type: WalletServiceProviders) => Promise<void>;
   hasNft: (token: string, serial: number) => void;
+  signTransaction: (
+    transactionBuffer: Uint8Array,
+    accountToSign: string
+  ) => Promise<string | Uint8Array | undefined>;
 }
 
 const WalletContext = createContext<WalletContextType>({
@@ -34,6 +38,7 @@ const WalletContext = createContext<WalletContextType>({
   connectWallet: async () => {},
   disconnectWallet: async () => {},
   hasNft: () => {},
+  signTransaction: async () => undefined,
 });
 
 export default WalletContext;

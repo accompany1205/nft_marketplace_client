@@ -7,6 +7,7 @@ import {
   Signer,
   TokenId,
   TokenNftInfoQuery,
+  Transaction,
 } from '@hashgraph/sdk';
 import { BladeSigner } from '@bladelabs/blade-web3.js';
 import { useDispatch } from 'react-redux';
@@ -99,6 +100,16 @@ const useBladeStore = () => {
     }
   };
 
+  const signTransaction = async (
+    transactionBuffer: Uint8Array,
+  ): Promise<Uint8Array | undefined> => {
+    const transaction = Transaction.fromBytes(transactionBuffer);
+
+    const signedTransaction = await state.signer?.signTransaction(transaction);
+
+    return signedTransaction?.toBytes();
+  };
+
   return {
     accountId: state.accountId,
     hasSession: !!state.signer && !!state.accountId,
@@ -106,6 +117,7 @@ const useBladeStore = () => {
     disconnectFromExtension,
     getAccountBalance,
     hasNft,
+    signTransaction,
   };
 };
 

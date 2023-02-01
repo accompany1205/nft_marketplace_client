@@ -1,22 +1,24 @@
 import { get } from 'lodash';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 
 import {
   useMakeAskMutation,
   useMakeBidMutation,
 } from '../redux/service/appService';
+import { showToast } from '../redux/slices/layoutSlice';
 import { store } from '../redux/store';
 import { BidPayload } from '../types';
 
 export enum OrderType {
-  'BID',
-  'ASK',
+  BID = 'Bid',
+  ASK = 'Ask',
 }
 
 type UseMakeOrder = (
   listing_id: number,
   orderType: OrderType,
-  onCompleted?: ((d?: any) => void) | undefined,
+  onCompleted?: ((dealId?: number) => void) | undefined,
 ) => {
   handleSubmit: (amount: number) => Promise<boolean | void>;
   isLoading: boolean;
@@ -24,6 +26,7 @@ type UseMakeOrder = (
 
 const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [makeBid, { isLoading }] = useMakeBidMutation();
 
@@ -39,7 +42,16 @@ const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
   };
 
   const handleSubmit = async (amount: number) => {
-    if (!user?.id) return router.push('/login');
+    if (!user) {
+      dispatch(
+        showToast({
+          message: 'Please login to continue.',
+          type: 'danger',
+        }),
+      );
+
+      return router.push('/login');
+    }
 
     const formattedBid: BidPayload = {
       listing_id: listingId,
@@ -51,12 +63,33 @@ const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
       const data = await handleMakeBid(formattedBid);
 
       if (!get(data, 'data.success')) {
-        return alert(get(data, 'data.message'));
+        dispatch(
+          showToast({
+            message:
+              get(data, 'error.data.message')
+              || `There is an error while placing ${orderType}. Please try again.`,
+            type: 'danger',
+          }),
+        );
+
+        return;
       }
 
-      if (onCompleted) return onCompleted();
+      dispatch(
+        showToast({
+          message: `Placed ${orderType} successfully.`,
+          type: 'success',
+        }),
+      );
+
+      if (onCompleted) return onCompleted(get(data, 'data.data.id'));
     } catch (err) {
-      return alert(err);
+      dispatch(
+        showToast({
+          message: `There is an error while placing ${orderType}. Please try again.`,
+          type: 'danger',
+        }),
+      );
     }
   };
 

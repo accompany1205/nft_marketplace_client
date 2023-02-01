@@ -8,7 +8,9 @@ import {
 } from '@hashgraph/sdk';
 import { HashConnect, HashConnectTypes, MessageTypes } from 'hashconnect';
 import { HashConnectConnectionState } from 'hashconnect/dist/types';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { useDispatch } from 'react-redux';
 import { showToast } from '../../../redux/slices/layoutSlice';
 
@@ -79,7 +81,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
           network,
           debug ?? false,
         );
-        setState(exState => ({
+        setState((exState) => ({
           ...exState,
           topic,
           privKey: privateKey,
@@ -106,7 +108,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
           debug,
         );
 
-        setState(exState => ({
+        setState((exState) => ({
           ...exState,
           pairingString,
           availableExtension: sessionData?.metadata,
@@ -123,15 +125,14 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
   const foundExtensionEventHandler = useCallback(
     (data: HashConnectTypes.WalletMetadata) => {
       if (debug) console.log('====foundExtensionEvent====', data);
-      setState(exState => ({ ...exState, availableExtension: data }));
+      setState((exState) => ({ ...exState, availableExtension: data }));
     },
     [debug],
   );
 
   const saveDataInLocalStorage = useCallback(
     (data: SavedPairingData) => {
-      if (debug)
-        console.info('===============Saving to localstorage::=============');
+      if (debug) { console.info('===============Saving to localstorage::============='); }
       const dataToSave: SavedPairingData = {
         metadata: data.metadata!,
         privKey: data.privKey!,
@@ -139,8 +140,8 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
       };
       if (debug) console.log('DATA TO SAVE: ', data);
       // eslint-disable-next-line no-unused-expressions
-      window &&
-        window.localStorage.setItem('hashpack', JSON.stringify(dataToSave));
+      window
+        && window.localStorage.setItem('hashpack', JSON.stringify(dataToSave));
     },
     [debug],
   );
@@ -148,7 +149,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
   const pairingEventHandler = useCallback(
     (data: MessageTypes.ApprovePairing) => {
       if (debug) console.log('===Wallet connected=====', data);
-      setState(exState => ({ ...exState, pairingData: data }));
+      setState((exState) => ({ ...exState, pairingData: data }));
       saveDataInLocalStorage({
         metadata: hashState.availableExtension!,
         pairingData: data,
@@ -166,7 +167,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
   const acknowledgeEventHandler = useCallback(
     (data: MessageTypes.Acknowledge) => {
       if (debug) console.log('====::acknowledgeData::====', data);
-      setState(iniData => ({ ...iniData, acknowledgeData: data }));
+      setState((iniData) => ({ ...iniData, acknowledgeData: data }));
     },
     [debug],
   );
@@ -174,7 +175,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
   const onStatusChange = useCallback(
     (state: HashConnectConnectionState) => {
       if (debug) console.log('hashconnect state change event', state);
-      setState(exState => ({ ...exState, state }));
+      setState((exState) => ({ ...exState, state }));
     },
     [debug],
   );
@@ -245,7 +246,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     if (window) {
       window.localStorage.removeItem('hashpack');
     }
-    setState!(exData => ({
+    setState!((exData) => ({
       ...exData,
       pairingData: null,
       state: HashConnectConnectionState.Disconnected,
@@ -255,8 +256,14 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
   const getAccountBalance = async () => {
     const accountId = hashState.pairingData?.accountIds[0].toString();
 
-    if (!accountId || !hashState.pairingData?.topic)
-      return alert('Please connect to your wallet');
+    if (!accountId || !hashState.pairingData?.topic) {
+      return dispatch(
+        showToast({
+          message: 'Please connect to your wallet',
+          type: 'danger',
+        }),
+      );
+    }
 
     const provider = hashState.hashConnect?.getProvider(
       network,
@@ -294,6 +301,28 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     }
   };
 
+  const signTransaction = async (
+    transactionBuffer: Uint8Array,
+    accountToSign: string,
+  ):Promise<string | Uint8Array | undefined> => {
+    const transaction: MessageTypes.Transaction = {
+      topic: hashState.pairingData?.topic || '',
+      byteArray: transactionBuffer,
+
+      metadata: {
+        accountToSign,
+        returnTransaction: true,
+      },
+    };
+
+    const signedTransactionDetails = await hashState.hashConnect?.sendTransaction(
+      hashState.pairingData?.topic || '',
+      transaction,
+    );
+
+    return signedTransactionDetails?.signedTransaction;
+  };
+
   return {
     ...hashState,
     connectToExtension,
@@ -304,6 +333,8 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     accountId: hashState.pairingData?.accountIds[0].toString(),
     getAccountBalance,
     hasNft,
+    signTransaction,
+    initializeHashConnect,
   };
 };
 

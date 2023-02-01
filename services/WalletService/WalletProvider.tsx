@@ -22,6 +22,7 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
         accountId: bladeStore.accountId?.toString(),
         getAccountBalance: bladeStore.getAccountBalance,
         hasNft: bladeStore?.hasNft,
+        signTransaction: bladeStore.signTransaction,
       };
     }
     if (
@@ -33,6 +34,7 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
         accountId: hashStore.accountId,
         getAccountBalance: hashStore.getAccountBalance,
         hasNft: hashStore?.hasNft,
+        signTransaction: hashStore.signTransaction,
       };
     }
     if (
@@ -129,6 +131,7 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
       // toggleConnectWalletModal,
       // openConnectWalletModal,
       // closeConnectWalletModal,
+      signTransaction: currentlyConnected?.signTransaction,
     }),
     [
       connectToExtension,
