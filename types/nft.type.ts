@@ -88,7 +88,7 @@ export interface LiteDeal {
   id: number;
   listing_id: number;
   amount: number;
-  status: string;
+  status: 'pending' | 'confirmed' | 'money_pulled' | 'nft_pulled' | 'completed';
   datetime_created: string;
 }
 
@@ -96,4 +96,10 @@ export interface Deal extends Partial<LiteDeal> {
   nft_data: INftSpecs;
   hedera_token_id: string;
   ipfs: string;
+}
+
+export interface GetTransactionPayload {
+  accountId: string;
+  dealId: number;
+  userId: number;
 }

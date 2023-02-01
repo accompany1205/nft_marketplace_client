@@ -6,6 +6,7 @@ import {
   BidPayload,
   BidResponse,
   Deal,
+  GetTransactionPayload,
   INFT,
   INFTItem,
 } from '../../types';
@@ -64,16 +65,16 @@ const appSlice = createApi({
         method: 'GET',
       }),
     }),
-    getBuyerTransaction: builder.mutation<string, { accountId: string, dealId: number }>({
+    getBuyerTransaction: builder.mutation<string, GetTransactionPayload>({
       query: (data) => ({
-        url: '/marketplace/api/v1/deal/buyer/transaction',
+        url: '/marketplace/api/v1/deal/transaction/get',
         method: 'POST',
         data,
       }),
     }),
     executeBuyerTransaction: builder.mutation<{ success: boolean }, string>({
       query: (transactionBuffer) => ({
-        url: '/marketplace/api/v1/deal/buyer/pay',
+        url: '/marketplace/api/v1/deal/transaction/submit',
         method: 'POST',
         data: {
           transactionBuffer,

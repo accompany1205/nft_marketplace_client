@@ -10,10 +10,12 @@ import {
 } from '../redux/service/appService';
 import { showToast } from '../redux/slices/layoutSlice';
 import WalletContext from '../services/WalletService/WalletContext';
+import { store } from '../redux/store';
 
 const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { user } = store.getState().auth;
 
   const { accountId, signTransaction } = useContext(WalletContext);
 
@@ -25,30 +27,42 @@ const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
   ] = useExecuteBuyerTransactionMutation();
 
   const handleSubmit = async () => {
+    if (!user) {
+      dispatch(
+        showToast({
+          message: 'Please login.',
+          type: 'danger',
+        }),
+      );
+
+      return router.push('/login');
+    }
+
+    if (!dealId) {
+      dispatch(
+        showToast({
+          message: 'Deal not found.',
+          type: 'danger',
+        }),
+      );
+
+      return router.push('/');
+    }
+
+    if (!accountId) {
+      return dispatch(
+        showToast({
+          message: 'Please Connect your wallet.',
+          type: 'danger',
+        }),
+      );
+    }
+
     try {
-      if (!dealId) {
-        dispatch(
-          showToast({
-            message: 'Deal not found.',
-            type: 'danger',
-          }),
-        );
-
-        return router.push('/');
-      }
-
-      if (!accountId) {
-        return dispatch(
-          showToast({
-            message: 'Please Connect your wallet.',
-            type: 'danger',
-          }),
-        );
-      }
-
       const buyerTransactionResponse = await getBuyerTransaction({
         accountId: accountId as string,
         dealId,
+        userId: user.id,
       });
 
       const transactionBuffer = get(buyerTransactionResponse, 'data.data');

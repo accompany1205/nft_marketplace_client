@@ -63,6 +63,8 @@ const BuyNft = () => {
 
   const deal = data?.data;
 
+  const isPaymentDisabled = deal.status === 'money_pulled' || deal.status === 'confirmed' || deal.status === 'completed';
+
   return (
     <div className="greyscheme">
       <div
@@ -104,9 +106,9 @@ const BuyNft = () => {
                         className="btn-main lead mb-5 me-3"
                         type="button"
                         onClick={onSubmit}
-                        disabled={isPaymentLoading}
+                        disabled={isPaymentLoading || isPaymentDisabled}
                       >
-                        Pay Now
+                        {isPaymentDisabled ? 'Payment has already been made' : 'Pay now'}
                       </button>
                     </div>
                   </div>

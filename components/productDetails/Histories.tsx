@@ -26,11 +26,19 @@ const Histories: React.FC<Props> = ({ bids, bidType }) => (
           {bidType === OrderType.ASK ? 'Ask' : 'Bid'}
           &nbsp;
           <b>{bid.amount}</b>
-          &nbsp; for &nbsp;
-          <b>{bid.colour}</b>
-          &nbsp; color &nbsp;
-          <b>{bid.size}</b>
-          &nbsp; size
+          {(bid.colour || bid.size) && <>&nbsp; for &nbsp;</>}
+          {bid.colour && (
+            <>
+              <b>{bid.colour}</b>
+              &nbsp; color &nbsp;
+            </>
+          )}
+          {bid.size && (
+            <>
+              <b>{bid.size}</b>
+              &nbsp; size
+            </>
+          )}
           <span>
             by
             <b>{bid.first_name}</b>
