@@ -93,6 +93,13 @@ const appSlice = createApi({
         method: 'GET',
       }),
     }),
+    getSellerTransaction: builder.mutation<string, { accountId: string, dealId: number }>({
+      query: (data) => ({
+        url: '/marketplace/api/v1/deal/seller/transaction',
+        method: 'POST',
+        data,
+      }),
+    }),
   }),
 });
 
@@ -111,4 +118,5 @@ export const {
   useGetBuyerTransactionMutation,
   useExecuteBuyerTransactionMutation,
   useGetDealQuery,
+  useGetSellerTransactionMutation,
 } = appSlice;
