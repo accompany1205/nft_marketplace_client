@@ -59,11 +59,11 @@ const BuyNft = () => {
     );
   }
 
-  if (!data?.data) return <Redirect path="/" />;
-
   const deal = data?.data;
 
-  const isPaymentDisabled = deal.status === 'money_pulled' || deal.status === 'confirmed' || deal.status === 'completed';
+  if (!deal || deal.status === 'confirmed' || deal.status === 'completed') return <Redirect path="/" />;
+
+  const isPaymentDisabled = deal.status === 'money_pulled';
 
   return (
     <div className="greyscheme">

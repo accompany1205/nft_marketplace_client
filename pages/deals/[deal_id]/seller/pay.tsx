@@ -63,7 +63,7 @@ const TransferNft = () => {
 
   if (!deal || deal.status === 'confirmed' || deal.status === 'completed') return <Redirect path="/" />;
 
-  const isPaymentDisabled = deal.status === 'nft_pulled' || deal.status === 'confirmed' || deal.status === 'completed';
+  const isPaymentDisabled = deal.status === 'nft_pulled';
 
   return (
     <div className="greyscheme">
