@@ -94,8 +94,9 @@ export interface LiteDeal {
 
 export interface Deal extends Partial<LiteDeal> {
   nft_data: INftSpecs;
-  hedera_token_id: string;
   ipfs: string;
+  is_money_pulled?: boolean;
+  is_nft_pulled?: boolean;
 }
 
 export interface GetTransactionPayload {

@@ -63,8 +63,6 @@ const BuyNft = () => {
 
   if (!deal || deal.status === 'confirmed' || deal.status === 'completed') return <Redirect path="/" />;
 
-  const isPaymentDisabled = deal.status === 'money_pulled';
-
   return (
     <div className="greyscheme">
       <div
@@ -77,7 +75,8 @@ const BuyNft = () => {
               <img
                 src={
                   nftImageUrl
-                  || 'https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
+                    ? `https://ipfs.io/ipfs/${nftImageUrl}`
+                    : 'https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
                 }
                 className="img-fluid img-rounded mb-sm-30"
                 alt=""
@@ -106,9 +105,11 @@ const BuyNft = () => {
                         className="btn-main lead mb-5 me-3"
                         type="button"
                         onClick={onSubmit}
-                        disabled={isPaymentLoading || isPaymentDisabled}
+                        disabled={isPaymentLoading || deal?.is_money_pulled}
                       >
-                        {isPaymentDisabled ? 'Payment has already been made' : 'Pay now'}
+                        {deal?.is_money_pulled
+                          ? 'Payment has already been made'
+                          : 'Pay now'}
                       </button>
                     </div>
                   </div>

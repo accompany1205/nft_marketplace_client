@@ -5,26 +5,26 @@ import { get } from 'lodash';
 import { useRouter } from 'next/router';
 
 import {
-  useSubmitBuyerTransactionMutation,
-  useGetBuyerTransactionMutation,
+  useSubmitSellerTransactionMutation,
+  useGetSellerTransactionMutation,
 } from '../redux/service/appService';
 import { showToast } from '../redux/slices/layoutSlice';
 import WalletContext from '../services/WalletService/WalletContext';
 import { store } from '../redux/store';
 
-const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
+const useSellerPayment = (dealId?: number, onCompleted?: () => void) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { user } = store.getState().auth;
 
   const { accountId, signTransaction } = useContext(WalletContext);
 
-  const [getBuyerTransaction, { isLoading }] = useGetBuyerTransactionMutation();
+  const [getSellerTransaction, { isLoading }] = useGetSellerTransactionMutation();
 
   const [
-    executeBuyerTransaction,
-    { isLoading: isExecuteBuyerTransactionLoading },
-  ] = useSubmitBuyerTransactionMutation();
+    executeSellerTransaction,
+    { isLoading: isExecuteSellerTransactionLoading },
+  ] = useSubmitSellerTransactionMutation();
 
   const handleSubmit = async () => {
     if (!user) {
@@ -59,19 +59,19 @@ const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
     }
 
     try {
-      const buyerTransactionResponse = await getBuyerTransaction({
+      const sellerTransactionResponse = await getSellerTransaction({
         accountId: accountId as string,
         dealId,
         userId: user.id,
       });
 
-      const transactionBuffer = get(buyerTransactionResponse, 'data.data');
+      const transactionBuffer = get(sellerTransactionResponse, 'data.data');
 
       if (!transactionBuffer) {
         return dispatch(
           showToast({
             message:
-                get(buyerTransactionResponse, 'error.data.message')
+                get(sellerTransactionResponse, 'error.data.message')
                 || 'There is an error while processing your transaction. Please try again.',
             type: 'danger',
           }),
@@ -93,7 +93,7 @@ const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
         );
       }
 
-      const executeTransactionResponse = await executeBuyerTransaction(
+      const executeTransactionResponse = await executeSellerTransaction(
         Buffer.from(signedTransaction).toString('hex'),
       );
 
@@ -126,9 +126,9 @@ const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
   };
 
   return {
-    isLoading: isLoading || isExecuteBuyerTransactionLoading,
+    isLoading: isLoading || isExecuteSellerTransactionLoading,
     handleSubmit,
   };
 };
 
-export default useBuyerPayment;
+export default useSellerPayment;

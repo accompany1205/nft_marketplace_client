@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import Loader from '../../../../components/Loader';
 import Redirect from '../../../../components/Redirect';
 import WalletConnector from '../../../../components/WalletConnector';
-import { useBuyerPayment } from '../../../../hooks';
+import { useSellerPayment } from '../../../../hooks';
 import { useGetDealQuery } from '../../../../redux/service/appService';
 import { showToast } from '../../../../redux/slices/layoutSlice';
 import WalletContext from '../../../../services/WalletService/WalletContext';
@@ -26,7 +26,7 @@ const TransferNft = () => {
 
   const nftImageUrl = useImage(data?.data);
 
-  const { handleSubmit, isLoading: isPaymentLoading } = useBuyerPayment(
+  const { handleSubmit, isLoading: isPaymentLoading } = useSellerPayment(
     dealId ? parseInt(dealId, 10) : undefined,
     () => router.push('/'),
   );
@@ -63,8 +63,6 @@ const TransferNft = () => {
 
   if (!deal || deal.status === 'confirmed' || deal.status === 'completed') return <Redirect path="/" />;
 
-  const isPaymentDisabled = deal.status === 'nft_pulled';
-
   return (
     <div className="greyscheme">
       <div
@@ -77,7 +75,8 @@ const TransferNft = () => {
               <img
                 src={
                   nftImageUrl
-                  || 'https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
+                    ? `https://ipfs.io/ipfs/${nftImageUrl}`
+                    : 'https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
                 }
                 className="img-fluid img-rounded mb-sm-30"
                 alt=""
@@ -106,9 +105,9 @@ const TransferNft = () => {
                         className="btn-main lead mb-5 me-3"
                         type="button"
                         onClick={onSubmit}
-                        disabled={isPaymentLoading || isPaymentDisabled}
+                        disabled={isPaymentLoading || deal?.is_nft_pulled}
                       >
-                        {isPaymentDisabled
+                        {deal?.is_nft_pulled
                           ? 'Payment has already been made'
                           : 'Pay now'}
                       </button>
