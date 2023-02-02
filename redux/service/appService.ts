@@ -93,11 +93,20 @@ const appSlice = createApi({
         method: 'GET',
       }),
     }),
-    getSellerTransaction: builder.mutation<string, { accountId: string, dealId: number }>({
+    getTransaction: builder.mutation<string, { accountId: string, dealId: number, userId: number }>({
       query: (data) => ({
-        url: '/marketplace/api/v1/deal/seller/transaction',
+        url: '/marketplace/api/v1/deal/transaction/get',
         method: 'POST',
         data,
+      }),
+    }),
+    executeTransaction: builder.mutation<{ success: boolean }, string>({
+      query: (transactionBuffer) => ({
+        url: '/marketplace/api/v1/deal/transaction/submit',
+        method: 'POST',
+        data: {
+          transactionBuffer,
+        },
       }),
     }),
   }),
@@ -118,5 +127,6 @@ export const {
   useGetBuyerTransactionMutation,
   useExecuteBuyerTransactionMutation,
   useGetDealQuery,
-  useGetSellerTransactionMutation,
+  useGetTransactionMutation,
+  useExecuteTransactionMutation,
 } = appSlice;

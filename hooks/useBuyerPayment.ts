@@ -5,24 +5,26 @@ import { get } from 'lodash';
 import { useRouter } from 'next/router';
 
 import {
-  useExecuteBuyerTransactionMutation,
-  useGetBuyerTransactionMutation,
+  useGetTransactionMutation,
+  useExecuteTransactionMutation,
 } from '../redux/service/appService';
 import { showToast } from '../redux/slices/layoutSlice';
 import WalletContext from '../services/WalletService/WalletContext';
+import useAuth from './useAuth';
 
 const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const auth = useAuth();
 
   const { accountId, signTransaction } = useContext(WalletContext);
 
-  const [getBuyerTransaction, { isLoading }] = useGetBuyerTransactionMutation();
+  const [getBuyerTransaction, { isLoading }] = useGetTransactionMutation();
 
   const [
     executeBuyerTransaction,
     { isLoading: isExecuteBuyerTransactionLoading },
-  ] = useExecuteBuyerTransactionMutation();
+  ] = useExecuteTransactionMutation();
 
   const handleSubmit = async () => {
     try {
@@ -49,6 +51,7 @@ const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
       const buyerTransactionResponse = await getBuyerTransaction({
         accountId: accountId as string,
         dealId,
+        userId: auth.user?.id || 0,
       });
 
       const transactionBuffer = get(buyerTransactionResponse, 'data.data');

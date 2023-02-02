@@ -5,24 +5,26 @@ import { get } from 'lodash';
 import { useRouter } from 'next/router';
 
 import {
-  useGetSellerTransactionMutation,
-  useExecuteBuyerTransactionMutation,
+  useGetTransactionMutation,
+  useExecuteTransactionMutation,
 } from '../redux/service/appService';
 import { showToast } from '../redux/slices/layoutSlice';
 import WalletContext from '../services/WalletService/WalletContext';
+import useAuth from './useAuth';
 
 const useSellerPayment = (dealId?: number, onCompleted?: () => void) => {
+  const auth = useAuth();
   const router = useRouter();
   const dispatch = useDispatch();
 
   const { accountId, signTransaction } = useContext(WalletContext);
 
-  const [getSellerTransaction, { isLoading }] = useGetSellerTransactionMutation();
+  const [getSellerTransaction, { isLoading }] = useGetTransactionMutation();
 
   const [
-    executeBuyerTransaction,
-    { isLoading: isExecuteBuyerTransactionLoading },
-  ] = useExecuteBuyerTransactionMutation();
+    executeSellerTransaction,
+    { isLoading: isExecuteSellerTransactionLoading },
+  ] = useExecuteTransactionMutation();
 
   const handleSubmit = async () => {
     try {
@@ -49,10 +51,8 @@ const useSellerPayment = (dealId?: number, onCompleted?: () => void) => {
       const buyerTransactionResponse = await getSellerTransaction({
         accountId: accountId as string,
         dealId,
+        userId: auth.user?.id || 0,
       });
-
-      console.log("buyerTransactionResponse", buyerTransactionResponse);
-      
 
       const transactionBuffer = get(buyerTransactionResponse, 'data.data');
 
@@ -66,9 +66,6 @@ const useSellerPayment = (dealId?: number, onCompleted?: () => void) => {
           }),
         );
       }
-
-      console.log("transactionBuffer", transactionBuffer);
-      
 
       const signedTransaction = await signTransaction(
         Buffer.from(transactionBuffer, 'hex'),
@@ -85,20 +82,20 @@ const useSellerPayment = (dealId?: number, onCompleted?: () => void) => {
         );
       }
 
-      // const executeTransactionResponse = await executeBuyerTransaction(
-      //   Buffer.from(signedTransaction).toString('hex'),
-      // );
+      const executeTransactionResponse = await executeSellerTransaction(
+        Buffer.from(signedTransaction).toString('hex'),
+      );
 
-      // if (!get(executeTransactionResponse, 'data.success')) {
-      //   return dispatch(
-      //     showToast({
-      //       message:
-      //         get(executeTransactionResponse, 'error.data.message') ||
-      //         'There is an error while processing your transaction. Please try again.',
-      //       type: 'danger',
-      //     }),
-      //   );
-      // }
+      if (!get(executeTransactionResponse, 'data.success')) {
+        return dispatch(
+          showToast({
+            message:
+              get(executeTransactionResponse, 'error.data.message') ||
+              'There is an error while processing your transaction. Please try again.',
+            type: 'danger',
+          }),
+        );
+      }
 
       dispatch(
         showToast({
@@ -109,8 +106,6 @@ const useSellerPayment = (dealId?: number, onCompleted?: () => void) => {
 
       if (onCompleted) return onCompleted();
     } catch (error) {
-      console.log("error", error);
-      
       return dispatch(
         showToast({
           message:
@@ -122,7 +117,7 @@ const useSellerPayment = (dealId?: number, onCompleted?: () => void) => {
   };
 
   return {
-    isLoading: isLoading || isExecuteBuyerTransactionLoading,
+    isLoading: isLoading || isExecuteSellerTransactionLoading,
     handleSubmit,
   };
 };
