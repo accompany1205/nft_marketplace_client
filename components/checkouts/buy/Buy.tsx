@@ -1,9 +1,12 @@
 import React, { useContext, useState } from 'react';
 
 import dynamic from 'next/dynamic';
+import { useDispatch } from 'react-redux';
+
+import { showToast } from '../../../redux/slices/layoutSlice';
 import WalletContext from '../../../services/WalletService/WalletContext';
+import { Product } from '../../../pages/product/[product]';
 import WalletConnector from '../../WalletConnector';
-import { Product } from '../checkout.types';
 
 export enum CheckoutType {
   BUY_NOW = 'Buy Now',
@@ -15,19 +18,14 @@ interface Props {
   product: Product;
 }
 
-export interface CheckoutInformation {
-  type: CheckoutType;
-  amount: number;
-}
-
 export enum CheckoutSteps {
   CHECKOUT_DETAILS = 'Checkout Details',
   SUMMARY = 'Summary',
 }
 
 export interface CheckoutStepProps {
-  checkoutInformation: CheckoutInformation;
-  onNextStep: (d: CheckoutInformation) => void;
+  amount: number;
+  onNextStep: (amount: number) => void;
   onClose: () => void;
   product: Product;
 }
@@ -44,29 +42,27 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
 
   const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
 
-  const [checkoutInformation, setCheckoutInformation] = useState<CheckoutInformation>({
-    type: product.lowestAsk?.id ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
-    amount: product.lowestAsk?.amount || 100,
-  });
+  const [amount, setAmount] = useState<number>(product.lowestAsk?.amount || 100);
 
   const { provider } = useContext(WalletContext);
 
-  const handleShowWalletConnectionModal = (show: boolean): void => {
-    if (show && provider) return setActiveStep(CheckoutSteps.SUMMARY);
+  const dispatch = useDispatch();
 
-    if (!show) {
-      if (!provider) setActiveStep(CheckoutSteps.CHECKOUT_DETAILS);
+  const onNextStep = (amount: number) => {
+    setAmount(amount);
 
-      else setActiveStep(CheckoutSteps.SUMMARY);
+    if (!provider) {
+      dispatch(
+        showToast({
+          message: 'Please connect wallet.',
+          type: 'danger',
+        }),
+      );
+
+      return setShowWalletConnectionModal(true);
     }
 
-    return setShowWalletConnectionModal(show);
-  };
-
-  const onNextStep = (detail: CheckoutInformation): void => {
-    setCheckoutInformation(detail);
-
-    return handleShowWalletConnectionModal(true);
+    return setActiveStep(CheckoutSteps.SUMMARY);
   };
 
   const CurrentStep = checkoutSteps[activeStep];
@@ -77,17 +73,15 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
         <button className="btn-close" type="button" onClick={onClose}>
           x
         </button>
-        {CurrentStep && (
-          <CurrentStep
-            checkoutInformation={checkoutInformation}
-            product={product}
-            onNextStep={onNextStep}
-            onClose={onClose}
-          />
-        )}
+        <CurrentStep
+          amount={amount}
+          product={product}
+          onNextStep={onNextStep}
+          onClose={onClose}
+        />
         <WalletConnector
           showModal={showWalletConnectionModal}
-          setShowModal={handleShowWalletConnectionModal}
+          setShowModal={setShowWalletConnectionModal}
         />
       </div>
     </div>

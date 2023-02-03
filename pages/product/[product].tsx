@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 
+import { head } from 'lodash';
 import { useRouter } from 'next/router';
 
-import { head } from 'lodash';
 import { Buy, Sell } from '../../components/checkouts';
 import Loader from '../../components/Loader';
 import { Asks, Bids } from '../../components/productDetails';
+import Redirect from '../../components/Redirect';
 import { useGetProductDetailsQuery } from '../../redux/service/appService';
 import { INFTVariant } from '../../types';
-import useImage from '../../utils/hooks/FetchNftImage';
+import useImage from '../../utils/hooks/useImage';
 
 enum Tabs {
   DETAILS = 'Details',
@@ -16,13 +17,26 @@ enum Tabs {
   ASKS = 'Asks',
 }
 
+export interface Product extends INFTVariant {
+  id: number;
+  productName: string;
+  owner: {
+    username: string;
+  };
+}
+
 const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 
 const NftDetail: React.FC = () => {
   const router = useRouter();
 
-  const { data: details, isLoading, refetch } = useGetProductDetailsQuery(
-    router.query.product?.toString() || '',
+  const productName = router.query.product?.toString();
+
+  const { data: details, isLoading } = useGetProductDetailsQuery(
+    productName || '',
+    {
+      skip: !productName,
+    },
   );
 
   const [variant, setVariant] = useState<INFTVariant | undefined>();
@@ -33,16 +47,12 @@ const NftDetail: React.FC = () => {
     }
   }, [details]);
 
-  useEffect(() => {
-    if (!details?.data) refetch();
-  }, [router.query.product]);
-
   const nftImageUrl = useImage(details?.data);
   const [isBuy, setIsBuy] = useState(false);
   const [isSell, setIsSell] = useState(false);
   const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.DETAILS);
 
-  if (isLoading || !details?.data) {
+  if (isLoading) {
     return (
       <div className="greyscheme">
         <div
@@ -54,6 +64,8 @@ const NftDetail: React.FC = () => {
       </div>
     );
   }
+
+  if (!details?.data) return <Redirect path="/" />;
 
   const nft = {
     title: 'Nike',
@@ -164,6 +176,7 @@ const NftDetail: React.FC = () => {
                                 value={option.id}
                                 name="variant"
                                 onChange={() => setVariant(option)}
+                                checked={variant?.id === option.id}
                                 className="product-variant"
                               />
                               <label

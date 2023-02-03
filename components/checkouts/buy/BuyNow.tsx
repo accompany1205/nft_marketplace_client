@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Product } from '../checkout.types';
+import { Product } from '../../../pages/product/[product]';
 
 interface Props {
   product: Product;

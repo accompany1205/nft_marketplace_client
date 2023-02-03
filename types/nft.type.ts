@@ -64,7 +64,7 @@ export interface BidPayload {
 
 export interface BidResponse {
   success: boolean;
-  message?: string;
+  data?: LiteDeal;
 }
 
 export interface Bid {
@@ -83,16 +83,29 @@ export enum DealType {
   BUY = 'buy',
   SELL = 'sell',
 }
-export interface DealPayload {
-  listing_id: number;
-  user_id: number;
-  type: DealType;
-}
 
-export interface Deal {
+export interface LiteDeal {
   id: number;
   listing_id: number;
   amount: number;
-  status: string;
+  status: 'pending' | 'confirmed' | 'money_pulled' | 'nft_pulled' | 'completed';
   datetime_created: string;
+}
+
+export interface Deal extends Partial<LiteDeal> {
+  nft_data: INftSpecs;
+  ipfs: string;
+  is_money_pulled?: boolean;
+  is_nft_pulled?: boolean;
+}
+
+export interface GetTransactionPayload {
+  accountId: string;
+  dealId: number;
+  userId: number;
+}
+
+export interface GetNftOwnerPayload {
+  hederaTokenId: string;
+  serialNumber: number;
 }

@@ -1,7 +1,10 @@
 import { HashConnect, HashConnectTypes, MessageTypes } from 'hashconnect';
 import { HashConnectConnectionState } from 'hashconnect/dist/types';
 import {
-  useCallback, useEffect, useMemo, useState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { showToast } from '../../../redux/slices/layoutSlice';
@@ -124,7 +127,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
 
   const saveDataInLocalStorage = useCallback(
     (data: SavedPairingData) => {
-      if (debug) console.info('===============Saving to localstorage::=============');
+      if (debug) { console.info('===============Saving to localstorage::============='); }
       const dataToSave: SavedPairingData = {
         metadata: data.metadata!,
         privKey: data.privKey!,
@@ -132,7 +135,8 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
       };
       if (debug) console.log('DATA TO SAVE: ', data);
       // eslint-disable-next-line no-unused-expressions
-      window && window.localStorage.setItem('hashpack', JSON.stringify(dataToSave));
+      window
+        && window.localStorage.setItem('hashpack', JSON.stringify(dataToSave));
     },
     [debug],
   );
@@ -192,30 +196,41 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
       );
       hashState.hashConnect.connectionStatusChangeEvent.off(onStatusChange);
     };
-  }, [hashState.hashConnect, foundExtensionEventHandler,
-    pairingEventHandler, acknowledgeEventHandler, onStatusChange]);
+  }, [
+    hashState.hashConnect,
+    foundExtensionEventHandler,
+    pairingEventHandler,
+    acknowledgeEventHandler,
+    onStatusChange,
+  ]);
 
   const connectToExtension = async () => {
     if (hashState.state === HashConnectConnectionState.Connected) {
-      dispatch(showToast({
-        message: 'Already connected',
-        type: 'danger',
-      }));
+      dispatch(
+        showToast({
+          message: 'Already connected',
+          type: 'danger',
+        }),
+      );
       return false;
     }
     if (!hashState.availableExtension) {
-      dispatch(showToast({
-        message: 'Could not connect to the Hashpack extension',
-        type: 'danger',
-      }));
+      dispatch(
+        showToast({
+          message: 'Could not connect to the Hashpack extension',
+          type: 'danger',
+        }),
+      );
       return false;
     }
 
     if (!hashState.hashConnect) {
-      dispatch(showToast({
-        message: 'An unexpected error occoured. Please reload',
-        type: 'danger',
-      }));
+      dispatch(
+        showToast({
+          message: 'An unexpected error occoured. Please reload',
+          type: 'danger',
+        }),
+      );
       return false;
     }
     hashState.hashConnect.connectToLocalWallet();
@@ -236,7 +251,14 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
   const getAccountBalance = async () => {
     const accountId = hashState.pairingData?.accountIds[0].toString();
 
-    if (!accountId || !hashState.pairingData?.topic) return alert('Please connect to your wallet');
+    if (!accountId || !hashState.pairingData?.topic) {
+      return dispatch(
+        showToast({
+          message: 'Please connect to your wallet',
+          type: 'danger',
+        }),
+      );
+    }
 
     const provider = hashState.hashConnect?.getProvider(
       network,
@@ -249,6 +271,28 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     return balance?.hbars.toBigNumber();
   };
 
+  const signTransaction = async (
+    transactionBuffer: Uint8Array,
+    accountToSign: string,
+  ):Promise<string | Uint8Array | undefined> => {
+    const transaction: MessageTypes.Transaction = {
+      topic: hashState.pairingData?.topic || '',
+      byteArray: transactionBuffer,
+
+      metadata: {
+        accountToSign,
+        returnTransaction: true,
+      },
+    };
+
+    const signedTransactionDetails = await hashState.hashConnect?.sendTransaction(
+      hashState.pairingData?.topic || '',
+      transaction,
+    );
+
+    return signedTransactionDetails?.signedTransaction;
+  };
+
   return {
     ...hashState,
     connectToExtension,
@@ -258,6 +302,8 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     disconnectFromExtension,
     accountId: hashState.pairingData?.accountIds[0].toString(),
     getAccountBalance,
+    signTransaction,
+    initializeHashConnect,
   };
 };
 

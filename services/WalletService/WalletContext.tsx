@@ -9,7 +9,7 @@ export enum WalletServiceProviders {
 }
 
 export interface WalletContextType {
-  hashStore: any,
+  hashStore: any;
   provider?: WalletServiceProviders;
   accountId?: string | null | AccountId;
   network: string;
@@ -19,6 +19,10 @@ export interface WalletContextType {
   closeConnectWalletModal: () => void;
   getAccountBalance: () => Promise<void | BigNumber>;
   disconnectWallet: (type: WalletServiceProviders) => Promise<void>;
+  signTransaction: (
+    transactionBuffer: Uint8Array,
+    accountToSign: string
+  ) => Promise<string | Uint8Array | undefined>;
 }
 
 const WalletContext = createContext<WalletContextType>({
@@ -30,8 +34,9 @@ const WalletContext = createContext<WalletContextType>({
   openConnectWalletModal: () => {},
   closeConnectWalletModal: () => {},
   getAccountBalance: async () => {},
-  connectWallet: async () => { },
+  connectWallet: async () => {},
   disconnectWallet: async () => {},
+  signTransaction: async () => undefined,
 });
 
 export default WalletContext;
