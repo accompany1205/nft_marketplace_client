@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { INFT } from '../types/nft.type';
-import useImage from '../utils/hooks/FetchNftImage';
+import useImage from '../utils/hooks/useImage';
 
 const Outer = styled.div`
   display: flex;

@@ -10,7 +10,7 @@ import { useSellerPayment } from '../../../../hooks';
 import { useGetDealQuery } from '../../../../redux/service/appService';
 import { showToast } from '../../../../redux/slices/layoutSlice';
 import WalletContext from '../../../../services/WalletService/WalletContext';
-import useImage from '../../../../utils/hooks/FetchNftImage';
+import useImage from '../../../../utils/hooks/useImage';
 
 const TransferNft = () => {
   const router = useRouter();
@@ -22,7 +22,9 @@ const TransferNft = () => {
 
   const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
 
-  const { data, isLoading } = useGetDealQuery(dealId || '');
+  const { data, isLoading } = useGetDealQuery(dealId || '', {
+    skip: !dealId,
+  });
 
   const nftImageUrl = useImage(data?.data);
 

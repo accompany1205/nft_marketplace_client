@@ -9,7 +9,7 @@ import { Asks, Bids } from '../../components/productDetails';
 import Redirect from '../../components/Redirect';
 import { useGetProductDetailsQuery } from '../../redux/service/appService';
 import { INFTVariant } from '../../types';
-import useImage from '../../utils/hooks/FetchNftImage';
+import useImage from '../../utils/hooks/useImage';
 
 enum Tabs {
   DETAILS = 'Details',
@@ -30,8 +30,13 @@ const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 const NftDetail: React.FC = () => {
   const router = useRouter();
 
-  const { data: details, isLoading, refetch } = useGetProductDetailsQuery(
-    router.query.product?.toString() || '',
+  const productName = router.query.product?.toString();
+
+  const { data: details, isLoading } = useGetProductDetailsQuery(
+    productName || '',
+    {
+      skip: !productName,
+    },
   );
 
   const [variant, setVariant] = useState<INFTVariant | undefined>();
@@ -41,10 +46,6 @@ const NftDetail: React.FC = () => {
       setVariant(head(details?.data?.variants));
     }
   }, [details]);
-
-  useEffect(() => {
-    if (!details?.data) refetch();
-  }, [router.query.product]);
 
   const nftImageUrl = useImage(details?.data);
   const [isBuy, setIsBuy] = useState(false);

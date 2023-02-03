@@ -6,11 +6,11 @@ import { useDispatch } from 'react-redux';
 import Loader from '../../../../components/Loader';
 import Redirect from '../../../../components/Redirect';
 import WalletConnector from '../../../../components/WalletConnector';
-import useBuyerPayment from '../../../../hooks/useBuyerPayment';
+import { useBuyerPayment } from '../../../../hooks';
 import { useGetDealQuery } from '../../../../redux/service/appService';
 import { showToast } from '../../../../redux/slices/layoutSlice';
 import WalletContext from '../../../../services/WalletService/WalletContext';
-import useImage from '../../../../utils/hooks/FetchNftImage';
+import useImage from '../../../../utils/hooks/useImage';
 
 const BuyNft = () => {
   const router = useRouter();
@@ -22,7 +22,9 @@ const BuyNft = () => {
 
   const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
 
-  const { data, isLoading } = useGetDealQuery(dealId || '');
+  const { data, isLoading } = useGetDealQuery(dealId || '', {
+    skip: !dealId,
+  });
 
   const nftImageUrl = useImage(data?.data);
 
