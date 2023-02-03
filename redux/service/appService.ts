@@ -7,6 +7,7 @@ import {
   BidResponse,
   Deal,
   GetTransactionPayload,
+  GetNftOwnerPayload,
   INFT,
   INFTItem,
 } from '../../types';
@@ -65,9 +66,15 @@ const appSlice = createApi({
         method: 'GET',
       }),
     }),
+    getNftOwner: builder.query<{ data: string }, GetNftOwnerPayload>({
+      query: ({ hederaTokenId, serialNumber }) => ({
+        url: `/marketplace/api/v1/nft/owner?serialNumber=${serialNumber}&hederaTokenId=${hederaTokenId}`,
+        method: 'GET',
+      }),
+    }),
     getBuyerTransaction: builder.mutation<string, GetTransactionPayload>({
       query: (data) => ({
-        url: '/marketplace/api/v1/deal/buyer/payment/get',
+        url: '/marketplace/api/v1/deal/buyer/transaction',
         method: 'POST',
         data,
       }),
@@ -122,4 +129,5 @@ export const {
   useGetSellerTransactionMutation,
   useSubmitSellerTransactionMutation,
   useGetDealQuery,
+  useGetNftOwnerQuery,
 } = appSlice;

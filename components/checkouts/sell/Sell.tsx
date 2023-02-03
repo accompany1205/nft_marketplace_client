@@ -1,74 +1,90 @@
-import React, { useState } from 'react';
-import { SellNow } from '.';
-import { OrderType, useMakeOrder } from '../../../hooks';
+import React, { useContext, useState } from 'react';
+
+import dynamic from 'next/dynamic';
+import { useDispatch } from 'react-redux';
+
 import { Product } from '../../../pages/product/[product]';
-import MakeOrder from '../MakeOrder';
+import { showToast } from '../../../redux/slices/layoutSlice';
+import WalletContext from '../../../services/WalletService/WalletContext';
+import WalletConnector from '../../WalletConnector';
 
-type Props = {
-  onClose: () => void;
-  product: Product;
-};
-
-enum Tabs {
+export enum CheckoutType {
   SELL_NOW = 'Sell Now',
-  PLACE_ASK = 'Place ASK',
+  PLACE_ASK = 'Place Ask',
 }
 
+interface Props {
+  onClose: () => void;
+  product: Product;
+}
+
+export enum CheckoutSteps {
+  CHECKOUT_DETAILS = 'Checkout Details',
+  SUMMARY = 'Summary',
+}
+
+export interface CheckoutStepProps {
+  amount: number;
+  onNextStep: (amount: number) => void;
+  onClose: () => void;
+  product: Product;
+}
+
+const checkoutSteps = {
+  [CheckoutSteps.CHECKOUT_DETAILS]: dynamic(() => import('./CheckoutDetails')),
+  [CheckoutSteps.SUMMARY]: dynamic(() => import('./Summary')),
+};
+
 const Sell: React.FC<Props> = ({ onClose, product }) => {
-  const [activeTab, setActiveTab] = useState<Tabs>(
-    product.highestBid?.id ? Tabs.SELL_NOW : Tabs.PLACE_ASK,
+  const [activeStep, setActiveStep] = useState<CheckoutSteps>(
+    CheckoutSteps.CHECKOUT_DETAILS,
   );
 
-  const { handleSubmit } = useMakeOrder(product.id, OrderType.ASK, onClose);
+  const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
+
+  const [amount, setAmount] = useState<number>(
+    product.lowestAsk?.amount || 100,
+  );
+
+  const { provider } = useContext(WalletContext);
+
+  const dispatch = useDispatch();
+
+  const onNextStep = (amount: number) => {
+    setAmount(amount);
+
+    if (!provider) {
+      dispatch(
+        showToast({
+          message: 'Please connect wallet.',
+          type: 'danger',
+        }),
+      );
+
+      return setShowWalletConnectionModal(true);
+    }
+
+    return setActiveStep(CheckoutSteps.SUMMARY);
+  };
+
+  const CurrentStep = checkoutSteps[activeStep];
 
   return (
-    <div className="checkout Sell">
+    <div className="checkout">
       <div className="maincheckout">
         <button className="btn-close" type="button" onClick={onClose}>
           x
         </button>
-        <div className="de_tab">
-          <ul className="de_nav">
-            {product.highestBid?.id && (
-              <li
-                className={activeTab === Tabs.SELL_NOW ? 'active' : ''}
-                key={`tab-${Tabs.SELL_NOW}`}
-              >
-                <button
-                  type="button"
-                  onClick={() => setActiveTab(Tabs.SELL_NOW)}
-                >
-                  {Tabs.SELL_NOW}
-                </button>
-              </li>
-            )}
-            <li
-              className={activeTab === Tabs.PLACE_ASK ? 'active' : ''}
-              key={`tab-${Tabs.PLACE_ASK}`}
-            >
-              <button
-                type="button"
-                onClick={() => setActiveTab(Tabs.PLACE_ASK)}
-              >
-                {Tabs.PLACE_ASK}
-              </button>
-            </li>
-          </ul>
-          <div className="de_tab_content">
-            {activeTab === Tabs.SELL_NOW && (
-              <div className="tab-2 onStep fadeIn">
-                <SellNow product={product} onClose={onClose} />
-              </div>
-            )}
-            {activeTab === Tabs.PLACE_ASK && (
-              <MakeOrder
-                product={product}
-                onSubmit={handleSubmit}
-                orderType={OrderType.ASK}
-              />
-            )}
-          </div>
-        </div>
+        <CurrentStep
+          amount={amount}
+          product={product}
+          onNextStep={onNextStep}
+          onClose={onClose}
+        />
+        <WalletConnector
+          showModal={showWalletConnectionModal}
+          setShowModal={setShowWalletConnectionModal}
+        />
       </div>
     </div>
   );

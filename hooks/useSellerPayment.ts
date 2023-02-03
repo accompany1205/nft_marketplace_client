@@ -5,25 +5,25 @@ import { get } from 'lodash';
 import { useRouter } from 'next/router';
 
 import {
-  useSubmitSellerTransactionMutation,
   useGetSellerTransactionMutation,
+  useSubmitSellerTransactionMutation,
 } from '../redux/service/appService';
 import { showToast } from '../redux/slices/layoutSlice';
+import useAuth from './useAuth';
 import WalletContext from '../services/WalletService/WalletContext';
-import { store } from '../redux/store';
 
 const useSellerPayment = (dealId?: number, onCompleted?: () => void) => {
+  const { user } = useAuth();
   const router = useRouter();
   const dispatch = useDispatch();
-  const { user } = store.getState().auth;
 
   const { accountId, signTransaction } = useContext(WalletContext);
 
   const [getSellerTransaction, { isLoading }] = useGetSellerTransactionMutation();
 
   const [
-    executeSellerTransaction,
-    { isLoading: isExecuteSellerTransactionLoading },
+    submitSellerTransaction,
+    { isLoading: isSubmittingSellerTransactionLoading },
   ] = useSubmitSellerTransactionMutation();
 
   const handleSubmit = async () => {
@@ -93,7 +93,7 @@ const useSellerPayment = (dealId?: number, onCompleted?: () => void) => {
         );
       }
 
-      const executeTransactionResponse = await executeSellerTransaction(
+      const executeTransactionResponse = await submitSellerTransaction(
         Buffer.from(signedTransaction).toString('hex'),
       );
 
@@ -126,7 +126,7 @@ const useSellerPayment = (dealId?: number, onCompleted?: () => void) => {
   };
 
   return {
-    isLoading: isLoading || isExecuteSellerTransactionLoading,
+    isLoading: isLoading || isSubmittingSellerTransactionLoading,
     handleSubmit,
   };
 };

@@ -1,6 +1,4 @@
-import React, {
-  useEffect, useMemo,
-} from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { HashConnectConnectionState } from './interfaces';
 import useBladeStore from './BladeStore/useBladeStore';
@@ -41,10 +39,12 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
       hashStore.status === HashConnectConnectionState.Connected
       && bladeStore.hasSession
     ) {
-      dispatch(showToast({
-        message: 'You were connected to both wallets. Please reload the page',
-        type: 'danger',
-      }));
+      dispatch(
+        showToast({
+          message: 'You were connected to both wallets. Please reload the page',
+          type: 'danger',
+        }),
+      );
       hashStore.disconnectFromExtension();
       bladeStore.disconnectFromExtension();
       return undefined;
@@ -54,17 +54,21 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (currentlyConnected?.provider === WalletServiceProviders.BLADE) {
-      dispatch(showToast({
-        message: 'Successfully connected to Blade wallet',
-        type: 'success',
-      }));
+      dispatch(
+        showToast({
+          message: 'Successfully connected to Blade wallet',
+          type: 'success',
+        }),
+      );
     } else if (
       currentlyConnected?.provider === WalletServiceProviders.HASHPACK
     ) {
-      dispatch(showToast({
-        message: 'Successfully connected to Hashpack wallet',
-        type: 'success',
-      }));
+      dispatch(
+        showToast({
+          message: 'Successfully connected to Hashpack wallet',
+          type: 'success',
+        }),
+      );
     }
   }, [currentlyConnected?.provider]);
 
@@ -72,10 +76,12 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
     type: WalletServiceProviders = WalletServiceProviders.BLADE,
   ) => {
     if (currentlyConnected?.provider) {
-      dispatch(showToast({
-        message: 'You are already connected',
-        type: 'danger',
-      }));
+      dispatch(
+        showToast({
+          message: 'You are already connected',
+          type: 'danger',
+        }),
+      );
       return;
     }
 
@@ -90,10 +96,12 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
     type: WalletServiceProviders = WalletServiceProviders.BLADE,
   ) => {
     if (!currentlyConnected?.provider) {
-      dispatch(showToast({
-        message: 'You are not connected to any extension.',
-        type: 'danger',
-      }));
+      dispatch(
+        showToast({
+          message: 'You are not connected to any extension.',
+          type: 'danger',
+        }),
+      );
       return;
     }
     if (type === WalletServiceProviders.BLADE) {
@@ -101,10 +109,12 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
     } else if (type === WalletServiceProviders.HASHPACK) {
       await hashStore.disconnectFromExtension();
     }
-    dispatch(showToast({
-      message: 'Wallet Disconnected',
-      type: 'success',
-    }));
+    dispatch(
+      showToast({
+        message: 'Wallet Disconnected',
+        type: 'success',
+      }),
+    );
   };
 
   const walletValues = useMemo<any>(
@@ -121,6 +131,7 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
       connectToExtension,
       currentlyConnected?.accountId,
       currentlyConnected?.provider,
+      currentlyConnected?.getAccountBalance,
       disconnectWallet,
     ],
   );

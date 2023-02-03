@@ -104,3 +104,8 @@ export interface GetTransactionPayload {
   dealId: number;
   userId: number;
 }
+
+export interface GetNftOwnerPayload {
+  hederaTokenId: string;
+  serialNumber: number;
+}

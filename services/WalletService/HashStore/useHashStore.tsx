@@ -1,7 +1,10 @@
 import { HashConnect, HashConnectTypes, MessageTypes } from 'hashconnect';
 import { HashConnectConnectionState } from 'hashconnect/dist/types';
 import {
-  useCallback, useEffect, useMemo, useState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { showToast } from '../../../redux/slices/layoutSlice';
@@ -124,7 +127,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
 
   const saveDataInLocalStorage = useCallback(
     (data: SavedPairingData) => {
-      if (debug) console.info('===============Saving to localstorage::=============');
+      if (debug) { console.info('===============Saving to localstorage::============='); }
       const dataToSave: SavedPairingData = {
         metadata: data.metadata!,
         privKey: data.privKey!,
@@ -132,7 +135,8 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
       };
       if (debug) console.log('DATA TO SAVE: ', data);
       // eslint-disable-next-line no-unused-expressions
-      window && window.localStorage.setItem('hashpack', JSON.stringify(dataToSave));
+      window
+        && window.localStorage.setItem('hashpack', JSON.stringify(dataToSave));
     },
     [debug],
   );

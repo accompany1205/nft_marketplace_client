@@ -5,17 +5,17 @@ import { get } from 'lodash';
 import { useRouter } from 'next/router';
 
 import {
-  useSubmitBuyerTransactionMutation,
   useGetBuyerTransactionMutation,
+  useSubmitBuyerTransactionMutation,
 } from '../redux/service/appService';
 import { showToast } from '../redux/slices/layoutSlice';
 import WalletContext from '../services/WalletService/WalletContext';
-import { store } from '../redux/store';
+import useAuth from './useAuth';
 
 const useBuyerPayment = (dealId?: number, onCompleted?: () => void) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { user } = store.getState().auth;
+  const { user } = useAuth();
 
   const { accountId, signTransaction } = useContext(WalletContext);
 

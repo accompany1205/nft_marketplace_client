@@ -9,7 +9,7 @@ export enum WalletServiceProviders {
 }
 
 export interface WalletContextType {
-  hashStore: any,
+  hashStore: any;
   provider?: WalletServiceProviders;
   accountId?: string | null | AccountId;
   network: string;
@@ -34,7 +34,7 @@ const WalletContext = createContext<WalletContextType>({
   openConnectWalletModal: () => {},
   closeConnectWalletModal: () => {},
   getAccountBalance: async () => {},
-  connectWallet: async () => { },
+  connectWallet: async () => {},
   disconnectWallet: async () => {},
   signTransaction: async () => undefined,
 });

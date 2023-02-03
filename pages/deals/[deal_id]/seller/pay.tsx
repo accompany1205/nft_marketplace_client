@@ -97,7 +97,7 @@ const TransferNft = () => {
                     <div className="detailcheckout mt-4">
                       <div className="listcheckout">
                         <h5>Price</h5>
-                        <div className="subtotal">{deal.amount}</div>
+                        <div className="subtotal">{deal?.amount}</div>
                       </div>
                     </div>
                     <div className="d-flex flex-row mt-5">
