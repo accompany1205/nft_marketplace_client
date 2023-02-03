@@ -176,6 +176,7 @@ const NftDetail: React.FC = () => {
                                 value={option.id}
                                 name="variant"
                                 onChange={() => setVariant(option)}
+                                checked={variant?.id === option.id}
                                 className="product-variant"
                               />
                               <label

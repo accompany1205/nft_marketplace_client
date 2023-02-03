@@ -74,7 +74,7 @@ const appSlice = createApi({
     }),
     getBuyerTransaction: builder.mutation<string, GetTransactionPayload>({
       query: (data) => ({
-        url: '/marketplace/api/v1/deal/buyer/transaction',
+        url: '/marketplace/api/v1/deal/buyer/payment/get',
         method: 'POST',
         data,
       }),
