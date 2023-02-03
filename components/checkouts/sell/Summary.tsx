@@ -13,10 +13,13 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, product, onClose }) => {
 
   const { accountId } = useContext(WalletContext);
 
-  const { data: nftOwner } = useGetNftOwnerQuery({
-    hederaTokenId: product.hederaTokenId,
-    serialNumber: product.serialNumber,
-  }, { skip: !product.hederaTokenId || !product.serialNumber });
+  const { data: nftOwner } = useGetNftOwnerQuery(
+    {
+      hederaTokenId: product.hederaTokenId,
+      serialNumber: product.serialNumber,
+    },
+    { skip: !product.hederaTokenId || !product.serialNumber },
+  );
 
   const onCompleted = (dealId?: number) => {
     if (!dealId) return onClose();
@@ -46,11 +49,7 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, product, onClose }) => {
         <h3>Price Computation</h3>
       </div>
       <div className="heading">
-        <p>Account balance</p>
-        <div className="subtotal">{}</div>
-      </div>
-      <div className="heading">
-        <p>You will pay</p>
+        <p>You will get</p>
         <div className="subtotal">{amount}</div>
       </div>
       <button
