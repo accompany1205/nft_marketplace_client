@@ -15,6 +15,7 @@ import {
 const appSlice = createApi({
   reducerPath: 'app',
   baseQuery: designbookAxiosBaseQuery(),
+  tagTypes: ['bid', 'ask'],
   endpoints: (builder) => ({
     getProducts: builder.query<{ data: INFTItem[] }, void>({
       query: () => ({
@@ -27,6 +28,7 @@ const appSlice = createApi({
         url: `/marketplace/api/v1/listing?productName=${productName}`,
         method: 'GET',
       }),
+      providesTags: ['bid', 'ask'],
     }),
     makeBid: builder.mutation<BidResponse, BidPayload>({
       query: (bid) => ({
@@ -34,6 +36,7 @@ const appSlice = createApi({
         method: 'POST',
         data: bid,
       }),
+      invalidatesTags: ['bid'],
     }),
     makeAsk: builder.mutation<BidResponse, BidPayload>({
       query: (bid) => ({
@@ -41,30 +44,35 @@ const appSlice = createApi({
         method: 'POST',
         data: bid,
       }),
+      invalidatesTags: ['ask'],
     }),
     getBids: builder.query<{ data: Bid[] }, number>({
       query: (listingId) => ({
         url: `/marketplace/api/v1/listing/bids?listingId=${listingId}`,
         method: 'GET',
       }),
+      providesTags: ['bid'],
     }),
     getAsks: builder.query<{ data: Bid[] }, number>({
       query: (listingId) => ({
         url: `/marketplace/api/v1/listing/asks?listingId=${listingId}`,
         method: 'GET',
       }),
+      providesTags: ['ask'],
     }),
     getLastBid: builder.query<{ data: Bid }, number>({
       query: (listingId) => ({
         url: `/marketplace/api/v1/listing/bids/last?listingId=${listingId}`,
         method: 'GET',
       }),
+      providesTags: ['bid'],
     }),
     getLastAsk: builder.query<{ data: Bid }, number>({
       query: (listingId) => ({
         url: `/marketplace/api/v1/listing/asks/last?listingId=${listingId}`,
         method: 'GET',
       }),
+      providesTags: ['ask'],
     }),
     getNftOwner: builder.query<{ data: string }, GetNftOwnerPayload>({
       query: ({ hederaTokenId, serialNumber }) => ({

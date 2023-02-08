@@ -13,7 +13,7 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, product, onClose }) => {
 
   const { accountId } = useContext(WalletContext);
 
-  const { data: nftOwner } = useGetNftOwnerQuery(
+  const { data: nftOwner, isLoading: loadingNftValidation } = useGetNftOwnerQuery(
     {
       hederaTokenId: product.hederaTokenId,
       serialNumber: product.serialNumber,
@@ -33,7 +33,7 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, product, onClose }) => {
     onCompleted,
   );
 
-  if (!amount) {
+  if (!amount || loadingNftValidation) {
     return (
       <div className="d-flex justify-content-center align-items-center">
         <Loader />
