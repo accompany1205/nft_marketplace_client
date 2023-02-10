@@ -29,18 +29,29 @@ const Header = ({ className }: any) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const isLoggedIn = useMemo(() => !!token, [token]);
-  const [openMenu, setOpenMenu] = useState(false);
 
-  const handleBtnClick = () => {
-    setOpenMenu(!openMenu);
+  const [howDoesItWorkOpen, setHowDoesItWorkOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false)
+
+  const onHowDoesItWorkClick = () => {
+    setHowDoesItWorkOpen(!howDoesItWorkOpen);
   };
 
-  const closeMenu = () => {
-    setOpenMenu(false);
+  const closeHowDoesItWork = () => {
+    setHowDoesItWorkOpen(false);
   };
+
+  const onAboutClick = () => {
+    setAboutOpen(!aboutOpen)
+  }
+
+  const closeAbout = () => {
+    setAboutOpen(false)
+  }
 
   const ref = useOnclickOutside(() => {
-    closeMenu();
+    closeHowDoesItWork()
+    closeAbout()
   });
 
   const [showmenu, btnIcon] = useState(false);
@@ -64,7 +75,7 @@ const Header = ({ className }: any) => {
         totop?.classList.remove('show');
       }
       if (window.pageYOffset > (sticky || 0)) {
-        closeMenu();
+        closeHowDoesItWork();
       }
     });
     return () => {
@@ -80,18 +91,25 @@ const Header = ({ className }: any) => {
       <div className="container">
         <div className="row w-100-nav">
           <div className="logo px-0">
-            <div className="navbar-title navbar-item">
-              <NavLink href="/">
-                <p> NFT MARKET </p>
-              </NavLink>
-            </div>
+            <NavLink href="/">
+              <img 
+                src={'./images/logoWhite.png'} 
+                alt={'logo'} 
+                style={{
+                  width: '150px', 
+                  backgroundColor: '#55427F', 
+                  padding: '12px',
+                  borderRadius: '8px'
+                }}
+              />
+            </NavLink>
           </div>
           <div className="search">
             <input
               id="quick_search"
               className="xs-hide"
               name="quick_search"
-              placeholder="search item here..."
+              placeholder="Search for brands, items, colours"
               type="text"
             />
           </div>
@@ -100,38 +118,48 @@ const Header = ({ className }: any) => {
               {showmenu && (
                 <div className="menu">
                   <div className="navbar-item">
+                    <div>Home</div>
+                  </div>
+                  <div className="navbar-item">
+                    <div>Marketplace</div>
+                  </div>
+                  <div className="navbar-item">
                     <div ref={ref}>
                       <div
                         className="dropdown-custom dropdown-toggle btn"
-                        onClick={handleBtnClick}
+                        onClick={onHowDoesItWorkClick}
                       >
-                        Browse
+                        How does it work
                       </div>
-                      {openMenu && (
+                      {howDoesItWorkOpen && (
                         <div className="item-dropdown">
-                          <div className="dropdown" onClick={closeMenu}>
-                            <NavLink href="/">Sneakers</NavLink>
-                            <NavLink href="/">Shoes</NavLink>
-                            <NavLink href="/">Apparel</NavLink>
-                            <NavLink href="/">Electronics</NavLink>
-                            <NavLink href="/">Trading Cards</NavLink>
-                            <NavLink href="/">Collectibles</NavLink>
-                            <NavLink href="/">Accessories</NavLink>
+                          <div className="dropdown" onClick={closeHowDoesItWork}>
+                            <NavLink href="/">Buyer</NavLink>
+                            <NavLink href="/">Seller</NavLink>
                           </div>
                         </div>
                       )}
                     </div>
                   </div>
                   <div className="navbar-item">
-                    <div>
-                      <NavLink href="/nft/pid">News</NavLink>
+                    <div ref={ref}>
+                      <div
+                        className="dropdown-custom dropdown-toggle btn"
+                        onClick={onAboutClick}
+                      >
+                        About
+                      </div>
+                      {aboutOpen && (
+                        <div className="item-dropdown">
+                          <div className="dropdown" onClick={closeAbout}>
+                            <NavLink href="/">Certification</NavLink>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="navbar-item">
-                    <div>About</div>
-                  </div>
-                  <div className="navbar-item">
-                    <div>Sell</div>
+                    Help
                   </div>
                 </div>
               )}
@@ -140,24 +168,35 @@ const Header = ({ className }: any) => {
             <Breakpoint xl>
               <div className="menu">
                 <div className="navbar-item">
+                  <div>
+                    <div className="dropdown-custom btn">
+                      <NavLink href="/nft/pid">Home</NavLink>
+                      <span className="lines" />
+                    </div>
+                  </div>
+                </div>
+                <div className="navbar-item">
+                  <div>
+                    <div className="dropdown-custom btn">
+                      <NavLink href="/nft/pid">Marketplace</NavLink>
+                      <span className="lines" />
+                    </div>
+                  </div>
+                </div>
+                <div className="navbar-item">
                   <div ref={ref}>
                     <div
                       className="dropdown-custom dropdown-toggle btn"
-                      onMouseEnter={handleBtnClick}
-                      onMouseLeave={closeMenu}
+                      onMouseEnter={onHowDoesItWorkClick}
+                      onMouseLeave={closeHowDoesItWork}
                     >
-                      Browse
+                      How does it work
                       <span className="lines" />
-                      {openMenu && (
+                      {howDoesItWorkOpen && (
                         <div className="item-dropdown">
-                          <div className="dropdown" onClick={closeMenu}>
-                            <NavLink href="/">Sneakers</NavLink>
-                            <NavLink href="/">Shoes</NavLink>
-                            <NavLink href="/">Apparel</NavLink>
-                            <NavLink href="/">Electronics</NavLink>
-                            <NavLink href="/">Trading Cards</NavLink>
-                            <NavLink href="/">Collectibles</NavLink>
-                            <NavLink href="/">Accessories</NavLink>
+                          <div className="dropdown" onClick={closeHowDoesItWork}>
+                            <NavLink href="/">Buyer</NavLink>
+                            <NavLink href="/">Seller</NavLink>
                           </div>
                         </div>
                       )}
@@ -165,18 +204,21 @@ const Header = ({ className }: any) => {
                   </div>
                 </div>
                 <div className="navbar-item">
-                  <div>
-                    <div className="dropdown-custom btn">
-                      <NavLink href="/nft/pid">News</NavLink>
-                      <span className="lines" />
-                    </div>
-                  </div>
-                </div>
-                <div className="navbar-item">
-                  <div>
-                    <div className="dropdown-custom btn">
+                  <div ref={ref}>
+                    <div
+                      className="dropdown-custom dropdown-toggle btn"
+                      onMouseEnter={onAboutClick}
+                      onMouseLeave={closeAbout}
+                    >
                       About
                       <span className="lines" />
+                      {aboutOpen && (
+                        <div className="item-dropdown">
+                          <div className="dropdown" onClick={closeAbout}>
+                            <NavLink href="/">Certification</NavLink>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -189,54 +231,22 @@ const Header = ({ className }: any) => {
                   </NavLink>
                 </div>
                 <div className="navbar-item">
-                  <div>
-                    <div className="dropdown-custom btn">
-                      Sell
-                      <span className="lines" />
-                    </div>
-                  </div>
-                </div>
-                <div className="navbar-item">
                   <div className="mainside">
-                    {isLoggedIn
-                      ? (
-                        <div
-                          className="connect-wal"
-                          onClick={() => {
-                            if (accountId) disconnectWallet(WalletServiceProviders.HASHPACK);
-                            else {
-                              setShowModal(true);
-                            }
-                          }}
-                        >
-                          <span>
-                            {accountId ? 'Disconnect Wallet' : 'Connect Wallet'}
-                          </span>
-                        </div>
-                      )
-                      : (
-                        <div className="mainside">
-                          <div className="connect-wal">
-                            <NavLink href="/register">Sign Up</NavLink>
-                          </div>
-                        </div>
-                      )}
+                    <div
+                      className="connect-wal"
+                      onClick={() => {
+                        if (accountId) disconnectWallet(WalletServiceProviders.HASHPACK);
+                        else {
+                          setShowModal(true);
+                        }
+                      }}
+                    >
+                      <span>
+                        {isLoggedIn ? 'Logout (Disconnect Wallet)' : 'Login (Connect Wallet)'}
+                      </span>
+                    </div>
+
                   </div>
-                </div>
-                <div className="navbar-item">
-                  {isLoggedIn ? (
-                    <div className="mainside">
-                      <div className="connect-wal" onClick={handleLogout}>
-                        <NavLink href="/login">Logout</NavLink>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="mainside">
-                      <div className="connect-wal">
-                        <NavLink href="/login">Login</NavLink>
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
             </Breakpoint>

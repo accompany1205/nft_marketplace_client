@@ -1,7 +1,7 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '@reach/router';
 
-const Footer = () => (
+const footer = () => (
   <footer className="footer-light">
     <div className="container">
       <div className="row">
@@ -10,22 +10,40 @@ const Footer = () => (
             <h5>Marketplace</h5>
             <ul>
               <li>
-                <Link href="">All NFTs</Link>
+                <Link to="">
+                  {' '}
+                  Bags
+                </Link>
               </li>
               <li>
-                <Link href="">Art</Link>
+                <Link to="">
+                  {' '}
+                  Leather goods
+                </Link>
               </li>
               <li>
-                <Link href="">Music</Link>
+                <Link to="">
+                  {' '}
+                  Jewellery
+                </Link>
               </li>
               <li>
-                <Link href="">Domain Names</Link>
+                <Link to="">
+                  {' '}
+                  Shoes
+                </Link>
               </li>
               <li>
-                <Link href="">Virtual World</Link>
+                <Link to="">
+                  {' '}
+                  Watches
+                </Link>
               </li>
               <li>
-                <Link href="">Collectibles</Link>
+                <Link to="">
+                  {' '}
+                  Sunglasses
+                </Link>
               </li>
             </ul>
           </div>
@@ -35,22 +53,34 @@ const Footer = () => (
             <h5>Resources</h5>
             <ul>
               <li>
-                <Link href="">Help Center</Link>
+                <Link to="">
+                  {' '}
+                  How does it work
+                </Link>
               </li>
               <li>
-                <Link href="">Partners</Link>
+                <Link to="">
+                  {' '}
+                  Sellers
+                </Link>
               </li>
               <li>
-                <Link href="">Suggestions</Link>
+                <Link to="">
+                  {' '}
+                  Buyers
+                </Link>
               </li>
               <li>
-                <Link href="">Discord</Link>
+                <Link to="">
+                  {' '}
+                  Certification Process
+                </Link>
               </li>
               <li>
-                <Link href="">Docs</Link>
-              </li>
-              <li>
-                <Link href="">Newsletter</Link>
+                <Link to="">
+                  {' '}
+                  Help Center
+                </Link>
               </li>
             </ul>
           </div>
@@ -60,31 +90,49 @@ const Footer = () => (
             <h5>Community</h5>
             <ul>
               <li>
-                <Link href="">Community</Link>
+                <Link to="">
+                  {' '}
+                  Community
+                </Link>
               </li>
               <li>
-                <Link href="">Documentation</Link>
+                <Link to="">
+                  {' '}
+                  Documentation
+                </Link>
               </li>
               <li>
-                <Link href="">Brand Assets</Link>
+                <Link to="">
+                  {' '}
+                  Brand Assets
+                </Link>
               </li>
               <li>
-                <Link href="">Blog</Link>
+                <Link to="">
+                  {' '}
+                  Blog
+                </Link>
               </li>
               <li>
-                <Link href="">Forum</Link>
+                <Link to="">
+                  {' '}
+                  Forum
+                </Link>
               </li>
               <li>
-                <Link href="">Mailing List</Link>
+                <Link to="">
+                  {' '}
+                  Mailing List
+                </Link>
               </li>
             </ul>
           </div>
         </div>
         <div className="col-md-3 col-sm-6 col-xs-1">
           <div className="widget">
-            <h5>Newsletter</h5>
+            <h5>Get latest updates</h5>
             <p>
-              Signup for our newsletter href get the latest news in your inbox.
+              Sign up to our newsletter to receive the latest news
             </p>
             <form
               action="#"
@@ -98,17 +146,17 @@ const Footer = () => (
                   className="form-control"
                   id="txt_subscribe"
                   name="txt_subscribe"
-                  placeholder="enter your email"
+                  placeholder="Mail field"
                   type="text"
                 />
-                <Link href="" id="btn-subscribe">
+                <Link to="" id="btn-subscribe">
                   <i className="arrow_right bg-color-secondary" />
                 </Link>
                 <div className="clearfix" />
               </div>
             </form>
             <div className="spacer-10" />
-            <small>Your email is safe with us. We don&apos;t spam.</small>
+            <small>Your email is safe with us. We don't spam.</small>
           </div>
         </div>
       </div>
@@ -118,39 +166,33 @@ const Footer = () => (
         <div className="row">
           <div className="col-md-12">
             <div className="de-flex">
+
+            <div className="de-flex-col">
+                <span className="copy">Terms and Conditions</span>
+            </div>  
+
+            <div className="de-flex-col">
+                <span className="copy">Privacy Policy</span>
+            </div>  
+
               <div className="de-flex-col">
                 <span onClick={() => window.open('', '_self')}>
                   <img alt="" className="f-logo d-1" src="./img/logo.png" />
-                  <img
-                    alt=""
-                    className="f-logo d-3"
-                    src="./img/logo-2-light.png"
-                  />
-                  <img alt="" className="f-logo d-4" src="./img/logo-3.png" />
-                  <span className="copy">
-                    &copy; Copyright 2021 - Gigaland by Designesia
-                  </span>
+                  <img alt="" className="f-logo d-3" src="./img/logo-2-light.png" />
+                  <span className="copy">© Copyright 2023 - DesignBook</span>
                 </span>
               </div>
+
               <div className="de-flex-col">
                 <div className="social-icons">
-                  <span onClick={() => window.open('', '_self')}>
-                    <i className="fa fa-facebook fa-lg" />
-                  </span>
-                  <span onClick={() => window.open('', '_self')}>
-                    <i className="fa fa-twitter fa-lg" />
-                  </span>
-                  <span onClick={() => window.open('', '_self')}>
-                    <i className="fa fa-linkedin fa-lg" />
-                  </span>
-                  <span onClick={() => window.open('', '_self')}>
-                    <i className="fa fa-pinterest fa-lg" />
-                  </span>
-                  <span onClick={() => window.open('', '_self')}>
-                    <i className="fa fa-rss fa-lg" />
-                  </span>
+                  <span onClick={() => window.open('', '_self')}><i className="fa fa-facebook fa-lg" /></span>
+                  <span onClick={() => window.open('', '_self')}><i className="fa fa-twitter fa-lg" /></span>
+                  <span onClick={() => window.open('', '_self')}><i className="fa fa-linkedin fa-lg" /></span>
+                  <span onClick={() => window.open('', '_self')}><i className="fa fa-pinterest fa-lg" /></span>
+                  <span onClick={() => window.open('', '_self')}><i className="fa fa-rss fa-lg" /></span>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -158,4 +200,4 @@ const Footer = () => (
     </div>
   </footer>
 );
-export default Footer;
+export default footer;
