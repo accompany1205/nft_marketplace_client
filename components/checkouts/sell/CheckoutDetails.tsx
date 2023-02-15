@@ -27,7 +27,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
             </button>
           </li>
         )}
-        {disablePlaceAsk && (
+        {!disablePlaceAsk && (
           <li
             className={activeTab === CheckoutType.PLACE_ASK ? 'active' : ''}
             key={`tab-${CheckoutType.PLACE_ASK}`}
