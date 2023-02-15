@@ -42,7 +42,7 @@ const NftDetail: React.FC = () => {
   const [variant, setVariant] = useState<INFTVariant | undefined>();
 
   useEffect(() => {
-    if (!variant) {
+    if (details?.data?.variants) {
       setVariant(head(details?.data?.variants));
     }
   }, [details]);
