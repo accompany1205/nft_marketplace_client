@@ -20,9 +20,10 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
         {product.highestBid?.id && (
           <li
             className={activeTab === CheckoutType.SELL_NOW ? 'active' : ''}
-            key={`tab-${CheckoutType.SELL_NOW}`}
-          >
-            <button type="button" onClick={() => setActiveTab(CheckoutType.SELL_NOW)}>
+            key={`tab-${CheckoutType.SELL_NOW}`}>
+            <button
+              type="button"
+              onClick={() => setActiveTab(CheckoutType.SELL_NOW)}>
               {CheckoutType.SELL_NOW}
             </button>
           </li>
@@ -30,9 +31,10 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
         {!disablePlaceAsk && (
           <li
             className={activeTab === CheckoutType.PLACE_ASK ? 'active' : ''}
-            key={`tab-${CheckoutType.PLACE_ASK}`}
-          >
-            <button type="button" onClick={() => setActiveTab(CheckoutType.PLACE_ASK)}>
+            key={`tab-${CheckoutType.PLACE_ASK}`}>
+            <button
+              type="button"
+              onClick={() => setActiveTab(CheckoutType.PLACE_ASK)}>
               {CheckoutType.PLACE_ASK}
             </button>
           </li>
@@ -41,10 +43,21 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
       <div className="de_tab_content">
         {activeTab === CheckoutType.SELL_NOW && (
           <div className="tab-2 onStep fadeIn">
-            <SellNow
-              product={product}
-              onSubmit={() => product?.highestBid && onNextStep(product.highestBid.amount)}
-            />
+            {product.highestBid?.id ? (
+              <SellNow
+                product={product}
+                onSubmit={() => product?.highestBid && onNextStep(product.highestBid.amount)}
+              />
+            ) : (
+              <div>
+                <div className="heading">
+                  <h3>No Bids yet!</h3>
+                </div>
+                <p>
+                  Please wait till some buyer makes a bid to sell.
+                </p>
+              </div>
+            )}
           </div>
         )}
         {activeTab === CheckoutType.PLACE_ASK && (
