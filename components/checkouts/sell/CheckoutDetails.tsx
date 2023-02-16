@@ -20,10 +20,12 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
         {product.highestBid?.id && (
           <li
             className={activeTab === CheckoutType.SELL_NOW ? 'active' : ''}
-            key={`tab-${CheckoutType.SELL_NOW}`}>
+            key={`tab-${CheckoutType.SELL_NOW}`}
+          >
             <button
               type="button"
-              onClick={() => setActiveTab(CheckoutType.SELL_NOW)}>
+              onClick={() => setActiveTab(CheckoutType.SELL_NOW)}
+            >
               {CheckoutType.SELL_NOW}
             </button>
           </li>
@@ -31,10 +33,12 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
         {!disablePlaceAsk && (
           <li
             className={activeTab === CheckoutType.PLACE_ASK ? 'active' : ''}
-            key={`tab-${CheckoutType.PLACE_ASK}`}>
+            key={`tab-${CheckoutType.PLACE_ASK}`}
+          >
             <button
               type="button"
-              onClick={() => setActiveTab(CheckoutType.PLACE_ASK)}>
+              onClick={() => setActiveTab(CheckoutType.PLACE_ASK)}
+            >
               {CheckoutType.PLACE_ASK}
             </button>
           </li>
