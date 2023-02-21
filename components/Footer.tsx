@@ -87,42 +87,18 @@ const footer = () => (
         </div>
         <div className="col-md-3 col-sm-6 col-xs-1">
           <div className="widget">
-            <h5>Community</h5>
+            <h5>Legal</h5>
             <ul>
               <li>
                 <Link to="">
                   {' '}
-                  Community
+                  Terms and Conditions
                 </Link>
               </li>
               <li>
                 <Link to="">
                   {' '}
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link to="">
-                  {' '}
-                  Brand Assets
-                </Link>
-              </li>
-              <li>
-                <Link to="">
-                  {' '}
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link to="">
-                  {' '}
-                  Forum
-                </Link>
-              </li>
-              <li>
-                <Link to="">
-                  {' '}
-                  Mailing List
+                  Privacy Policy
                 </Link>
               </li>
             </ul>
@@ -166,14 +142,6 @@ const footer = () => (
         <div className="row">
           <div className="col-md-12">
             <div className="de-flex">
-
-            <div className="de-flex-col">
-                <span className="copy">Terms and Conditions</span>
-            </div>  
-
-            <div className="de-flex-col">
-                <span className="copy">Privacy Policy</span>
-            </div>  
 
               <div className="de-flex-col">
                 <span onClick={() => window.open('', '_self')}>

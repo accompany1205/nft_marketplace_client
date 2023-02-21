@@ -85,7 +85,7 @@ const Header = ({ className }: any) => {
   }, []);
   const { disconnectWallet, accountId } = useContext(WalletContext);
   return (
-    <header className={`navbar white ${className}`} id="myHeader">
+    <header className={`navbar white ${className}`} id="myHeader" style={{backgroundColor: 'white'}}>
       <WalletConnector showModal={showModal} setShowModal={setShowModal} />
 
       <div className="container">
@@ -93,13 +93,10 @@ const Header = ({ className }: any) => {
           <div className="logo px-0">
             <NavLink href="/">
               <img 
-                src={'./images/logoWhite.png'} 
+                src={'./images/logoBlack.png'} 
                 alt={'logo'} 
                 style={{
                   width: '150px', 
-                  backgroundColor: '#55427F', 
-                  padding: '12px',
-                  borderRadius: '8px'
                 }}
               />
             </NavLink>

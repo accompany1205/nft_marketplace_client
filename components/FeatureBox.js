@@ -18,14 +18,14 @@ const fadeInUp = keyframes`
 const featurebox = () => (
   <div className='row'>
     <div className='col-lg-4 col-md-6 mb-3'>
-      <div className='feature-box f-boxed style-3'>
+      <div className='feature-box f-boxed style-3' style={{ minHeight: '350px' }}>
         <Reveal
           className='onStep'
           keyframes={fadeInUp}
           delay={0}
           duration={600}
           triggerOnce>
-          <i className='bg-color-2 i-boxed icon_cloud-upload_alt'></i>
+          <i className='bg-color-2 i-boxed icon_cloud-upload_alt' />
         </Reveal>
         <div className='text'>
           <Reveal
@@ -43,23 +43,22 @@ const featurebox = () => (
             duration={600}
             triggerOnce>
             <p className=''>
-              Search for listings on the marketplace, by brand, model or colour. Once found, you can place a target purchase price or purchase the item now. If you own the item
-              and fits our verification standards, you can sell it by placing a target price or sell it instantly at the best offer.
+              Browse items Search for listings by brand, model or colour. Place a desired purchase price or buy now. If you own the item, you can sell now or place a target price.
             </p>
           </Reveal>
         </div>
-        <i className='wm icon_wallet'></i>
+        <i className='wm icon_wallet' />
       </div>
     </div>
     <div className='col-lg-4 col-md-6 mb-3'>
-      <div className='feature-box f-boxed style-3'>
+      <div className='feature-box f-boxed style-3' style={{ minHeight: '350px' }}>
         <Reveal
           className='onStep'
           keyframes={fadeInUp}
           delay={0}
           duration={600}
           triggerOnce>
-          <i className=' bg-color-2 i-boxed icon_wallet'></i>
+          <i className=' bg-color-2 i-boxed icon_wallet' />
         </Reveal>
         <div className='text'>
           <Reveal
@@ -77,24 +76,23 @@ const featurebox = () => (
             duration={600}
             triggerOnce>
             <p className=''>
-              The listing shows the best bid/offer for each item and will inform you of any price improvement if you have taken part in the process by placing an order. Once a
-              deal is closed, the authenticity of digital certificate will be checked on the blockchain and seller has 2 day to ship us the physical item linked to
-              this certificate
+              Listings show the best bid/offer and will inform you of any changes if you have taken part in the sale. Once a deal is closed, digital certificate and physical item
+              are checked.
             </p>
           </Reveal>
         </div>
-        <i className='wm icon_cloud-upload_alt'></i>
+        <i className='wm icon_cloud-upload_alt' />
       </div>
     </div>
     <div className='col-lg-4 col-md-6 mb-3'>
-      <div className='feature-box f-boxed style-3'>
+      <div className='feature-box f-boxed style-3' style={{ minHeight: '350px' }}>
         <Reveal
           className='onStep'
           keyframes={fadeInUp}
           delay={0}
           duration={600}
           triggerOnce>
-          <i className=' bg-color-2 i-boxed icon_tags_alt'></i>
+          <i className=' bg-color-2 i-boxed icon_tags_alt' />
         </Reveal>
         <div className='text'>
           <Reveal
@@ -112,12 +110,11 @@ const featurebox = () => (
             duration={600}
             triggerOnce>
             <p className=''>
-              The Physical tem will have to pass our certification process along with the certificate, if validated, you will first receive your certificate directly on your wallet
-              and then the item by post. Sellers will get their monies only once product and digital twin have passed the certification process.
+              You will first receive the digital certificate on your wallet and the item by post. Sellers will get their monies when product and certificate have been checked.
             </p>
           </Reveal>
         </div>
-        <i className='wm icon_tags_alt'></i>
+        <i className='wm icon_tags_alt' />
       </div>
     </div>
   </div>
