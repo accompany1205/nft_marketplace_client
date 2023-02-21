@@ -9,10 +9,13 @@ import PopularBrands from '../components/PopularBrands'
 import Footer from '../components/footer'
 import ItemsYoullLike from '../components/ItemsYoullLike'
 import Catgor from '../components/Catgor';
+import useMobileMode from '../hooks/useMobileMode'
 
-const Home = () => (
+const Home = () => {
+  const mobileMode = useMobileMode()
+  return (
   <div>
-    <section className='jumbotron breadcumb no-bg h-vh' style={{ backgroundImage: `url(${'./images/homeBackground.jpg'})` }}>
+    <section className='jumbotron breadcumb no-bg h-vh' style={mobileMode ? {} : { backgroundImage: `url(${'./images/homeBackground.jpg'})` }}>
       <SliderMain />
     </section>
     <section className='container no-top no-bottom'>
@@ -130,5 +133,6 @@ const Home = () => (
     <Footer />
   </div>
 )
+         }
 
 export default Home

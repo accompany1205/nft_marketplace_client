@@ -25,7 +25,7 @@ const featurebox = () => (
           delay={0}
           duration={600}
           triggerOnce>
-          <i className='bg-color-2 i-boxed icon_cloud-upload_alt' />
+          <i className='bg-color-2 i-boxed icon-search' />
         </Reveal>
         <div className='text'>
           <Reveal
@@ -47,7 +47,7 @@ const featurebox = () => (
             </p>
           </Reveal>
         </div>
-        <i className='wm icon_wallet' />
+        <i className='wm icon-search' />
       </div>
     </div>
     <div className='col-lg-4 col-md-6 mb-3'>
@@ -58,7 +58,7 @@ const featurebox = () => (
           delay={0}
           duration={600}
           triggerOnce>
-          <i className=' bg-color-2 i-boxed icon_wallet' />
+          <i className=' bg-color-2 i-boxed icon-wallet' />
         </Reveal>
         <div className='text'>
           <Reveal
@@ -81,7 +81,7 @@ const featurebox = () => (
             </p>
           </Reveal>
         </div>
-        <i className='wm icon_cloud-upload_alt' />
+        <i className='wm icon-wallet' />
       </div>
     </div>
     <div className='col-lg-4 col-md-6 mb-3'>
@@ -92,7 +92,7 @@ const featurebox = () => (
           delay={0}
           duration={600}
           triggerOnce>
-          <i className=' bg-color-2 i-boxed icon_tags_alt' />
+          <i className=' bg-color-2 i-boxed icon-gift' />
         </Reveal>
         <div className='text'>
           <Reveal
@@ -114,7 +114,7 @@ const featurebox = () => (
             </p>
           </Reveal>
         </div>
-        <i className='wm icon_tags_alt' />
+        <i className='wm icon-gift' />
       </div>
     </div>
   </div>
