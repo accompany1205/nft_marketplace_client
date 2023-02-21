@@ -7,7 +7,13 @@ const RouteGuard = ({ children }: any) => {
   const router = useRouter();
   const token = useSelector<RootState>(state => state.auth.token);
   const authCheck = (url: any) => {
-    const publicPaths = ['/', '/login', '/register', '/marketplace'];
+    const publicPaths = [
+      '/',
+      '/login',
+      '/register',
+      '/marketplace',
+      '/itemdetails',
+    ];
     const [path] = url.split('?');
     if (!token && !publicPaths.includes(path)) {
       router.push('/login');
