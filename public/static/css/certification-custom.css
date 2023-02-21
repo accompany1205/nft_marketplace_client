@@ -1,0 +1,52 @@
+.how-it-works__top-img {
+    max-width: 200px;
+    width: 100%;
+}
+
+
+.feature-box.f-boxed {
+    padding: 30px;
+    height: 100%;
+}
+
+.buyers-steps-img {
+    max-width: 250px;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.down-arrow__circle-svg {
+    height: 40px;
+    width: 40px;
+    border: 1px solid var(--secondary-color);
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.down-marker__area {
+    position: relative;
+}
+
+.down-marker__area:after {
+    content: "";
+    width: 1px;
+    height: calc(100% - 40px);
+    background: var(--secondary-color);
+    position: absolute;
+    left: 50%;
+    top: 40px;
+}
+
+.down-marker__area {
+    margin-right: 2rem;
+}
+
+.down-marker__area.down-marker__area-last {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.down-marker__area.down-marker__area-last:after {
+    top: initial;
+    bottom: 40px;
+}
