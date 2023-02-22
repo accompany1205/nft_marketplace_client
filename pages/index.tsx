@@ -71,7 +71,6 @@ const Home = () => (
       </div>
       <Products />
     </section>
-    <Footer />
   </div>
 );
 

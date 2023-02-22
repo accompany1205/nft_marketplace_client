@@ -418,7 +418,8 @@ const HowItWorks:React.FC = () => (
       <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
       <link id="colors" href="/static/css/colors/scheme-01.css" rel="stylesheet" type="text/css" />
       <link href="/static/css/coloring.css" rel="stylesheet" type="text/css" />
-      <link href="/static/css/how-it-works-custom.css" rel="stylesheet" type="text/css" />
+      <link href="/static/css/faq-custom.css" rel="stylesheet" type="text/css" />
+
     </Head>
     <GlobalStyles />
 
@@ -470,10 +471,10 @@ const HowItWorks:React.FC = () => (
                             <>
                               <h4 id={faq.readMoreTarget} className="accordion__section-title">{faq.title}</h4>
                               <div className="small-border bg-color-2" style={{ backgroundSize: 'cover' }} />
-                              <div className="accordion accordion-flush" id="general-accordion" style={{ backgroundSize: 'cover' }}>
+                              <div className="accordion accordion-flush" id={`general-accordion-${faq.readMoreTarget}`} style={{ backgroundSize: 'cover' }}>
                                 {
                                     faq.qnas.map((qna) => (
-                                      <Accordian title={qna.question} key={qna.id}>
+                                      <Accordian title={qna.question} key={qna.id} accordianParentId={`general-accordion-${faq.readMoreTarget}`}>
                                         {
                                             qna.answers.map((ans) => {
                                               if (typeof ans !== 'string') {
