@@ -5,7 +5,6 @@ import { createGlobalStyle } from 'styled-components';
 import SliderParticles from '../components/SliderParticles';
 import SliderImage from '../public/images/particleBg.jpg';
 import Products from '../components/Products';
-import Footer from '../components/Footer';
 
 const GlobalStyles = createGlobalStyle`
   :root {

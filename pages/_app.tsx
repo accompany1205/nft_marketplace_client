@@ -12,6 +12,7 @@ import WalletProvider from '../services/WalletService/WalletProvider';
 import SnackBar from '../components/Toast';
 import Footer from '../components/Footer';
 import '../public/static/css/coloring.css';
+import '../public/static/css/colors/scheme-01.css';
 
 const App:React.FC<AppProps> = ({ Component, pageProps }) => (
   <ApiProvider api={appSlice}>

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -75,8 +77,6 @@ const SellerPage = () => (
     <Head>
       <link rel="stylesheet" href="/static/css/plugins.css" />
       <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-      <link id="colors" href="/static/css/colors/scheme-01.css" rel="stylesheet" type="text/css" />
-      <link href="/static/css/coloring.css" rel="stylesheet" type="text/css" />
       <link href="/static/css/seller-page-custom.css" rel="stylesheet" type="text/css" />
 
     </Head>

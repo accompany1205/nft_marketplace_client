@@ -14,7 +14,8 @@ const Accordian:React.FC<IProps> = (props) => {
   // const accordianParentId = `general-accordion${String(uniqueId)}`;
   const accordianChildId = `general-collapse-${String(uniqueId)}`;
   return (
-  // <div className="accordion accordion-flush" id={`${accordianParentId}`} style={{ backgroundSize: 'cover' }}>
+  // <div className="accordion accordion-flush" id={`${accordianParentId}`}
+  // style={{ backgroundSize: 'cover' }}>
     <div className="accordion-item" style={{ backgroundSize: 'cover' }}>
       <h2 className="accordion-header" id={accordianId}>
         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#${accordianChildId}`} aria-expanded="false" aria-controls={accordianChildId}>

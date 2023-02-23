@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -303,99 +305,101 @@ const FAQS = [
           'Shipping fees will be charged based on the nature of the item and your location. For buyers, this will be determined when you place a purchase, you will be able to see the price computation with shipping feeds after you fill in your shipping details (plus tax) according to your delivery address. For sellers, we generate and share a prepaid label which you can use for shipping. The cost of this is deducted from your total payout, and the amount varies depending on the type and size of the item you sold, as well as where you are located.',
           {
             type: 'html',
-            content: <>
-              <p className="text-decoration-underline mb-0">
-                Estimated Buyer Outbound Shipping Cost:
-              </p>
-              <img src="/static/images/faq-table-1.png" alt="table" />
-              <br />
-              {' '}
-              <br />
-              <p className="text-decoration-underline mb-2">
-                Estimated Seller Inbound Shipping Cost:
-              </p>
-              <img src="/static/images/faq-table-2.png" alt="table" />
-              <br />
-              <br />
-              <table className="table table-bordered faq-table">
-                <tbody>
-                  <tr>
-                    <td>Zone 1</td>
-                    <td>
-                      Andorra, Austria, Belgium, Denmark, Faroe Is, Finland, France,
-                      Germany, Greece, Greenland, Ireland, Luxembourg, Monaco,
-                      Netherlands, Portugal, Spain, Sweden, United Kingdom
+            content: (
+              <>
+                <p className="text-decoration-underline mb-0">
+                  Estimated Buyer Outbound Shipping Cost:
+                </p>
+                <img src="/static/images/faq-table-1.png" alt="table" />
+                <br />
+                {' '}
+                <br />
+                <p className="text-decoration-underline mb-2">
+                  Estimated Seller Inbound Shipping Cost:
+                </p>
+                <img src="/static/images/faq-table-2.png" alt="table" />
+                <br />
+                <br />
+                <table className="table table-bordered faq-table">
+                  <tbody>
+                    <tr>
+                      <td>Zone 1</td>
+                      <td>
+                        Andorra, Austria, Belgium, Denmark, Faroe Is, Finland, France,
+                        Germany, Greece, Greenland, Ireland, Luxembourg, Monaco,
+                        Netherlands, Portugal, Spain, Sweden, United Kingdom
 
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Zone 2</td>
-                    <td>Gibraltar, Iceland, Liechtenstein, Norway, Switzerland</td>
-                  </tr>
-                  <tr>
-                    <td>Zone 3 </td>
-                    <td>Canada, USA, Mexico</td>
-                  </tr>
-                  <tr>
-                    <td>Zone 4 </td>
-                    <td>
-                      Australia, Brunei, Cambodia, China, East, Timor, Hong Kong,
-                      Indonesia, Japan, Laos, Macau, Malaysia, Myanmar, New Zealand,
-                      Singapore, South Korea, Taiwan, Thailand, Vietnam
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Zone 5</td>
-                    <td>
-                      Anguilla, Antigua, Argentina, Aruba, Bahamas, Barbados, Belize,
-                      Bolivia, Brazil, Cayman Island, Chile, Colombia, Costa Rica,
-                      Dominica, Dominica Rep, Ecuador, El Salvador, French Guinea,
-                      Grenada, Guadeloupe, Guatemala, Guyana, Haiti, Honduras, Jamaica,
-                      Martinique, Montserrat, Nicaragua, Panama, Paraguay, Peru, British
-                      Virgin, St Kitts &amp; Nevis, St. Lucia, St. Vincent, Suriname, Trinidad
-                      &amp; Tobago, Turks &amp; Caicos, Uruguay, Venezuela, Virgin Island, NL
-                      Antilles
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Zone 6</td>
-                    <td>
-                      Bahrain, Bangladesh, Botham, Cyprus, Egypt, India, Israel, Jordan,
-                      Ille, Lebanon, Maldives, Malta, Nepal, Oman, Pakistan, Palestine,
-                      Philippines, Qatar, Saudi Arabia, Sri Lanka, Syria, Tunisia, Turkey,
-                      U.A.E., Yemen, Seychelles, Kuwait
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Zone 7</td>
-                    <td>
-                      Albania, Belarus, Bosnia, Bulgaria, Croatia, Czech Rep, Estonia,
-                      Georgia, Hungary, Latvia, Lithuania, Macedonia, Moldova, Montenegro,
-                      Poland, Romania, Russia, Serbia, Montenegro, Slovakia, Slovenia,
-                      Ukraine
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Zone 8</td>
-                    <td>
-                      Algeria, Angola-Armenia, Afghanistan, American Samoa, Azerbaijan,
-                      Botswana, Burkina Faso, Burundi Benin, Cameroon, Cape Verde, Central
-                      Africa Republic, Chad, Congo, Democratic Republic, Djibouti,
-                      Equatorial Guinea, Eritrea - Ethiopia, Fiji, French Polynesia, Gabon
-                      - Gambia, Guinea, Ghana - Guam, Morocco, Ivory Coast, Kazakhstan,
-                      Kenya - Kiribati, Kyrgyzstan, Liberia, Madagascar - Malawi, Senegal,
-                      Marshall Islands, Mauritania - Mauritius, Micronesia, Mongolia,
-                      Mozambique, Namibia -Nauru, New Caledonia, Niger - Nigeria, Niue
-                      -Palau, Reunion Island, Rwanda, Saipan - Samoa -Sierra Leone,
-                      Solomon Island, Somalia - Sudan, Sudan-Swaziland, Tanzania -Togo,
-                      Turkmenistan, Tonga - Tuvalu, Uganda, Uzbekistan, Vanuatu, Wallis &amp;
-                      Futuna, Zaire - Zambia, Zimbabwe, Cook Islands, Lesotho, Papua
-                      Guinea, South Africa
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-                     </>,
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Zone 2</td>
+                      <td>Gibraltar, Iceland, Liechtenstein, Norway, Switzerland</td>
+                    </tr>
+                    <tr>
+                      <td>Zone 3 </td>
+                      <td>Canada, USA, Mexico</td>
+                    </tr>
+                    <tr>
+                      <td>Zone 4 </td>
+                      <td>
+                        Australia, Brunei, Cambodia, China, East, Timor, Hong Kong,
+                        Indonesia, Japan, Laos, Macau, Malaysia, Myanmar, New Zealand,
+                        Singapore, South Korea, Taiwan, Thailand, Vietnam
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Zone 5</td>
+                      <td>
+                        Anguilla, Antigua, Argentina, Aruba, Bahamas, Barbados, Belize,
+                        Bolivia, Brazil, Cayman Island, Chile, Colombia, Costa Rica,
+                        Dominica, Dominica Rep, Ecuador, El Salvador, French Guinea,
+                        Grenada, Guadeloupe, Guatemala, Guyana, Haiti, Honduras, Jamaica,
+                        Martinique, Montserrat, Nicaragua, Panama, Paraguay, Peru, British
+                        Virgin, St Kitts &amp; Nevis, St. Lucia, St. Vincent, Suriname, Trinidad
+                        &amp; Tobago, Turks &amp; Caicos, Uruguay, Venezuela, Virgin Island, NL
+                        Antilles
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Zone 6</td>
+                      <td>
+                        Bahrain, Bangladesh, Botham, Cyprus, Egypt, India, Israel, Jordan,
+                        Ille, Lebanon, Maldives, Malta, Nepal, Oman, Pakistan, Palestine,
+                        Philippines, Qatar, Saudi Arabia, Sri Lanka, Syria, Tunisia, Turkey,
+                        U.A.E., Yemen, Seychelles, Kuwait
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Zone 7</td>
+                      <td>
+                        Albania, Belarus, Bosnia, Bulgaria, Croatia, Czech Rep, Estonia,
+                        Georgia, Hungary, Latvia, Lithuania, Macedonia, Moldova, Montenegro,
+                        Poland, Romania, Russia, Serbia, Montenegro, Slovakia, Slovenia,
+                        Ukraine
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Zone 8</td>
+                      <td>
+                        Algeria, Angola-Armenia, Afghanistan, American Samoa, Azerbaijan,
+                        Botswana, Burkina Faso, Burundi Benin, Cameroon, Cape Verde, Central
+                        Africa Republic, Chad, Congo, Democratic Republic, Djibouti,
+                        Equatorial Guinea, Eritrea - Ethiopia, Fiji, French Polynesia, Gabon
+                        - Gambia, Guinea, Ghana - Guam, Morocco, Ivory Coast, Kazakhstan,
+                        Kenya - Kiribati, Kyrgyzstan, Liberia, Madagascar - Malawi, Senegal,
+                        Marshall Islands, Mauritania - Mauritius, Micronesia, Mongolia,
+                        Mozambique, Namibia -Nauru, New Caledonia, Niger - Nigeria, Niue
+                        -Palau, Reunion Island, Rwanda, Saipan - Samoa -Sierra Leone,
+                        Solomon Island, Somalia - Sudan, Sudan-Swaziland, Tanzania -Togo,
+                        Turkmenistan, Tonga - Tuvalu, Uganda, Uzbekistan, Vanuatu, Wallis &amp;
+                        Futuna, Zaire - Zambia, Zimbabwe, Cook Islands, Lesotho, Papua
+                        Guinea, South Africa
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </>
+            ),
           },
         ],
       },
@@ -416,8 +420,6 @@ const HowItWorks:React.FC = () => (
     <Head>
       <link rel="stylesheet" href="/static/css/plugins.css" />
       <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-      <link id="colors" href="/static/css/colors/scheme-01.css" rel="stylesheet" type="text/css" />
-      <link href="/static/css/coloring.css" rel="stylesheet" type="text/css" />
       <link href="/static/css/faq-custom.css" rel="stylesheet" type="text/css" />
 
     </Head>

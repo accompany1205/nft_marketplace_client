@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -13,8 +15,6 @@ const AboutUs = () => (
     <Head>
       <link rel="stylesheet" href="/static/css/plugins.css" />
       <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-      <link id="colors" href="/static/css/colors/scheme-01.css" rel="stylesheet" type="text/css" />
-      <link href="/static/css/coloring.css" rel="stylesheet" type="text/css" />
       <link href="/static/css/about-us-custom.css" rel="stylesheet" type="text/css" />
 
     </Head>
@@ -39,7 +39,8 @@ const AboutUs = () => (
               </h2>
               {/* <div class="small-border bg-color-2 sm-left"></div> */}
               <p className="lead">
-                Using blockchain technology to raise industry standards and democratise secondary market
+                Using blockchain technology to raise industry standards and democratise secondary
+                market
               </p>
             </div>
           </div>
@@ -52,10 +53,11 @@ const AboutUs = () => (
             <div className="small-border bg-color-2" />
             <p className="lead">
               Designbook was created in October 2021 by a group of Italian entrepreneurs from the
-              fashion and tech industry, aiming to develop breakthrough applications on Blockchain and
-              help Fashion Brands to embrace the evolution of Web 3.0. Our vision is to help brands to
-              transition to a circular business model, which enhances trust and transparency for
-              customers, together with innovation and traceability for fashion products and services.
+              fashion and tech industry, aiming to develop breakthrough applications on Blockchain
+              and help Fashion Brands to embrace the evolution of Web 3.0. Our vision is to help
+              brands to transition to a circular business model, which enhances trust and
+              transparency for customers, together with innovation and traceability for
+              fashion products and services.
             </p>
           </div>
           <div className="row">
