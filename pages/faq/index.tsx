@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
-import Script from 'next/script';
 import { createGlobalStyle } from 'styled-components';
 import HeroSection from '../../components/common/heroSection';
 import FaqSectionCard from './FaqSectionCard';
@@ -415,40 +414,44 @@ const FAQS = [
   },
 ];
 
-const HowItWorks:React.FC = () => (
-  <>
-    <Head>
-      <link rel="stylesheet" href="/static/css/plugins.css" />
-      <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-      <link href="/static/css/faq-custom.css" rel="stylesheet" type="text/css" />
+const Faq:React.FC = () => {
+  useEffect(() => {
+    (window as any).onLoadFun();
+  }, []);
+  return (
+    <>
+      <Head>
+        <link rel="stylesheet" href="/static/css/plugins.css" />
+        <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/static/css/faq-custom.css" rel="stylesheet" type="text/css" />
 
-    </Head>
-    <GlobalStyles />
+      </Head>
+      <GlobalStyles />
 
-    <div id="wrapper">
-      {/* content begin */}
-      <div className="no-bottom no-top" id="content">
-        <div id="top" />
-        {/* section begin */}
-        <HeroSection bgImgUrl="/static/images/background/subheader2.jpg" title="Frequently Asked Questions">
-          <form action="blank.php" className="row" id="form_sb" method="post" name="myForm">
-            <div className="col text-center">
-              <input className="form-control" id="name_1" name="name_1" placeholder="Type your question here" type="text" />
-              {' '}
-              <a href="#" id="btn-submit"><i className="arrow_right" /></a>
-            </div>
-          </form>
-          <div className="spacer-20" />
-          <p>eg. create item, create wallet.</p>
-        </HeroSection>
-        {/* section close */}
-        {/* section begin */}
-        <section aria-label="section" className="pb-0">
-          <div className="container">
-            <h2 className="text-center d-block">Choose a section</h2>
-            <div className="small-border bg-color-2" style={{ backgroundSize: 'cover' }} />
-            <div className="row">
-              {
+      <div id="wrapper">
+        {/* content begin */}
+        <div className="no-bottom no-top" id="content">
+          <div id="top" />
+          {/* section begin */}
+          <HeroSection bgImgUrl="/static/images/background/subheader2.jpg" title="Frequently Asked Questions">
+            <form action="blank.php" className="row" id="form_sb" method="post" name="myForm">
+              <div className="col text-center">
+                <input className="form-control" id="name_1" name="name_1" placeholder="Type your question here" type="text" />
+                {' '}
+                <a href="#" id="btn-submit"><i className="arrow_right" /></a>
+              </div>
+            </form>
+            <div className="spacer-20" />
+            <p>eg. create item, create wallet.</p>
+          </HeroSection>
+          {/* section close */}
+          {/* section begin */}
+          <section aria-label="section" className="pb-0">
+            <div className="container">
+              <h2 className="text-center d-block">Choose a section</h2>
+              <div className="small-border bg-color-2" style={{ backgroundSize: 'cover' }} />
+              <div className="row">
+                {
                     FAQS.map((faq) => (
                       <FaqSectionCard
                         key={faq.id}
@@ -458,13 +461,13 @@ const HowItWorks:React.FC = () => (
                       />
                     ))
                 }
+              </div>
             </div>
-          </div>
-        </section>
-        {/* accordion section */}
-        <section className="py-5">
-          <div className="container">
-            {
+          </section>
+          {/* accordion section */}
+          <section className="py-5">
+            <div className="container">
+              {
                 FAQS.map((faq) => (
                   <React.Fragment key={faq.id}>
                     {
@@ -495,15 +498,13 @@ const HowItWorks:React.FC = () => (
                   </React.Fragment>
                 ))
             }
-          </div>
-        </section>
+            </div>
+          </section>
+        </div>
+        {/* content close */}
+        <a href="#" id="back-to-top" />
       </div>
-      {/* content close */}
-      <a href="#" id="back-to-top" />
-    </div>
-
-    <Script src="/static/js/plugins.js" />
-    <Script src="/static/js/designesia.js" />
-  </>
-);
-export default HowItWorks;
+    </>
+  );
+};
+export default Faq;

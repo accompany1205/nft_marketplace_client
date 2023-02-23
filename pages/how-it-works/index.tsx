@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
-import Script from 'next/script';
 import { createGlobalStyle } from 'styled-components';
 import StepCard, { TStepType } from './StepCard';
 import SpecCard, { TSpecType } from './SpecCard';
@@ -82,125 +81,127 @@ const Specs:TSpecType[] = [
   },
 ];
 
-const HowItWorks:React.FC = () => (
-  <>
-    <Head>
-      <link rel="stylesheet" href="/static/css/plugins.css" />
-      <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-      <link href="/static/css/how-it-works-custom.css" rel="stylesheet" type="text/css" />
-    </Head>
-    <GlobalStyles />
-    <div id="wrapper">
-      {/* content begin */}
-      <div className="no-bottom no-top" id="content">
-        <div id="top" />
-        {/* section begin */}
-        <HeroSection bgImgUrl="/static/images/background/subheader2.jpg" title="How it works" />
-        {/* section close */}
-        <div className="m-5 pt-5 padding30 br-15 bg-custom">
-          <div className="container">
-            <div className="row align-items-center mb-5">
-              <div className="col-lg-3 order-lg-2 d-flex justify-content-end">
-                <img className="mb-4 mb-lg-0 img-fluid how-it-works__top-img" src="/static/images/how-it-works/web-3.svg" alt="" />
+const HowItWorks:React.FC = () => {
+  useEffect(() => {
+    (window as any).onLoadFun();
+  }, []);
+  return (
+    <>
+      <Head>
+        <link rel="stylesheet" href="/static/css/plugins.css" />
+        <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/static/css/how-it-works-custom.css" rel="stylesheet" type="text/css" />
+      </Head>
+      <GlobalStyles />
+      <div id="wrapper">
+        {/* content begin */}
+        <div className="no-bottom no-top" id="content">
+          <div id="top" />
+          {/* section begin */}
+          <HeroSection bgImgUrl="/static/images/background/subheader2.jpg" title="How it works" />
+          {/* section close */}
+          <div className="m-5 pt-5 padding30 br-15 bg-custom">
+            <div className="container">
+              <div className="row align-items-center mb-5">
+                <div className="col-lg-3 order-lg-2 d-flex justify-content-end">
+                  <img className="mb-4 mb-lg-0 img-fluid how-it-works__top-img" src="/static/images/how-it-works/web-3.svg" alt="" />
+                </div>
+                <div className="col-lg-9 mb-sm-30 order-lg-1">
+                  <h2>
+                    Embrace the
+                    {' '}
+                    <span className="text-gradient">web 3.0</span>
+                    {' '}
+                    marketplace standards.
+                    {' '}
+                  </h2>
+                  <p className="lead">
+                    As one of the only certified digital marketplace, only authentic and blockchain
+                    verified
+                    goods can be sold, thus
+                    upgrading standards to a new level of transparency.
+                  </p>
+                </div>
               </div>
-              <div className="col-lg-9 mb-sm-30 order-lg-1">
-                <h2>
-                  Embrace the
-                  {' '}
-                  <span className="text-gradient">web 3.0</span>
-                  {' '}
-                  marketplace standards.
-                  {' '}
-                </h2>
-                <p className="lead">
-                  As one of the only certified digital marketplace, only authentic and blockchain
-                  verified
-                  goods can be sold, thus
-                  upgrading standards to a new level of transparency.
-                </p>
-              </div>
-            </div>
-            <div className="row align-items-center pt-5">
-              <div className="col-lg-9 mb-sm-30 order-sm-2">
-                <h2>
-                  Trade in total transparency:
-                  {' '}
-                  <span className="text-gradient"> You are the market</span>
-                </h2>
-                <p className="lead">
-                  You are the one that determines transaction prices, we don’t. Similar to a stock
-                  market,
-                  you can bid in real time or buy
-                  instantly available goods reflecting the current demand. You can also
-                  sell the item if
-                  you own it on your own terms.
-                  Transaction will occur, once one of the multiple Buyers and one of the multiple
-                  sellers
-                  reach a common selling point.
-                </p>
-              </div>
-              <div className="col-lg-3 order-sm-1">
-                <img className="mb-4 mb-lg-0 img-fluid how-it-works__top-img" src="/static/images/how-it-works/market.svg" alt="" />
+              <div className="row align-items-center pt-5">
+                <div className="col-lg-9 mb-sm-30 order-sm-2">
+                  <h2>
+                    Trade in total transparency:
+                    {' '}
+                    <span className="text-gradient"> You are the market</span>
+                  </h2>
+                  <p className="lead">
+                    You are the one that determines transaction prices, we don’t. Similar to a stock
+                    market,
+                    you can bid in real time or buy
+                    instantly available goods reflecting the current demand. You can also
+                    sell the item if
+                    you own it on your own terms.
+                    Transaction will occur, once one of the multiple Buyers and one of the multiple
+                    sellers
+                    reach a common selling point.
+                  </p>
+                </div>
+                <div className="col-lg-3 order-sm-1">
+                  <img className="mb-4 mb-lg-0 img-fluid how-it-works__top-img" src="/static/images/how-it-works/market.svg" alt="" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* Easy Process */}
-        <section aria-label="section" className="pt-4">
-          <div className="container">
-            <h2 className="text-center d-block">Easy Process</h2>
-            <div className="small-border bg-color-2" />
-            <div className="row mb-5">
-              <div className="col-lg-12">
-                <h3 className="steps-module-heading">
-                  You want to
-                  {' '}
-                  <span className="text-gradient">Buy</span>
-                </h3>
-              </div>
-              {
+          {/* Easy Process */}
+          <section aria-label="section" className="pt-4">
+            <div className="container">
+              <h2 className="text-center d-block">Easy Process</h2>
+              <div className="small-border bg-color-2" />
+              <div className="row mb-5">
+                <div className="col-lg-12">
+                  <h3 className="steps-module-heading">
+                    You want to
+                    {' '}
+                    <span className="text-gradient">Buy</span>
+                  </h3>
+                </div>
+                {
                 BuySteps.map((step) => (
                   <StepCard step={step} key={step.id} />
                 ))
               }
-            </div>
-            <div className="row mb-5">
-              <div className="col-lg-12">
-                <h3 className="steps-module-heading">
-                  You want to
-                  {' '}
-                  <span className="text-gradient">Sell</span>
-                </h3>
               </div>
-              {
+              <div className="row mb-5">
+                <div className="col-lg-12">
+                  <h3 className="steps-module-heading">
+                    You want to
+                    {' '}
+                    <span className="text-gradient">Sell</span>
+                  </h3>
+                </div>
+                {
                 SellSteps.map((step) => (
                   <StepCard step={step} key={step.id} />
                 ))
               }
+              </div>
             </div>
-          </div>
-        </section>
-        {/* Specs */}
-        <section aria-label="section" className="pt-0">
-          <div className="container">
-            {/* <h2 class="text-center d-block">Easy Process</h2> */}
-            {/* <div class="small-border bg-color-2"></div> */}
-            <div className="row">
-              {
+          </section>
+          {/* Specs */}
+          <section aria-label="section" className="pt-0">
+            <div className="container">
+              {/* <h2 class="text-center d-block">Easy Process</h2> */}
+              {/* <div class="small-border bg-color-2"></div> */}
+              <div className="row">
+                {
                 Specs.map((spec) => (
                   <SpecCard spec={spec} key={spec.id} />
                 ))
               }
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
+        {/* content close */}
+        <a href="#" id="back-to-top" />
       </div>
-      {/* content close */}
-      <a href="#" id="back-to-top" />
-    </div>
-
-    <Script src="/static/js/plugins.js" />
-    <Script src="/static/js/designesia.js" />
-  </>
-);
+    </>
+  );
+};
 export default HowItWorks;
