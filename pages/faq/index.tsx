@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
 import HeroSection from '../../components/common/heroSection';
 import FaqSectionCard from './FaqSectionCard';
 import Accordian from '../../components/common/accordian';
+import useLoadCustomJs from '../../hooks/useLoadCustomJs';
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -415,9 +416,8 @@ const FAQS = [
 ];
 
 const Faq:React.FC = () => {
-  useEffect(() => {
-    (window as any).onLoadFun();
-  }, []);
+  useLoadCustomJs({ src: '/static/js/designesia.js' });
+
   return (
     <>
       <Head>

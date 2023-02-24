@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
 import StepCard, { TStepType } from './StepCard';
 import SpecCard, { TSpecType } from './SpecCard';
 import HeroSection from '../../components/common/heroSection';
+import useLoadCustomJs from '../../hooks/useLoadCustomJs';
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -82,9 +83,8 @@ const Specs:TSpecType[] = [
 ];
 
 const HowItWorks:React.FC = () => {
-  useEffect(() => {
-    (window as any).onLoadFun();
-  }, []);
+  useLoadCustomJs({ src: '/static/js/designesia.js' });
+
   return (
     <>
       <Head>

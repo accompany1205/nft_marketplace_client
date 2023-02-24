@@ -226,25 +226,25 @@ header div#logo {
     transition: all 0.3s;
 }
 
-.dark-scheme header .logo {
+/* .dark-scheme header .logo {
     display: block;
-}
+} */
 
-header .logo-scroll {
+/* header .logo-scroll {
     display: none;
-}
+} */
 
-header .logo,
+/* header .logo,
 header .logo-2 {
     font-family: var(--body-font);
     color: #fff;
     font-size: 40px;
     font-weight: 300;
-}
+} */
 
-header .logo-2 {
+/* header .logo-2 {
     color: #333;
-}
+} */
 
 header.header-full nav {
     float: left;
@@ -1507,17 +1507,17 @@ header.header-mobile .logo {
     display: none;
 }
 
-header .logo-2 {
+/* header .logo-2 {
     display: none;
-}
+} */
 
-.switch-scheme.dark-scheme header .logo {
+/* .switch-scheme.dark-scheme header .logo {
     display: block;
-}
+} */
 
-.switch-scheme.dark-scheme header .logo-2 {
+/* .switch-scheme.dark-scheme header .logo-2 {
     display: none;
-}
+} */
 
 header.header-mobile .btn-rsvp {
     padding-top: 40px;
@@ -8184,9 +8184,7 @@ a.btn-right {
 
 .pr30 {
     padding-right: 30px;
-}
-
-)
+})
 /* margin top */
 
 .mt-10 {
@@ -10319,7 +10317,8 @@ i.bg-color-secondary {
     background: rgba(30, 30, 30, .5);
 }
 
-#de-carousel .carousel-control-next, #de-carousel .carousel-control-prev {
+#de-carousel .carousel-control-next,
+#de-carousel .carousel-control-prev {
     width: 100px;
 }
 
@@ -17442,14 +17441,16 @@ img {
 
 /* ========= common styles for all pages ========= */
 
-header.smaller, footer {
+header.smaller,
+footer {
     background-color: #000;
 }
 
-header .logo, header .logo-2 {
+/* header .logo,
+header .logo-2 {
     max-height: 20px;
     object-fit: contain;
-}
+} */
 
 header.smaller,
 footer {
