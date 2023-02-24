@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 
-const footer = () => (
+const Footer: React.FC = () => (
   <footer className="footer-light">
     <div className="container">
       <div className="row">
@@ -10,37 +10,37 @@ const footer = () => (
             <h5>Marketplace</h5>
             <ul>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Bags
                 </Link>
               </li>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Leather goods
                 </Link>
               </li>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Jewellery
                 </Link>
               </li>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Shoes
                 </Link>
               </li>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Watches
                 </Link>
               </li>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Sunglasses
                 </Link>
@@ -53,31 +53,31 @@ const footer = () => (
             <h5>Resources</h5>
             <ul>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   How does it work
                 </Link>
               </li>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Sellers
                 </Link>
               </li>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Buyers
                 </Link>
               </li>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Certification Process
                 </Link>
               </li>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Help Center
                 </Link>
@@ -90,13 +90,13 @@ const footer = () => (
             <h5>Legal</h5>
             <ul>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Terms and Conditions
                 </Link>
               </li>
               <li>
-                <Link to="">
+                <Link href="">
                   {' '}
                   Privacy Policy
                 </Link>
@@ -125,7 +125,7 @@ const footer = () => (
                   placeholder="Mail field"
                   type="text"
                 />
-                <Link to="" id="btn-subscribe">
+                <Link href="" id="btn-subscribe">
                   <i className="arrow_right bg-color-secondary" />
                 </Link>
                 <div className="clearfix" />
@@ -168,4 +168,4 @@ const footer = () => (
     </div>
   </footer>
 );
-export default footer;
+export default Footer;
