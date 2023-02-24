@@ -74,7 +74,8 @@ const PopularBrands: React.FC = () => {
           <CustomSlide className="itm" index={index}>
             <div
               className="nft_coll"
-              style={{ backgroundColor: 'rgba(0,0,0,.1)' }}>
+              style={{ backgroundColor: 'rgba(0,0,0,.1)' }}
+            >
               <div className="nft_wrap">
                 <span>
                   <img src={item.picture} className="lazy img-fluid" alt="" />
@@ -88,7 +89,8 @@ const PopularBrands: React.FC = () => {
                   display: 'flex',
                   paddingTop: '8px',
                   paddingLeft: '8px',
-                }}>
+                }}
+              >
                 <span>{item.name}</span>
               </div>
             </div>

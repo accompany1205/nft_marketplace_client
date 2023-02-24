@@ -1,25 +1,21 @@
-import React, { Component } from "react";
-import Slider from "react-slick";
+import React, { Component } from 'react';
+import Slider from 'react-slick';
 import { Link } from '@reach/router';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
 
 class CustomSlide extends Component {
   render() {
     const { index, ...props } = this.props;
     return (
-      <div {...props}></div>
+      <div {...props} />
     );
-
-      
   }
 }
 
 export default class Responsive extends Component {
-
   render() {
-    var settings = {
+    const settings = {
       infinite: false,
       speed: 500,
       slidesToShow: 3,
@@ -32,125 +28,125 @@ export default class Responsive extends Component {
           settings: {
             slidesToShow: 3,
             slidesToScroll: 1,
-            infinite: true
-          }
+            infinite: true,
+          },
         },
         {
           breakpoint: 1600,
           settings: {
             slidesToShow: 3,
             slidesToScroll: 1,
-            infinite: true
-          }
+            infinite: true,
+          },
         },
         {
           breakpoint: 1024,
           settings: {
             slidesToShow: 3,
             slidesToScroll: 1,
-            infinite: true
-          }
+            infinite: true,
+          },
         },
         {
           breakpoint: 600,
           settings: {
             slidesToShow: 2,
             slidesToScroll: 1,
-            initialSlide: 2
-          }
+            initialSlide: 2,
+          },
         },
         {
           breakpoint: 480,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true
-          }
-        }
-      ]
+            dots: true,
+          },
+        },
+      ],
     };
 
     return (
-        <div className='nft-big'>
-          <Slider {...settings}>
-            <CustomSlide className='itm' index={1}>
-              <div className="nft_pic">                            
-                  <span>
-                    <Link to="/ItemDetail">
-                      <span className="nft_pic_info">
-                          <span className="nft_pic_title">Glass Cube</span>
-                          <span className="nft_pic_by">Mamie Barnett</span>
-                      </span>
-                    </Link>
+      <div className="nft-big">
+        <Slider {...settings}>
+          <CustomSlide className="itm" index={1}>
+            <div className="nft_pic">
+              <span>
+                <Link to="/ItemDetail">
+                  <span className="nft_pic_info">
+                    <span className="nft_pic_title">Glass Cube</span>
+                    <span className="nft_pic_by">Mamie Barnett</span>
                   </span>
-                  <div className="nft_pic_wrap">
-                  
-                      <img src="./images/carousel/crs-1.jpg" className="lazy img-fluid" alt=""/>
-                  
-                  </div>
-              </div>
-            </CustomSlide>
+                </Link>
+              </span>
+              <div className="nft_pic_wrap">
 
-            <CustomSlide className='itm' index={2}>
-             <div className="nft_pic">                            
-                  <span >
-                    <Link to="/ItemDetail">
-                      <span className="nft_pic_info">
-                          <span className="nft_pic_title">Purple Ocean</span>
-                          <span className="nft_pic_by">Monica Lucas</span>
-                      </span>
-                    </Link>
+                <img src="./images/carousel/crs-1.jpg" className="lazy img-fluid" alt="" />
+
+              </div>
+            </div>
+          </CustomSlide>
+
+          <CustomSlide className="itm" index={2}>
+            <div className="nft_pic">
+              <span>
+                <Link to="/ItemDetail">
+                  <span className="nft_pic_info">
+                    <span className="nft_pic_title">Purple Ocean</span>
+                    <span className="nft_pic_by">Monica Lucas</span>
                   </span>
-                  <div className="nft_pic_wrap">
-                      <img src="./images/carousel/crs-2.jpg" className="lazy img-fluid" alt=""/>
-                  </div>
+                </Link>
+              </span>
+              <div className="nft_pic_wrap">
+                <img src="./images/carousel/crs-2.jpg" className="lazy img-fluid" alt="" />
               </div>
-            </CustomSlide>
+            </div>
+          </CustomSlide>
 
-            <CustomSlide className='itm' index={3}>
-              <div className="nft_pic">                            
-                  <span >
-                      <span className="nft_pic_info">
-                          <span className="nft_pic_title">Hot Lava</span>
-                          <span className="nft_pic_by">Nicholas Daniels</span>
-                      </span>
-                  </span>
-                  <div className="nft_pic_wrap">
-                      <img src="./images/carousel/crs-3.jpg" className="lazy img-fluid" alt=""/>
-                  </div>
+          <CustomSlide className="itm" index={3}>
+            <div className="nft_pic">
+              <span>
+                <span className="nft_pic_info">
+                  <span className="nft_pic_title">Hot Lava</span>
+                  <span className="nft_pic_by">Nicholas Daniels</span>
+                </span>
+              </span>
+              <div className="nft_pic_wrap">
+                <img src="./images/carousel/crs-3.jpg" className="lazy img-fluid" alt="" />
               </div>
-            </CustomSlide>
+            </div>
+          </CustomSlide>
 
-            <CustomSlide className='itm' index={4}>
-              <div className="nft_pic">                            
-                  <span >
-                      <span className="nft_pic_info">
-                          <span className="nft_pic_title">Loop Donut</span>
-                          <span className="nft_pic_by">Lori Hart</span>
-                      </span>
-                  </span>
-                  <div className="nft_pic_wrap">
-                      <img src="./imgages/items/anim-5.webp" className="lazy img-fluid" alt=""/>
-                  </div>
+          <CustomSlide className="itm" index={4}>
+            <div className="nft_pic">
+              <span>
+                <span className="nft_pic_info">
+                  <span className="nft_pic_title">Loop Donut</span>
+                  <span className="nft_pic_by">Lori Hart</span>
+                </span>
+              </span>
+              <div className="nft_pic_wrap">
+                <img src="./imgages/items/anim-5.webp" className="lazy img-fluid" alt="" />
               </div>
-            </CustomSlide>
+            </div>
+          </CustomSlide>
 
-            <CustomSlide className='itm' index={5}>
-              <div className="nft_pic">                            
-                  <span >
-                      <span className="nft_pic_info">
-                          <span className="nft_pic_title">I Believe I Can Fly</span>
-                          <span className="nft_pic_by">Fred Ryan</span>
-                      </span>
-                  </span>
-                  <div className="nft_pic_wrap">
-                      <img src="./images/items/anim-8.webp" className="lazy img-fluid" alt=""/>
-                  </div>
+          <CustomSlide className="itm" index={5}>
+            <div className="nft_pic">
+              <span>
+                <span className="nft_pic_info">
+                  <span className="nft_pic_title">I Believe I Can Fly</span>
+                  <span className="nft_pic_by">Fred Ryan</span>
+                </span>
+              </span>
+              <div className="nft_pic_wrap">
+                <img src="./images/items/anim-8.webp" className="lazy img-fluid" alt="" />
               </div>
-            </CustomSlide>
+            </div>
+          </CustomSlide>
 
-          </Slider>
-        </div>
+        </Slider>
+      </div>
     );
   }
 }

@@ -88,14 +88,16 @@ const ItemsYoullLike: React.FC = () => {
                   bottom: '40px',
                   display: 'flex',
                   alignItems: 'center',
-                }}>
+                }}
+              >
                 <div
                   style={{
                     color: 'white',
                     paddingLeft: '20px',
                     fontWeight: 'bold',
                     fontSize: '19px',
-                  }}>
+                  }}
+                >
                   {item.label}
                 </div>
               </div>

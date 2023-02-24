@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Lightbox from "./components/CoolLightbox";
-import ImageMosaic from "./components/ImageMosaic";
-import images from "./images";
+import React, { useState } from 'react';
+import Lightbox from './components/CoolLightbox';
+import ImageMosaic from './components/ImageMosaic';
+import images from './images';
 
 const ImageGallery = () => {
   const [isOpen, setOpen] = useState(false);

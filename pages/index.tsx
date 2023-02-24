@@ -21,7 +21,8 @@ const Home = () => {
           mobileMode
             ? {}
             : { backgroundImage: `url(${'./images/homeBackground.jpg'})` }
-        }>
+        }
+      >
         <SliderMain />
       </section>
       <section className="container no-top no-bottom">
@@ -51,7 +52,7 @@ const Home = () => {
           <div className="col-lg-12">
             <div className="text-left">
               <h2 className="style-2" style={{ marginBottom: '28px' }}>
-                Items you'll love
+                Items you&#39;ll love
               </h2>
             </div>
           </div>
@@ -62,7 +63,8 @@ const Home = () => {
       </section>
       <section
         className="container no-bottom"
-        style={{ backgroundColor: 'rgb(255, 249, 225)' }}>
+        style={{ backgroundColor: 'rgb(255, 249, 225)' }}
+      >
         <div className="row">
           <div className="col-lg-12">
             <div className="text-left">
@@ -78,7 +80,8 @@ const Home = () => {
       </section>
       <section
         className="container no-bottom"
-        style={{ backgroundColor: 'rgb(247, 255, 231)' }}>
+        style={{ backgroundColor: 'rgb(247, 255, 231)' }}
+      >
         <div className="row">
           <div className="col-lg-12">
             <div className="text-left">
@@ -94,7 +97,8 @@ const Home = () => {
       </section>
       <section
         className="container no-bottom"
-        style={{ backgroundColor: 'rgb(246, 245, 251)' }}>
+        style={{ backgroundColor: 'rgb(246, 245, 251)' }}
+      >
         <div className="col-lg-12">
           <div className="text-left">
             <h2 className="style-2" style={{ marginBottom: '28px' }}>
@@ -108,7 +112,8 @@ const Home = () => {
             backgroundSize: 'cover',
             visibility: 'visible',
             animationName: 'fadeIn',
-          }}>
+          }}
+        >
           {[
             {
               title: 'How to create NFT ITEM',
@@ -132,16 +137,20 @@ const Home = () => {
             <div
               className="col-lg-4 col-md-6 mb-sm-30"
               style={{ backgroundSize: 'cover' }}
-              key={index}>
+              key={index}
+            >
               <div
                 className="bloglist item"
-                style={{ backgroundSize: 'cover' }}>
+                style={{ backgroundSize: 'cover' }}
+              >
                 <div
                   className="post-content"
-                  style={{ backgroundSize: 'cover' }}>
+                  style={{ backgroundSize: 'cover' }}
+                >
                   <div
                     className="post-image"
-                    style={{ backgroundSize: 'cover' }}>
+                    style={{ backgroundSize: 'cover' }}
+                  >
                     <img
                       alt=""
                       src={item.picture}
@@ -155,12 +164,15 @@ const Home = () => {
                   </div>
                   <div
                     className="post-text"
-                    style={{ backgroundSize: 'cover' }}>
+                    style={{ backgroundSize: 'cover' }}
+                  >
                     <span className="p-tagline">Tips & Tricks</span>
                     <span className="p-date">{item.date}</span>
                     <h4>
                       <a href="news-single.html">
-                        {item.title} <span />
+                        {item.title}
+                        {' '}
+                        <span />
                       </a>
                     </h4>
                     <p>{item.desc}</p>
@@ -180,7 +192,8 @@ const Home = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-          }}>
+          }}
+        >
           <div className="row" style={{ display: 'flex', flex: 1 }}>
             <div
               className="col-lg-6"
@@ -188,7 +201,8 @@ const Home = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-              }}>
+              }}
+            >
               <div
                 style={{
                   color: 'white',
@@ -196,7 +210,8 @@ const Home = () => {
                   fontSize: '28px',
                   paddingTop: '12px',
                   paddingBottom: '12px',
-                }}>
+                }}
+              >
                 Download Partner Wallets
               </div>
             </div>
@@ -207,7 +222,8 @@ const Home = () => {
                 justifyContent: 'space-around',
                 paddingTop: '12px',
                 paddingBottom: '12px',
-              }}>
+              }}
+            >
               <a href="https://www.hashpack.app/download">
                 <img
                   src="./images/bladeWalletLogo.webp"
@@ -223,7 +239,8 @@ const Home = () => {
                 justifyContent: 'space-around',
                 paddingTop: '12px',
                 paddingBottom: '12px',
-              }}>
+              }}
+            >
               <a href="https://www.bladewallet.io/">
                 <img
                   src="./images/walletsHashpack.webp"

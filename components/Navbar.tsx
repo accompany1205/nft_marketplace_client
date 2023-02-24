@@ -31,7 +31,7 @@ const Header = ({ className }: any) => {
   const isLoggedIn = useMemo(() => !!token, [token]);
 
   const [howDoesItWorkOpen, setHowDoesItWorkOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false)
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   const onHowDoesItWorkClick = () => {
     setHowDoesItWorkOpen(!howDoesItWorkOpen);
@@ -42,16 +42,16 @@ const Header = ({ className }: any) => {
   };
 
   const onAboutClick = () => {
-    setAboutOpen(!aboutOpen)
-  }
+    setAboutOpen(!aboutOpen);
+  };
 
   const closeAbout = () => {
-    setAboutOpen(false)
-  }
+    setAboutOpen(false);
+  };
 
   const ref = useOnclickOutside(() => {
-    closeHowDoesItWork()
-    closeAbout()
+    closeHowDoesItWork();
+    closeAbout();
   });
 
   const [showmenu, btnIcon] = useState(false);
@@ -85,18 +85,18 @@ const Header = ({ className }: any) => {
   }, []);
   const { disconnectWallet, accountId } = useContext(WalletContext);
   return (
-    <header className={`navbar white ${className}`} id="myHeader" style={{backgroundColor: 'white'}}>
+    <header className={`navbar white ${className}`} id="myHeader" style={{ backgroundColor: 'white' }}>
       <WalletConnector showModal={showModal} setShowModal={setShowModal} />
 
       <div className="container">
         <div className="row w-100-nav">
           <div className="logo px-0">
             <NavLink href="/">
-              <img 
-                src={'./images/logoBlack.png'} 
-                alt={'logo'} 
+              <img
+                src="./images/logoBlack.png"
+                alt="logo"
                 style={{
-                  width: '150px', 
+                  width: '150px',
                 }}
               />
             </NavLink>

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import Particles from "react-tsparticles";
+import React, { Component } from 'react';
+import Particles from 'react-tsparticles';
 
 class Particle extends Component {
   constructor(props) {
@@ -10,13 +10,13 @@ class Particle extends Component {
   }
 
   particlesInit(main) {
-    /*console.log(main);*/
+    /* console.log(main); */
 
     // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
   }
 
   particlesLoaded(container) {
-    /*console.log(container);*/
+    /* console.log(container); */
   }
 
   render() {
@@ -28,20 +28,20 @@ class Particle extends Component {
         options={{
           background: {
             color: {
-              value: "none",
+              value: 'none',
             },
           },
           fpsLimit: 70,
           interactivity: {
-            detectsOn: "canvas",
+            detectsOn: 'canvas',
             events: {
               onClick: {
                 enable: true,
-                mode: "push",
+                mode: 'push',
               },
               onHover: {
                 enable: true,
-                mode: "repulse",
+                mode: 'repulse',
               },
               resize: true,
             },
@@ -63,10 +63,10 @@ class Particle extends Component {
           },
           particles: {
             color: {
-              value: "#ffffff",
+              value: '#ffffff',
             },
             links: {
-              color: "#ffffff",
+              color: '#ffffff',
               distance: 150,
               enable: true,
               opacity: 0.5,
@@ -76,9 +76,9 @@ class Particle extends Component {
               enable: true,
             },
             move: {
-              direction: "none",
+              direction: 'none',
               enable: true,
-              outMode: "bounce",
+              outMode: 'bounce',
               random: false,
               speed: 2,
               straight: false,
@@ -94,7 +94,7 @@ class Particle extends Component {
               value: 0.5,
             },
             shape: {
-              type: "circle",
+              type: 'circle',
             },
             size: {
               random: true,
