@@ -5,7 +5,7 @@ import images from './images';
 
 const ImageGallery = () => {
   const [isOpen, setOpen] = useState(false);
-  const [currentImageIndex, setCurrentIndex] = useState();
+  const [currentImageIndex, setCurrentIndex] = useState<number>();
 
   return (
     <>

@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import Slider from 'react-slick';
+import React, { Component, ReactEventHandler } from 'react';
+import Slider, { Settings } from 'react-slick';
 import styled from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Clock from './Clock';
+import {Props} from "./CarouselCollection";
 
 const Outer = styled.div`
   display: flex;
@@ -12,7 +13,14 @@ const Outer = styled.div`
   align-items: center;
 `;
 
-class CustomSlide extends Component {
+interface DeadlineType {
+  deadline: string,
+  deadline1: string,
+  deadline2: string,
+  height: number,
+}
+
+class CustomSlide extends React.Component<Props>  {
   render() {
     const { index, ...props } = this.props;
     return (
@@ -21,8 +29,8 @@ class CustomSlide extends Component {
   }
 }
 
-export default class Responsive extends Component {
-  constructor(props) {
+export default class Responsive extends React.Component<{}, DeadlineType>   {
+  constructor(props: object) {
     super(props);
     this.state = {
       deadline: 'January, 10, 2022', deadline1: 'February, 10, 2022', deadline2: 'February, 1, 2022', height: 0,
@@ -30,7 +38,8 @@ export default class Responsive extends Component {
     this.onImgLoad = this.onImgLoad.bind(this);
   }
 
-  onImgLoad({ target: img }) {
+  onImgLoad({target: img}) {
+    console.log(img);
     const currentHeight = this.state.height;
     if (currentHeight < img.offsetHeight) {
       this.setState({

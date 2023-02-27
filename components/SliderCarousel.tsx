@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-class CustomSlide extends Component {
+import {Props} from "./CarouselCollection";
+class CustomSlide extends React.Component<Props> {
   render() {
     const { index, ...props } = this.props;
     return (
@@ -13,7 +13,7 @@ class CustomSlide extends Component {
   }
 }
 
-export default class Responsive extends Component {
+export default class Responsive extends React.Component<{}> {
   render() {
     const settings = {
       infinite: false,
@@ -72,7 +72,7 @@ export default class Responsive extends Component {
           <CustomSlide className="itm" index={1}>
             <div className="nft_pic">
               <span>
-                <Link to="/ItemDetail">
+                <Link href="/ItemDetail">
                   <span className="nft_pic_info">
                     <span className="nft_pic_title">Glass Cube</span>
                     <span className="nft_pic_by">Mamie Barnett</span>
@@ -90,7 +90,7 @@ export default class Responsive extends Component {
           <CustomSlide className="itm" index={2}>
             <div className="nft_pic">
               <span>
-                <Link to="/ItemDetail">
+                <Link href="/ItemDetail">
                   <span className="nft_pic_info">
                     <span className="nft_pic_title">Purple Ocean</span>
                     <span className="nft_pic_by">Monica Lucas</span>

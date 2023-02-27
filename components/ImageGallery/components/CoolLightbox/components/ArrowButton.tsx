@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { animated, useTransition } from '@tim-soft/react-spring-web';
 import ButtonControl from './ButtonControl';
-
-const ArrowButton = ({ position, onClick, disabled }) => {
+interface Props {
+  onClick?: () => false | void,
+  disabled: boolean
+}
+const ArrowButton = ({ onClick, disabled }: Props) => {
   const transitions = useTransition(!disabled, null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -20,7 +23,7 @@ const ArrowButton = ({ position, onClick, disabled }) => {
         zIndex: 999,
       }}
     >
-      <Button className="btnLright" position={position} type="button" onClick={onClick}>
+      <Button className="btnLright" type="button" onClick={onClick}>
         <i className="fa fa-chevron-right" />
       </Button>
     </animated.div>
@@ -29,7 +32,6 @@ const ArrowButton = ({ position, onClick, disabled }) => {
 };
 
 ArrowButton.propTypes = {
-
   onClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 };

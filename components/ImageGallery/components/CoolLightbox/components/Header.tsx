@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Color from 'color';
 import ButtonControl from './ButtonControl';
+import {Images} from "../index";
+import Color from "color";
 
-const LightboxHeader = ({ images, currentIndex, onClose }) => (
+export interface Props {
+  currentImageIndex: number | undefined,
+  onClose: React.Dispatch<React.SetStateAction<boolean>>,
+  images: Images[]
+}
+const LightboxHeader = ({ images, onClose }) => (
   <TopHeaderBar>
     <RightSideContainer>
       <PageIndicator>

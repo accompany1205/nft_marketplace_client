@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Clock from './Clock';
+import {NFTS} from "./ColumnAuction"
 
 const Outer = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const Outer = styled.div`
   border-radius: 8px;
 `;
 
-export default class Responsive extends Component {
+export default class Responsive extends React.Component<{}, NFTS>  {
   dummyData = [
     {
       deadline: 'January, 10, 2022',
@@ -196,7 +197,8 @@ export default class Responsive extends Component {
       likes: 50,
     }];
 
-  constructor(props) {
+  constructor(props: object) {
+    console.log({...props})
     super(props);
     this.state = {
       nfts: this.dummyData,
@@ -205,7 +207,7 @@ export default class Responsive extends Component {
     this.onImgLoad = this.onImgLoad.bind(this);
   }
 
-  onImgLoad({ target: img }) {
+  onImgLoad({target: img}) {
     const currentHeight = this.state.height;
     if (currentHeight < img.offsetHeight) {
       this.setState({

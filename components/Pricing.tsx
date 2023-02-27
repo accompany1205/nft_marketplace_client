@@ -1,6 +1,6 @@
 import React from 'react';
 
-const pricing = () => (
+const Pricing = () => (
   <section className="container">
     <div className="row sequence">
 
@@ -155,4 +155,4 @@ const pricing = () => (
   </section>
 
 );
-export default pricing;
+export default Pricing;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Clock from './Clock';
+import { NFTS } from './ColumnAuction';
 
 const Outer = styled.div`
   display: flex;
@@ -11,14 +12,14 @@ const Outer = styled.div`
   border-radius: 8px;
 `;
 
-export default class Responsive extends Component {
+export default class Responsive extends React.Component<{}, NFTS>  {
   dummyData = [{
     deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-1.jpg',
-    previewImg: './images/items/static-1.jpg',
+    authorImg: './img/author/author-1.jpg',
+    previewImg: './img/items/static-1.jpg',
     title: 'Pinky Ocean',
     price: '0.08 ETH',
     bid: '1/20',
@@ -29,8 +30,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-10.jpg',
-    previewImg: './images/items/static-2.jpg',
+    authorImg: './img/author/author-10.jpg',
+    previewImg: './img/items/static-2.jpg',
     title: 'Deep Sea Phantasy',
     price: '0.06 ETH',
     bid: '1/22',
@@ -41,8 +42,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-11.jpg',
-    previewImg: './images/items/static-3.jpg',
+    authorImg: './img/author/author-11.jpg',
+    previewImg: './img/items/static-3.jpg',
     title: 'Rainbow Style',
     price: '0.05 ETH',
     bid: '1/11',
@@ -53,8 +54,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-12.jpg',
-    previewImg: './images/items/static-4.jpg',
+    authorImg: './img/author/author-12.jpg',
+    previewImg: './img/items/static-4.jpg',
     title: 'Two Tigers',
     price: '0.08 ETH',
     bid: '1/20',
@@ -65,8 +66,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-9.jpg',
-    previewImg: './images/items/anim-4.webp',
+    authorImg: './img/author/author-9.jpg',
+    previewImg: './img/items/anim-4.webp',
     title: 'The Truth',
     price: '0.08 ETH',
     bid: '1/20',
@@ -77,8 +78,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-2.jpg',
-    previewImg: './images/items/anim-2.webp',
+    authorImg: './img/author/author-2.jpg',
+    previewImg: './img/items/anim-2.webp',
     title: 'Running Puppets',
     price: '0.08 ETH',
     bid: '1/20',
@@ -89,8 +90,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-3.jpg',
-    previewImg: './images/items/anim-1.webp',
+    authorImg: './img/author/author-3.jpg',
+    previewImg: './img/items/anim-1.webp',
     title: 'USA Wordmation',
     price: '0.08 ETH',
     bid: '1/20',
@@ -101,8 +102,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-4.jpg',
-    previewImg: './images/items/anim-5.webp',
+    authorImg: './img/author/author-4.jpg',
+    previewImg: './img/items/anim-5.webp',
     title: 'Loop Donut',
     price: '0.08 ETH',
     bid: '1/20',
@@ -113,8 +114,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-5.jpg',
-    previewImg: './images/items/anim-3.webp',
+    authorImg: './img/author/author-5.jpg',
+    previewImg: './img/items/anim-3.webp',
     title: 'Lady Copter',
     price: '0.08 ETH',
     bid: '1/20',
@@ -125,8 +126,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-7.jpg',
-    previewImg: './images/items/static-5.jpg',
+    authorImg: './img/author/author-7.jpg',
+    previewImg: './img/items/static-5.jpg',
     title: 'Purple Planet',
     price: '0.08 ETH',
     bid: '1/20',
@@ -137,8 +138,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-6.jpg',
-    previewImg: './images/items/anim-6.webp',
+    authorImg: './img/author/author-6.jpg',
+    previewImg: './img/items/anim-6.webp',
     title: 'Oh Yeah!',
     price: '0.08 ETH',
     bid: '1/20',
@@ -149,8 +150,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-8.jpg',
-    previewImg: './images/items/anim-7.webp',
+    authorImg: './img/author/author-8.jpg',
+    previewImg: './img/items/anim-7.webp',
     title: 'This is Our Story',
     price: '0.08 ETH',
     bid: '1/20',
@@ -161,8 +162,8 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-9.jpg',
-    previewImg: './images/items/static-6.jpg',
+    authorImg: './img/author/author-9.jpg',
+    previewImg: './img/items/static-6.jpg',
     title: 'Pixel World',
     price: '0.08 ETH',
     bid: '1/20',
@@ -173,31 +174,22 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './images/author/author-12.jpg',
-    previewImg: './images/items/anim-8.webp',
+    authorImg: './img/author/author-12.jpg',
+    previewImg: './img/items/anim-8.webp',
     title: 'I Believe I Can Fly',
     price: '0.08 ETH',
     bid: '1/20',
     likes: 50,
   }];
 
-  constructor(props) {
+  constructor(props: object) {
     super(props);
     this.state = {
-      nfts: this.dummyData.slice(0, 8),
+      nfts: this.dummyData,
       height: 0,
     };
     this.onImgLoad = this.onImgLoad.bind(this);
   }
-
-  loadMore = () => {
-    const nftState = this.state.nfts;
-    const start = nftState.length;
-    const end = nftState.length + 4;
-    this.setState({
-      nfts: [...nftState, ...(this.dummyData.slice(start, end))],
-    });
-  };
 
   onImgLoad({ target: img }) {
     const currentHeight = this.state.height;
@@ -212,8 +204,8 @@ export default class Responsive extends Component {
     return (
       <div className="row">
         {this.state.nfts.map((nft, index) => (
-          <div key={index} className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4">
-            <div className="nft__item m-0">
+          <div key={index} className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <div className="nft__item">
               { nft.deadline
                         && (
                         <div className="de_countdown">
@@ -228,7 +220,7 @@ export default class Responsive extends Component {
               </div>
               <div className="nft__item_wrap" style={{ height: `${this.state.height}px` }}>
                 <Outer>
-                  <span>
+                  <span onClick={() => window.open(nft.previewLink, '_self')}>
                     <img onLoad={this.onImgLoad} src={nft.previewImg} className="lazy nft__item_preview" alt="" />
                   </span>
                 </Outer>
@@ -252,13 +244,7 @@ export default class Responsive extends Component {
             </div>
           </div>
         ))}
-        { this.state.nfts.length !== this.dummyData.length
-            && (
-            <div className="col-lg-12">
-              <div className="spacer-single" />
-              <span onClick={() => this.loadMore()} className="btn-main lead m-auto">Load More</span>
-            </div>
-            )}
+
       </div>
     );
   }

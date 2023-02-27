@@ -1,5 +1,5 @@
 import React from 'react';
-import Slider from 'react-animated-slider';
+import Slider from 'react-slick';
 import 'react-animated-slider/build/vertical.css';
 
 const content = [
@@ -29,7 +29,7 @@ const content = [
   },
 ];
 
-export default () => (
+const SliderHome =  () => (
   <Slider className="slider-wrapper" autoplay={6000}>
     {content.map((item, index) => (
       <div
@@ -51,3 +51,5 @@ export default () => (
     ))}
   </Slider>
 );
+
+export default SliderHome;

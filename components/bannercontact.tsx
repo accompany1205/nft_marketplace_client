@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 
 export default () => (
   <section className="container-fluid p-md-0">
@@ -23,7 +23,7 @@ export default () => (
             <span className="br" />
             nisl non rutrum commodo, sem magna.
           </p>
-          <Link className="btn" to="/contact">
+          <Link className="btn"  href="/contact">
             <span className="shine" />
             <span>Contact Us</span>
           </Link>

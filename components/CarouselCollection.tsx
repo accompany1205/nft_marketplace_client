@@ -3,7 +3,12 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-class CustomSlide extends Component {
+export interface Props {
+  index: number,
+  className: string,
+  children: JSX.Element
+}
+class CustomSlide extends React.Component<Props> {
   render() {
     const { index, ...props } = this.props;
     return (

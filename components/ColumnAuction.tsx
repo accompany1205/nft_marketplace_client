@@ -1,38 +1,73 @@
-import React, { Component } from 'react';
+import React, { Component, ReactEventHandler } from 'react';
+import { createGlobalStyle } from 'styled-components';
 import Clock from './Clock';
 
-export default class Responsive extends Component {
+const GlobalStyles = createGlobalStyle`
+    .de_countdown{
+        position: relative;
+        box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.3);
+        top: 0;
+        left: 0;
+        margin-bottom: 20px;
+        div{
+            display: flex;
+            justify-content: center;
+        }
+        .Clock-days, .Clock-hours, .Clock-minutes{
+            margin-right: 10px;
+        }
+    }
+`;
+export interface NFT {
+  deadline: string;
+  authorLink: string;
+  nftLink: string;
+  bidLink: string;
+  authorImg: string;
+  previewImg: string;
+  title: string;
+  price: string;
+  bid: string;
+  likes: number;
+  previewLink?: string;
+}
+export interface NFTS {
+  nfts: NFT[],
+  height: number
+}
+
+export default class Responsive extends React.Component<{}, NFTS> {
   dummyData = [{
     deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-1.jpg',
-    previewImg: './img/items/static-1.jpg',
+    authorImg: './images/author/author-1.jpg',
+    previewImg: './images/items/static-1.jpg',
     title: 'Pinky Ocean',
     price: '0.08 ETH',
     bid: '1/20',
     likes: 50,
   },
   {
-    deadline: '',
+    deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-10.jpg',
-    previewImg: './img/items/static-2.jpg',
+    authorImg: './images/author/author-10.jpg',
+    previewImg: './images/items/static-2.jpg',
     title: 'Deep Sea Phantasy',
     price: '0.06 ETH',
     bid: '1/22',
     likes: 80,
   },
   {
-    deadline: '',
+    deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-11.jpg',
-    previewImg: './img/items/static-3.jpg',
+    authorImg: './images/author/author-11.jpg',
+    previewImg: './images/items/static-3.jpg',
     title: 'Rainbow Style',
     price: '0.05 ETH',
     bid: '1/11',
@@ -43,20 +78,20 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-12.jpg',
-    previewImg: './img/items/static-4.jpg',
+    authorImg: './images/author/author-12.jpg',
+    previewImg: './images/items/static-4.jpg',
     title: 'Two Tigers',
     price: '0.08 ETH',
     bid: '1/20',
     likes: 50,
   },
   {
-    deadline: '',
+    deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-9.jpg',
-    previewImg: './img/items/anim-4.webp',
+    authorImg: './images/author/author-9.jpg',
+    previewImg: './images/items/anim-4.webp',
     title: 'The Truth',
     price: '0.08 ETH',
     bid: '1/20',
@@ -67,32 +102,32 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-2.jpg',
-    previewImg: './img/items/anim-2.webp',
+    authorImg: './images/author/author-2.jpg',
+    previewImg: './images/items/anim-2.webp',
     title: 'Running Puppets',
     price: '0.08 ETH',
     bid: '1/20',
     likes: 50,
   },
   {
-    deadline: '',
+    deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-3.jpg',
-    previewImg: './img/items/anim-1.webp',
+    authorImg: './images/author/author-3.jpg',
+    previewImg: './images/items/anim-1.webp',
     title: 'USA Wordmation',
     price: '0.08 ETH',
     bid: '1/20',
     likes: 50,
   },
   {
-    deadline: '',
+    deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-4.jpg',
-    previewImg: './img/items/anim-5.webp',
+    authorImg: './images/author/author-4.jpg',
+    previewImg: './images/items/anim-5.webp',
     title: 'Loop Donut',
     price: '0.08 ETH',
     bid: '1/20',
@@ -103,32 +138,32 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-5.jpg',
-    previewImg: './img/items/anim-3.webp',
+    authorImg: './images/author/author-5.jpg',
+    previewImg: './images/items/anim-3.webp',
     title: 'Lady Copter',
     price: '0.08 ETH',
     bid: '1/20',
     likes: 50,
   },
   {
-    deadline: '',
+    deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-7.jpg',
-    previewImg: './img/items/static-5.jpg',
+    authorImg: './images/author/author-7.jpg',
+    previewImg: './images/items/static-5.jpg',
     title: 'Purple Planet',
     price: '0.08 ETH',
     bid: '1/20',
     likes: 50,
   },
   {
-    deadline: '',
+    deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-6.jpg',
-    previewImg: './img/items/anim-6.webp',
+    authorImg: './images/author/author-6.jpg',
+    previewImg: './images/items/anim-6.webp',
     title: 'Oh Yeah!',
     price: '0.08 ETH',
     bid: '1/20',
@@ -139,20 +174,20 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-8.jpg',
-    previewImg: './img/items/anim-7.webp',
+    authorImg: './images/author/author-8.jpg',
+    previewImg: './images/items/anim-7.webp',
     title: 'This is Our Story',
     price: '0.08 ETH',
     bid: '1/20',
     likes: 50,
   },
   {
-    deadline: '',
+    deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-9.jpg',
-    previewImg: './img/items/static-6.jpg',
+    authorImg: './images/author/author-9.jpg',
+    previewImg: './images/items/static-6.jpg',
     title: 'Pixel World',
     price: '0.08 ETH',
     bid: '1/20',
@@ -163,15 +198,15 @@ export default class Responsive extends Component {
     authorLink: '#',
     nftLink: '#',
     bidLink: '#',
-    authorImg: './img/author/author-12.jpg',
-    previewImg: './img/items/anim-8.webp',
+    authorImg: './images/author/author-12.jpg',
+    previewImg: './images/items/anim-8.webp',
     title: 'I Believe I Can Fly',
     price: '0.08 ETH',
     bid: '1/20',
     likes: 50,
   }];
 
-  constructor(props) {
+  constructor(props: object) {
     super(props);
     this.state = {
       nfts: this.dummyData.slice(0, 8),
@@ -189,7 +224,7 @@ export default class Responsive extends Component {
     });
   };
 
-  onImgLoad({ target: img }) {
+  onImgLoad = ({ target: img }: ReactEventHandler<HTMLImageElement>) => {
     const currentHeight = this.state.height;
     if (currentHeight < img.offsetHeight) {
       this.setState({
@@ -201,15 +236,10 @@ export default class Responsive extends Component {
   render() {
     return (
       <div className="row">
+        <GlobalStyles />
         {this.state.nfts.map((nft, index) => (
-          <div key={index} className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4">
+          <div key={index} className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4">
             <div className="nft__item m-0">
-              { nft.deadline
-                        && (
-                        <div className="de_countdown">
-                          <Clock deadline={nft.deadline} />
-                        </div>
-                        )}
               <div className="author_list_pp">
                 <span onClick={() => window.open(nft.authorLink, '_self')}>
                   <img className="lazy" src={nft.authorImg} alt="" />
@@ -220,6 +250,9 @@ export default class Responsive extends Component {
                 <span>
                   <img onLoad={this.onImgLoad} src={nft.previewImg} className="lazy nft__item_preview" alt="" />
                 </span>
+              </div>
+              <div className="de_countdown">
+                <Clock deadline={nft.deadline} />
               </div>
               <div className="nft__item_info">
                 <span onClick={() => window.open(nft.nftLink, '_self')}>

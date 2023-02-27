@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Particles from 'react-tsparticles';
 
 class Particle extends Component {
-  constructor(props) {
+  constructor(props: object) {
     super(props);
 
     this.particlesInit = this.particlesInit.bind(this);

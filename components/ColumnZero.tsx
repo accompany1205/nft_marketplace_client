@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Clock from './Clock';
+import {NFTS, NFT} from "./ColumnAuction";
 
 const Outer = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const Outer = styled.div`
   border-radius: 8px;
 `;
 
-export default class Responsive extends Component {
+export default class Responsive extends React.Component<{}, NFTS>  {
   dummyData = [{
     deadline: 'December, 30, 2021',
     authorLink: '#',
@@ -181,7 +182,7 @@ export default class Responsive extends Component {
     likes: 50,
   }];
 
-  constructor(props) {
+  constructor(props: object) {
     super(props);
     this.state = {
       nfts: this.dummyData,
