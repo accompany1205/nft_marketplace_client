@@ -1,22 +1,32 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 /**
  * A single image element in a masonry style image grid
  */
-const GridImage = ({ key, index, left, top, photo, onClick }) => {
-  const { height, width, src, alt, caption } = photo;
+const GridImage = ({
+  key, index, left, top, photo, onClick,
+}) => {
+  const {
+    height, width, src, alt, caption,
+  } = photo;
   return (
-    <ImageContainer className='ConMainGimg'
+    <ImageContainer
+      className="ConMainGimg"
       key={`${key}-${index}`}
       index={index}
-      onClick={e => onClick(e, { index })}
-      style={{ left, top, height, width }}
+      onClick={(e) => onClick(e, { index })}
+      style={{
+        left,
+        top,
+        height,
+        width,
+      }}
     >
-      <OverlayContainer className='MainGimg'>
+      <OverlayContainer className="MainGimg">
         <Image src={src} alt={alt} caption={caption} />
-        <Caption className='overlayCap'>
+        <Caption className="overlayCap">
           <span>{caption}</span>
         </Caption>
       </OverlayContainer>
@@ -29,6 +39,7 @@ GridImage.propTypes = {
   index: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
   top: PropTypes.number.isRequired,
+  // eslint-disable-next-line react/no-unused-prop-types
   containerHeight: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
   photo: PropTypes.shape({
@@ -36,8 +47,8 @@ GridImage.propTypes = {
     caption: PropTypes.string.isRequired,
     height: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
-    src: PropTypes.string.isRequired
-  }).isRequired
+    src: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default GridImage;

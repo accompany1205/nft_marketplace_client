@@ -5,7 +5,7 @@ import { RootState } from '../redux/store';
 
 const RouteGuard = ({ children }: any) => {
   const router = useRouter();
-  const token = useSelector<RootState>(state => state.auth.token);
+  const token = useSelector<RootState>((state) => state.auth.token);
   const authCheck = (url: any) => {
     const publicPaths = ['/', '/login', '/register', '/marketplace'];
     const [path] = url.split('?');

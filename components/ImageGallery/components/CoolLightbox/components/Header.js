@@ -1,17 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import Color from "color";
-import ButtonControl from "./ButtonControl";
+/* eslint-disable react/require-default-props */
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import Color from 'color';
+import ButtonControl from './ButtonControl';
 
 const LightboxHeader = ({ images, currentIndex, onClose }) => (
   <TopHeaderBar>
     <RightSideContainer>
       <PageIndicator>
-        {currentIndex + 1} / {images.length}
+        {currentIndex + 1}
+        {' '}
+        /
+        {' '}
+        {images.length}
       </PageIndicator>
-      <CloseButton className='closeL' onClick={onClose} type="button">
-        <i className="fa fa-close"></i>
+      <CloseButton className="closeL" onClick={onClose} type="button">
+        <i className="fa fa-close" />
       </CloseButton>
     </RightSideContainer>
   </TopHeaderBar>
@@ -23,13 +28,12 @@ LightboxHeader.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
       src: PropTypes.string,
-      alt: PropTypes.string
-    })
-  ).isRequired
+      alt: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 export default LightboxHeader;
-
 
 const PageIndicator = styled.span`
   white-space: nowrap;
@@ -51,8 +55,6 @@ const CloseButton = styled(ButtonControl)`
   color: inherit;
 `;
 
-
-
 const TopHeaderBar = styled.header`
   z-index: 10;
   cursor: auto;
@@ -60,11 +62,7 @@ const TopHeaderBar = styled.header`
   justify-content: space-between;
   padding: 10px 2px 10px 20px;
   color: ${({ theme }) => theme.headerNavFontColor};
-  background-color: ${({ theme }) =>
-    Color(theme.pageBackgroundColor)
-      .alpha(0.5)
-      .hsl()
-      .string()};
+  background-color: ${({ theme }) => Color(theme.pageBackgroundColor).alpha(0.5).hsl().string()};
   > * {
     height: inherit;
   }

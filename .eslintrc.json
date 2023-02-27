@@ -66,7 +66,8 @@
     ],
     "import/extensions": "off",
     "no-use-before-define": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "linebreak-style": 0
   },
   "overrides": [
     {

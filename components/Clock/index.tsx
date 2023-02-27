@@ -1,7 +1,18 @@
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 
-class Clock extends Component {
-  constructor(props) {
+interface Props{
+  deadline:string
+}
+
+interface State{
+  days:number;
+      hours:number;
+      minutes:number;
+      seconds:number;
+}
+class Clock extends Component<Props, State> {
+  constructor(props:Props) {
     super(props);
     this.state = {
       days: 0,
@@ -16,12 +27,14 @@ class Clock extends Component {
     setInterval(() => this.getTimeUntil(this.props.deadline), 1000);
   }
 
-  leading0(num) {
-    return num < 10 ? `0${num}` : num;
+  componentWillUnmount() {
+    // fix Warning: Can't perform a React state update on an unmounted component
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    this.setState = () => {};
   }
 
-  getTimeUntil(deadline) {
-    const time = Date.parse(deadline) - Date.parse(new Date());
+  getTimeUntil(deadline:string) {
+    const time = Date.parse(deadline) - Date.parse(new Date().toString());
     if (time < 0) {
       this.setState({
         days: 0,
@@ -43,21 +56,28 @@ class Clock extends Component {
     }
   }
 
-  componentWillUnmount() {
-    // fix Warning: Can't perform a React state update on an unmounted component
-    this.setState = (state, callback) => {};
+  leading0(num:number) {
+    return num < 10 ? `0${num}` : num;
   }
 
   render() {
     return (
       <div>
-        <div className="Clock-days">{this.leading0(this.state.days)}d</div>
-        <div className="Clock-hours">{this.leading0(this.state.hours)}h</div>
+        <div className="Clock-days">
+          {this.leading0(this.state.days)}
+          d
+        </div>
+        <div className="Clock-hours">
+          {this.leading0(this.state.hours)}
+          h
+        </div>
         <div className="Clock-minutes">
-          {this.leading0(this.state.minutes)}m
+          {this.leading0(this.state.minutes)}
+          m
         </div>
         <div className="Clock-seconds">
-          {this.leading0(this.state.seconds)}s
+          {this.leading0(this.state.seconds)}
+          s
         </div>
       </div>
     );
