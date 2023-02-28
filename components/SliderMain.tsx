@@ -68,12 +68,7 @@ const slidermain = () => (
           duration={900}
           triggerOnce
         >
-          <span
-            onClick={() => window.open('/#', '_self')}
-            className="btn-main lead"
-          >
-            Explore
-          </span>
+          <span onClick={() => window.open('/#', '_self')} className="btn-main lead">Explore</span>
           <div className="mb-sm-30" />
         </Reveal>
       </div>
@@ -81,7 +76,6 @@ const slidermain = () => (
         <Reveal
           className="onStep"
           keyframes={fadeIn}
-          delay={900}
           duration={1500}
           triggerOnce
         >

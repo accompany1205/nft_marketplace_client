@@ -1,18 +1,23 @@
-/* eslint-disable react/require-default-props */
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Color from 'color';
 import ButtonControl from './ButtonControl';
 
-const LightboxHeader = ({ images, currentIndex, onClose }) => (
+interface Props {
+  images: { src: string; alt: string }[];
+  // eslint-disable-next-line react/require-default-props
+  currentIndex?: number;
+  // eslint-disable-next-line react/require-default-props
+  onClose?: () => void;
+}
+
+const LightboxHeader: React.FC<Props> = ({ images, currentIndex = 0, onClose }) => (
   <TopHeaderBar>
     <RightSideContainer>
       <PageIndicator>
         {currentIndex + 1}
         {' '}
         /
-        {' '}
         {images.length}
       </PageIndicator>
       <CloseButton className="closeL" onClick={onClose} type="button">
@@ -21,17 +26,6 @@ const LightboxHeader = ({ images, currentIndex, onClose }) => (
     </RightSideContainer>
   </TopHeaderBar>
 );
-
-LightboxHeader.propTypes = {
-  onClose: PropTypes.func,
-  currentIndex: PropTypes.number,
-  images: PropTypes.arrayOf(
-    PropTypes.shape({
-      src: PropTypes.string,
-      alt: PropTypes.string,
-    }),
-  ).isRequired,
-};
 
 export default LightboxHeader;
 

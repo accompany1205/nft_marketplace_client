@@ -1,22 +1,44 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
-import PropTypes from 'prop-types';
+import { renderImageClickHandler } from 'react-photo-gallery';
 import styled from 'styled-components';
+
+interface Props {
+  key?: string;
+  index: number;
+  left?: number;
+  top?: number;
+  // containerHeight: number,
+  onClick?: renderImageClickHandler | null;
+  photo: {
+    alt?: string;
+    // caption: string;
+    height: number;
+    width: number;
+    src: string;
+  };
+}
 
 /**
  * A single image element in a masonry style image grid
  */
-const GridImage = ({
-  key, index, left, top, photo, onClick,
+const GridImage: React.FC<Props> = ({
+  key,
+  index,
+  left,
+  top,
+  photo,
+  onClick,
 }) => {
   const {
-    height, width, src, alt, caption,
+    height, width, src, alt,
   } = photo;
   return (
     <ImageContainer
       className="ConMainGimg"
       key={`${key}-${index}`}
-      index={index}
-      onClick={(e) => onClick(e, { index })}
+      // index={index}
+      onClick={(e) => onClick && onClick(e, { index })}
       style={{
         left,
         top,
@@ -25,30 +47,13 @@ const GridImage = ({
       }}
     >
       <OverlayContainer className="MainGimg">
-        <Image src={src} alt={alt} caption={caption} />
+        <Image src={src} alt={alt} />
         <Caption className="overlayCap">
-          <span>{caption}</span>
+          {/* <span>{caption}</span> */}
         </Caption>
       </OverlayContainer>
     </ImageContainer>
   );
-};
-
-GridImage.propTypes = {
-  key: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  left: PropTypes.number.isRequired,
-  top: PropTypes.number.isRequired,
-  // eslint-disable-next-line react/no-unused-prop-types
-  containerHeight: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
-  photo: PropTypes.shape({
-    alt: PropTypes.string.isRequired,
-    caption: PropTypes.string.isRequired,
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    src: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default GridImage;
@@ -63,7 +68,7 @@ const OverlayContainer = styled.div`
   overflow: hidden;
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.button`
   transition: border-color 0.2s linear;
   display: block;
   position: absolute;

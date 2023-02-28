@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import Clock from './Clock';
 
@@ -19,8 +19,8 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
-export default class Responsive extends Component {
-  dummyData = [{
+const dummyData = [
+  {
     deadline: 'December, 30, 2021',
     authorLink: '#',
     nftLink: '#',
@@ -187,83 +187,86 @@ export default class Responsive extends Component {
     price: '0.08 ETH',
     bid: '1/20',
     likes: 50,
-  }];
+  },
+];
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      nfts: this.dummyData.slice(0, 8),
-      height: 0,
-    };
-    this.onImgLoad = this.onImgLoad.bind(this);
-  }
+const ColumnAuction = () => {
+  const [nfts, setNfts] = useState(dummyData.slice(0, 8));
+  const [height, setHeight] = useState(0);
 
-  onImgLoad({ target: img }) {
-    const currentHeight = this.state.height;
+  const onImgLoad = ({ target: img }: any) => {
+    const currentHeight = height;
     if (currentHeight < img.offsetHeight) {
-      this.setState({
-        height: img.offsetHeight,
-      });
+      setHeight(img.offsetHeight);
     }
-  }
-
-  loadMore = () => {
-    const nftState = this.state.nfts;
-    const start = nftState.length;
-    const end = nftState.length + 4;
-    this.setState({
-      nfts: [...nftState, ...(this.dummyData.slice(start, end))],
-    });
   };
 
-  render() {
-    return (
-      <div className="row">
-        <GlobalStyles />
-        {this.state.nfts.map((nft, index) => (
-          <div key={index} className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4">
-            <div className="nft__item m-0">
-              <div className="author_list_pp">
-                <span onClick={() => window.open(nft.authorLink, '_self')}>
-                  <img className="lazy" src={nft.authorImg} alt="" />
-                  <i className="fa fa-check" />
+  const loadMore = () => {
+    const nftState = nfts;
+    const start = nftState.length;
+    const end = nftState.length + 4;
+    setNfts([...nftState, ...dummyData.slice(start, end)]);
+  };
+
+  return (
+    <div className="row">
+      <GlobalStyles />
+      {nfts.map((nft, index) => (
+        <div
+          key={index}
+          className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4"
+        >
+          <div className="nft__item m-0">
+            <div className="author_list_pp">
+              <span onClick={() => window.open(nft.authorLink, '_self')}>
+                <img className="lazy" src={nft.authorImg} alt="" />
+                <i className="fa fa-check" />
+              </span>
+            </div>
+            <div className="nft__item_wrap" style={{ height: `${height}px` }}>
+              <span>
+                <img
+                  onLoad={onImgLoad}
+                  src={nft.previewImg}
+                  className="lazy nft__item_preview"
+                  alt=""
+                />
+              </span>
+            </div>
+            <div className="de_countdown">
+              <Clock deadline={nft.deadline} />
+            </div>
+            <div className="nft__item_info">
+              <span onClick={() => window.open(nft.nftLink, '_self')}>
+                <h4>{nft.title}</h4>
+              </span>
+              <div className="nft__item_price">
+                {nft.price}
+                <span>{nft.bid}</span>
+              </div>
+              <div className="nft__item_action">
+                <span onClick={() => window.open(nft.bidLink, '_self')}>
+                  Place a bid
                 </span>
               </div>
-              <div className="nft__item_wrap" style={{ height: `${this.state.height}px` }}>
-                <span>
-                  <img onLoad={this.onImgLoad} src={nft.previewImg} className="lazy nft__item_preview" alt="" />
-                </span>
-              </div>
-              <div className="de_countdown">
-                <Clock deadline={nft.deadline} />
-              </div>
-              <div className="nft__item_info">
-                <span onClick={() => window.open(nft.nftLink, '_self')}>
-                  <h4>{nft.title}</h4>
-                </span>
-                <div className="nft__item_price">
-                  {nft.price}
-                  <span>{nft.bid}</span>
-                </div>
-                <div className="nft__item_action">
-                  <span onClick={() => window.open(nft.bidLink, '_self')}>Place a bid</span>
-                </div>
-                <div className="nft__item_like">
-                  <i className="fa fa-heart" />
-                  <span>{nft.likes}</span>
-                </div>
+              <div className="nft__item_like">
+                <i className="fa fa-heart" />
+                <span>{nft.likes}</span>
               </div>
             </div>
           </div>
-        ))}
-        { this.state.nfts.length !== this.dummyData.length
-            && (
-            <div className="col-lg-12">
-              <div className="spacer-single" />
-              <span onClick={() => this.loadMore()} className="btn-main lead m-auto">Load More</span>
-            </div>
-            )}
-      </div>
-    );
-  }
-}
+        </div>
+      ))}
+      {nfts.length !== dummyData.length && (
+        <div className="col-lg-12">
+          <div className="spacer-single" />
+          <span onClick={() => loadMore()} className="btn-main lead m-auto">
+            Load More
+          </span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ColumnAuction;

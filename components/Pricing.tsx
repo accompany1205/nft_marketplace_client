@@ -1,8 +1,9 @@
 import React from 'react';
 
-const pricing = () => (
+const Pricing = () => (
   <section className="container">
     <div className="row sequence">
+
       <div className="col-lg-4 col-md-6 col-sm-12 sq-item wow">
         <div className="pricing-s1 mb30">
           <div className="top">
@@ -47,9 +48,7 @@ const pricing = () => (
           </div>
 
           <div className="action">
-            <a href="register.html" className="btn-main">
-              Sign Up Now
-            </a>
+            <a href="register.html" className="btn-main">Sign Up Now</a>
           </div>
         </div>
       </div>
@@ -96,9 +95,7 @@ const pricing = () => (
           </div>
 
           <div className="action">
-            <a href="register.html" className="btn-main">
-              Sign Up Now
-            </a>
+            <a href="register.html" className="btn-main">Sign Up Now</a>
           </div>
         </div>
       </div>
@@ -145,9 +142,7 @@ const pricing = () => (
           </div>
 
           <div className="action">
-            <a href="register.html" className="btn-main">
-              Sign Up Now
-            </a>
+            <a href="register.html" className="btn-main">Sign Up Now</a>
           </div>
         </div>
       </div>
@@ -155,7 +150,9 @@ const pricing = () => (
       <div className="col-lg-6 offset-lg-3 text-center">
         <small>Price shown are in USD and VAT inclusive.</small>
       </div>
+
     </div>
   </section>
+
 );
-export default pricing;
+export default Pricing;

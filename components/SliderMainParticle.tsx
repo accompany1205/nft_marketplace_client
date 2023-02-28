@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import Reveal from 'react-awesome-reveal';
 import { keyframes } from '@emotion/react';
@@ -26,7 +27,7 @@ const inline = keyframes`
    }
 `;
 
-const slidermainparticle = () => (
+const SliderMainParticle = () => (
   <div className="container">
     <div className="row align-items-center">
       <div className="col-md-6">
@@ -37,8 +38,7 @@ const slidermainparticle = () => (
         </Reveal>
         <Reveal className="onStep" keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
           <p className="lead col-white">
-            Unit of data stored on a digital ledger, called a blockchain, that certifies a
-            digital asset to be unique and therefore not interchangeable
+            Unit of data stored on a digital ledger, called a blockchain, that certifies a digital asset to be unique and therefore not interchangeable
           </p>
         </Reveal>
         <div className="spacer-10" />
@@ -51,4 +51,4 @@ const slidermainparticle = () => (
     </div>
   </div>
 );
-export default slidermainparticle;
+export default SliderMainParticle;

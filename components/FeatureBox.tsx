@@ -18,10 +18,7 @@ const fadeInUp = keyframes`
 const featurebox = () => (
   <div className="row">
     <div className="col-lg-4 col-md-6 mb-3">
-      <div
-        className="feature-box f-boxed style-3"
-        style={{ minHeight: '350px' }}
-      >
+      <div className="feature-box f-boxed style-3" style={{ minHeight: '350px' }}>
         <Reveal
           className="onStep"
           keyframes={fadeInUp}
@@ -59,10 +56,7 @@ const featurebox = () => (
       </div>
     </div>
     <div className="col-lg-4 col-md-6 mb-3">
-      <div
-        className="feature-box f-boxed style-3"
-        style={{ minHeight: '350px' }}
-      >
+      <div className="feature-box f-boxed style-3" style={{ minHeight: '350px' }}>
         <Reveal
           className="onStep"
           keyframes={fadeInUp}
@@ -100,10 +94,7 @@ const featurebox = () => (
       </div>
     </div>
     <div className="col-lg-4 col-md-6 mb-3">
-      <div
-        className="feature-box f-boxed style-3"
-        style={{ minHeight: '350px' }}
-      >
+      <div className="feature-box f-boxed style-3" style={{ minHeight: '350px' }}>
         <Reveal
           className="onStep"
           keyframes={fadeInUp}

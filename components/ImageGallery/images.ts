@@ -7,21 +7,24 @@ const images = [
     height: 294,
   },
   {
-    src: '/img/gallery/2.jpg',
+    src:
+      '/img/gallery/2.jpg',
     alt: 'Gallery Title',
     caption: 'Gallery Title',
     width: 416,
     height: 294,
   },
   {
-    src: '/img/gallery/3.jpg',
+    src:
+      '/img/gallery/3.jpg',
     alt: 'Gallery Title',
     caption: 'Gallery Title',
     width: 416,
     height: 612,
   },
   {
-    src: '/img/gallery/4.jpg',
+    src:
+      '/img/gallery/4.jpg',
     alt: 'Gallery Title',
     caption: 'Gallery Show',
     width: 416,
@@ -35,14 +38,16 @@ const images = [
     height: 294,
   },
   {
-    src: '/img/gallery/6.jpg',
+    src:
+      '/img/gallery/6.jpg',
     alt: 'Gallery Title',
     caption: 'Gallery Title',
     width: 416,
     height: 294,
   },
   {
-    src: '/img/gallery/7.jpg',
+    src:
+      '/img/gallery/7.jpg',
     alt: 'Gallery Title',
     caption: 'Gallery Title',
     width: 416,

@@ -1,22 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { Component } from 'react';
+import React, { ReactNode } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-// eslint-disable-next-line react/prefer-stateless-function
-class CustomSlide extends Component<{
-  [key: string]: unknown;
+const CustomSlide: React.FC<{
   index: number;
-}> {
-  render() {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { index, ...props } = this.props;
-    return <div {...props} />;
-  }
-}
+  className: string;
+  children: ReactNode;
+}> = ({ ...props }) => <div {...props} />;
 
-const ItemsYoullLike = () => {
+const ItemsYoullLike: React.FC = () => {
   const settings = {
     infinite: false,
     speed: 500,

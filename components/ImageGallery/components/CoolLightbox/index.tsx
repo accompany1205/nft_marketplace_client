@@ -1,17 +1,25 @@
 /* eslint-disable react/require-default-props */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import PropTypes from 'prop-types';
 import Lightbox from 'react-spring-lightbox';
 import styled from 'styled-components';
 import Color from 'color';
-import { ArrowButton, ArrowButtonleft, Header } from './components';
+import { ArrowButton, ArrowButtonLeft, Header } from './components';
 
-const CoolLightbox = ({
-  images,
-  currentImageIndex,
-  setCurrentIndex,
-  isOpen,
-  onClose,
+interface Props {
+  images?: { src: string; alt: string }[];
+  currentImageIndex?: number;
+  setCurrentIndex?: (val: number) => void;
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+const CoolLightbox: React.FC<Props> = ({
+  images = [],
+  currentImageIndex = 0,
+  setCurrentIndex = () => {},
+  isOpen = false,
+  onClose = () => {},
 }) => {
   const gotoPrevious = () => currentImageIndex > 0 && setCurrentIndex(currentImageIndex - 1);
 
@@ -34,27 +42,14 @@ const CoolLightbox = ({
           onClose={onClose}
         />
       )}
-      renderPrevButton={({ canPrev }) => (
-        <ArrowButtonleft onClick={gotoPrevious} disabled={!canPrev} />
+      renderPrevButton={() => (
+        <ArrowButtonLeft onClick={gotoPrevious} />
       )}
-      renderNextButton={({ canNext }) => (
-        <ArrowButton onClick={gotoNext} disabled={!canNext} />
+      renderNextButton={() => (
+        <ArrowButton onClick={gotoNext} />
       )}
     />
   );
-};
-
-CoolLightbox.propTypes = {
-  images: PropTypes.arrayOf(
-    PropTypes.shape({
-      src: PropTypes.string,
-      alt: PropTypes.string,
-    }),
-  ),
-  currentImageIndex: PropTypes.number,
-  setCurrentIndex: PropTypes.func,
-  isOpen: PropTypes.bool,
-  onClose: PropTypes.func,
 };
 
 export default CoolLightbox;

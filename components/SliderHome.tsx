@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-ignore
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/vertical.css';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-const footer = () => (
+const Footer = () => (
   <footer className="footer-light">
     <div className="container">
       <div className="row">
@@ -130,4 +130,4 @@ const footer = () => (
     </div>
   </footer>
 );
-export default footer;
+export default Footer;
