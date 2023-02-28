@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 
 const footer = () => (
   <footer className="footer-light">
@@ -10,22 +10,22 @@ const footer = () => (
             <h5>Marketplace</h5>
             <ul>
               <li>
-                <Link to=""> Bags</Link>
+                <Link href=""> Bags</Link>
               </li>
               <li>
-                <Link to=""> Leather goods</Link>
+                <Link href=""> Leather goods</Link>
               </li>
               <li>
-                <Link to=""> Jewellery</Link>
+                <Link href=""> Jewellery</Link>
               </li>
               <li>
-                <Link to=""> Shoes</Link>
+                <Link href=""> Shoes</Link>
               </li>
               <li>
-                <Link to=""> Watches</Link>
+                <Link href=""> Watches</Link>
               </li>
               <li>
-                <Link to=""> Sunglasses</Link>
+                <Link href=""> Sunglasses</Link>
               </li>
             </ul>
           </div>
@@ -34,21 +34,12 @@ const footer = () => (
           <div className="widget">
             <h5>Resources</h5>
             <ul>
-              <li>
-                <Link to=""> How does it work</Link>
-              </li>
-              <li>
-                <Link to=""> Sellers</Link>
-              </li>
-              <li>
-                <Link to=""> Buyers</Link>
-              </li>
-              <li>
-                <Link to=""> Certification Process</Link>
-              </li>
-              <li>
-                <Link to=""> Help Center</Link>
-              </li>
+              <li><Link href="/how-it-works">How does it work</Link></li>
+              <li><Link href="/seller-page">Sellers</Link></li>
+              <li><Link href="/buyer-page">Buyers</Link></li>
+              <li><Link href="/certification">Certification Process</Link></li>
+              <li><Link href="/faq">FAQ</Link></li>
+              <li><Link href="/about-us">Contact Us</Link></li>
             </ul>
           </div>
         </div>
@@ -57,10 +48,10 @@ const footer = () => (
             <h5>Legal</h5>
             <ul>
               <li>
-                <Link to=""> Terms and Conditions</Link>
+                <Link href=""> Terms and Conditions</Link>
               </li>
               <li>
-                <Link to=""> Privacy Policy</Link>
+                <Link href=""> Privacy Policy</Link>
               </li>
             </ul>
           </div>
@@ -84,7 +75,7 @@ const footer = () => (
                   placeholder="Mail field"
                   type="text"
                 />
-                <Link to="" id="btn-subscribe">
+                <Link href="" id="btn-subscribe">
                   <i className="arrow_right bg-color-secondary" />
                 </Link>
                 <div className="clearfix" />
