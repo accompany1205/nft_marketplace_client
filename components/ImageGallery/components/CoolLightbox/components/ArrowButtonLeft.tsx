@@ -9,7 +9,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const ArrowButtonLeft: React.FC<Props> = ({ onClick, disabled }) => {
+const ArrowButtonLeft: React.FC<Props> = ({ onClick, disabled = false }) => {
   const transitions = useTransition(!disabled, null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },

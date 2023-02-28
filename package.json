@@ -60,6 +60,7 @@
     "sass": "^1.57.1",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
+    "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -71,6 +72,7 @@
     "@types/react": "^18.0.26",
     "@types/react-slick": "^0.23.10",
     "@types/redux-persist": "^4.3.1",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "eslint-config-airbnb": "^19.0.4",

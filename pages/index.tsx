@@ -6,14 +6,10 @@ import SliderMain from '../components/SliderMain';
 import FeatureBox from '../components/FeatureBox';
 import LastSoldItems from '../components/LastSoldItems';
 import PopularBrands from '../components/PopularBrands';
-import Footer from '../components/Footer';
 import ItemsYoullLike from '../components/ItemsYoullLike';
 import Catgor from '../components/Catgor';
 import useMobileMode from '../hooks/useMobileMode';
-import AuthorList from '../components/AuthorList';
-import SliderHome from '../components/SliderHome';
-import ButtonControl from '../components/ImageGallery/components/CoolLightbox/components/ButtonControl';
-import ImageGallery from '../components/ImageGallery';
+import Products from '../components/Products';
 
 const Home = () => {
   const mobileMode = useMobileMode();
@@ -255,16 +251,8 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <Products />
       </section>
-      <Footer />
-      {/* <Responsive /> */}
-      <SliderHome />
-      {/* <Particle /> */}
-      {/* <SliderParticles /> */}
-      <AuthorList />
-      <ButtonControl />
-      <ImageGallery />
-      {/* <Pricing /> */}
     </div>
   );
 };

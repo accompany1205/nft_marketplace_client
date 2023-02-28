@@ -12,11 +12,12 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   const [activeTab, setActiveTab] = useState(
     product.lowestAsk?.id ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
   );
+  const disableBuyNow = true;
 
   return (
     <div className="de_tab">
       <ul className="de_nav">
-        {product.lowestAsk?.id && (
+        {product.lowestAsk?.id && disableBuyNow && (
           <li
             className={
               activeTab === CheckoutType.BUY_NOW ? 'active' : undefined

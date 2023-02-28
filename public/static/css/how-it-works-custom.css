@@ -1,0 +1,34 @@
+.how-it-works__top-img {
+    max-width: 200px;
+    width: 100%;
+}
+
+.steps_heading_number {
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 2.25rem;
+    display: inline-block;
+    margin-bottom: 1.25rem;
+}
+
+.de-card-icon.box-url:hover {
+    background-color: #fff;
+}
+
+.steps-module-heading {
+    font-size: 26px;
+}
+
+.gradient-icon-bg {
+    background: linear-gradient(to right, var(--secondary-color) 0%, var(--secondary-color-2) 100%)
+}
+
+.has-box-shadow {
+    box-shadow: 1px 1px 8px 1px rgb(0 0 0 / 10%);
+    -webkit-box-shadow: 1px 1px 8px 1px rgb(0 0 0 / 10%);
+    -moz-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.1);
+}
+
+.de-card i {
+    border-radius: 8px;
+}
