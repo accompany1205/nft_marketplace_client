@@ -6,7 +6,6 @@ import SliderMain from '../components/SliderMain';
 import FeatureBox from '../components/FeatureBox';
 import LastSoldItems from '../components/LastSoldItems';
 import PopularBrands from '../components/PopularBrands';
-import Footer from '../components/Footer';
 import ItemsYoullLike from '../components/ItemsYoullLike';
 import Catgor from '../components/Catgor';
 import useMobileMode from '../hooks/useMobileMode';
