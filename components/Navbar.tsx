@@ -1,6 +1,9 @@
 import React, {
   useCallback,
-  useContext, useEffect, useMemo, useState,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
 } from 'react';
 import {
   Breakpoint,
@@ -10,7 +13,6 @@ import {
 import Link from 'next/link';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
-import { createGlobalStyle } from 'styled-components';
 import { useTypedSelector } from '../hooks/store';
 import { reset } from '../redux/slices/authSlice';
 import WalletContext, {
@@ -19,47 +21,6 @@ import WalletContext, {
 import WalletConnector from './WalletConnector';
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
-
-const GlobalStyles = createGlobalStyle`
-  :root {
-    scroll-behavior: unset;
-  }
-  header#myHeader.navbar.sticky.white {
-    background: #8677a8;
-    border-bottom: solid 1px #8677a8;
-  }
-  header#myHeader.navbar .search #quick_search{
-    color: #fff;
-    background: rgba(131,100,226,.1);
-  }
-  header#myHeader.navbar.white .btn, .navbar.white a, .navbar.sticky.white a{
-    color: #fff;
-  }
-  header#myHeader .dropdown-toggle::after{
-    color: #fff;
-  }
-  header#myHeader .logo .d-block{
-    display: none !important;
-  }
-  header#myHeader .logo .d-none{
-    display: block !important;
-  }
-  header a p{
-    margin: 0;
-    font-size: 1.2rem;
-  }
-  @media only screen and (max-width: 1199px) {
-    .navbar{
-      background: #8677a8;
-    }
-    .navbar .menu-line, .navbar .menu-line1, .navbar .menu-line2{
-      background: #fff;
-    }
-    .item-dropdown .dropdown a{
-      color: #fff !important;
-    }
-  }
-`;
 interface INavProps {
   children: JSX.Element | string;
   href: string;
@@ -101,6 +62,7 @@ const Header = ({ className }: any) => {
 
   const [showmenu, btnIcon] = useState(false);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleLogout = useCallback(() => {
     dispatch(reset());
   }, [dispatch]);
@@ -130,33 +92,38 @@ const Header = ({ className }: any) => {
   }, []);
   const { disconnectWallet, accountId } = useContext(WalletContext);
   return (
-    <>
-      <GlobalStyles />
+    <header
+      className={`navbar white ${className}`}
+      id="myHeader"
+      style={{ backgroundColor: 'white' }}
+    >
+      <WalletConnector showModal={showModal} setShowModal={setShowModal} />
 
-      <header className={`navbar white ${className}`} id="myHeader">
-        <WalletConnector showModal={showModal} setShowModal={setShowModal} />
-
-        <div className="container">
-          <div className="row w-100-nav">
-            <div className="logo px-0">
-              <div className="navbar-title navbar-item">
-                <NavLink href="/">
-                  <p> DESIGN BOOK </p>
-                </NavLink>
-              </div>
-            </div>
-            {/* <div className="search">
-              <input
-                id="quick_search"
-                className="xs-hide"
-                name="quick_search"
-                placeholder="search item here..."
-                type="text"
+      <div className="container">
+        <div className="row w-100-nav">
+          <div className="logo px-0">
+            <NavLink href="/">
+              <img
+                src="/static/images/logo-black.png"
+                alt="logo"
+                style={{
+                  width: '150px',
+                }}
               />
-            </div> */}
-            <BreakpointProvider>
-              <Breakpoint l down>
-                {showmenu && (
+            </NavLink>
+          </div>
+          <div className="search">
+            <input
+              id="quick_search"
+              className="xs-hide"
+              name="quick_search"
+              placeholder="Search for brands, items, colours"
+              type="text"
+            />
+          </div>
+          <BreakpointProvider>
+            <Breakpoint l down>
+              {showmenu && (
                 <div className="menu">
                   <div className="navbar-item">
                     <div>Home</div>
@@ -204,21 +171,37 @@ const Header = ({ className }: any) => {
                   </div>
                   <div className="navbar-item">Help</div>
                 </div>
-                )}
-              </Breakpoint>
+              )}
+            </Breakpoint>
 
-              <Breakpoint xl>
-                <div className="menu">
-                  <div className="navbar-item">
-                    <div ref={ref}>
-                      <div
-                        className="dropdown-custom dropdown-toggle btn"
-                        // onMouseEnter={handleBtnClick}
-                        // onMouseLeave={closeMenu}
-                      >
-                        Browse
-                        <span className="lines" />
-                        {/* {openMenu && (
+            <Breakpoint xl>
+              <div className="menu">
+                <div className="navbar-item">
+                  <div>
+                    <div className="dropdown-custom btn">
+                      <NavLink href="/nft/pid">Home</NavLink>
+                      <span className="lines" />
+                    </div>
+                  </div>
+                </div>
+                <div className="navbar-item">
+                  <div>
+                    <div className="dropdown-custom btn">
+                      <NavLink href="/nft/pid">Marketplace</NavLink>
+                      <span className="lines" />
+                    </div>
+                  </div>
+                </div>
+                <div className="navbar-item">
+                  <div ref={ref}>
+                    <div
+                      className="dropdown-custom dropdown-toggle btn"
+                      onMouseEnter={onHowDoesItWorkClick}
+                      onMouseLeave={closeHowDoesItWork}
+                    >
+                      How does it work
+                      <span className="lines" />
+                      {howDoesItWorkOpen && (
                         <div className="item-dropdown">
                           <div
                             className="dropdown"
@@ -228,101 +211,73 @@ const Header = ({ className }: any) => {
                             <NavLink href="/">Seller</NavLink>
                           </div>
                         </div>
-                        )} */}
-                      </div>
+                      )}
                     </div>
-                  </div>
-                  <div className="navbar-item">
-                    <div>
-                      <div className="dropdown-custom btn">
-                        <NavLink href="/nft/pid">News</NavLink>
-                        <span className="lines" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="navbar-item">
-                    <div>
-                      <div className="dropdown-custom btn">
-                        About
-                        <span className="lines" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="navbar-item">
-                    <NavLink href="/activity">
-                      <>
-                        Help
-                        <span className="lines" />
-                      </>
-                    </NavLink>
-                  </div>
-                  <div className="navbar-item">
-                    <div>
-                      <div className="dropdown-custom btn">
-                        Sell
-                        <span className="lines" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="navbar-item">
-                    <div className="mainside">
-                      {isLoggedIn
-                        ? (
-                          <div
-                            className="connect-wal"
-                            onClick={() => {
-                              if (accountId) disconnectWallet(WalletServiceProviders.HASHPACK);
-                              else {
-                                setShowModal(true);
-                              }
-                            }}
-                          >
-                            <span>
-                              {accountId ? 'Disconnect Wallet' : 'Connect Wallet'}
-                            </span>
-                          </div>
-                        )
-                        : (
-                          <div className="mainside">
-                            <div className="connect-wal">
-                              <NavLink href="/register">Sign Up</NavLink>
-                            </div>
-                          </div>
-                        )}
-                    </div>
-                  </div>
-                  <div className="navbar-item">
-                    {isLoggedIn ? (
-                      <div className="mainside">
-                        <div className="connect-wal" onClick={handleLogout}>
-                          <NavLink href="/login">Logout</NavLink>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="mainside">
-                        <div className="connect-wal">
-                          <NavLink href="/login">Login</NavLink>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
-              </Breakpoint>
-            </BreakpointProvider>
-          </div>
-
-          <button
-            type="button"
-            className="nav-icon"
-            onClick={() => btnIcon(!showmenu)}
-          >
-            <div className="menu-line white" />
-            <div className="menu-line1 white" />
-            <div className="menu-line2 white" />
-          </button>
+                <div className="navbar-item">
+                  <div ref={ref}>
+                    <div
+                      className="dropdown-custom dropdown-toggle btn"
+                      onMouseEnter={onAboutClick}
+                      onMouseLeave={closeAbout}
+                    >
+                      About
+                      <span className="lines" />
+                      {aboutOpen && (
+                        <div className="item-dropdown">
+                          <div className="dropdown" onClick={closeAbout}>
+                            <NavLink href="/">Certification</NavLink>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="navbar-item">
+                  <NavLink href="/activity">
+                    <>
+                      Help
+                      <span className="lines" />
+                    </>
+                  </NavLink>
+                </div>
+                <div className="navbar-item">
+                  <div className="mainside">
+                    <div
+                      className="connect-wal"
+                      onClick={() => {
+                        if (accountId) {
+                          disconnectWallet(WalletServiceProviders.HASHPACK);
+                        } else {
+                          setShowModal(true);
+                        }
+                      }}
+                    >
+                      <span>
+                        {isLoggedIn
+                          ? 'Logout (Disconnect Wallet)'
+                          : 'Login (Connect Wallet)'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Breakpoint>
+          </BreakpointProvider>
         </div>
-      </header>
-    </>
+
+        <button
+          type="button"
+          className="nav-icon"
+          onClick={() => btnIcon(!showmenu)}
+        >
+          <div className="menu-line white" />
+          <div className="menu-line1 white" />
+          <div className="menu-line2 white" />
+        </button>
+      </div>
+    </header>
   );
 };
 export default Header;
