@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -7,7 +7,7 @@ const CustomSlide: React.FC<{
   index: number;
   className: string;
   children: ReactNode;
-}> = ({ index, ...props }) => <div {...props} />;
+}> = ({ ...props }) => <div {...props} />;
 
 const LastSoldItems: React.FC = () => {
   const settings = {

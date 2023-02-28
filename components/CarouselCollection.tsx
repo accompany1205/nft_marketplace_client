@@ -1,15 +1,10 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import carouselCollectionItems from './constants/carouselCollectionItems';
 
-const CustomSlide: React.FC<{
-  index: number;
-  className: string;
-  children: ReactNode;
-}> = ({ ...props }) => <div {...props} />;
-
-const PopularBrands: React.FC = () => {
+const CarouselCollection = () => {
   const settings = {
     infinite: false,
     speed: 500,
@@ -59,46 +54,35 @@ const PopularBrands: React.FC = () => {
       },
     ],
   };
-
   return (
     <div className="nft">
       <Slider {...settings}>
-        {[
-          { name: 'Santoni', picture: './images/23.jpg' },
-          { name: 'Luca Faloni', picture: './images/24.jpg' },
-          { name: 'Artisan Lab', picture: './images/25.jpg' },
-          { name: 'Santoni', picture: './images/23.jpg' },
-          { name: 'Luca Faloni', picture: './images/24.jpg' },
-          { name: 'Artisan Lab', picture: './images/25.jpg' },
-        ].map((item, index) => (
-          <CustomSlide className="itm" index={index}>
-            <div
-              className="nft_coll"
-              style={{ backgroundColor: 'rgba(0,0,0,.1)' }}
-            >
+        {carouselCollectionItems.map((item) => (
+          <div className="itm">
+            <div className="nft_coll">
               <div className="nft_wrap">
                 <span>
-                  <img src={item.picture} className="lazy img-fluid" alt="" />
+                  <img src={item.coll} className="lazy img-fluid" alt="" />
                 </span>
               </div>
-
-              <div
-                className="nft_coll_info"
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  paddingTop: '8px',
-                  paddingLeft: '8px',
-                }}
-              >
-                <span>{item.name}</span>
+              <div className="nft_coll_pp">
+                <a href={item.url}>
+                  <img className="lazy" src={item.author} alt="" />
+                </a>
+                <i className="fa fa-check" />
+              </div>
+              <div className="nft_coll_info">
+                <a href={item.url}>
+                  <h4>{item.title}</h4>
+                </a>
+                <span>{item.code}</span>
               </div>
             </div>
-          </CustomSlide>
+          </div>
         ))}
       </Slider>
     </div>
   );
 };
 
-export default PopularBrands;
+export default CarouselCollection;

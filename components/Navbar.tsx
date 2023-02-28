@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useContext, useEffect, useMemo, useState,
+  useContext, useEffect, useMemo, useState,
 } from 'react';
 import {
   Breakpoint,
@@ -8,10 +8,12 @@ import {
 } from 'react-socks';
 import Link from 'next/link';
 import useOnclickOutside from 'react-cool-onclickoutside';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../hooks/store';
-import { reset } from '../redux/slices/authSlice';
-import WalletContext, { WalletServiceProviders } from '../services/WalletService/WalletContext';
+// import { reset } from '../redux/slices/authSlice';
+import WalletContext, {
+  WalletServiceProviders,
+} from '../services/WalletService/WalletContext';
 import WalletConnector from './WalletConnector';
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
@@ -26,12 +28,12 @@ const NavLink = (props: INavProps) => (
 
 const Header = ({ className }: any) => {
   const { token } = useTypedSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const isLoggedIn = useMemo(() => !!token, [token]);
 
   const [howDoesItWorkOpen, setHowDoesItWorkOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false)
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   const onHowDoesItWorkClick = () => {
     setHowDoesItWorkOpen(!howDoesItWorkOpen);
@@ -42,23 +44,23 @@ const Header = ({ className }: any) => {
   };
 
   const onAboutClick = () => {
-    setAboutOpen(!aboutOpen)
-  }
+    setAboutOpen(!aboutOpen);
+  };
 
   const closeAbout = () => {
-    setAboutOpen(false)
-  }
+    setAboutOpen(false);
+  };
 
   const ref = useOnclickOutside(() => {
-    closeHowDoesItWork()
-    closeAbout()
+    closeHowDoesItWork();
+    closeAbout();
   });
 
   const [showmenu, btnIcon] = useState(false);
 
-  const handleLogout = useCallback(() => {
-    dispatch(reset());
-  }, [dispatch]);
+  // const handleLogout = useCallback(() => {
+  //   dispatch(reset());
+  // }, [dispatch]);
 
   useEffect(() => {
     const header = document.getElementById('myHeader');
@@ -85,18 +87,22 @@ const Header = ({ className }: any) => {
   }, []);
   const { disconnectWallet, accountId } = useContext(WalletContext);
   return (
-    <header className={`navbar white ${className}`} id="myHeader" style={{backgroundColor: 'white'}}>
+    <header
+      className={`navbar white ${className}`}
+      id="myHeader"
+      style={{ backgroundColor: 'white' }}
+    >
       <WalletConnector showModal={showModal} setShowModal={setShowModal} />
 
       <div className="container">
         <div className="row w-100-nav">
           <div className="logo px-0">
             <NavLink href="/">
-              <img 
-                src={'./images/logoBlack.png'} 
-                alt={'logo'} 
+              <img
+                src="./images/logoBlack.png"
+                alt="logo"
                 style={{
-                  width: '150px', 
+                  width: '150px',
                 }}
               />
             </NavLink>
@@ -130,7 +136,10 @@ const Header = ({ className }: any) => {
                       </div>
                       {howDoesItWorkOpen && (
                         <div className="item-dropdown">
-                          <div className="dropdown" onClick={closeHowDoesItWork}>
+                          <div
+                            className="dropdown"
+                            onClick={closeHowDoesItWork}
+                          >
                             <NavLink href="/">Buyer</NavLink>
                             <NavLink href="/">Seller</NavLink>
                           </div>
@@ -155,9 +164,7 @@ const Header = ({ className }: any) => {
                       )}
                     </div>
                   </div>
-                  <div className="navbar-item">
-                    Help
-                  </div>
+                  <div className="navbar-item">Help</div>
                 </div>
               )}
             </Breakpoint>
@@ -191,7 +198,10 @@ const Header = ({ className }: any) => {
                       <span className="lines" />
                       {howDoesItWorkOpen && (
                         <div className="item-dropdown">
-                          <div className="dropdown" onClick={closeHowDoesItWork}>
+                          <div
+                            className="dropdown"
+                            onClick={closeHowDoesItWork}
+                          >
                             <NavLink href="/">Buyer</NavLink>
                             <NavLink href="/">Seller</NavLink>
                           </div>
@@ -232,17 +242,17 @@ const Header = ({ className }: any) => {
                     <div
                       className="connect-wal"
                       onClick={() => {
-                        if (accountId) disconnectWallet(WalletServiceProviders.HASHPACK);
-                        else {
+                        if (accountId) { disconnectWallet(WalletServiceProviders.HASHPACK); } else {
                           setShowModal(true);
                         }
                       }}
                     >
                       <span>
-                        {isLoggedIn ? 'Logout (Disconnect Wallet)' : 'Login (Connect Wallet)'}
+                        {isLoggedIn
+                          ? 'Logout (Disconnect Wallet)'
+                          : 'Login (Connect Wallet)'}
                       </span>
                     </div>
-
                   </div>
                 </div>
               </div>

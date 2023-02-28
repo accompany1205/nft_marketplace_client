@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { Component, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -8,7 +8,7 @@ const CustomSlide: React.FC<{
   index: number;
   className: string;
   children: ReactNode;
-}> = ({ index, ...props }) => <div {...props} />;
+}> = ({ ...props }) => <div {...props} />;
 
 const ItemsYoullLike: React.FC = () => {
   const settings = {
@@ -88,14 +88,16 @@ const ItemsYoullLike: React.FC = () => {
                   bottom: '40px',
                   display: 'flex',
                   alignItems: 'center',
-                }}>
+                }}
+              >
                 <div
                   style={{
                     color: 'white',
                     paddingLeft: '20px',
                     fontWeight: 'bold',
                     fontSize: '19px',
-                  }}>
+                  }}
+                >
                   {item.label}
                 </div>
               </div>

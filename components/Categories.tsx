@@ -3,10 +3,11 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const CustomSlide: React.FC<{ index: number, className: string, children: ReactNode }> = ({
-  index,
-  ...props
-}) => <div {...props} />;
+const CustomSlide: React.FC<{
+  index: number;
+  className: string;
+  children: ReactNode;
+}> = ({ ...props }) => <div {...props} />;
 
 const Categories: React.FC = () => {
   const settings = {
