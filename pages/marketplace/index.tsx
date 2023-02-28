@@ -1,6 +1,6 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import Footer from '../../components/footer';
+import Footer from '../../components/Footer';
 import ColumnNewThreeCol from '../../components/ColumnNewThreeCol';
 
 const GlobalStyles = createGlobalStyle`

@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 
-export default class Responsive extends Component {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Props{
+}
+
+interface State{
+  nfts: {
+    previewImg:string
+      title:string
+      price:string
+  }[],
+  height: number
+}
+export default class Responsive extends Component<Props, State> {
   dummyData = [
     {
       previewImg: './images/items/static-1.jpg',
@@ -19,13 +31,22 @@ export default class Responsive extends Component {
     },
   ];
 
-  constructor(props) {
+  constructor(props:Props) {
     super(props);
     this.state = {
       nfts: this.dummyData.slice(0, 8),
       height: 0,
     };
     this.onImgLoad = this.onImgLoad.bind(this);
+  }
+
+  onImgLoad({ target: img }:any) {
+    const currentHeight = this.state.height;
+    if (currentHeight < img.offsetHeight) {
+      this.setState({
+        height: img.offsetHeight,
+      });
+    }
   }
 
   loadMore = () => {
@@ -37,26 +58,19 @@ export default class Responsive extends Component {
     });
   };
 
-  onImgLoad({ target: img }) {
-    const currentHeight = this.state.height;
-    if (currentHeight < img.offsetHeight) {
-      this.setState({
-        height: img.offsetHeight,
-      });
-    }
-  }
-
   render() {
     return (
       <div className="row">
         {this.state.nfts.map((nft, index) => (
           <div
             key={index}
-            className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4">
+            className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4"
+          >
             <div className="nft__item m-0">
               <div
                 className="nft__item_wrap"
-                style={{ height: `${this.state.height}px` }}>
+                style={{ height: `${this.state.height}px` }}
+              >
                 <span>
                   <img
                     onLoad={this.onImgLoad}
@@ -74,9 +88,11 @@ export default class Responsive extends Component {
 
                 <div
                   className="nft__item_action"
-                  style={{ marginBottom: '20px' }}>
+                  style={{ marginBottom: '20px' }}
+                >
                   <span
-                    onClick={() => alert('this should redirect to details')}>
+                    onClick={() => alert('this should redirect to details')}
+                  >
                     Access details
                   </span>
                 </div>
@@ -90,7 +106,8 @@ export default class Responsive extends Component {
             <div className="spacer-single" />
             <span
               onClick={() => this.loadMore()}
-              className="btn-main lead m-auto">
+              className="btn-main lead m-auto"
+            >
               Load More
             </span>
           </div>
