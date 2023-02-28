@@ -4,7 +4,7 @@ import React from 'react';
 import Lightbox from 'react-spring-lightbox';
 import styled from 'styled-components';
 import Color from 'color';
-import { ArrowButton, ArrowButtonleft, Header } from './components';
+import { ArrowButton, ArrowButtonLeft, Header } from './components';
 
 interface Props {
   images?: { src: string; alt: string }[];
@@ -43,7 +43,7 @@ const CoolLightbox: React.FC<Props> = ({
         />
       )}
       renderPrevButton={() => (
-        <ArrowButtonleft onClick={gotoPrevious} />
+        <ArrowButtonLeft onClick={gotoPrevious} />
       )}
       renderNextButton={() => (
         <ArrowButton onClick={gotoNext} />

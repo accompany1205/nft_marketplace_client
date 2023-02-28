@@ -10,15 +10,8 @@ import Footer from '../components/Footer';
 import ItemsYoullLike from '../components/ItemsYoullLike';
 import Catgor from '../components/Catgor';
 import useMobileMode from '../hooks/useMobileMode';
-import sliderhome from '../components/sliderhome';
-import Particle from '../components/Particle';
 import AuthorList from '../components/AuthorList';
-import bannercontact from '../components/bannercontact';
-import pricing from '../components/Pricing';
-import Pricing from '../components/Pricing';
-import SliderHome from '../components/sliderhome';
-import SliderParticles from '../components/SliderParticles';
-import { ArrowButton, ArrowButtonleft } from '../components/ImageGallery/components/CoolLightbox/components';
+import SliderHome from '../components/SliderHome';
 import ButtonControl from '../components/ImageGallery/components/CoolLightbox/components/ButtonControl';
 import ImageGallery from '../components/ImageGallery';
 

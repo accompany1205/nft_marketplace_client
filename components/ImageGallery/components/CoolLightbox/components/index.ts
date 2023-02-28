@@ -1,5 +1,5 @@
 import ArrowButton from './ArrowButton';
-import ArrowButtonleft from './ArrowButtonleft';
+import ArrowButtonLeft from './ArrowButtonLeft';
 import Header from './Header';
 
-export { ArrowButton, ArrowButtonleft, Header };
+export { ArrowButton, ArrowButtonLeft, Header };
