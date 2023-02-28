@@ -46,6 +46,7 @@
     "redux-toolkit": "^1.1.2",
     "sass": "^1.57.1",
     "styled-components": "^5.3.6",
+    "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -56,6 +57,7 @@
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.26",
     "@types/redux-persist": "^4.3.1",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "eslint-config-airbnb": "^19.0.4",
