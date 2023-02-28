@@ -1,6 +1,5 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import Footer from '../../components/Footer';
 import ColumnNewThreeCol from '../../components/ColumnNewThreeCol';
 
 const GlobalStyles = createGlobalStyle`
@@ -185,8 +184,6 @@ const explore = () => (
         </div>
       </div>
     </section>
-
-    <Footer />
   </div>
 );
 export default explore;
