@@ -9,7 +9,6 @@ import {
 } from 'recharts';
 import { createGlobalStyle } from 'styled-components';
 import { useWindowWidth } from '@react-hook/window-size';
-import Footer from '../../components/footer';
 import useMobileMode from '../../hooks/useMobileMode';
 
 const data = [
@@ -87,7 +86,8 @@ const ItemDetails = () => {
                 <button
                   type="button"
                   className="btn-main mb-5"
-                  onClick={() => alert('ciao')}>
+                  onClick={() => alert('ciao')}
+                >
                   Buy
                 </button>
               </div>
@@ -95,7 +95,8 @@ const ItemDetails = () => {
                 <button
                   type="button"
                   className="btn-main mb-5"
-                  onClick={() => alert('ciao')}>
+                  onClick={() => alert('ciao')}
+                >
                   Sell
                 </button>
               </div>
@@ -106,7 +107,8 @@ const ItemDetails = () => {
                   fontWeight: 'bold',
                   fontSize: '28px',
                   color: 'black',
-                }}>
+                }}
+              >
                 Price:
               </p>
               <p style={{ fontSize: '28px', color: 'black' }}>$234</p>
@@ -181,7 +183,8 @@ const ItemDetails = () => {
             right: 30,
             left: 0,
             bottom: 0,
-          }}>
+          }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
@@ -189,7 +192,6 @@ const ItemDetails = () => {
           <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
         </AreaChart>
       </section>
-      <Footer />
     </div>
   );
 };
