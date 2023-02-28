@@ -10,9 +10,10 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   product,
 }) => {
   const [activeTab, setActiveTab] = useState(
-    product.highestBid?.id ? CheckoutType.SELL_NOW : CheckoutType.PLACE_ASK,
+    // product.highestBid?.id ? CheckoutType.SELL_NOW : CheckoutType.PLACE_ASK,
+    CheckoutType.SELL_NOW,
   );
-
+  const disablePlaceAsk = true;
   return (
     <div className="de_tab">
       <ul className="de_nav">
@@ -21,27 +22,46 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
             className={activeTab === CheckoutType.SELL_NOW ? 'active' : ''}
             key={`tab-${CheckoutType.SELL_NOW}`}
           >
-            <button type="button" onClick={() => setActiveTab(CheckoutType.SELL_NOW)}>
+            <button
+              type="button"
+              onClick={() => setActiveTab(CheckoutType.SELL_NOW)}
+            >
               {CheckoutType.SELL_NOW}
             </button>
           </li>
         )}
-        <li
-          className={activeTab === CheckoutType.PLACE_ASK ? 'active' : ''}
-          key={`tab-${CheckoutType.PLACE_ASK}`}
-        >
-          <button type="button" onClick={() => setActiveTab(CheckoutType.PLACE_ASK)}>
-            {CheckoutType.PLACE_ASK}
-          </button>
-        </li>
+        {!disablePlaceAsk && (
+          <li
+            className={activeTab === CheckoutType.PLACE_ASK ? 'active' : ''}
+            key={`tab-${CheckoutType.PLACE_ASK}`}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveTab(CheckoutType.PLACE_ASK)}
+            >
+              {CheckoutType.PLACE_ASK}
+            </button>
+          </li>
+        )}
       </ul>
       <div className="de_tab_content">
         {activeTab === CheckoutType.SELL_NOW && (
           <div className="tab-2 onStep fadeIn">
-            <SellNow
-              product={product}
-              onSubmit={() => product?.highestBid && onNextStep(product.highestBid.amount)}
-            />
+            {product.highestBid?.id ? (
+              <SellNow
+                product={product}
+                onSubmit={() => product?.highestBid && onNextStep(product.highestBid.amount)}
+              />
+            ) : (
+              <div>
+                <div className="heading">
+                  <h3>No Bids yet!</h3>
+                </div>
+                <p>
+                  Please wait till some buyer makes a bid to sell.
+                </p>
+              </div>
+            )}
           </div>
         )}
         {activeTab === CheckoutType.PLACE_ASK && (

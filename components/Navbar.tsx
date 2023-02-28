@@ -104,7 +104,7 @@ const Header = ({ className }: any) => {
           <div className="logo px-0">
             <NavLink href="/">
               <img
-                src="./images/logoBlack.png"
+                src="/static/images/logo-black.png"
                 alt="logo"
                 style={{
                   width: '150px',

@@ -10,6 +10,7 @@ import Footer from '../components/Footer';
 import ItemsYoullLike from '../components/ItemsYoullLike';
 import Catgor from '../components/Catgor';
 import useMobileMode from '../hooks/useMobileMode';
+// import Products from '../components/Products';
 
 const Home = () => {
   const mobileMode = useMobileMode();
@@ -18,6 +19,14 @@ const Home = () => {
       <section className="jumbotron breadcumb no-bg h-vh" style={mobileMode ? {} : { backgroundImage: `url(${'./images/homeBackground.jpg'})` }}>
         <SliderMain />
       </section>
+      {/* <section className="container no-top no-bottom">
+        <div className="col-lg-12">
+          <div className="text-left">
+            <h2 className="style-2" style={{ marginBottom: '28px' }}>How does it work</h2>
+          </div>
+        </div>
+      <Products />
+    </section> */}
       <section className="container no-top no-bottom">
         <div className="col-lg-12">
           <div className="text-left">

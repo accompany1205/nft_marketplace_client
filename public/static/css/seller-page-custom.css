@@ -1,0 +1,117 @@
+.feature-box.f-boxed {
+    padding: 30px;
+    height: 100%;
+}
+
+.down-arrow__circle-svg {
+    height: 40px;
+    width: 40px;
+    border: 1px solid var(--secondary-color);
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.down-marker__area {
+    position: relative;
+}
+
+.down-marker__area:after {
+    content: "";
+    width: 1px;
+    height: calc(100% - 40px);
+    background: var(--secondary-color);
+    position: absolute;
+    left: 50%;
+    top: 40px;
+}
+
+.down-marker__area {
+    margin-right: 2rem;
+}
+
+.buyers-steps-img {
+    max-width: 250px;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.down-marker__area.down-marker__area-last {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.down-marker__area.down-marker__area-last:after {
+    top: initial;
+    bottom: 40px;
+}
+
+
+.pricing-table__head-text {
+    margin-bottom: 5px;
+}
+
+.pricing-table__head--sub-text {
+    color: #000;
+    font-weight: 300;
+}
+
+
+.pricing-table__head {
+    border-radius: 30px;
+    /* background: rgba(var(--secondary-color-rgb), .1); */
+    background: #E5E2F8;
+    color: #fff;
+    padding: 30px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.single-pricing {
+    color: #000;
+    max-width: 300px;
+    margin: 0 auto 1.5rem;
+}
+
+.single-pricing ul {
+    margin-top: 15px;
+}
+
+.single-pricing ul li {
+    line-height: 2;
+}
+
+.pricing-table__bg-2 {
+    background: linear-gradient(to right, #F7F2E6 0%, #F9F4EA 100%);
+}
+
+.pricing-table__bg-3 {
+    background: linear-gradient(to right, #D4F0F9 0%, #C0DEE6 100%);
+}
+
+.pricing-table__head--price {
+    display: block;
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 0;
+    margin-top: 1.5rem;
+}
+
+.pricing-table__head--price span {
+    font-size: 20px;
+}
+
+table.table tbody th, table.table tbody td {
+    padding: 25px 0;
+    vertical-align: middle;
+}
+
+table.table tbody td {
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+@media screen and (max-width: 979px) {
+    .pricing-table__head {
+        padding: 30px 10px;
+    }
+}
