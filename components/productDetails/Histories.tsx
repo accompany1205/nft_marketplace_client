@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { OrderType } from '../../hooks';
 import { Bid } from '../../types';
 
