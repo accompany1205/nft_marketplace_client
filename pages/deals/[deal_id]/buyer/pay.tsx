@@ -63,7 +63,9 @@ const BuyNft = () => {
 
   const deal = data?.data;
 
-  if (!deal || deal.status === 'confirmed' || deal.status === 'completed') return <Redirect path="/" />;
+  if (!deal || deal.status === 'confirmed' || deal.status === 'completed') {
+    return <Redirect path="/" />;
+  }
 
   return (
     <div className="greyscheme">
@@ -73,6 +75,9 @@ const BuyNft = () => {
       >
         <section className="container">
           <div className="row mt-md-5 pt-md-4">
+            <div className="item_info" style={{ marginBottom: '20px' }}>
+              <h2>{deal.nft_data.productName}</h2>
+            </div>
             <div className="col-md-6 text-center">
               <img
                 src={
@@ -86,9 +91,19 @@ const BuyNft = () => {
             </div>
             <div className="col-md-6">
               <div className="item_info">
-                <h2>{deal.nft_data.productName}</h2>
-                <p>{deal.nft_data.description}</p>
                 <div className="spacer-40" />
+                <div className="d-flex flex-row mt-5">
+                  <button
+                    className="btn-main lead mb-5 me-3"
+                    type="button"
+                    onClick={onSubmit}
+                    disabled={isPaymentLoading || deal?.is_money_pulled}
+                  >
+                    {deal?.is_money_pulled
+                      ? 'Payment has already been made'
+                      : 'Pay now'}
+                  </button>
+                </div>
                 <div className="de_tab">
                   <ul className="de_nav">
                     <li id="Mainbtn">
@@ -98,21 +113,20 @@ const BuyNft = () => {
                   <div className="de_tab_content">
                     <div className="detailcheckout mt-4">
                       <div className="listcheckout">
-                        <h5>Price</h5>
-                        <div className="subtotal">{deal.amount}</div>
+                        <p
+                          style={{
+                            fontWeight: 'bold',
+                            fontSize: '28px',
+                            color: 'black',
+                          }}
+                        >
+                          Price:
+                        </p>
+                        <p style={{ fontSize: '28px', color: 'black' }}>
+                          $
+                          {deal.amount}
+                        </p>
                       </div>
-                    </div>
-                    <div className="d-flex flex-row mt-5">
-                      <button
-                        className="btn-main lead mb-5 me-3"
-                        type="button"
-                        onClick={onSubmit}
-                        disabled={isPaymentLoading || deal?.is_money_pulled}
-                      >
-                        {deal?.is_money_pulled
-                          ? 'Payment has already been made'
-                          : 'Pay now'}
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -123,6 +137,9 @@ const BuyNft = () => {
             showModal={showWalletConnectionModal}
             setShowModal={setShowWalletConnectionModal}
           />
+          <section>
+            <p>{deal.nft_data.description}</p>
+          </section>
         </section>
       </div>
     </div>
