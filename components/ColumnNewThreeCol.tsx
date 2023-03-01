@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { Component } from 'react';
 import { INFT } from '../types';
 import useImage from '../utils/hooks/useImage';
@@ -24,6 +25,7 @@ const NftCard:React.FC<{
     : 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80';
   const title = nft?.specs?.productName || '';
   const price = nft?.specs.price || '';
+  const router = useRouter();
   return (
     <div
       key={index}
@@ -54,7 +56,7 @@ const NftCard:React.FC<{
             style={{ marginBottom: '20px' }}
           >
             <span
-              onClick={() => alert('this should redirect to details')}
+              onClick={() => router.push('/itemdetails')}
             >
               Access details
             </span>
