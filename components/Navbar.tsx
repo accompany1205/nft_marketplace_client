@@ -192,12 +192,12 @@ const Header = ({ className }: any) => {
                   </div>
                 </div>
                 <div className="navbar-item">
-                  <div>
+                  <NavLink href="/marketplace">
                     <div className="dropdown-custom btn">
-                      <NavLink href="/marketplace">Marketplace</NavLink>
+                      <div>Marketplace</div>
                       <span className="lines" />
                     </div>
-                  </div>
+                  </NavLink>
                 </div>
                 <div className="navbar-item">
                   <div ref={ref}>
