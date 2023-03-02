@@ -136,7 +136,7 @@ const Header = ({ className }: any) => {
                     <div>Home</div>
                   </div>
                   <div className="navbar-item">
-                    <div>Marketplace</div>
+                    <NavLink href="/marketplace">Marketplace</NavLink>
                   </div>
                   <div className="navbar-item">
                     <div ref={ref}>
@@ -194,7 +194,7 @@ const Header = ({ className }: any) => {
                 <div className="navbar-item">
                   <div>
                     <div className="dropdown-custom btn">
-                      <NavLink href="/nft/pid">Marketplace</NavLink>
+                      <NavLink href="/marketplace">Marketplace</NavLink>
                       <span className="lines" />
                     </div>
                   </div>

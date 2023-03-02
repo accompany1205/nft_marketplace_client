@@ -56,7 +56,7 @@ const NftCard:React.FC<{
             style={{ marginBottom: '20px' }}
           >
             <span
-              onClick={() => router.push('/itemdetails')}
+              onClick={() => router.push(`/product/${title}`)}
             >
               Access details
             </span>
