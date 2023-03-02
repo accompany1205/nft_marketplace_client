@@ -13,6 +13,7 @@ import {
 import Link from 'next/link';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import { useTypedSelector } from '../hooks/store';
 import { reset } from '../redux/slices/authSlice';
 import WalletContext, {
@@ -32,6 +33,7 @@ const NavLink = (props: INavProps) => (
 
 const Header = ({ className }: any) => {
   const { token } = useTypedSelector((state) => state.auth);
+  const router = useRouter();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const isLoggedIn = useMemo(() => !!token, [token]);
@@ -65,7 +67,12 @@ const Header = ({ className }: any) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleLogout = useCallback(() => {
     dispatch(reset());
+    if (accountId) {
+      disconnectWallet(WalletServiceProviders.HASHPACK);
+    }
   }, [dispatch]);
+
+  const handleLogin = () => router.push('/login');
 
   useEffect(() => {
     const header = document.getElementById('myHeader');
@@ -242,23 +249,33 @@ const Header = ({ className }: any) => {
                     </>
                   </NavLink>
                 </div>
+                {isLoggedIn && (
+                  <div className="navbar-item">
+                    <div className="mainside">
+                      <div
+                        className="connect-wal"
+                        onClick={() => {
+                          if (accountId) {
+                            disconnectWallet(WalletServiceProviders.HASHPACK);
+                          } else {
+                            setShowModal(true);
+                          }
+                        }}
+                      >
+                        <span>
+                          {accountId ? 'Disconnect Wallet' : 'Connect Wallet'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <div className="navbar-item">
                   <div className="mainside">
                     <div
                       className="connect-wal"
-                      onClick={() => {
-                        if (accountId) {
-                          disconnectWallet(WalletServiceProviders.HASHPACK);
-                        } else {
-                          setShowModal(true);
-                        }
-                      }}
+                      onClick={() => (isLoggedIn ? handleLogout() : handleLogin())}
                     >
-                      <span>
-                        {isLoggedIn
-                          ? 'Logout (Disconnect Wallet)'
-                          : 'Login (Connect Wallet)'}
-                      </span>
+                      <span>{isLoggedIn ? 'Logout' : 'Login'}</span>
                     </div>
                   </div>
                 </div>
