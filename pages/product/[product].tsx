@@ -9,12 +9,11 @@ import { createGlobalStyle } from 'styled-components';
 // import { useWindowWidth } from '@react-hook/window-size';
 import { Buy, Sell } from '../../components/checkouts';
 import Loader from '../../components/Loader';
-// import { Asks, Bids } from '../../components/productDetails';
+import { Asks, Bids } from '../../components/productDetails';
 import Redirect from '../../components/Redirect';
 import { useGetProductDetailsQuery } from '../../redux/service/appService';
 import { INFTVariant } from '../../types';
 import useImage from '../../utils/hooks/useImage';
-import { Asks, Bids } from '../../components/productDetails';
 // import useMobileMode from '../../hooks/useMobileMode';
 
 enum Tabs {
