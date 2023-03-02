@@ -1,21 +1,22 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { Component } from 'react';
 import { INFT } from '../types';
 import useImage from '../utils/hooks/useImage';
 
-interface Props{
-  nfts: INFT[]
+interface Props {
+  nfts: INFT[];
 }
 
-interface State{
-  height: number
+interface State {
+  height: number;
 }
 
-const NftCard:React.FC<{
-  nft:INFT,
-  height: number
-  onImgLoad:(data: any)=>void
-  index: number
+const NftCard: React.FC<{
+  nft: INFT;
+  height: number;
+  onImgLoad: (data: any) => void;
+  index: number;
 }> = ({
   nft, height, onImgLoad, index,
 }) => {
@@ -27,15 +28,13 @@ const NftCard:React.FC<{
   const price = nft?.specs.price || '';
   const router = useRouter();
   return (
-    <div
+    <Link
+      href={`/product/${title}`}
       key={index}
       className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4"
     >
       <div className="nft__item m-0">
-        <div
-          className="nft__item_wrap"
-          style={{ height: `${height}px` }}
-        >
+        <div className="nft__item_wrap" style={{ height: `${height}px` }}>
           <span>
             <img
               onLoad={onImgLoad}
@@ -51,23 +50,18 @@ const NftCard:React.FC<{
           </span>
           <div className="nft__item_price">{price}</div>
 
-          <div
-            className="nft__item_action"
-            style={{ marginBottom: '20px' }}
-          >
-            <span
-              onClick={() => router.push(`/product/${title}`)}
-            >
+          <div className="nft__item_action" style={{ marginBottom: '20px' }}>
+            <span onClick={() => router.push(`/product/${title}`)}>
               Access details
             </span>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 export default class Responsive extends Component<Props, State> {
-  constructor(props:Props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       height: 0,
@@ -75,7 +69,7 @@ export default class Responsive extends Component<Props, State> {
     this.onImgLoad = this.onImgLoad.bind(this);
   }
 
-  onImgLoad({ target: img }:any) {
+  onImgLoad({ target: img }: any) {
     const currentHeight = this.state.height;
     if (currentHeight < img.offsetHeight) {
       this.setState({
