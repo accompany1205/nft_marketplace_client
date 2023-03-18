@@ -10,22 +10,22 @@ const Footer = () => (
             <h5>Marketplace</h5>
             <ul>
               <li>
-                <Link href=""> Bags</Link>
+                <Link href="/marketplace"> Bags</Link>
               </li>
               <li>
-                <Link href=""> Leather goods</Link>
+                <Link href="/marketplace"> Leather goods</Link>
               </li>
               <li>
-                <Link href=""> Jewellery</Link>
+                <Link href="/marketplace"> Jewellery</Link>
               </li>
               <li>
-                <Link href=""> Shoes</Link>
+                <Link href="/marketplace"> Shoes</Link>
               </li>
               <li>
-                <Link href=""> Watches</Link>
+                <Link href="/marketplace"> Watches</Link>
               </li>
               <li>
-                <Link href=""> Sunglasses</Link>
+                <Link href="/marketplace"> Sunglasses</Link>
               </li>
             </ul>
           </div>
@@ -34,12 +34,24 @@ const Footer = () => (
           <div className="widget">
             <h5>Resources</h5>
             <ul>
-              <li><Link href="/how-it-works">How does it work</Link></li>
-              <li><Link href="/seller-page">Sellers</Link></li>
-              <li><Link href="/buyer-page">Buyers</Link></li>
-              <li><Link href="/certification">Certification Process</Link></li>
-              <li><Link href="/faq">FAQ</Link></li>
-              <li><Link href="/about-us">Contact Us</Link></li>
+              <li>
+                <Link href="/how-it-works">How it works</Link>
+              </li>
+              <li>
+                <Link href="/seller-page">Sellers</Link>
+              </li>
+              <li>
+                <Link href="/buyer-page">Buyers</Link>
+              </li>
+              <li>
+                <Link href="/certification">Certification Process</Link>
+              </li>
+              <li>
+                <Link href="/faq">FAQ</Link>
+              </li>
+              <li>
+                <Link href="/about-us">Contact Us</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -65,8 +77,7 @@ const Footer = () => (
               className="row form-dark"
               id="form_subscribe"
               method="post"
-              name="form_subscribe"
-            >
+              name="form_subscribe">
               <div className="col text-center">
                 <input
                   className="form-control"

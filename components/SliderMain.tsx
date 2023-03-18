@@ -33,10 +33,11 @@ const slidermain = () => (
           keyframes={fadeInUp}
           delay={0}
           duration={600}
-          triggerOnce
-        >
+          triggerOnce>
           <h6 className="">
-            <span className="text-uppercase color">DesignBook Live Market</span>
+            <span className="text-uppercase color">
+              DesignBook Live Marketplace
+            </span>
           </h6>
         </Reveal>
         <div className="spacer-10" />
@@ -45,19 +46,20 @@ const slidermain = () => (
           keyframes={fadeInUp}
           delay={300}
           duration={600}
-          triggerOnce
-        >
-          <h1 className="">The only gateway to certified goods</h1>
+          triggerOnce>
+          <h1 className="">
+            The only gateway to exchange certified redeemable fashion items
+          </h1>
         </Reveal>
         <Reveal
           className="onStep"
           keyframes={fadeInUp}
           delay={600}
           duration={600}
-          triggerOnce
-        >
-          <p className=" lead">
-            Discover, buy, or sell Blockchain certified items
+          triggerOnce>
+          <p className="lead">
+            Discover, buy, or sell Blockchain certified items from your
+            favourite brands
           </p>
         </Reveal>
         <div className="spacer-10" />
@@ -66,9 +68,12 @@ const slidermain = () => (
           keyframes={fadeInUp}
           delay={800}
           duration={900}
-          triggerOnce
-        >
-          <span onClick={() => window.open('/#', '_self')} className="btn-main lead">Explore</span>
+          triggerOnce>
+          <span
+            onClick={() => window.open('/marketplace', '_self')}
+            className="btn-main">
+            Explore
+          </span>
           <div className="mb-sm-30" />
         </Reveal>
       </div>
@@ -77,8 +82,7 @@ const slidermain = () => (
           className="onStep"
           keyframes={fadeIn}
           duration={1500}
-          triggerOnce
-        >
+          triggerOnce>
           <img src="./img/misc/nft.png" className="lazy img-fluid" alt="" />
         </Reveal>
       </div>

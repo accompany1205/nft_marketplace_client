@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import {
-  Form, Formik, Field, ErrorMessage,
-} from 'formik';
+import { Form, Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -23,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
     background: rgba(255, 255, 255, .1);
   }
   header#myHeader.navbar.white .btn, .navbar.white a, .navbar.sticky.white a{
-    color: #fff;
+    color: #000;
   }
   header#myHeader .dropdown-hrefggle::after{
     color: rgba(255, 255, 255, .5);
@@ -59,7 +57,7 @@ const initialValues = {
 
 const Login = () => {
   const router = useRouter();
-  const { error, token } = useTypedSelector((state) => state.auth);
+  const { error, token } = useTypedSelector(state => state.auth);
   const [login] = useLoginMutation();
 
   const handleSubmitForm = async (values: object) => {
@@ -86,8 +84,7 @@ const Login = () => {
         style={{
           backgroundImage: `url(${SliderImage.src})`,
           backgroundPosition: 'center',
-        }}
-      >
+        }}>
         <div
           className="mainbreadcumb"
           style={{
@@ -95,26 +92,30 @@ const Login = () => {
             alignItems: 'center',
             display: 'flex',
             justifyContent: 'center',
-          }}
-        >
+          }}>
           <div className="container">
             <div className="row align-items-center">
               <div
                 className="col-lg-5 text-light wow fadeInRight"
-                data-wow-delay=".5s"
-              >
+                data-wow-delay=".5s">
+                <h6 className="">
+                  <span className="text-uppercase col-white">
+                    DesignBook Live Marketplace
+                  </span>
+                </h6>
                 <div className="spacer-10" />
-                <h1>Create, sell or collect digital items.</h1>
+                <h1>
+                  The only gateway to exchange certified redeemable fashion
+                  items
+                </h1>
                 <p className="lead">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                  ut enim.
+                  Discover, Buy, Sell Blockchain certified items from your
+                  favourite brands
                 </p>
               </div>
               <div
                 className="col-lg-4 offset-lg-2 wow fadeIn"
-                data-wow-delay=".5s"
-              >
+                data-wow-delay=".5s">
                 <div className="box-login">
                   <h3 className="mb10">Sign In</h3>
                   <p>
@@ -138,8 +139,7 @@ const Login = () => {
                       await handleSubmitForm(values);
                       setSubmitting(false);
                       resetForm();
-                    }}
-                  >
+                    }}>
                     {() => (
                       <Form className="form-border">
                         <div className="field-set">

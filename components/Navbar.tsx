@@ -32,7 +32,7 @@ const NavLink = (props: INavProps) => (
 );
 
 const Header = ({ className }: any) => {
-  const { token } = useTypedSelector((state) => state.auth);
+  const { token } = useTypedSelector(state => state.auth);
   const router = useRouter();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
@@ -102,8 +102,7 @@ const Header = ({ className }: any) => {
     <header
       className={`navbar white ${className}`}
       id="myHeader"
-      style={{ backgroundColor: 'white' }}
-    >
+      style={{ backgroundColor: 'white' }}>
       <WalletConnector showModal={showModal} setShowModal={setShowModal} />
 
       <div className="container">
@@ -142,16 +141,14 @@ const Header = ({ className }: any) => {
                     <div ref={ref}>
                       <div
                         className="dropdown-custom dropdown-toggle btn"
-                        onClick={onHowDoesItWorkClick}
-                      >
-                        How does it work
+                        onClick={onHowDoesItWorkClick}>
+                        How it works
                       </div>
                       {howDoesItWorkOpen && (
                         <div className="item-dropdown">
                           <div
                             className="dropdown"
-                            onClick={closeHowDoesItWork}
-                          >
+                            onClick={closeHowDoesItWork}>
                             <NavLink href="/">Buyer</NavLink>
                             <NavLink href="/">Seller</NavLink>
                           </div>
@@ -163,8 +160,7 @@ const Header = ({ className }: any) => {
                     <div ref={ref}>
                       <div
                         className="dropdown-custom dropdown-toggle btn"
-                        onClick={onAboutClick}
-                      >
+                        onClick={onAboutClick}>
                         About
                       </div>
                       {aboutOpen && (
@@ -204,16 +200,14 @@ const Header = ({ className }: any) => {
                     <div
                       className="dropdown-custom dropdown-toggle btn"
                       onMouseEnter={onHowDoesItWorkClick}
-                      onMouseLeave={closeHowDoesItWork}
-                    >
-                      How does it work
+                      onMouseLeave={closeHowDoesItWork}>
+                      How it works
                       <span className="lines" />
                       {howDoesItWorkOpen && (
                         <div className="item-dropdown">
                           <div
                             className="dropdown"
-                            onClick={closeHowDoesItWork}
-                          >
+                            onClick={closeHowDoesItWork}>
                             <NavLink href="/">Buyer</NavLink>
                             <NavLink href="/">Seller</NavLink>
                           </div>
@@ -227,8 +221,7 @@ const Header = ({ className }: any) => {
                     <div
                       className="dropdown-custom dropdown-toggle btn"
                       onMouseEnter={onAboutClick}
-                      onMouseLeave={closeAbout}
-                    >
+                      onMouseLeave={closeAbout}>
                       About
                       <span className="lines" />
                       {aboutOpen && (
@@ -260,8 +253,7 @@ const Header = ({ className }: any) => {
                           } else {
                             setShowModal(true);
                           }
-                        }}
-                      >
+                        }}>
                         <span>
                           {accountId ? 'Disconnect Wallet' : 'Connect Wallet'}
                         </span>
@@ -273,8 +265,9 @@ const Header = ({ className }: any) => {
                   <div className="mainside">
                     <div
                       className="connect-wal"
-                      onClick={() => (isLoggedIn ? handleLogout() : handleLogin())}
-                    >
+                      onClick={() =>
+                        isLoggedIn ? handleLogout() : handleLogin()
+                      }>
                       <span>{isLoggedIn ? 'Logout' : 'Login'}</span>
                     </div>
                   </div>
@@ -287,8 +280,7 @@ const Header = ({ className }: any) => {
         <button
           type="button"
           className="nav-icon"
-          onClick={() => btnIcon(!showmenu)}
-        >
+          onClick={() => btnIcon(!showmenu)}>
           <div className="menu-line white" />
           <div className="menu-line1 white" />
           <div className="menu-line2 white" />
