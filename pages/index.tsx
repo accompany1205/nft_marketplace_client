@@ -61,7 +61,7 @@ const Home = () => {
         </div>
       </section> */}
       <section
-        className="container no-bottom"
+        className="container"
         style={{ backgroundColor: 'rgb(255, 249, 225)' }}>
         <div className="row">
           <div className="col-lg-12">
@@ -77,8 +77,8 @@ const Home = () => {
         </div>
       </section>
       <section
-        className="container no-bottom"
-        style={{ backgroundColor: 'rgb(247, 255, 231)' }}>
+        className="container"
+        style={{ backgroundColor: 'rgb(246, 245, 251)' }}>
         <div className="row">
           <div className="col-lg-12">
             <div className="text-left">
@@ -93,8 +93,8 @@ const Home = () => {
         </div>
       </section>
       <section
-        className="container no-bottom"
-        style={{ backgroundColor: 'rgb(246, 245, 251)' }}>
+        className="container"
+        style={{ backgroundColor: 'rgb(247, 255, 231)' }}>
         <div className="col-lg-12">
           <div className="text-left">
             <h2 className="style-2" style={{ marginBottom: '28px' }}>
