@@ -98,7 +98,7 @@ const HowItWorks:React.FC = () => {
         <div className="no-bottom no-top" id="content">
           <div id="top" />
           {/* section begin */}
-          <HeroSection bgImgUrl="/static/images/background/subheader2.jpg" title="How it works" />
+          <HeroSection title="How it works" />
           {/* section close */}
           <div className="m-5 pt-5 padding30 br-15 bg-custom">
             <div className="container">

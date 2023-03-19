@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const HeroSection:React.FC<IProps> = ({ bgImgUrl, title, children }) => (
-  <section className="text-light" data-bgimage={`url(${bgImgUrl})`} data-stellar-background-ratio=".2">
+  <section className="text-dark" data-bgimage={`url(${bgImgUrl})`} data-stellar-background-ratio=".2">
     <div className="center-y relative text-center" data-scroll-speed={4}>
       <div className="container">
         <div className="row">
