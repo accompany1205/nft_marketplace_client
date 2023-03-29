@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IProps {
-    bgImgUrl:string
+    bgImgUrl?:string
     title: string
     children?: JSX.Element[] | JSX.Element
 }
