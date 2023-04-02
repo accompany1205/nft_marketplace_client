@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { Form, Formik, Field, ErrorMessage } from 'formik';
+import { 
+  Form, 
+  Formik, 
+  Field, 
+  ErrorMessage 
+} from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -84,7 +89,8 @@ const Login = () => {
         style={{
           backgroundImage: `url(${SliderImage.src})`,
           backgroundPosition: 'center',
-        }}>
+        }}
+      >
         <div
           className="mainbreadcumb"
           style={{
@@ -92,12 +98,14 @@ const Login = () => {
             alignItems: 'center',
             display: 'flex',
             justifyContent: 'center',
-          }}>
+          }}
+        >
           <div className="container">
             <div className="row align-items-center">
               <div
                 className="col-lg-5 text-light wow fadeInRight"
-                data-wow-delay=".5s">
+                data-wow-delay=".5s"
+              >
                 <h6 className="">
                   <span className="text-uppercase col-white">
                     DesignBook Live Marketplace
@@ -115,7 +123,8 @@ const Login = () => {
               </div>
               <div
                 className="col-lg-4 offset-lg-2 wow fadeIn"
-                data-wow-delay=".5s">
+                data-wow-delay=".5s"
+              >
                 <div className="box-login">
                   <h3 className="mb10">Sign In</h3>
                   <p>
@@ -139,7 +148,8 @@ const Login = () => {
                       await handleSubmitForm(values);
                       setSubmitting(false);
                       resetForm();
-                    }}>
+                    }}
+                  >
                     {() => (
                       <Form className="form-border">
                         <div className="field-set">

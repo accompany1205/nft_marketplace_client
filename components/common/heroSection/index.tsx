@@ -26,6 +26,7 @@ const HeroSection:React.FC<IProps> = ({ bgImgUrl, title, children }) => (
 );
 
 HeroSection.defaultProps = {
+  bgImgUrl: undefined,
   children: undefined,
 };
 
