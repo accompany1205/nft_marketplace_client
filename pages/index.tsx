@@ -9,7 +9,6 @@ import PopularBrands from '../components/PopularBrands';
 import ItemsYoullLike from '../components/ItemsYoullLike';
 import Catgor from '../components/Catgor';
 import useMobileMode from '../hooks/useMobileMode';
-// import Products from '../components/Products';
 
 const Home = () => {
   const mobileMode = useMobileMode();
@@ -46,20 +45,6 @@ const Home = () => {
         </div>
         <Catgor />
       </section>
-      {/* <section className="container no-bottom">
-        <div className="row">
-          <div className="col-lg-12">
-            <div className="text-left">
-              <h2 className="style-2" style={{ marginBottom: '28px' }}>
-                Items you&apos;ll love
-              </h2>
-            </div>
-          </div>
-          <div className="col-lg-12">
-            <ItemsYoullLike />
-          </div>
-        </div>
-      </section> */}
       <section
         className="container"
         style={{ backgroundColor: 'rgb(255, 249, 225)' }}>
