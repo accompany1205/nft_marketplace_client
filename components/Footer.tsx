@@ -77,7 +77,8 @@ const Footer = () => (
               className="row form-dark"
               id="form_subscribe"
               method="post"
-              name="form_subscribe">
+              name="form_subscribe"
+            >
               <div className="col text-center">
                 <input
                   className="form-control"

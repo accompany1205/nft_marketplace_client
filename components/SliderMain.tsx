@@ -33,7 +33,8 @@ const slidermain = () => (
           keyframes={fadeInUp}
           delay={0}
           duration={600}
-          triggerOnce>
+          triggerOnce
+        >
           <h6 className="">
             <span className="text-uppercase color">
               DesignBook Live Marketplace
@@ -46,7 +47,8 @@ const slidermain = () => (
           keyframes={fadeInUp}
           delay={300}
           duration={600}
-          triggerOnce>
+          triggerOnce
+        >
           <h1 className="">
             The only gateway to exchange certified redeemable fashion items
           </h1>
@@ -56,7 +58,8 @@ const slidermain = () => (
           keyframes={fadeInUp}
           delay={600}
           duration={600}
-          triggerOnce>
+          triggerOnce
+        >
           <p className="lead">
             Discover, buy, or sell Blockchain certified items from your
             favourite brands
@@ -68,10 +71,12 @@ const slidermain = () => (
           keyframes={fadeInUp}
           delay={800}
           duration={900}
-          triggerOnce>
+          triggerOnce
+        >
           <span
             onClick={() => window.open('/marketplace', '_self')}
-            className="btn-main">
+            className="btn-main"
+          >
             Explore
           </span>
           <div className="mb-sm-30" />
@@ -82,7 +87,8 @@ const slidermain = () => (
           className="onStep"
           keyframes={fadeIn}
           duration={1500}
-          triggerOnce>
+          triggerOnce
+        >
           <img src="./img/misc/nft.png" className="lazy img-fluid" alt="" />
         </Reveal>
       </div>

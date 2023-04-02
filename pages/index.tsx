@@ -154,7 +154,7 @@ const Home = () => {
                     <span className="p-date">{item.date}</span>
                     <h4>
                       <a href="news-single.html">
-                        {item.title} 
+                        {item.title}
                         <span />
                       </a>
                     </h4>
