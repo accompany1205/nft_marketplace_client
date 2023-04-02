@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { 
-  Form, 
-  Formik, 
-  Field, 
-  ErrorMessage 
+  Form,
+  Formik,
+  Field,
+  ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
@@ -62,7 +62,7 @@ const initialValues = {
 
 const Login = () => {
   const router = useRouter();
-  const { error, token } = useTypedSelector(state => state.auth);
+  const { error, token } = useTypedSelector((state) => state.auth);
   const [login] = useLoginMutation();
 
   const handleSubmitForm = async (values: object) => {
