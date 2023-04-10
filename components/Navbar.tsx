@@ -27,6 +27,10 @@ interface INavProps {
   onClick?: () => void;
 }
 
+INavProps.defaultProps = {
+  onClick: undefined,
+};
+
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 
 const NavLink = (props: INavProps) => (
