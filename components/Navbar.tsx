@@ -21,11 +21,12 @@ import WalletContext, {
 } from '../services/WalletService/WalletContext';
 import WalletConnector from './WalletConnector';
 
-setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 interface INavProps {
   children: JSX.Element | string;
   href: string;
 }
+
+setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 
 const NavLink = (props: INavProps) => (
   <Link className="non-active" {...props} />
@@ -39,7 +40,6 @@ const Header = ({ className }: any) => {
   const isLoggedIn = useMemo(() => !!token, [token]);
 
   const [howDoesItWorkOpen, setHowDoesItWorkOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
 
   const onHowDoesItWorkClick = () => {
     setHowDoesItWorkOpen(!howDoesItWorkOpen);
@@ -49,17 +49,8 @@ const Header = ({ className }: any) => {
     setHowDoesItWorkOpen(false);
   };
 
-  const onAboutClick = () => {
-    setAboutOpen(!aboutOpen);
-  };
-
-  const closeAbout = () => {
-    setAboutOpen(false);
-  };
-
   const ref = useOnclickOutside(() => {
     closeHowDoesItWork();
-    closeAbout();
   });
 
   const [showmenu, btnIcon] = useState(false);
@@ -133,7 +124,7 @@ const Header = ({ className }: any) => {
               {showmenu && (
                 <div className="menu">
                   <div className="navbar-item">
-                    <div>Home</div>
+                    <NavLink href="/">Home</NavLink>
                   </div>
                   <div className="navbar-item">
                     <NavLink href="/marketplace">Marketplace</NavLink>
@@ -152,31 +143,29 @@ const Header = ({ className }: any) => {
                             className="dropdown"
                             onClick={closeHowDoesItWork}
                           >
-                            <NavLink href="/buyer-page">Buyer</NavLink>
-                            <NavLink href="/seller-page">Seller</NavLink>
+                            <NavLink
+                              href="/buyer-page"
+                              onClick={() => btnIcon(!showmenu)}
+                            >
+                              Buyer
+                            </NavLink>
+                            <NavLink
+                              href="/seller-page"
+                              onClick={() => btnIcon(!showmenu)}
+                            >
+                              Seller
+                            </NavLink>
                           </div>
                         </div>
                       )}
                     </div>
                   </div>
                   <div className="navbar-item">
-                    <div ref={ref}>
-                      <div
-                        className="dropdown-custom dropdown-toggle btn"
-                        onClick={onAboutClick}
-                      >
-                        About
-                      </div>
-                      {aboutOpen && (
-                        <div className="item-dropdown">
-                          <div className="dropdown" onClick={closeAbout}>
-                            <NavLink href="/certification">Certification</NavLink>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                    <NavLink href="/certification">About</NavLink>
                   </div>
-                  <div className="navbar-item">Help</div>
+                  <div className="navbar-item">
+                    <NavLink href="/faq">Help</NavLink>
+                  </div>
                 </div>
               )}
             </Breakpoint>
@@ -184,19 +173,19 @@ const Header = ({ className }: any) => {
             <Breakpoint xl>
               <div className="menu">
                 <div className="navbar-item">
-                  <div>
-                    <div className="dropdown-custom btn">
-                      <NavLink href="/">Home</NavLink>
+                  <NavLink href="/">
+                    <>
+                      Home
                       <span className="lines" />
-                    </div>
-                  </div>
+                    </>
+                  </NavLink>
                 </div>
                 <div className="navbar-item">
                   <NavLink href="/marketplace">
-                    <div className="dropdown-custom btn">
-                      <div>Marketplace</div>
+                    <>
+                      Marketplace
                       <span className="lines" />
-                    </div>
+                    </>
                   </NavLink>
                 </div>
                 <div className="navbar-item">
@@ -214,8 +203,18 @@ const Header = ({ className }: any) => {
                             className="dropdown"
                             onClick={closeHowDoesItWork}
                           >
-                            <NavLink href="/buyer-page">Buyer</NavLink>
-                            <NavLink href="/seller-page">Seller</NavLink>
+                            <NavLink
+                              href="/buyer-page"
+                              onClick={() => btnIcon(!showmenu)}
+                            >
+                              Buyer
+                            </NavLink>
+                            <NavLink
+                              href="/seller-page"
+                              onClick={() => btnIcon(!showmenu)}
+                            >
+                              Seller
+                            </NavLink>
                           </div>
                         </div>
                       )}
@@ -223,23 +222,12 @@ const Header = ({ className }: any) => {
                   </div>
                 </div>
                 <div className="navbar-item">
-                  <div ref={ref}>
-                    <div
-                      className="dropdown-custom dropdown-toggle btn"
-                      onMouseEnter={onAboutClick}
-                      onMouseLeave={closeAbout}
-                    >
+                  <NavLink href="/certification">
+                    <>
                       About
                       <span className="lines" />
-                      {aboutOpen && (
-                        <div className="item-dropdown">
-                          <div className="dropdown" onClick={closeAbout}>
-                            <NavLink href="/certification">Certification</NavLink>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                    </>
+                  </NavLink>
                 </div>
                 <div className="navbar-item">
                   <NavLink href="/faq">

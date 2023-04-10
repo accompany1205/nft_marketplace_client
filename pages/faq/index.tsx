@@ -243,7 +243,7 @@ const Faq:React.FC = () => {
         <div className="no-bottom no-top" id="content">
           <div id="top" />
           {/* section begin */}
-          <HeroSection bgImgUrl="/static/images/background/subheader2.jpg" title="Frequently Asked Questions">
+          <HeroSection title="Frequently Asked Questions">
             <form action="blank.php" className="row" id="form_sb" method="post" name="myForm">
               <div className="col text-center">
                 <input className="form-control" id="name_1" name="name_1" placeholder="Type your question here" type="text" />
@@ -288,15 +288,11 @@ const Faq:React.FC = () => {
                               <div className="small-border bg-color-2" style={{ backgroundSize: 'cover' }} />
                               <div className="accordion accordion-flush" id={`general-accordion-${faq.readMoreTarget}`} style={{ backgroundSize: 'cover' }}>
                                 {
-                                    faq.qnas.map((qna) => (
-                                      <Accordian title={qna.question} key={qna.id} accordianParentId={`general-accordion-${faq.readMoreTarget}`}>
-                                        {
-                                            qna.answers.map((ans) => {
-                                              return <p>{ans}</p>;
-                                            })
-                                        }
-                                      </Accordian>
-                                    ))
+                                  faq.qnas.map((qna) => (
+                                    <Accordian title={qna.question} key={qna.id} accordianParentId={`general-accordion-${faq.readMoreTarget}`}>
+                                      {qna.answers.map((ans) => <p>{ans}</p>)}
+                                    </Accordian>
+                                  ))
                                 }
                               </div>
                             </>
