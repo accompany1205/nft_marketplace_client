@@ -242,7 +242,7 @@ const Header = ({ className }: any) => {
                   </div>
                 </div>
                 <div className="navbar-item">
-                  <NavLink href="/activity">
+                  <NavLink href="/faq">
                     <>
                       Help
                       <span className="lines" />

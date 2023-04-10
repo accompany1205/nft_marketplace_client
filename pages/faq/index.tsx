@@ -292,9 +292,6 @@ const Faq:React.FC = () => {
                                       <Accordian title={qna.question} key={qna.id} accordianParentId={`general-accordion-${faq.readMoreTarget}`}>
                                         {
                                             qna.answers.map((ans) => {
-                                              if (typeof ans !== 'string') {
-                                                return ans.content;
-                                              }
                                               return <p>{ans}</p>;
                                             })
                                         }
