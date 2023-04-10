@@ -53,6 +53,7 @@ const featurebox = () => (
               purchase price or buy now. If you own the certificate of a non
               redeemed item, you can sell now or place a target price.
               <br />
+              <br />
             </p>
           </Reveal>
         </div>

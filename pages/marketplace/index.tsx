@@ -165,7 +165,7 @@ const MarketPlace = () => {
             </div>
 
             <div className="item_filter_group">
-              <h4>Price</h4>
+              <h4>Price Range</h4>
               <div className="de_form" />
               <input
                 className="form-control"

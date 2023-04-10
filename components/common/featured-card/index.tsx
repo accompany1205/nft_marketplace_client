@@ -12,7 +12,7 @@ const FeatureCard: React.FC<IProps> = (props) => {
     title, iClassName, description, bgIClassName, variant,
   } = props;
   return (
-    <div className={`mb-4 col-md-6 ${variant === 'small' ? 'col-lg-3' : ''} mb-sm-30`}>
+    <div className={`mb-3 col-lg-4 ${variant === 'small' ? 'col-lg-3' : ''} mb-sm-30`}>
       <div className="feature-box f-boxed style-3">
         <i className={iClassName} />
         <div className="text">

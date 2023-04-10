@@ -123,7 +123,7 @@ const NftDetail: React.FC = () => {
   return (
     <div>
       <GlobalStyles />
-      <section className="container">
+      <section className="container no-bottom">
         <div className="row" style={{ marginTop: '20px' }}>
           <div className="item_info" style={{ marginBottom: '20px' }}>
             <h2>{details?.data?.specs?.productName}</h2>
@@ -142,11 +142,11 @@ const NftDetail: React.FC = () => {
             />
           </div>
           <div className="col-md-6">
-            <div className="row" style={{ marginTop: '60px' }}>
+            <div className="row" style={{ marginTop: '0px' }}>
               <div className="col-md-4 col-sm-6">
                 <button
                   type="button"
-                  className="btn-main mb-5"
+                  className="btn-main mb-3"
                   onClick={() => variant && setIsBuy(true)}
                 >
                   Buy
@@ -155,7 +155,7 @@ const NftDetail: React.FC = () => {
               <div className="col-md-8 col-sm-6">
                 <button
                   type="button"
-                  className="btn-main mb-5"
+                  className="btn-main mb-3"
                   onClick={() => variant && setIsSell(true)}
                 >
                   Sell
@@ -165,7 +165,7 @@ const NftDetail: React.FC = () => {
             <div className="row text-start">
               {priceDetails.map(({ label, amount }) => (
                 <div
-                  className="col-lg-4 col-md-6 col-sm-6 mt-3"
+                  className="col-lg-4 col-md-6 col-sm-6"
                   key={`${label}-${amount}`}
                 >
                   <p
@@ -296,15 +296,16 @@ const NftDetail: React.FC = () => {
         </div>
       </section>
 
-      <section className="container no-bottom">
+      <section className="container no-bottom" style={{ marginTop: '-70px' }}>
         <div>
           <p style={{ color: 'black', fontWeight: 'bold', fontSize: '20px' }}>
             Product Details
           </p>
         </div>
-        <div className="spacer-20" />
+        <div className="spacer-10" />
         <div className="row">
           <div className="col-md-4" style={{ marginBottom: '20px' }}>
+            <p style={{ color: 'black' }}>Product Characteristics</p>
             <div>
               <div>
                 <div style={{ display: 'inline-block', width: '180px' }}>
@@ -333,11 +334,17 @@ const NftDetail: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-8">
+          <div className="col-md-4" style={{ marginBottom: '20px' }}>
             <div>
               <p style={{ color: 'black' }}>Product Description</p>
             </div>
             <p>{details?.data?.specs?.description}</p>
+          </div>
+          <div className="col-md-8">
+            <div>
+              <p style={{ color: 'black' }}>Perks</p>
+            </div>
+            <p>Product perks go here. TODO: Replace with API data.</p>
           </div>
         </div>
       </section>

@@ -22,13 +22,13 @@ const Features = [
   {
     id: 2,
     title: 'Quality and Curation',
-    description: 'Only items exclusively produced by brands and linked to blockchain digital certificates are able to be sold, guaranteeing exclusivity and curation of the marketplace content.',
+    description: 'We partner directly with brands that store the products at their facilities and issue unique product ownership IDs using our blockchain technology. Only items exclusively produced by the brand and linked to blockchain digital certificates are able to be sold.',
     iClassName: 'wow fadeInUp bg-color-2 i-boxed icon_like',
     bgIClassName: 'wm icon_like',
   },
   {
     id: 3,
-    title: 'Selection and Services from Global Brands',
+    title: 'Next Level Experiences',
     description: 'Along with your items, brands can offer digital certificate holders, an exclusive range of aftersale services and perks tied to them.',
     iClassName: 'wow fadeInUp bg-color-2 i-boxed icon_tags_alt',
     bgIClassName: 'wm icon_tags_alt',
@@ -60,12 +60,11 @@ const BuyerPage = () => {
         <div className="no-bottom no-top" id="content">
           <div id="top" />
           {/* section begin */}
-          <HeroSection bgImgUrl="/static/images/background/subheader2.jpg" title="Buyers Page">
-            <p>Buying your favourite items with DesignBook is easy and trustworthy</p>
-            <div className="spacer-20" />
+          <HeroSection title="Buyer Page">
+            <p>Gaining ownership to your favourite items with DesignBook is easy and trustworthy</p>
           </HeroSection>
           {/* section close */}
-          <div className="mt-3 mt-lg-4 pt-5 px-0 padding30 br-15 bg-custom">
+          <div className="mt-lg-4 pt-5 px-0 padding30 br-15 bg-custom">
             <div className="container">
               <Journey
                 title="Place a Bid or Buy Now"
@@ -75,18 +74,18 @@ const BuyerPage = () => {
               />
               <Journey
                 title="Designbook Blockchain Verification"
-                descriprion="Once you're matched with a seller at an agreed price, you're both taken out of the listing and market resume between other parties involved. Your amount is pulled into an escrow account along with the seller's certificate while pending blockchain and item verification."
+                descriprion="Once you're matched with a seller at an agreed price, you're both taken out of the listing and market resume between other parties involved. Your amount is pulled into an escrow account along with the seller's certificate while pending verification."
                 imgSrc="/static/images/buyers-page/two-factor-authentication.svg"
               />
               <Journey
                 title="Receive the Digital Certificate"
-                descriprion="We make sure to check asap the authenticity of the certificate and item itself. Once validated, you receive the digital certificate in your wallet, that may also contain and give you access to aftersales perks linked to the item."
+                descriprion="We make sure to check asap the authenticity of the certificate. Once validated, you receive the digital certificate in your wallet, that may also contain and give you access to aftersales perks linked to the item."
                 imgSrc="/static/images/buyers-page/certificate.svg"
                 imgWrapperClasses="order-lg-2"
               />
               <Journey
                 title="Receive Your Physical Item"
-                descriprion="You can relax and wait to receive the physical item packaged by us through our secure, fast and hassle-free shipping service."
+                descriprion="You have the option to redeem the physical item and have it securely shipped to you directly from the brand’s facility."
                 progressSvg={(
                   <div className="down-marker__area down-marker__area-last">
                     <svg className="down-arrow__circle-svg" stroke="var(--secondary-color)" viewBox="0 0 24 24">

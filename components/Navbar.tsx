@@ -152,8 +152,8 @@ const Header = ({ className }: any) => {
                             className="dropdown"
                             onClick={closeHowDoesItWork}
                           >
-                            <NavLink href="/">Buyer</NavLink>
-                            <NavLink href="/">Seller</NavLink>
+                            <NavLink href="/buyer-page">Buyer</NavLink>
+                            <NavLink href="/seller-page">Seller</NavLink>
                           </div>
                         </div>
                       )}
@@ -170,7 +170,7 @@ const Header = ({ className }: any) => {
                       {aboutOpen && (
                         <div className="item-dropdown">
                           <div className="dropdown" onClick={closeAbout}>
-                            <NavLink href="/">Certification</NavLink>
+                            <NavLink href="/certification">Certification</NavLink>
                           </div>
                         </div>
                       )}
@@ -186,7 +186,7 @@ const Header = ({ className }: any) => {
                 <div className="navbar-item">
                   <div>
                     <div className="dropdown-custom btn">
-                      <NavLink href="/nft/pid">Home</NavLink>
+                      <NavLink href="/">Home</NavLink>
                       <span className="lines" />
                     </div>
                   </div>
@@ -214,8 +214,8 @@ const Header = ({ className }: any) => {
                             className="dropdown"
                             onClick={closeHowDoesItWork}
                           >
-                            <NavLink href="/">Buyer</NavLink>
-                            <NavLink href="/">Seller</NavLink>
+                            <NavLink href="/buyer-page">Buyer</NavLink>
+                            <NavLink href="/seller-page">Seller</NavLink>
                           </div>
                         </div>
                       )}
@@ -234,7 +234,7 @@ const Header = ({ className }: any) => {
                       {aboutOpen && (
                         <div className="item-dropdown">
                           <div className="dropdown" onClick={closeAbout}>
-                            <NavLink href="/">Certification</NavLink>
+                            <NavLink href="/certification">Certification</NavLink>
                           </div>
                         </div>
                       )}
