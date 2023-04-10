@@ -24,12 +24,7 @@ import WalletConnector from './WalletConnector';
 interface INavProps {
   children: JSX.Element | string;
   href: string;
-  onClick?: () => void;
 }
-
-INavProps.defaultProps = {
-  onClick: undefined,
-};
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 
@@ -148,18 +143,8 @@ const Header = ({ className }: any) => {
                             className="dropdown"
                             onClick={closeHowDoesItWork}
                           >
-                            <NavLink
-                              href="/buyer-page"
-                              onClick={() => btnIcon(!showmenu)}
-                            >
-                              Buyer
-                            </NavLink>
-                            <NavLink
-                              href="/seller-page"
-                              onClick={() => btnIcon(!showmenu)}
-                            >
-                              Seller
-                            </NavLink>
+                            <NavLink href="/buyer-page">Buyer</NavLink>
+                            <NavLink href="/seller-page">Seller</NavLink>
                           </div>
                         </div>
                       )}
@@ -208,18 +193,8 @@ const Header = ({ className }: any) => {
                             className="dropdown"
                             onClick={closeHowDoesItWork}
                           >
-                            <NavLink
-                              href="/buyer-page"
-                              onClick={() => btnIcon(!showmenu)}
-                            >
-                              Buyer
-                            </NavLink>
-                            <NavLink
-                              href="/seller-page"
-                              onClick={() => btnIcon(!showmenu)}
-                            >
-                              Seller
-                            </NavLink>
+                            <NavLink href="/buyer-page">Buyer</NavLink>
+                            <NavLink href="/seller-page">Seller</NavLink>
                           </div>
                         </div>
                       )}
