@@ -24,6 +24,7 @@ import WalletConnector from './WalletConnector';
 interface INavProps {
   children: JSX.Element | string;
   href: string;
+  onClick: () => void;
 }
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
