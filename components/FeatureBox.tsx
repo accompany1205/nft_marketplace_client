@@ -97,6 +97,7 @@ const featurebox = () => (
               is closed, you’ll get the digital certificate once checked on the
               Blockchain.
               <br />
+              <br />
             </p>
           </Reveal>
         </div>
