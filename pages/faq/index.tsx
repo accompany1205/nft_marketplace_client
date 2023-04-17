@@ -240,7 +240,7 @@ const Faq:React.FC = () => {
 
       <div id="wrapper">
         {/* content begin */}
-        <div className="no-bottom no-top" id="content">
+        <div className="no-bottom" id="content">
           <div id="top" />
           {/* section begin */}
           <HeroSection title="Frequently Asked Questions">

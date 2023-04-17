@@ -2,6 +2,7 @@
 
 import React from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import Link from 'next/link';
 import SliderMain from '../components/SliderMain';
 import FeatureBox from '../components/FeatureBox';
 import LastSoldItems from '../components/LastSoldItems';
@@ -45,11 +46,8 @@ const Home = () => {
         </div>
         <Catgor />
       </section>
-      <section
-        className="container"
-        style={{ backgroundColor: 'rgb(255, 249, 225)' }}
-      >
-        <div className="row">
+      <section style={{ backgroundColor: 'rgb(255, 249, 225)' }}>
+        <div className="container">
           <div className="col-lg-12">
             <div className="text-left">
               <h2 className="style-2" style={{ marginBottom: '28px' }}>
@@ -62,11 +60,8 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section
-        className="container"
-        style={{ backgroundColor: 'rgb(246, 245, 251)' }}
-      >
-        <div className="row">
+      <section style={{ backgroundColor: 'rgb(246, 245, 251)' }}>
+        <div className="container">
           <div className="col-lg-12">
             <div className="text-left">
               <h2 className="style-2" style={{ marginBottom: '28px' }}>
@@ -79,91 +74,95 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section
-        className="container"
-        style={{ backgroundColor: 'rgb(247, 255, 231)' }}
-      >
-        <div className="col-lg-12">
-          <div className="text-left">
-            <h2 className="style-2" style={{ marginBottom: '28px' }}>
-              Latest news
-            </h2>
-          </div>
-        </div>
-        <div
-          className="row wow fadeIn animated"
-          style={{
-            backgroundSize: 'cover',
-            visibility: 'visible',
-            animationName: 'fadeIn',
-          }}
-        >
-          {[
-            {
-              title: 'How to create NFT ITEM',
-              desc: 'ciao ciao',
-              picture: './images/7.jpg',
-              date: 'October 28, 2020',
-            },
-            {
-              title: 'How to create NFT ITEM',
-              desc: 'ciao ciao',
-              picture: './images/7.jpg',
-              date: 'October 28, 2020',
-            },
-            {
-              title: 'How to create NFT ITEM',
-              desc: 'ciao ciao',
-              picture: './images/7.jpg',
-              date: 'October 28, 2020',
-            },
-          ].map((item, index) => (
-            <div
-              className="col-lg-4 col-md-6 mb-sm-30"
-              style={{ backgroundSize: 'cover' }}
-              key={index}
-            >
-              <div
-                className="bloglist item"
-                style={{ backgroundSize: 'cover' }}
-              >
-                <div
-                  className="post-content"
-                  style={{ backgroundSize: 'cover' }}
-                >
-                  <div
-                    className="post-image"
-                    style={{ backgroundSize: 'cover' }}
-                  >
-                    <img
-                      alt=""
-                      src={item.picture}
-                      className="lazy"
-                      style={{
-                        maxHeight: '300px',
-                        borderRadius: '8px',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </div>
-                  <div
-                    className="post-text"
-                    style={{ backgroundSize: 'cover' }}
-                  >
-                    <span className="p-tagline">Tips & Tricks</span>
-                    <span className="p-date">{item.date}</span>
-                    <h4>
-                      <a href="news-single.html">
-                        {item.title}
-                        <span />
-                      </a>
-                    </h4>
-                    <p>{item.desc}</p>
-                  </div>
-                </div>
-              </div>
+      <section style={{ backgroundColor: 'rgb(247, 255, 231)' }}>
+        <div className="container">
+          <div className="col-lg-12">
+            <div className="text-left">
+              <h2 className="style-2" style={{ marginBottom: '28px' }}>
+                Latest news
+              </h2>
             </div>
-          ))}
+          </div>
+          <div
+            className="row wow fadeIn animated"
+            style={{
+              backgroundSize: 'cover',
+              visibility: 'visible',
+              animationName: 'fadeIn',
+            }}
+          >
+            {[
+              {
+                title: 'Ralph Lauren Accelerates Web3 Push with NFT Gift Initiative',
+                desc: 'Hugely popular fashion brand, Ralph Lauren, has kicked off its Web3 push by distributing NFT gifts to the...',
+                picture: './images/ralph-lauren.png',
+                date: 'April 9, 2023',
+                category: 'NFT FASHION NEWS',
+                link: 'https://nftplazas.com/ralph-lauren-nft/',
+              },
+              {
+                title: 'Yuga Labs’ Otherside Drops First Gucci Relic',
+                desc: 'Less than a week after news of a collaboration between luxury fashion house, Gucci, and leading Web3 firm...',
+                picture: './images/gucci.png',
+                date: 'APRIL 5, 2023',
+                category: 'NFT FASHION NEWS',
+                link: 'https://nftplazas.com/yuga-labs-gucci-relic/',
+              },
+              {
+                title: 'Clarks Shoes Takes a Walk in the Decentraland Metaverse',
+                desc: 'Renowned British footwear brand, Clarks Shoes, has ventured into the virtual realm with the debut of Clar...',
+                picture: './images/decentraland.png',
+                date: 'MARCH 31, 2023',
+                category: 'DECENTRALAND NEWS',
+                link: 'https://nftplazas.com/clarks-shoes-metaverse/',
+              },
+            ].map((item, index) => (
+              <div
+                className="col-lg-4 col-md-6 mb-sm-30"
+                style={{ backgroundSize: 'cover' }}
+                key={index}
+              >
+                <Link href={item.link} target="_blank">
+                  <div
+                    className="bloglist item"
+                    style={{ backgroundSize: 'cover' }}
+                  >
+                    <div
+                      className="post-content"
+                      style={{ backgroundSize: 'cover' }}
+                    >
+                      <div
+                        className="post-image"
+                        style={{ backgroundSize: 'cover' }}
+                      >
+                        <img
+                          alt=""
+                          src={item.picture}
+                          className="lazy"
+                          style={{
+                            maxHeight: '300px',
+                            borderRadius: '8px',
+                            objectFit: 'cover',
+                          }}
+                        />
+                      </div>
+                      <div
+                        className="post-text"
+                        style={{ backgroundSize: 'cover' }}
+                      >
+                        <span className="p-tagline">{item.category}</span>
+                        <span className="p-date">{item.date}</span>
+                        <h4>
+                          {item.title}
+                        </h4>
+                        <p>{item.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
       <section>

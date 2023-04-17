@@ -11,7 +11,7 @@ import {
   setDefaultBreakpoints,
 } from 'react-socks';
 import Link from 'next/link';
-import useOnclickOutside from 'react-cool-onclickoutside';
+// import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useTypedSelector } from '../hooks/store';
@@ -39,19 +39,19 @@ const Header = ({ className }: any) => {
   const [showModal, setShowModal] = useState(false);
   const isLoggedIn = useMemo(() => !!token, [token]);
 
-  const [howDoesItWorkOpen, setHowDoesItWorkOpen] = useState(false);
+  // const [howDoesItWorkOpen, setHowDoesItWorkOpen] = useState(false);
 
-  const onHowDoesItWorkClick = () => {
-    setHowDoesItWorkOpen(!howDoesItWorkOpen);
-  };
+  // const onHowDoesItWorkClick = () => {
+  //   setHowDoesItWorkOpen(!howDoesItWorkOpen);
+  // };
 
-  const closeHowDoesItWork = () => {
-    setHowDoesItWorkOpen(false);
-  };
+  // const closeHowDoesItWork = () => {
+  //   setHowDoesItWorkOpen(false);
+  // };
 
-  const ref = useOnclickOutside(() => {
-    closeHowDoesItWork();
-  });
+  // const ref = useOnclickOutside(() => {
+  //   closeHowDoesItWork();
+  // });
 
   const [showmenu, btnIcon] = useState(false);
 
@@ -79,9 +79,9 @@ const Header = ({ className }: any) => {
         header?.classList.remove('sticky');
         totop?.classList.remove('show');
       }
-      if (window.pageYOffset > (sticky || 0)) {
-        closeHowDoesItWork();
-      }
+      // if (window.pageYOffset > (sticky || 0)) {
+      //   closeHowDoesItWork();
+      // }
     });
     return () => {
       // @ts-ignore
@@ -130,6 +130,15 @@ const Header = ({ className }: any) => {
                     <NavLink href="/marketplace">Marketplace</NavLink>
                   </div>
                   <div className="navbar-item">
+                    <NavLink href="/how-it-works">How it works</NavLink>
+                  </div>
+                  <div className="navbar-item">
+                    <NavLink href="/buyer-page">Buyer</NavLink>
+                  </div>
+                  <div className="navbar-item">
+                    <NavLink href="/seller-page">Seller</NavLink>
+                  </div>
+                  {/* <div className="navbar-item">
                     <div ref={ref}>
                       <div
                         className="dropdown-custom dropdown-toggle btn"
@@ -149,12 +158,12 @@ const Header = ({ className }: any) => {
                         </div>
                       )}
                     </div>
+                  </div> */}
+                  <div className="navbar-item">
+                    <NavLink href="/certification">Certification</NavLink>
                   </div>
                   <div className="navbar-item">
-                    <NavLink href="/certification">About</NavLink>
-                  </div>
-                  <div className="navbar-item">
-                    <NavLink href="/faq">Help</NavLink>
+                    <NavLink href="/faq">FAQ</NavLink>
                   </div>
                 </div>
               )}
@@ -179,6 +188,30 @@ const Header = ({ className }: any) => {
                   </NavLink>
                 </div>
                 <div className="navbar-item">
+                  <NavLink href="/how-it-works">
+                    <>
+                      How it works
+                      <span className="lines" />
+                    </>
+                  </NavLink>
+                </div>
+                <div className="navbar-item">
+                  <NavLink href="/buyer-page">
+                    <>
+                      Buyer
+                      <span className="lines" />
+                    </>
+                  </NavLink>
+                </div>
+                <div className="navbar-item">
+                  <NavLink href="/seller-page">
+                    <>
+                      Seller
+                      <span className="lines" />
+                    </>
+                  </NavLink>
+                </div>
+                {/* <div className="navbar-item">
                   <div ref={ref}>
                     <div
                       className="dropdown-custom dropdown-toggle btn"
@@ -200,11 +233,11 @@ const Header = ({ className }: any) => {
                       )}
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="navbar-item">
                   <NavLink href="/certification">
                     <>
-                      About
+                      Certification
                       <span className="lines" />
                     </>
                   </NavLink>
@@ -212,7 +245,7 @@ const Header = ({ className }: any) => {
                 <div className="navbar-item">
                   <NavLink href="/faq">
                     <>
-                      Help
+                      FAQ
                       <span className="lines" />
                     </>
                   </NavLink>

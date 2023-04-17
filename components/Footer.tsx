@@ -50,7 +50,7 @@ const Footer = () => (
                 <Link href="/faq">FAQ</Link>
               </li>
               <li>
-                <Link href="/about-us">Contact Us</Link>
+                <Link href="/contact-us">Contact Us</Link>
               </li>
             </ul>
           </div>
@@ -60,10 +60,10 @@ const Footer = () => (
             <h5>Legal</h5>
             <ul>
               <li>
-                <Link href=""> Terms and Conditions</Link>
+                <Link href="/terms-and-conditions"> Terms and Conditions</Link>
               </li>
               <li>
-                <Link href=""> Privacy Policy</Link>
+                <Link href="/privacy-policy"> Privacy Policy</Link>
               </li>
             </ul>
           </div>

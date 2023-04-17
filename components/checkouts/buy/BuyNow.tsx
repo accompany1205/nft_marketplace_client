@@ -18,8 +18,10 @@ const BuyNow: React.FC<Props> = ({ product, onSubmit }) => (
         {product.productName}
         &nbsp;
       </span>
-      <span className="bold">
+      <span>
         from
+      </span>
+      <span className="bold">
         {' '}
         {product.lowestAsk?.first_name}
         {' '}

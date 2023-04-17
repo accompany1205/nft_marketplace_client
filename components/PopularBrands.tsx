@@ -64,11 +64,11 @@ const PopularBrands: React.FC = () => {
     <div className="nft">
       <Slider {...settings}>
         {[
-          { name: 'Santoni', picture: './images/23.jpg' },
-          { name: 'Luca Faloni', picture: './images/24.jpg' },
           { name: 'Artisan Lab', picture: './images/25.jpg' },
-          { name: 'Santoni', picture: './images/23.jpg' },
-          { name: 'Luca Faloni', picture: './images/24.jpg' },
+          { name: 'Artisan Lab', picture: './images/25.jpg' },
+          { name: 'Artisan Lab', picture: './images/25.jpg' },
+          { name: 'Artisan Lab', picture: './images/25.jpg' },
+          { name: 'Artisan Lab', picture: './images/25.jpg' },
           { name: 'Artisan Lab', picture: './images/25.jpg' },
         ].map((item, index) => (
           <CustomSlide className="itm" index={index}>

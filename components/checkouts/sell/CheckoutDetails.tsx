@@ -13,7 +13,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
     // product.highestBid?.id ? CheckoutType.SELL_NOW : CheckoutType.PLACE_ASK,
     CheckoutType.SELL_NOW,
   );
-  const disablePlaceAsk = true;
+  const disablePlaceAsk = false;
   return (
     <div className="de_tab">
       <ul className="de_nav">

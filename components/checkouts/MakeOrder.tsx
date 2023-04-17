@@ -40,7 +40,7 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
       <div className="heading">
         <p>
           You will
-          {orderType === OrderType.ASK ? 'get' : 'pay'}
+          {orderType === OrderType.ASK ? ' get' : ' pay'}
         </p>
         <div className="subtotal">{amount}</div>
       </div>

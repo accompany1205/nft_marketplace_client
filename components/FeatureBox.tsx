@@ -96,6 +96,7 @@ const featurebox = () => (
               you of any changes if you have taken part in the sale. Once a deal
               is closed, you’ll get the digital certificate once checked on the
               Blockchain.
+              <br />
             </p>
           </Reveal>
         </div>
