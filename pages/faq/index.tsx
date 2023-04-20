@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
-import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
 import HeroSection from '../../components/common/heroSection';
 import FaqSectionCard from './FaqSectionCard';
@@ -230,12 +229,6 @@ const Faq:React.FC = () => {
 
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="/static/css/plugins.css" />
-        <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/static/css/faq-custom.css" rel="stylesheet" type="text/css" />
-
-      </Head>
       <GlobalStyles />
 
       <div id="wrapper">
@@ -246,13 +239,11 @@ const Faq:React.FC = () => {
           <HeroSection title="Frequently Asked Questions">
             <form action="blank.php" className="row" id="form_sb" method="post" name="myForm">
               <div className="col text-center">
-                <input className="form-control" id="name_1" name="name_1" placeholder="Type your question here" type="text" />
+                <input className="form-control" id="name_1" name="name_1" placeholder="eg. create item, create wallet." type="text" />
                 {' '}
                 <a href="#" id="btn-submit"><i className="arrow_right" /></a>
               </div>
             </form>
-            <div className="spacer-20" />
-            <p>eg. create item, create wallet.</p>
           </HeroSection>
           {/* section close */}
           {/* section begin */}

@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
-import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
 import HeroSection from '../../components/common/heroSection';
 import FeatureCard from '../../components/common/featured-card';
@@ -40,11 +39,6 @@ const Certification = () => {
 
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="/static/css/plugins.css" />
-        <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/static/css/certification-custom.css" rel="stylesheet" type="text/css" />
-      </Head>
       <GlobalStyles />
       <div id="wrapper">
         {/* content begin */}

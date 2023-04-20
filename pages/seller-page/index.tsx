@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
-import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
 import HeroSection from '../../components/common/heroSection';
 import FeatureCard from '../../components/common/featured-card';
@@ -77,12 +76,6 @@ const SellerPage = () => {
 
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="/static/css/plugins.css" />
-        <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/static/css/seller-page-custom.css" rel="stylesheet" type="text/css" />
-
-      </Head>
       <GlobalStyles />
 
       <div id="wrapper">
@@ -189,12 +182,6 @@ const SellerPage = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* <tr>
-                                <th>Transaction Fee</th>
-                                <td>10.0%</td>
-                                <td>8.0%</td>
-                                <td>6.0%</td>
-                            </tr> */}
                       <tr>
                         <th>Number of items sold</th>
                         <td>-</td>

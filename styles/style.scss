@@ -1020,6 +1020,12 @@ a {
         padding: 6px 0px;
         width: 100%;
       }
+
+      ::placeholder {
+        color: $general;
+        opacity: 1; /* Firefox */
+      }
+      
     }
   }
 

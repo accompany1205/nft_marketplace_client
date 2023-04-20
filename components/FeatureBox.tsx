@@ -140,6 +140,8 @@ const featurebox = () => (
               keep it, resell on the exchange or redeem it to receive the
               physical product. Sellers will get their money once the
               certificate has been transferred.
+              <br />
+              <br />
             </p>
           </Reveal>
         </div>
