@@ -48,7 +48,9 @@ const BuyerPage = () => {
   return (
     <>
       <Head>
+        <link rel="stylesheet" href="/static/css/plugins.css" />
         <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/static/css/buyers-page-custom.css" rel="stylesheet" type="text/css" />
       </Head>
       <GlobalStyles />
       <div id="wrapper">

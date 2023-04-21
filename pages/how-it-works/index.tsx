@@ -72,7 +72,9 @@ const Specs:TSpecType[] = [
 const HowItWorks:React.FC = () => (
   <>
     <Head>
+      <link rel="stylesheet" href="/static/css/plugins.css" />
       <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+      <link href="/static/css/how-it-works-custom.css" rel="stylesheet" type="text/css" />
     </Head>
     <GlobalStyles />
     <div id="wrapper">
