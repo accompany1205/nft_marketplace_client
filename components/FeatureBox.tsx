@@ -20,7 +20,7 @@ const featurebox = () => (
     <div className="col-lg-4 col-md-6 mb-3">
       <div
         className="feature-box f-boxed style-3"
-        style={{ minHeight: '350px' }}
+        style={{ minHeight: '350px', height: '395px' }}
       >
         <Reveal
           className="onStep"
@@ -52,8 +52,6 @@ const featurebox = () => (
               Search for listings by brand, model or colour. Place a desired
               purchase price or buy now. If you own the certificate of a non
               redeemed item, you can sell now or place a target price.
-              <br />
-              <br />
             </p>
           </Reveal>
         </div>
@@ -63,7 +61,7 @@ const featurebox = () => (
     <div className="col-lg-4 col-md-6 mb-3">
       <div
         className="feature-box f-boxed style-3"
-        style={{ minHeight: '350px' }}
+        style={{ minHeight: '350px', height: '395px' }}
       >
         <Reveal
           className="onStep"
@@ -96,8 +94,6 @@ const featurebox = () => (
               you of any changes if you have taken part in the sale. Once a deal
               is closed, you’ll get the digital certificate once checked on the
               Blockchain.
-              <br />
-              <br />
             </p>
           </Reveal>
         </div>
@@ -107,7 +103,7 @@ const featurebox = () => (
     <div className="col-lg-4 col-md-6 mb-3">
       <div
         className="feature-box f-boxed style-3"
-        style={{ minHeight: '350px' }}
+        style={{ minHeight: '350px', height: '395px' }}
       >
         <Reveal
           className="onStep"
@@ -140,8 +136,6 @@ const featurebox = () => (
               keep it, resell on the exchange or redeem it to receive the
               physical product. Sellers will get their money once the
               certificate has been transferred.
-              <br />
-              <br />
             </p>
           </Reveal>
         </div>

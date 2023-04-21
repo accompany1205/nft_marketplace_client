@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
+import Head from 'next/head';
 import HeroSection from '../../components/common/heroSection';
 import FeatureCard from '../../components/common/featured-card';
 import Journey from '../../components/common/journey';
@@ -39,6 +40,9 @@ const Certification = () => {
 
   return (
     <>
+      <Head>
+        <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+      </Head>
       <GlobalStyles />
       <div id="wrapper">
         {/* content begin */}

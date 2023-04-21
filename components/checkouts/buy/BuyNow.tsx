@@ -9,7 +9,7 @@ interface Props {
 const BuyNow: React.FC<Props> = ({ product, onSubmit }) => (
   <div>
     <div className="heading">
-      <h3>Price Computation</h3>
+      {/* <h3>Price Computation</h3> */}
     </div>
     <p>
       You are about to purchase a

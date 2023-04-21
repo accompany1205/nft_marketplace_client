@@ -37,12 +37,14 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
       </div>
       <div className="heading">
         <p>
-          You will
-          {orderType === OrderType.ASK ? ' get' : ' pay'}
+          You
+          {orderType === OrderType.ASK ? ' are offering' : ' will pay'}
         </p>
         <div className="subtotal">
           £
           {amount}
+          {' '}
+          / XX HBAR
         </div>
       </div>
       <button

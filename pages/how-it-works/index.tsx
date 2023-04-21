@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
+import Head from 'next/head';
 import StepCard, { TStepType } from './StepCard';
 import SpecCard, { TSpecType } from './SpecCard';
 import HeroSection from '../../components/common/heroSection';
@@ -70,6 +71,9 @@ const Specs:TSpecType[] = [
 
 const HowItWorks:React.FC = () => (
   <>
+    <Head>
+      <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    </Head>
     <GlobalStyles />
     <div id="wrapper">
       {/* content begin */}
