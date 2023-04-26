@@ -12,26 +12,12 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   const [activeTab, setActiveTab] = useState(
     product.lowestAsk?.id ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
   );
-  const disableBuyNow = true;
 
   return (
     <div className="de_tab">
       <ul className="de_nav">
-        {product.lowestAsk?.id && disableBuyNow && (
-          <li
-            className={
-              activeTab === CheckoutType.BUY_NOW ? 'active' : undefined
-            }
-            key={`tab-${CheckoutType.BUY_NOW}`}
-          >
-            <button
-              type="button"
-              onClick={() => setActiveTab(CheckoutType.BUY_NOW)}
-            >
-              {CheckoutType.BUY_NOW}
-            </button>
-          </li>
-        )}
+        {/* {product.lowestAsk?.id && ( */}
+        {/* )} */}
         <li
           className={
             activeTab === CheckoutType.PLACE_BID ? 'active' : undefined
@@ -43,6 +29,19 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
             onClick={() => setActiveTab(CheckoutType.PLACE_BID)}
           >
             {CheckoutType.PLACE_BID}
+          </button>
+        </li>
+        <li
+          className={
+            activeTab === CheckoutType.BUY_NOW ? 'active' : undefined
+          }
+          key={`tab-${CheckoutType.BUY_NOW}`}
+        >
+          <button
+            type="button"
+            onClick={() => setActiveTab(CheckoutType.BUY_NOW)}
+          >
+            {CheckoutType.BUY_NOW}
           </button>
         </li>
       </ul>

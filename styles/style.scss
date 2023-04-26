@@ -733,7 +733,7 @@ p.lead {
   width: max-content;
   text-align: center;
   color: #fff !important;
-  background: #685692;
+  background: $color;
   border-radius: 6px;
   letter-spacing: normal;
   outline: 0;
@@ -1012,14 +1012,20 @@ a {
       #quick_search {
         border-radius: 5px;
         border: solid 1px #dddddd;
-        background: #685692;
+        background: rgba(131, 100, 226, 0.1);
       }
 
       ::-webkit-input-placeholder {
-        color: rgba(255, 255, 255, .5);
-        padding: 6px 12px;
+        color: $general;
+        padding: 6px 0px;
         width: 100%;
       }
+
+      ::placeholder {
+        color: $general;
+        opacity: 1; /* Firefox */
+      }
+      
     }
   }
 

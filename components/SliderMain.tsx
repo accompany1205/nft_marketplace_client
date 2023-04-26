@@ -36,7 +36,9 @@ const slidermain = () => (
           triggerOnce
         >
           <h6 className="">
-            <span className="text-uppercase color">DesignBook Live Market</span>
+            <span className="text-uppercase color">
+              DesignBook Live Marketplace
+            </span>
           </h6>
         </Reveal>
         <div className="spacer-10" />
@@ -47,7 +49,9 @@ const slidermain = () => (
           duration={600}
           triggerOnce
         >
-          <h1 className="">The only gateway to certified goods</h1>
+          <h1 className="">
+            The only gateway to exchange certified redeemable fashion items
+          </h1>
         </Reveal>
         <Reveal
           className="onStep"
@@ -56,8 +60,9 @@ const slidermain = () => (
           duration={600}
           triggerOnce
         >
-          <p className=" lead">
-            Discover, buy, or sell Blockchain certified items
+          <p className="lead">
+            Discover, buy, or sell Blockchain certified items from your
+            favourite brands
           </p>
         </Reveal>
         <div className="spacer-10" />
@@ -68,7 +73,12 @@ const slidermain = () => (
           duration={900}
           triggerOnce
         >
-          <span onClick={() => window.open('/#', '_self')} className="btn-main lead">Explore</span>
+          <span
+            onClick={() => window.open('/marketplace', '_self')}
+            className="btn-main"
+          >
+            Explore
+          </span>
           <div className="mb-sm-30" />
         </Reveal>
       </div>

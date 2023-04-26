@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
-import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
+import Head from 'next/head';
 import HeroSection from '../../components/common/heroSection';
 import FeatureCard from '../../components/common/featured-card';
 import Journey from '../../components/common/journey';
@@ -22,20 +22,13 @@ const Features = [
   },
   {
     id: 2,
-    iClassName: 'wow fadeInUp bg-color-2 i-boxed icon_box-checked',
-    title: 'Rigourous condition check',
-    description: 'Our team are trained by brands directly to detect and check items condition, packaging and accessories are up to the level of standards',
-    bgIClassName: 'wm icon_box-checked',
-  },
-  {
-    id: 3,
     iClassName: 'wow fadeInUp bg-color-2 i-boxed icon_cart_alt',
     title: 'Aftersale advantages remains',
     description: 'Certificate of authenticity can contain aftersales perks than will then be transferred to the new owner of the item',
     bgIClassName: 'wm icon_cart_alt',
   },
   {
-    id: 4,
+    id: 3,
     iClassName: 'wow fadeInUp bg-color-2 i-boxed icon_flowchart',
     title: 'Data tracking',
     description: 'From the commercialisation to resale, you get to know the lifecycle of each product adding trust in the purchase experience',
@@ -57,29 +50,7 @@ const Certification = () => {
         {/* content begin */}
         <div id="top" />
         {/* section begin */}
-        <HeroSection bgImgUrl="/static/images/background/subheader2.jpg" title="Certification" />
-        {/* section close */}
-        <section className="pb-0 pb-lg-5">
-          <div className="container">
-            <div className="row align-items-center pb-3">
-              <div className="col-lg-3 col-md-4 text-center text-md-start">
-                <img className="mb-4 mb-lg-0 img-fluid how-it-works__top-img" src="/static/images/certification/genuine.svg" alt="" />
-              </div>
-              <div className="col-lg-9 col-md-8 mb-sm-30 text-center text-md-start">
-                <h2>
-                  Every items is
-                  <span className="text-gradient"> genuine</span>
-                </h2>
-                <p className="lead">
-                  Only items with a certificate issued by a genuine brand can be sold on the
-                  marketplace. Each
-                  certificate is unique and
-                  registered on the blockchain allowing you to buy with confidence
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HeroSection title="Certification" />
         {/* Process */}
         <section className="py-3 py-lg-5">
           <div className="container">
@@ -89,19 +60,19 @@ const Certification = () => {
             </div>
             <Journey
               title="Before the Sale"
-              descriprion="Only physical items linked to a certificate of authenticity issued by an original brand and registered on the blockchain can be sold thus avoiding counterfeits. Only unused (deadstock) or refurbished to grate A accessories can be sold on the platform."
+              descriprion="Only products and services linked to a certificate of authenticity issued by an original brand who is registered on the blockchain can be sold thus avoiding counterfeits."
               imgSrc="/static/images/certification/before.svg"
               imgWrapperClasses="order-lg-2"
             />
             <Journey
               title="At the sale"
-              descriprion="Only owners of genuine certificates can participate as sellers in the transaction filtering only serious sellers Only buyers with sufficient funds can place bids avoiding market manipulation"
+              descriprion="Only owners of genuine certificates can participate as sellers in the transaction filtering only serious sellers. Only buyers with sufficient funds can place bids avoiding market manipulation."
               imgSrc="/static/images/certification/at.svg"
               imgWrapperClasses="order-lg-2"
             />
             <Journey
               title="After the sale"
-              descriprion="Certificate of authenticity and funds gets put into an escrow account pending control of the physical item. Designbook controls the condition, packaging and most importantly the serial numbers of each items linked to the certificate on the blockchain Full disclosure and traceability of each item allows to detect fake, non genuine and avoid fraudulent items"
+              descriprion="We perform a multi-step verification process before processing the order for every item sold. This is an added layer of security in the authenticity of the product and guaranteeing its origin and traceability."
               imgSrc="/static/images/certification/after.svg"
               imgWrapperClasses="order-lg-2"
             />
@@ -130,7 +101,7 @@ const Certification = () => {
                     description={feat.description}
                   />
                 ))
-            }
+              }
             </div>
           </div>
         </section>

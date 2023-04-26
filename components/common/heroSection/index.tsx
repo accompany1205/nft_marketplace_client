@@ -1,13 +1,13 @@
 import React from 'react';
 
 interface IProps {
-    bgImgUrl:string
+    bgImgUrl?:string
     title: string
     children?: JSX.Element[] | JSX.Element
 }
 
 const HeroSection:React.FC<IProps> = ({ bgImgUrl, title, children }) => (
-  <section className="text-light" data-bgimage={`url(${bgImgUrl})`} data-stellar-background-ratio=".2">
+  <section className="text-dark" data-bgimage={`url(${bgImgUrl})`} data-stellar-background-ratio=".2">
     <div className="center-y relative text-center" data-scroll-speed={4}>
       <div className="container">
         <div className="row">
@@ -26,6 +26,7 @@ const HeroSection:React.FC<IProps> = ({ bgImgUrl, title, children }) => (
 );
 
 HeroSection.defaultProps = {
+  bgImgUrl: undefined,
   children: undefined,
 };
 

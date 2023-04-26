@@ -18,12 +18,10 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
 
   return (
     <div>
-      <div className="heading">
-        <h3>{orderType === OrderType.ASK ? 'Ask' : 'Bid'}</h3>
-      </div>
+      <div className="heading" />
       <div className="detailcheckout">
         <div className="listcheckout">
-          <h6>Enter amount.</h6>
+          <h6>Enter amount</h6>
           <input
             type="number"
             name="amount"
@@ -39,10 +37,15 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
       </div>
       <div className="heading">
         <p>
-          You will
-          {orderType === OrderType.ASK ? 'get' : 'pay'}
+          You
+          {orderType === OrderType.ASK ? ' are offering' : ' will pay'}
         </p>
-        <div className="subtotal">{amount}</div>
+        <div className="subtotal">
+          £
+          {amount}
+          {' '}
+          / XX HBAR
+        </div>
       </div>
       <button
         type="button"
@@ -50,7 +53,7 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
         disabled={!amount}
         onClick={() => onSubmit(amount)}
       >
-        Checkout
+        Place Deal
       </button>
     </div>
   );

@@ -9,7 +9,7 @@ interface Props {
 const SellNow: React.FC<Props> = ({ product, onSubmit }) => (
   <div>
     <div className="heading">
-      <h3>Price Computation</h3>
+      {/* <h3>Price Computation</h3> */}
     </div>
     <p>
       You are about to sell a
@@ -18,16 +18,33 @@ const SellNow: React.FC<Props> = ({ product, onSubmit }) => (
         {product.productName}
           &nbsp;
       </span>
-      <span className="bold">
-        to
+      <span>
+        at the highest Bid price
+      </span>
+      {/* <span className="bold">
         {' '}
         {product.highestBid?.first_name}
         {' '}
         {product.highestBid?.last_name}
-      </span>
+      </span> */}
     </p>
     <div>
-      <b>Total :</b>
+      <b>Creator Royalties (5%): </b>
+      {' '}
+      {/* - */}
+      {product.highestBid?.amount}
+    </div>
+    <div>
+      <b>Platform Fee (10%): </b>
+      {' '}
+      {/* - */}
+      {product.highestBid?.amount}
+      <br />
+      <br />
+    </div>
+    <div>
+      {' '}
+      <b>Total: </b>
       {' '}
       {product.highestBid?.amount}
     </div>

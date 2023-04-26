@@ -11,7 +11,7 @@ import {
   setDefaultBreakpoints,
 } from 'react-socks';
 import Link from 'next/link';
-import useOnclickOutside from 'react-cool-onclickoutside';
+// import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useTypedSelector } from '../hooks/store';
@@ -21,11 +21,12 @@ import WalletContext, {
 } from '../services/WalletService/WalletContext';
 import WalletConnector from './WalletConnector';
 
-setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 interface INavProps {
   children: JSX.Element | string;
   href: string;
 }
+
+setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 
 const NavLink = (props: INavProps) => (
   <Link className="non-active" {...props} />
@@ -38,29 +39,19 @@ const Header = ({ className }: any) => {
   const [showModal, setShowModal] = useState(false);
   const isLoggedIn = useMemo(() => !!token, [token]);
 
-  const [howDoesItWorkOpen, setHowDoesItWorkOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
+  // const [howDoesItWorkOpen, setHowDoesItWorkOpen] = useState(false);
 
-  const onHowDoesItWorkClick = () => {
-    setHowDoesItWorkOpen(!howDoesItWorkOpen);
-  };
+  // const onHowDoesItWorkClick = () => {
+  //   setHowDoesItWorkOpen(!howDoesItWorkOpen);
+  // };
 
-  const closeHowDoesItWork = () => {
-    setHowDoesItWorkOpen(false);
-  };
+  // const closeHowDoesItWork = () => {
+  //   setHowDoesItWorkOpen(false);
+  // };
 
-  const onAboutClick = () => {
-    setAboutOpen(!aboutOpen);
-  };
-
-  const closeAbout = () => {
-    setAboutOpen(false);
-  };
-
-  const ref = useOnclickOutside(() => {
-    closeHowDoesItWork();
-    closeAbout();
-  });
+  // const ref = useOnclickOutside(() => {
+  //   closeHowDoesItWork();
+  // });
 
   const [showmenu, btnIcon] = useState(false);
 
@@ -88,9 +79,9 @@ const Header = ({ className }: any) => {
         header?.classList.remove('sticky');
         totop?.classList.remove('show');
       }
-      if (window.pageYOffset > (sticky || 0)) {
-        closeHowDoesItWork();
-      }
+      // if (window.pageYOffset > (sticky || 0)) {
+      //   closeHowDoesItWork();
+      // }
     });
     return () => {
       // @ts-ignore
@@ -133,18 +124,27 @@ const Header = ({ className }: any) => {
               {showmenu && (
                 <div className="menu">
                   <div className="navbar-item">
-                    <div>Home</div>
+                    <NavLink href="/">Home</NavLink>
                   </div>
                   <div className="navbar-item">
                     <NavLink href="/marketplace">Marketplace</NavLink>
                   </div>
                   <div className="navbar-item">
+                    <NavLink href="/how-it-works">How it works</NavLink>
+                  </div>
+                  <div className="navbar-item">
+                    <NavLink href="/buyer-page">Buyer</NavLink>
+                  </div>
+                  <div className="navbar-item">
+                    <NavLink href="/seller-page">Seller</NavLink>
+                  </div>
+                  {/* <div className="navbar-item">
                     <div ref={ref}>
                       <div
                         className="dropdown-custom dropdown-toggle btn"
                         onClick={onHowDoesItWorkClick}
                       >
-                        How does it work
+                        How it works
                       </div>
                       {howDoesItWorkOpen && (
                         <div className="item-dropdown">
@@ -152,31 +152,19 @@ const Header = ({ className }: any) => {
                             className="dropdown"
                             onClick={closeHowDoesItWork}
                           >
-                            <NavLink href="/">Buyer</NavLink>
-                            <NavLink href="/">Seller</NavLink>
+                            <NavLink href="/buyer-page">Buyer</NavLink>
+                            <NavLink href="/seller-page">Seller</NavLink>
                           </div>
                         </div>
                       )}
                     </div>
+                  </div> */}
+                  <div className="navbar-item">
+                    <NavLink href="/certification">Certification</NavLink>
                   </div>
                   <div className="navbar-item">
-                    <div ref={ref}>
-                      <div
-                        className="dropdown-custom dropdown-toggle btn"
-                        onClick={onAboutClick}
-                      >
-                        About
-                      </div>
-                      {aboutOpen && (
-                        <div className="item-dropdown">
-                          <div className="dropdown" onClick={closeAbout}>
-                            <NavLink href="/">Certification</NavLink>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                    <NavLink href="/faq">FAQ</NavLink>
                   </div>
-                  <div className="navbar-item">Help</div>
                 </div>
               )}
             </Breakpoint>
@@ -184,29 +172,53 @@ const Header = ({ className }: any) => {
             <Breakpoint xl>
               <div className="menu">
                 <div className="navbar-item">
-                  <div>
-                    <div className="dropdown-custom btn">
-                      <NavLink href="/nft/pid">Home</NavLink>
+                  <NavLink href="/">
+                    <>
+                      Home
                       <span className="lines" />
-                    </div>
-                  </div>
-                </div>
-                <div className="navbar-item">
-                  <NavLink href="/marketplace">
-                    <div className="dropdown-custom btn">
-                      <div>Marketplace</div>
-                      <span className="lines" />
-                    </div>
+                    </>
                   </NavLink>
                 </div>
                 <div className="navbar-item">
+                  <NavLink href="/marketplace">
+                    <>
+                      Marketplace
+                      <span className="lines" />
+                    </>
+                  </NavLink>
+                </div>
+                <div className="navbar-item">
+                  <NavLink href="/how-it-works">
+                    <>
+                      How it works
+                      <span className="lines" />
+                    </>
+                  </NavLink>
+                </div>
+                <div className="navbar-item">
+                  <NavLink href="/buyer-page">
+                    <>
+                      Buyer
+                      <span className="lines" />
+                    </>
+                  </NavLink>
+                </div>
+                <div className="navbar-item">
+                  <NavLink href="/seller-page">
+                    <>
+                      Seller
+                      <span className="lines" />
+                    </>
+                  </NavLink>
+                </div>
+                {/* <div className="navbar-item">
                   <div ref={ref}>
                     <div
                       className="dropdown-custom dropdown-toggle btn"
                       onMouseEnter={onHowDoesItWorkClick}
                       onMouseLeave={closeHowDoesItWork}
                     >
-                      How does it work
+                      How it works
                       <span className="lines" />
                       {howDoesItWorkOpen && (
                         <div className="item-dropdown">
@@ -214,37 +226,26 @@ const Header = ({ className }: any) => {
                             className="dropdown"
                             onClick={closeHowDoesItWork}
                           >
-                            <NavLink href="/">Buyer</NavLink>
-                            <NavLink href="/">Seller</NavLink>
+                            <NavLink href="/buyer-page">Buyer</NavLink>
+                            <NavLink href="/seller-page">Seller</NavLink>
                           </div>
                         </div>
                       )}
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="navbar-item">
-                  <div ref={ref}>
-                    <div
-                      className="dropdown-custom dropdown-toggle btn"
-                      onMouseEnter={onAboutClick}
-                      onMouseLeave={closeAbout}
-                    >
-                      About
-                      <span className="lines" />
-                      {aboutOpen && (
-                        <div className="item-dropdown">
-                          <div className="dropdown" onClick={closeAbout}>
-                            <NavLink href="/">Certification</NavLink>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className="navbar-item">
-                  <NavLink href="/activity">
+                  <NavLink href="/certification">
                     <>
-                      Help
+                      Certification
+                      <span className="lines" />
+                    </>
+                  </NavLink>
+                </div>
+                <div className="navbar-item">
+                  <NavLink href="/faq">
+                    <>
+                      FAQ
                       <span className="lines" />
                     </>
                   </NavLink>
