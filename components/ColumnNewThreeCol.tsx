@@ -24,8 +24,8 @@ const NftCard: React.FC<{
   const previewImg = nft?.ipfs
     ? `https://ipfs.io/ipfs/${nftImageUrl}`
     : 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80';
-  const title = nft?.productName || '';
-  const price = nft?.price || '';
+  const title = nft?.productName;
+  const price = nft?.lowestAsk;
   const router = useRouter();
   return (
     <Link
@@ -48,7 +48,7 @@ const NftCard: React.FC<{
           <span>
             <h4>{title}</h4>
           </span>
-          <div className="nft__item_price">{price}</div>
+          <div className="nft__item_price">Price: {price === 0 ? "N-A" : price}</div>
 
           <div className="nft__item_action" style={{ marginBottom: '20px' }}>
             <span onClick={() => router.push({ pathname: `/product`, query: { id: nft.id, type: nft.type }})}>

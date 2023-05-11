@@ -93,7 +93,11 @@ export interface IPOOL {
   type: string,
   ipfs: string,
   productName: string,
-  price: number | null
+  price: number | null,
+  brand: string,
+  color: string,
+  lowestAsk: number,
+  highestBid: number,
 }
 
 export interface BidPayload {

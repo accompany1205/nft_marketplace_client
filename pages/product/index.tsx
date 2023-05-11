@@ -352,11 +352,9 @@ const NftDetail: React.FC = () => {
           </div>}
           {type === "aggregate" && <div className="col-md-6">
             <label htmlFor='pool_id'>Size: </label>
-            <select id="pool_id" className='w-full' onChange={(e) => handleAggregateChange(e)}>
+            <select id="pool_id" className='w-full form-control' onChange={(e) => handleAggregateChange(e)}>
+              <option value=""> Select a size</option>
               {details && details.data && details.data.types && details.data.types.map((type, index)=>{
-                if(index === 0)
-                  return <option value={type.id} key={index} selected>{type.size}</option>
-                else
                   return <option value={type.id} key={index}>{type.size}</option>
               })}
             </select>

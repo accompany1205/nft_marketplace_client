@@ -8184,7 +8184,7 @@ a.btn-right {
 
 .pr30 {
     padding-right: 30px;
-})
+}
 /* margin top */
 
 .mt-10 {
@@ -10307,7 +10307,7 @@ i.bg-color-secondary {
 }
 
 #de-carousel .carousel-indicators li {
-    x height: 8px;
+    height: 8px;
     margin: 0 6px;
     display: block;
 }
@@ -14210,6 +14210,7 @@ img.nft__item_preview {
 }
 
 .nft__item h4 {
+    min-height: 2.2rem;
     font-weight: 800;
     font-size: 15px;
     margin-bottom: 5px;
@@ -14269,6 +14270,12 @@ img.nft__item_preview {
 }
 
 .nft__item_like span {
+    color: #808080;
+    margin-left: 5px;
+    font-size: 12px;
+}
+.nft__item_like span h4{
+    min-height: 2.2rem;
     color: #808080;
     margin-left: 5px;
     font-size: 12px;

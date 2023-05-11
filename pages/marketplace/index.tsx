@@ -1,5 +1,5 @@
 import { map } from 'lodash';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import ColumnNewThreeCol from '../../components/ColumnNewThreeCol';
 import { useGetProductsQuery } from '../../redux/service/appService';
@@ -15,7 +15,42 @@ const MarketPlace = () => {
   const { data } = useGetProductsQuery();
   console.log('data', data?.data);
 
-  const nfts:IPOOL[] = map(data?.data, (product) => product);
+  const nfts: IPOOL[] = map(data?.data, (product) => product);
+  const colors: string[] = [];
+  const brands: string[] = [];
+  nfts.forEach(element => {
+    if (colors.indexOf(element.color) < 0)
+      colors.push(element.color);
+    if (brands.indexOf(element.brand) < 0) {
+      brands.push(element.brand);
+    }
+  });
+
+  console.log("colors: ", colors);
+  const [pool, setPools] = useState<IPOOL[]>([...nfts]);
+  const [selectedColors, setSelectedColors] = useState<string[]>([...colors]);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([...brands]);
+
+  useEffect(() => {
+    setPools((_pools) => nfts.filter((_pool) => selectedBrands.indexOf(_pool.brand) >= 0 && selectedColors.indexOf(_pool.color) >= 0));
+  }, [selectedBrands, selectedColors])
+
+  const handleClickColorcheckbox = (e: any): void => {
+    if (e.target.checked) {
+      setSelectedColors(colors => [...colors, e.target.name]);
+    } else {
+      setSelectedColors(colors => [...colors.filter(color => color !== e.target.name)])
+    }
+    console.log(colors);
+  }
+
+  const handleClickBrandcheckbox = (e: any): void => {
+    if (e.target.checked) {
+      setSelectedBrands(_brands => [..._brands, e.target.name]);
+    } else {
+      setSelectedBrands(_brands => [..._brands.filter(brand => brand !== e.target.name)])
+    }
+  }
 
   return (
     <div>
@@ -93,76 +128,39 @@ const MarketPlace = () => {
             <div className="item_filter_group">
               <h4>Colours</h4>
               <div className="de_form">
-                <div className="de_checkbox">
-                  <input id="buy" name="buy" type="checkbox" value="buy" />
-                  <label htmlFor="buy">Black</label>
-                </div>
+                {colors.length > 0 && colors.map((color, index) => {
+                  return <div key={index} className="de_checkbox">
+                    <input
+                      id={`onauction_${index}`}
+                      type="checkbox"
+                      name={color}
+                      onChange={(e) => handleClickColorcheckbox(e)}
+                      defaultChecked={selectedColors.indexOf(color) >= 0}
+                    />
+                    <label htmlFor={`onauction_${index}`}>{color}</label>
+                  </div>
+                })}
 
-                <div className="de_checkbox">
-                  <input
-                    id="onauction"
-                    name="onauction"
-                    type="checkbox"
-                    value="onauction"
-                  />
-                  <label htmlFor="onauction">White</label>
-                </div>
-
-                <div className="de_checkbox">
-                  <input
-                    id="offers"
-                    name="offers"
-                    type="checkbox"
-                    value="offers"
-                  />
-                  <label htmlFor="offers">Grey</label>
-                </div>
-
-                <div className="de_checkbox">
-                  <input
-                    id="offers"
-                    name="offers"
-                    type="checkbox"
-                    value="offers"
-                  />
-                  <label htmlFor="offers">Blue Navy</label>
-                </div>
               </div>
             </div>
 
             <div className="item_filter_group">
               <h4>Brands</h4>
-              <div className="de_form">
-                <div className="de_checkbox">
-                  <input
-                    id="sitems"
-                    name="sitems"
-                    type="checkbox"
-                    value="sitems"
-                  />
-                  <label htmlFor="sitems">Artisan Labs</label>
+              {brands.length > 0 && brands.map((brand, index) => {
+                return <div key={index} className="de_form">
+                  <div className="de_checkbox">
+                    <input
+                      id={`sitems_${index}`}
+                      type="checkbox"
+                      name={brand}
+                      onChange={(e) => handleClickBrandcheckbox(e)}
+                      defaultChecked={selectedBrands.indexOf(brand) >= 0}
+                    />
+                    <label htmlFor={`sitems_${index}`}>{brand}</label>
+                  </div>
                 </div>
+              })}
 
-                <div className="de_checkbox">
-                  <input
-                    id="bundles"
-                    name="bundles"
-                    type="checkbox"
-                    value="bundles"
-                  />
-                  <label htmlFor="bundles">Santoni</label>
-                </div>
-
-                <div className="de_checkbox">
-                  <input
-                    id="bundles"
-                    name="bundles"
-                    type="checkbox"
-                    value="bundles"
-                  />
-                  <label htmlFor="bundles">Luca Faloni</label>
-                </div>
-              </div>
             </div>
 
             <div className="item_filter_group">
@@ -189,7 +187,7 @@ const MarketPlace = () => {
           </div>
 
           <div className="col-md-9">
-            <ColumnNewThreeCol nfts={nfts} />
+            <ColumnNewThreeCol nfts={pool} />
           </div>
         </div>
       </section>
