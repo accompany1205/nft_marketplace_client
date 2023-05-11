@@ -4,12 +4,14 @@ import { designbookAxiosBaseQuery } from '../interceptor';
 import {
   Bid,
   BidPayload,
+  AskPayload,
   BidResponse,
   Deal,
   GetTransactionPayload,
   GetNftOwnerPayload,
   INFT,
-  INFTItem,
+  //INFTItem,
+  IPOOL,
 } from '../../types';
 
 const appSlice = createApi({
@@ -17,16 +19,17 @@ const appSlice = createApi({
   baseQuery: designbookAxiosBaseQuery(),
   tagTypes: ['bid', 'ask'],
   endpoints: (builder) => ({
-    getProducts: builder.query<{ data: INFTItem[] }, void>({
+    getProducts: builder.query<{ data: IPOOL[] }, void>({ // INFTItem[]
       query: () => ({
         url: '/marketplace/api/v1/listings',
         method: 'GET',
       }),
     }),
-    getProductDetails: builder.query<{ data: INFT }, string>({
-      query: (productName: string) => ({
-        url: `/marketplace/api/v1/listing?productName=${productName}`,
-        method: 'GET',
+    getProductDetails: builder.query<{ data: INFT }, object>({
+      query: (params) => ({
+        url: `/marketplace/api/v1/listing`,
+        method: 'POST',
+        data: params
       }),
       providesTags: ['bid', 'ask'],
     }),
@@ -38,7 +41,7 @@ const appSlice = createApi({
       }),
       invalidatesTags: ['bid'],
     }),
-    makeAsk: builder.mutation<BidResponse, BidPayload>({
+    makeAsk: builder.mutation<BidResponse, AskPayload>({
       query: (bid) => ({
         url: '/marketplace/api/v1/ask/new',
         method: 'POST',

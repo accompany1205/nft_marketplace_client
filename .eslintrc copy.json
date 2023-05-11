@@ -11,13 +11,13 @@
     "node": true
   },
   "extends": [
-    "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:jsx-a11y/recommended",
-    "prettier",
-    "airbnb"
+    "next/core-web-vitals"
+    // "eslint:recommended",
+    // "plugin:react/recommended",
+    // "plugin:react-hooks/recommended",
+    // "plugin:jsx-a11y/recommended",
+    // "prettier",
+    // "airbnb"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -44,8 +44,6 @@
     "react/no-array-index-key": "warn",
     "consistent-return": "off",
     "import/no-cycle": "off",
-    "react/no-unescaped-entities": "off",
-    "max-len": "off",
     "jsx-a11y/label-has-associated-control": [
       2,
       {

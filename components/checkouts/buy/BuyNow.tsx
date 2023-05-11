@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product } from '../../../pages/product/[product]';
+import { Product } from '../../../pages/product';
 
 interface Props {
   product: Product;
@@ -9,7 +9,7 @@ interface Props {
 const BuyNow: React.FC<Props> = ({ product, onSubmit }) => (
   <div>
     <div className="heading">
-      {/* <h3>Price Computation</h3> */}
+      <h3>Price Computation</h3>
     </div>
     <p>
       You are about to purchase a
@@ -18,14 +18,12 @@ const BuyNow: React.FC<Props> = ({ product, onSubmit }) => (
         {product.productName}
         &nbsp;
       </span>
-      <span>
-        from
-      </span>
       <span className="bold">
-        {' '}
-        {product.lowestAsk?.first_name}
-        {' '}
-        {product.lowestAsk?.last_name}
+        from
+        {' aaa '}
+        {/* {product.lowestAsk?.first_name} */}
+        {' bbb '}
+        {/* {product.lowestAsk?.last_name} */}
       </span>
     </p>
     <div>

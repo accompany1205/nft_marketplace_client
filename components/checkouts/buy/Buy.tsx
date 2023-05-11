@@ -5,8 +5,9 @@ import { useDispatch } from 'react-redux';
 
 import { showToast } from '../../../redux/slices/layoutSlice';
 import WalletContext from '../../../services/WalletService/WalletContext';
-import { Product } from '../../../pages/product/[product]';
+import { Product } from '../../../pages/product';
 import WalletConnector from '../../WalletConnector';
+import { ProcessType } from '../../../hooks';
 
 export enum CheckoutType {
   BUY_NOW = 'Buy Now',
@@ -25,7 +26,8 @@ export enum CheckoutSteps {
 
 export interface CheckoutStepProps {
   amount: number;
-  onNextStep: (amount: number) => void;
+  bidType: ProcessType;
+  onNextStep: (amount: number, bidType: ProcessType) => void;
   onClose: () => void;
   product: Product;
 }
@@ -43,25 +45,27 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
   const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
 
   const [amount, setAmount] = useState<number>(product.lowestAsk?.amount || 100);
+  const [bidType, setBidType] = useState<ProcessType>(product.lowestAsk?.amount ? ProcessType.NOW : ProcessType.PROCESSING)
 
   const { provider } = useContext(WalletContext);
 
   const dispatch = useDispatch();
 
-  const onNextStep = (amount: number) => {
+  const onNextStep = (amount: number, type: ProcessType) => {
     setAmount(amount);
+    setBidType(type);
 
-    if (!provider) {
-      dispatch(
-        showToast({
-          message: 'Please connect wallet.',
-          type: 'danger',
-        }),
-      );
+    // if (!provider) {
+    //   dispatch(
+    //     showToast({
+    //       message: 'Please connect wallet.',
+    //       type: 'danger',
+    //     }),
+    //   );
 
-      return setShowWalletConnectionModal(true);
-    }
-
+    //   return setShowWalletConnectionModal(true);
+    // }
+    console.log('onNextStep');
     return setActiveStep(CheckoutSteps.SUMMARY);
   };
 
@@ -75,6 +79,7 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
         </button>
         <CurrentStep
           amount={amount}
+          bidType={bidType}
           product={product}
           onNextStep={onNextStep}
           onClose={onClose}

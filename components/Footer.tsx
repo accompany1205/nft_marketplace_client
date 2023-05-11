@@ -10,22 +10,22 @@ const Footer = () => (
             <h5>Marketplace</h5>
             <ul>
               <li>
-                <Link href="/marketplace"> Bags</Link>
+                <Link href=""> Bags</Link>
               </li>
               <li>
-                <Link href="/marketplace"> Leather goods</Link>
+                <Link href=""> Leather goods</Link>
               </li>
               <li>
-                <Link href="/marketplace"> Jewellery</Link>
+                <Link href=""> Jewellery</Link>
               </li>
               <li>
-                <Link href="/marketplace"> Shoes</Link>
+                <Link href=""> Shoes</Link>
               </li>
               <li>
-                <Link href="/marketplace"> Watches</Link>
+                <Link href=""> Watches</Link>
               </li>
               <li>
-                <Link href="/marketplace"> Sunglasses</Link>
+                <Link href=""> Sunglasses</Link>
               </li>
             </ul>
           </div>
@@ -34,24 +34,12 @@ const Footer = () => (
           <div className="widget">
             <h5>Resources</h5>
             <ul>
-              <li>
-                <Link href="/how-it-works">How it works</Link>
-              </li>
-              <li>
-                <Link href="/seller-page">Sellers</Link>
-              </li>
-              <li>
-                <Link href="/buyer-page">Buyers</Link>
-              </li>
-              <li>
-                <Link href="/certification">Certification Process</Link>
-              </li>
-              <li>
-                <Link href="/faq">FAQ</Link>
-              </li>
-              <li>
-                <Link href="/contact-us">Contact Us</Link>
-              </li>
+              <li><Link href="/how-it-works">How does it work</Link></li>
+              <li><Link href="/seller-page">Sellers</Link></li>
+              <li><Link href="/buyer-page">Buyers</Link></li>
+              <li><Link href="/certification">Certification Process</Link></li>
+              <li><Link href="/faq">FAQ</Link></li>
+              <li><Link href="/about-us">Contact Us</Link></li>
             </ul>
           </div>
         </div>
@@ -60,10 +48,10 @@ const Footer = () => (
             <h5>Legal</h5>
             <ul>
               <li>
-                <Link href="/terms-and-conditions"> Terms and Conditions</Link>
+                <Link href=""> Terms and Conditions</Link>
               </li>
               <li>
-                <Link href="/privacy-policy"> Privacy Policy</Link>
+                <Link href=""> Privacy Policy</Link>
               </li>
             </ul>
           </div>

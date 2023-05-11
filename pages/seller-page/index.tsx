@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
 import Head from 'next/head';
+import { createGlobalStyle } from 'styled-components';
 import HeroSection from '../../components/common/heroSection';
 import FeatureCard from '../../components/common/featured-card';
 import Journey from '../../components/common/journey';
@@ -15,9 +15,9 @@ const GlobalStyles = createGlobalStyle`
 const Advantages = [
   {
     id: 1,
-    title: 'Streamlined Setup Process',
+    title: 'Simple Setup',
     iClassName: 'wow fadeInUp bg-color-2 i-boxed icon_like',
-    description: 'No pain in setting up your product listing. If you own the digital certificate, all you need to do is select the product you want to sell, set your offer and connect your wallet.',
+    description: 'No pain in setting up your product listing. If you own the digital certificate and the item, all you need to do is select the product you want to sell, set your offer and connect your wallet.',
     bgIClassName: 'wm icon_like',
   },
   {
@@ -36,7 +36,7 @@ const Advantages = [
   },
   {
     id: 4,
-    title: 'Secure Transactions and Payments',
+    title: 'Secure Transaction and Payment',
     iClassName: 'wow fadeInUp bg-color-2 i-boxed icon_box-checked',
     description: "Get paid for your secondary sale with confidence. We have additional buyer verification to ensure only buyers with sufficient funds can place bids, and lock buyer's funds in an escrow account once your offer is matched.",
     bgIClassName: 'wm icon_box-checked',
@@ -81,25 +81,25 @@ const SellerPage = () => {
         <link rel="stylesheet" href="/static/css/plugins.css" />
         <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
         <link href="/static/css/seller-page-custom.css" rel="stylesheet" type="text/css" />
+
       </Head>
       <GlobalStyles />
+
       <div id="wrapper">
         {/* content begin */}
         <div className="no-bottom no-top" id="content">
           <div id="top" />
           {/* section begin */}
-          <HeroSection title="Seller Page">
-            <p>
-              Selling your exclusive product certificate with
-              DesignBook is easy and trustworthy
-            </p>
+          <HeroSection bgImgUrl="/static/images/background/subheader2.jpg" title="Seller Page">
+            <p>Selling your Certified products with DesignBook is easy and trustworthy</p>
+            <div className="spacer-20" />
           </HeroSection>
           {/* section close */}
-          <div className="mt-lg-4 pt-5 px-0 padding30 br-15 bg-custom">
+          <div className="mt-3 mt-lg-4 pt-5 px-0 padding30 br-15 bg-custom">
             <div className="container">
               <Journey
                 title="Place an Ask or Sell Now"
-                descriprion={'The live Marketplace will show you the highest bid at any given time. You can choose to Sell Now and close the transaction with the highest bid or you can Place a higher offer and wait for a buyer to improve. Note that it\'s a live market, other sellers can compete with you on the price, so you can also change your offer at any time. All improvements in the prices from sellers or buyers will be notified to you in full transparency. Only sellers who own the digital certificate in their wallet are able to place an order.'}
+                descriprion={'The live Marketplace will show you the highest bid at any given time. You can choose to Sell Now and close the transaction with the highest bid or you can Place a higher offer and wait for a buyer to improve. Note that it\'s a live market, other sellers can compete with you on the price, so you can also change your offer at any time. All improvements in the prices from sellers or buyers will be notified to you in full transparency. Only sellers who possess the digital certificate in their wallet are able to place an order.'}
                 imgSrc="/static/images/seller-page/option.svg"
                 imgWrapperClasses="order-lg-2"
               />
@@ -113,7 +113,7 @@ const SellerPage = () => {
                     <br />
                     <br />
                     Your digital certificate is pulled into an escrow account along with
-                    the buyer&apos;s funds while we verify the certificate.
+                    the buyer&apos;s funds while item verification.
                   </p>
               )}
                 imgSrc="/static/images/seller-page/verify.svg"
@@ -125,8 +125,8 @@ const SellerPage = () => {
                 imgWrapperClasses="order-lg-2"
               />
               <Journey
-                title="Instant Payment"
-                descriprion="Once your certificate passes validation, we release instantly the funds in your wallet deducted from our platform fees."
+                title="You Get Paid"
+                descriprion="Once your item is received and passed validation, we release instantly the funds in your wallet deducted from our platform fees."
                 imgSrc="/static/images/seller-page/get_paid.svg"
                 progressSvg={(
                   <div className="down-marker__area down-marker__area-last">
@@ -187,6 +187,12 @@ const SellerPage = () => {
                       </tr>
                     </thead>
                     <tbody>
+                      {/* <tr>
+                                <th>Transaction Fee</th>
+                                <td>10.0%</td>
+                                <td>8.0%</td>
+                                <td>6.0%</td>
+                            </tr> */}
                       <tr>
                         <th>Number of items sold</th>
                         <td>-</td>

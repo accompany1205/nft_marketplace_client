@@ -23,7 +23,7 @@ export default () => (
             <span className="br" />
             nisl non rutrum commodo, sem magna.
           </p>
-          <Link className="btn" to="/contact-us">
+          <Link className="btn" to="/contact">
             <span className="shine" />
             <span>Contact Us</span>
           </Link>

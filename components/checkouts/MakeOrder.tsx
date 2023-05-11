@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 import { OrderType } from '../../hooks';
-import { Product } from '../../pages/product/[product]';
+import { Product } from '../../pages/product';
+import { ProcessType } from '../../hooks';
 
 export interface Props {
   product: Product;
-  onSubmit: (amount: number) => void;
+  onSubmit: (amount: number, bidType: ProcessType) => void;
   orderType: OrderType;
 }
 
@@ -18,10 +19,12 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
 
   return (
     <div>
-      <div className="heading" />
+      <div className="heading">
+        <h3>{orderType === OrderType.ASK ? 'Ask' : 'Bid'}</h3>
+      </div>
       <div className="detailcheckout">
         <div className="listcheckout">
-          <h6>Enter amount</h6>
+          <h6>Enter amount.</h6>
           <input
             type="number"
             name="amount"
@@ -37,23 +40,18 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
       </div>
       <div className="heading">
         <p>
-          You
-          {orderType === OrderType.ASK ? ' are offering' : ' will pay'}
+          You will
+          {orderType === OrderType.ASK ? 'get' : 'pay'}
         </p>
-        <div className="subtotal">
-          £
-          {amount}
-          {' '}
-          / XX HBAR
-        </div>
+        <div className="subtotal">{amount}</div>
       </div>
       <button
         type="button"
         className="btn-main lead mb-5"
         disabled={!amount}
-        onClick={() => onSubmit(amount)}
+        onClick={() => onSubmit(amount, ProcessType.PROCESSING)}
       >
-        Place Deal
+        Checkout
       </button>
     </div>
   );

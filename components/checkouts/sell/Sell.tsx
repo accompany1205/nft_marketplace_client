@@ -3,10 +3,11 @@ import React, { useContext, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useDispatch } from 'react-redux';
 
-import { Product } from '../../../pages/product/[product]';
+import { Product } from '../../../pages/product';
 import { showToast } from '../../../redux/slices/layoutSlice';
 import WalletContext from '../../../services/WalletService/WalletContext';
 import WalletConnector from '../../WalletConnector';
+import { ProcessType } from '../../../hooks';
 
 export enum CheckoutType {
   SELL_NOW = 'Sell Now',
@@ -25,7 +26,8 @@ export enum CheckoutSteps {
 
 export interface CheckoutStepProps {
   amount: number;
-  onNextStep: (amount: number) => void;
+  type: ProcessType,
+  onNextStep: (amount: number, type: ProcessType) => void;
   onClose: () => void;
   product: Product;
 }
@@ -45,24 +47,27 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
   const [amount, setAmount] = useState<number>(
     product.lowestAsk?.amount || 100,
   );
+  const [askType, setAskType] = useState<ProcessType>(product.lowestAsk?.amount ? ProcessType.NOW : ProcessType.PROCESSING)
+
 
   const { provider } = useContext(WalletContext);
 
   const dispatch = useDispatch();
 
-  const onNextStep = (amount: number) => {
+  const onNextStep = (amount: number, type: ProcessType) => {
     setAmount(amount);
+    setAskType(type);
 
-    if (!provider) {
-      dispatch(
-        showToast({
-          message: 'Please connect wallet.',
-          type: 'danger',
-        }),
-      );
+    // if (!provider) {
+    //   dispatch(
+    //     showToast({
+    //       message: 'Please connect wallet.',
+    //       type: 'danger',
+    //     }),
+    //   );
 
-      return setShowWalletConnectionModal(true);
-    }
+    //   return setShowWalletConnectionModal(true);
+    // }
 
     return setActiveStep(CheckoutSteps.SUMMARY);
   };
@@ -77,6 +82,7 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
         </button>
         <CurrentStep
           amount={amount}
+          type = {askType}
           product={product}
           onNextStep={onNextStep}
           onClose={onClose}

@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { Component } from 'react';
-import { INFT } from '../types';
+import { IPOOL } from '../types';
 import useImage from '../utils/hooks/useImage';
 
 interface Props {
-  nfts: INFT[];
+  nfts: IPOOL[];
 }
 
 interface State {
@@ -13,7 +13,7 @@ interface State {
 }
 
 const NftCard: React.FC<{
-  nft: INFT;
+  nft: IPOOL;
   height: number;
   onImgLoad: (data: any) => void;
   index: number;
@@ -24,12 +24,12 @@ const NftCard: React.FC<{
   const previewImg = nft?.ipfs
     ? `https://ipfs.io/ipfs/${nftImageUrl}`
     : 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80';
-  const title = nft?.specs?.productName || '';
-  const price = nft?.specs.price || '';
+  const title = nft?.productName || '';
+  const price = nft?.price || '';
   const router = useRouter();
   return (
     <Link
-      href={`/product/${title}`}
+      href={{ pathname: `/product`, query: { id: nft.id, type: nft.type }}}
       key={index}
       className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4"
     >
@@ -51,7 +51,7 @@ const NftCard: React.FC<{
           <div className="nft__item_price">{price}</div>
 
           <div className="nft__item_action" style={{ marginBottom: '20px' }}>
-            <span onClick={() => router.push(`/product/${title}`)}>
+            <span onClick={() => router.push({ pathname: `/product`, query: { id: nft.id, type: nft.type }})}>
               Access details
             </span>
           </div>

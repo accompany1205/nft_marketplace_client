@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product } from '../../../pages/product/[product]';
+import { Product } from '../../../pages/product';
 
 interface Props {
   product: Product;
@@ -9,7 +9,7 @@ interface Props {
 const SellNow: React.FC<Props> = ({ product, onSubmit }) => (
   <div>
     <div className="heading">
-      {/* <h3>Price Computation</h3> */}
+      <h3>Price Computation</h3>
     </div>
     <p>
       You are about to sell a
@@ -18,33 +18,16 @@ const SellNow: React.FC<Props> = ({ product, onSubmit }) => (
         {product.productName}
           &nbsp;
       </span>
-      <span>
-        at the highest Bid price
+      <span className="bold">
+        to
+        {' aaa '}
+        {/* {product.highestBid?.first_name} */}
+        {' bbb '}
+        {/* {product.highestBid?.last_name} */}
       </span>
-      {/* <span className="bold">
-        {' '}
-        {product.highestBid?.first_name}
-        {' '}
-        {product.highestBid?.last_name}
-      </span> */}
     </p>
     <div>
-      <b>Creator Royalties (5%): </b>
-      {' '}
-      {/* - */}
-      {product.highestBid?.amount}
-    </div>
-    <div>
-      <b>Platform Fee (10%): </b>
-      {' '}
-      {/* - */}
-      {product.highestBid?.amount}
-      <br />
-      <br />
-    </div>
-    <div>
-      {' '}
-      <b>Total: </b>
+      <b>Total :</b>
       {' '}
       {product.highestBid?.amount}
     </div>

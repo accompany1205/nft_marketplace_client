@@ -15,8 +15,16 @@ export enum OrderType {
   ASK = 'Ask',
 }
 
+export enum ProcessType {
+  PROCESSING = 'processing',
+  NOW = 'now',
+}
+
 type UseMakeOrder = (
-  listing_id: number,
+  pool_id: number,
+  processType: ProcessType,
+  nft_id: string,
+  serial_id: string,
   orderType: OrderType,
   onCompleted?: ((dealId?: number) => void) | undefined,
 ) => {
@@ -24,7 +32,7 @@ type UseMakeOrder = (
   isLoading: boolean;
 };
 
-const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
+const useMakeOrder: UseMakeOrder = (pool_id, processType, nft_id, serial_id, orderType, onCompleted) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -34,11 +42,16 @@ const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
 
   const { user } = store.getState().auth;
 
-  const handleMakeBid = (bid: BidPayload) => {
+  const handleMakeBid = (bid: BidPayload, nft_id: string, serial_id: string): any => {
     if (orderType === OrderType.BID) {
       return makeBid(bid);
     }
-    return makeAsk(bid);
+    console.log('handlemakeBid: ask', bid);
+    return makeAsk({
+      ...bid,
+      nft_id,
+      serial_id
+    });
   };
 
   const handleSubmit = async (amount: number) => {
@@ -54,13 +67,15 @@ const useMakeOrder: UseMakeOrder = (listingId, orderType, onCompleted) => {
     }
 
     const formattedBid: BidPayload = {
-      listing_id: listingId,
+      pool_id: pool_id,
+      processing_type: processType,
       amount,
       user_id: user.id,
     };
 
     try {
-      const data = await handleMakeBid(formattedBid);
+      console.log("useMakeOrder");
+      const data = await handleMakeBid(formattedBid, nft_id, serial_id);
 
       if (!get(data, 'data.success')) {
         dispatch(

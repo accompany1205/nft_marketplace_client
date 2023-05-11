@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { INFT } from '../types/nft.type';
+import { IPOOL } from '../types/nft.type';
 import useImage from '../utils/hooks/useImage';
 
 const Outer = styled.div`
@@ -14,7 +14,7 @@ const Outer = styled.div`
 `;
 
 interface IProps {
-  nft: INFT;
+  nft: IPOOL;
   // className?: string
 }
 
@@ -52,14 +52,14 @@ const NftCard = ({ nft }: IProps) => {
         <div className="nft__item_info">
           <span
             onClick={() => {
-              router.push(`product/${nft?.specs.productName}`);
+              router.push(`product/${nft?.productName}`);
             }}
           >
-            <h4>{nft?.specs.productName}</h4>
+            <h4>{nft?.productName}</h4>
           </span>
 
           <div className="has_offers">
-            {nft?.specs.price}
+            {nft?.price}
             {' '}
             ETH
           </div>

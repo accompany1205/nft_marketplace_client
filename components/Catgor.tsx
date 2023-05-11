@@ -1,10 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '@reach/router';
 
 const Catgor = () => (
   <div className="row">
     <div className="col-md-2 col-sm-4 col-6 mb-3">
-      <Link className="icon-box style-2 rounded" href="/marketplace">
+      <Link className="icon-box style-2 rounded" to="">
         <img
           alt=""
           src="./images/categoriesIcons/bag.png"
@@ -15,7 +15,7 @@ const Catgor = () => (
       </Link>
     </div>
     <div className="col-md-2 col-sm-4 col-6 mb-3">
-      <Link className="icon-box style-2 rounded" href="/marketplace">
+      <Link className="icon-box style-2 rounded" to="">
         <img
           alt=""
           src="./images/categoriesIcons/wallet.png"
@@ -26,7 +26,7 @@ const Catgor = () => (
       </Link>
     </div>
     <div className="col-md-2 col-sm-4 col-6 mb-3">
-      <Link className="icon-box style-2 rounded" href="/marketplace">
+      <Link className="icon-box style-2 rounded" to="">
         <img
           alt=""
           src="./images/categoriesIcons/earrings.png"
@@ -37,7 +37,7 @@ const Catgor = () => (
       </Link>
     </div>
     <div className="col-md-2 col-sm-4 col-6 mb-3">
-      <Link className="icon-box style-2 rounded" href="/marketplace">
+      <Link className="icon-box style-2 rounded" to="">
         <img
           alt=""
           src="./images/categoriesIcons/trail.png"
@@ -48,7 +48,7 @@ const Catgor = () => (
       </Link>
     </div>
     <div className="col-md-2 col-sm-4 col-6 mb-3">
-      <Link className="icon-box style-2 rounded" href="/marketplace">
+      <Link className="icon-box style-2 rounded" to="">
         <img
           alt=""
           src="./images/categoriesIcons/hand-watch.png"
@@ -59,7 +59,7 @@ const Catgor = () => (
       </Link>
     </div>
     <div className="col-md-2 col-sm-4 col-6 mb-3">
-      <Link className="icon-box style-2 rounded" href="/marketplace">
+      <Link className="icon-box style-2 rounded" to="">
         <img
           alt=""
           src="./images/categoriesIcons/glasses.png"

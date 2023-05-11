@@ -1,13 +1,13 @@
 import { map } from 'lodash';
 import { useGetProductsQuery } from '../redux/service/appService';
-import { INFT } from '../types/nft.type';
+import { IPOOL } from '../types/nft.type';
 import Loader from './Loader';
 import NftCard from './NftCard';
 
 const Products: React.FC = () => {
   const { data, isLoading } = useGetProductsQuery();
 
-  const nfts = map(data?.data, ({ products }) => products).flat(1);
+  const nfts = map(data?.data, ( pool ) => pool ).flat(1);
 
   return isLoading ? (
     <div className="d-flex justify-content-center align-items-center">
@@ -16,7 +16,7 @@ const Products: React.FC = () => {
   ) : (
     <div className="row">
       {nfts?.length
-        && nfts.map((nft: INFT, index: number) => (
+        && nfts.map((nft: IPOOL, index: number) => (
           <NftCard key={index} nft={nft} />
         ))}
     </div>

@@ -1,20 +1,21 @@
 import { OrderType } from '../../hooks';
 import { useGetBidsQuery } from '../../redux/service/appService';
 import Histories from './Histories';
+import { Bid } from '../../types';
 
 interface Props {
-  listingId: number;
+  data: Bid[];
 }
 
-const Bids: React.FC<Props> = ({ listingId }) => {
-  const { data } = useGetBidsQuery(listingId);
+const Bids: React.FC<Props> = ({ data }) => {
+  //const { data } = useGetBidsQuery(poolId);
 
   return (
     <div className="tab-1 onStep fadeIn">
-      {!data?.data?.length ? (
+      {!data?.length ? (
         <div>No bids are placed yet.</div>
       ) : (
-        <Histories bidType={OrderType.BID} bids={data.data} />
+        <Histories bidType={OrderType.BID} bids={data} />
       )}
     </div>
   );

@@ -15101,15 +15101,15 @@ img.nft__item_preview {
 }
 
 header:not(.header-light) #quick_search {
-    color: #727272;
+    color: #ffffff;
 }
 
 header:not(.header-light) #quick_search::-moz-input-placeholder {
-    color: #727272;
+    color: #ffffff;
 }
 
 header:not(.header-light) #quick_search::-webkit-input-placeholder {
-    color: #727272;
+    color: #ffffff;
 }
 
 .header-light #quick_search {

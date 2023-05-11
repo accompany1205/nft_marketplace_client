@@ -8,19 +8,20 @@ import WalletContext from '../../../services/WalletService/WalletContext';
 import Loader from '../../Loader';
 import { CheckoutStepProps } from './Sell';
 
-const Summary: React.FC<CheckoutStepProps> = ({ amount, product, onClose }) => {
+const Summary: React.FC<CheckoutStepProps> = ({ amount, type, product, onClose }) => {
   const router = useRouter();
 
   const { accountId } = useContext(WalletContext);
 
-  const { data: nftOwner, isLoading: loadingNftValidation } = useGetNftOwnerQuery(
-    {
-      hederaTokenId: product.hederaTokenId,
-      serialNumber: product.serialNumber,
-    },
-    { skip: !product.hederaTokenId || !product.serialNumber },
-  );
-
+  // const { data: nftOwner, isLoading: loadingNftValidation } = useGetNftOwnerQuery(
+  //   {
+  //     hederaTokenId: product.hederaTokenId,
+  //     serialNumber: product.serialNumber,
+  //   },
+  //   { skip: !product.hederaTokenId || !product.serialNumber },
+  // );
+  const loadingNftValidation = false;
+  const nftOwner = null;
   const onCompleted = (dealId?: number) => {
     if (!dealId) return onClose();
 
@@ -29,6 +30,9 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, product, onClose }) => {
 
   const { handleSubmit: handlePlaceAsk, isLoading } = useMakeOrder(
     product.id,
+    type,
+    "nft_id",
+    "serial_id",
     OrderType.ASK,
     onCompleted,
   );
@@ -41,7 +45,8 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, product, onClose }) => {
     );
   }
 
-  const isNftOwner = accountId?.toString() === nftOwner?.data;
+  // const isNftOwner = accountId?.toString() === nftOwner?.data;
+  const isNftOwner = false;
 
   return (
     <>
@@ -55,10 +60,11 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, product, onClose }) => {
       <button
         type="button"
         className="btn-main lead mb-5"
-        disabled={!isNftOwner || isLoading}
+        // disabled={!isNftOwner || isLoading}
         onClick={() => handlePlaceAsk(amount)}
       >
-        {!isNftOwner ? 'Invalid NFT Ownership' : 'Complete Purchase'}
+        {/* {!isNftOwner ? 'Invalid NFT Ownership' : 'Complete Purchase'} */}
+        Complete Purchase
       </button>
     </>
   );

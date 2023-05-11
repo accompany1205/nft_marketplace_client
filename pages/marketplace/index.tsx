@@ -3,7 +3,7 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import ColumnNewThreeCol from '../../components/ColumnNewThreeCol';
 import { useGetProductsQuery } from '../../redux/service/appService';
-import { INFT } from '../../types';
+import { IPOOL } from '../../types';
 
 const GlobalStyles = createGlobalStyle`
   .navbar {
@@ -13,8 +13,9 @@ const GlobalStyles = createGlobalStyle`
 
 const MarketPlace = () => {
   const { data } = useGetProductsQuery();
+  console.log('data', data?.data);
 
-  const nfts:INFT[] = map(data?.data, ({ products }) => products).flat(1);
+  const nfts:IPOOL[] = map(data?.data, (product) => product);
 
   return (
     <div>
@@ -165,7 +166,7 @@ const MarketPlace = () => {
             </div>
 
             <div className="item_filter_group">
-              <h4>Price Range</h4>
+              <h4>Price</h4>
               <div className="de_form" />
               <input
                 className="form-control"
