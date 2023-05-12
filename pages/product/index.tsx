@@ -18,7 +18,7 @@ import useImage from '../../utils/hooks/useImage';
 // import useMobileMode from '../../hooks/useMobileMode';
 
 enum Tabs {
-  DETAILS = 'Details',
+  // DETAILS = 'Details',
   BIDS = 'Bids',
   ASKS = 'Asks',
 }
@@ -40,7 +40,8 @@ export interface Product extends INFTVariant {
   };
 }
 
-const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
+const tabList = [Tabs.BIDS, Tabs.ASKS];
+// const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 
 const NftDetail: React.FC = () => {
   const router = useRouter();
@@ -69,7 +70,7 @@ const NftDetail: React.FC = () => {
   const nftImageUrl = useImage(details?.data);
   const [isBuy, setIsBuy] = useState(false);
   const [isSell, setIsSell] = useState(false);
-  const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.DETAILS);
+  const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.BIDS);
 
   if (isLoading) {
     return (
@@ -115,11 +116,11 @@ const NftDetail: React.FC = () => {
   const priceDetails = [
     {
       label: 'Lowest Ask',
-      amount: ( details?.data.asks && details?.data.asks.length > 0 ) ?  details?.data.asks[0].amount : 100,
+      amount: ( details?.data.asks && details?.data.asks.length > 0 ) ?  details?.data.asks[0].amount : 0,
     },
     {
       label: 'Highest Bid',
-      amount: ( details?.data.bids && details?.data.bids.length > 0 )  ? details?.data.bids[0].amount : 100,
+      amount: ( details?.data.bids && details?.data.bids.length > 0 )  ? details?.data.bids[0].amount : 0,
     },
   ];
   console.log( "priceDetails: ", priceDetails );
@@ -196,8 +197,8 @@ const NftDetail: React.FC = () => {
               alt=""
             />
           </div>
-          {type === "pool" && <div className="col-md-6">
-            <div className="row" style={{ marginTop: '60px' }}>
+          {type === "pool" && <div className="col-md-6 p-3">
+            <div className="row ">
               <div className="col-md-4 col-sm-6">
                 <button
                   type="button"
@@ -234,8 +235,7 @@ const NftDetail: React.FC = () => {
                     :
                   </p>
                   <p style={{ fontSize: '28px', color: 'black' }}>
-                    $
-                    {amount}
+                    {amount > 0 ? `${amount}`: 'N/A'}
                   </p>
                 </div>
               ))}
@@ -271,69 +271,7 @@ const NftDetail: React.FC = () => {
                   ))}
                 </ul>
                 <div className="de_tab_content mb-3">
-                  {currentTab === Tabs.DETAILS && (
-                    <div className="tab-1 onStep fadeIn">
-                      <div className="mr40">
-                        <h6>Owner</h6>
-                        <div className="item_author">
-                          <div className="author_list_pp">
-                            <span>
-                              <img
-                                className="lazy"
-                                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-                                alt=""
-                              />
-                              <i className="fa fa-check" />
-                            </span>
-                          </div>
-                          <div className="author_list_info">
-                            <span>{product.productName}</span>
-                          </div>
-                        </div>
-                      </div>
-                      {details?.data?.variants && (
-                        <div className="row mt-3">
-                          {/* {details?.data?.variants.map((option) => (
-                            <div
-                              className="col-lg-4 col-md-6 col-sm-6"
-                              key={`option-${option.id}`}
-                            >
-                              <input
-                                id={String(option.id)}
-                                type="radio"
-                                value={option.id}
-                                name="variant"
-                                onChange={() => setVariant(option)}
-                                checked={variant?.id === option.id}
-                                className="product-variant"
-                              />
-                              <label
-                                htmlFor={String(option.id)}
-                                className="nft_attr"
-                              >
-                                <h4>{option.size}</h4>
-                                <h4>{option.colour}</h4>
-                                {option.highestBid?.amount && (
-                                  <p className="m-0">
-                                    Highest Bid :
-                                    {' '}
-                                    {option.highestBid?.amount}
-                                  </p>
-                                )}
-                                {option.lowestAsk?.amount && (
-                                  <p className="m-0">
-                                    Lowest Ask :
-                                    {' '}
-                                    {option.lowestAsk?.amount}
-                                  </p>
-                                )}
-                              </label>
-                            </div>
-                          ))} */}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                  
                   {currentTab === Tabs.BIDS && (
                     <div className="tab-2 onStep fadeIn">
                       {/* <Bids listingId={variant?.id || product.id} /> */}
