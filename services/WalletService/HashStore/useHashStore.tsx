@@ -9,9 +9,17 @@ import {
 import { useDispatch } from 'react-redux';
 import { showToast } from '../../../redux/slices/layoutSlice';
 
+import { AccountId, ContractExecuteTransaction, ContractFunctionParameters, Hbar, TransactionReceipt } from '@hashgraph/sdk';
+import { makeBytes } from '../../Web3Module/signingService';
+
 export interface PropTypes {
   network: string;
   debug?: boolean;
+}
+
+export interface ResponseType {
+  response: MessageTypes.TransactionResponse | undefined;
+  receipt: any;
 }
 
 export interface SavedPairingData {
@@ -274,7 +282,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
   const signTransaction = async (
     transactionBuffer: Uint8Array,
     accountToSign: string,
-  ):Promise<string | Uint8Array | undefined> => {
+  ): Promise<string | Uint8Array | undefined> => {
     const transaction: MessageTypes.Transaction = {
       topic: hashState.pairingData?.topic || '',
       byteArray: transactionBuffer,
@@ -292,6 +300,71 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
 
     return signedTransactionDetails?.signedTransaction;
   };
+  const sendTransaction =
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    async (
+      trans: Uint8Array,
+      acctToSign: string,
+      return_trans = false,
+      hideNfts = false,
+      getRecord = false
+    ) => {
+      const transaction: MessageTypes.Transaction = {
+        topic: hashState.pairingData?.topic || '',
+        byteArray: trans,
+
+        metadata: {
+          accountToSign: acctToSign,
+          returnTransaction: return_trans,
+          hideNft: hideNfts,
+          getRecord: getRecord
+        }
+      }
+
+      return await hashState.hashConnect?.sendTransaction(hashState.pairingData?.topic || '', transaction)
+    }
+
+  const sellNow = async (contractId: string, buyerWalletId: string, nftTokenId: string): Promise<ResponseType| undefined> => {
+    try {
+      const signingAcct = hashState.pairingData?.accountIds[0].toString()|| "";
+      console.log({signingAcct})
+      //this is the example contract from https://hedera.com/blog/how-to-deploy-smart-contracts-on-hedera-part-1-a-simple-getter-and-setter-contract
+      const buyerAccountId: string = AccountId.fromString(buyerWalletId || "0.0.4486374").toSolidityAddress();
+      const feeRecipientAccountId: string = AccountId.fromString(contractId).toSolidityAddress();
+      const NFTId: string = AccountId.fromString(nftTokenId || "0.0.4486241").toSolidityAddress();
+      const trans = new ContractExecuteTransaction()
+        .setContractId(contractId)
+        .setGas(100000)
+        // .setPayableAmount(new Hbar(10))
+        // .setFunction("setMobileNumber", new ContractFunctionParameters().addString("Bob").addUint256(222222))
+        // .setFunction("setFeePercentage", new ContractFunctionParameters().addUint32(10))
+        .setFunction("sellNow", new ContractFunctionParameters().addAddress(buyerAccountId).addAddress(feeRecipientAccountId).addUint256(5).addUint256(100000000).addAddress(NFTId).addUint256(1))
+        .setMaxTransactionFee(new Hbar(2));
+
+      console.log("----------------- account signingAcct ---------------", signingAcct)
+      const transactionBytes: Uint8Array = await makeBytes(trans, signingAcct);
+      // let transactionBytes: Uint8Array = await this.SigningService.makeBytes(trans, "0.0.3999717");
+
+
+      const res = await sendTransaction(transactionBytes, signingAcct, false, false, false);
+      // let res = await this.HashconnectService.sendTransaction(transactionBytes, "0.0.3999717", false, false, this.getRecord);
+
+      console.log(res)
+      //handle response
+      const responseData: ResponseType = {
+        response: res,
+        receipt: null
+      }
+
+      if (res && res.success) responseData.receipt = TransactionReceipt.fromBytes(res.receipt as Uint8Array);
+
+      return responseData
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+
 
   return {
     ...hashState,
@@ -303,6 +376,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     accountId: hashState.pairingData?.accountIds[0].toString(),
     getAccountBalance,
     signTransaction,
+    sellNow,
     initializeHashConnect,
   };
 };
