@@ -8185,6 +8185,7 @@ a.btn-right {
 .pr30 {
     padding-right: 30px;
 }
+
 /* margin top */
 
 .mt-10 {
@@ -14185,10 +14186,23 @@ img.nft__item_preview {
     text-align: center;
     display: flex;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
     justify-content: center;
-    position: relative;
+    min-height: 300px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    .nft__item_wrap {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
 }
 
 .nft__item_wrap a {
@@ -14274,7 +14288,8 @@ img.nft__item_preview {
     margin-left: 5px;
     font-size: 12px;
 }
-.nft__item_like span h4{
+
+.nft__item_like span h4 {
     min-height: 2.2rem;
     color: #808080;
     margin-left: 5px;

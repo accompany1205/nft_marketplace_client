@@ -45,7 +45,7 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
   const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
 
   const [amount, setAmount] = useState<number>(
-    product.lowestAsk?.amount || 100,
+    product.lowestAsk?.amount || 0,
   );
   const [askType, setAskType] = useState<ProcessType>(product.lowestAsk?.amount ? ProcessType.NOW : ProcessType.PROCESSING)
 

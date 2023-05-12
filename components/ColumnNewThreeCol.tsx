@@ -48,7 +48,7 @@ const NftCard: React.FC<{
           <span>
             <h4>{title}</h4>
           </span>
-          <div className="nft__item_price">Price: {price === 0 ? "N-A" : price}</div>
+          <div className="nft__item_price">Price: {price === 0 ? "N/A" : price}</div>
 
           <div className="nft__item_action" style={{ marginBottom: '20px' }}>
             <span onClick={() => router.push({ pathname: `/product`, query: { id: nft.id, type: nft.type }})}>

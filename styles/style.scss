@@ -3309,9 +3309,23 @@ i.font60 {
   text-align: center;
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
   justify-content: center;
+  height: 300px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .nft__item_wrap {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
 }
 
 .nft__item_wrap span {

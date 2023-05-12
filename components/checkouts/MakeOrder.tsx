@@ -14,7 +14,7 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
   const [amount, setAmount] = useState(
     (orderType === OrderType.ASK
       ? product.lowestAsk?.amount
-      : product.highestBid?.amount) || 100,
+      : product.highestBid?.amount) || 0,
   );
 
   return (
@@ -30,7 +30,9 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
             name="amount"
             id="amount"
             value={amount}
-            onChange={(e) => setAmount(parseInt(e.target.value || '0', 10))}
+            min={0}
+            step={1}
+            onChange={(e) => setAmount(parseInt(e.target.value))}
             className="form-control"
           />
           {!amount && (
@@ -41,9 +43,9 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
       <div className="heading">
         <p>
           You will
-          {orderType === OrderType.ASK ? 'get' : 'pay'}
+          {orderType === OrderType.ASK ? ' get' : ' pay'}
         </p>
-        <div className="subtotal">{amount}</div>
+        <div className="subtotal">{amount? amount: 0}$</div>
       </div>
       <button
         type="button"

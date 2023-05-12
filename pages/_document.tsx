@@ -11,6 +11,7 @@ export default function Document() {
           Design Book
         </title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
+        
         <link rel="icon" href="/designBookTabIcon.png" />
         <Script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
