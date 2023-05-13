@@ -75,6 +75,8 @@ export interface INFT {
   saleStatus: string;
   specs: INftSpecs;
   ipfs: string;
+  nft_id: string;
+  wallet_id: string;
   variants: number[];
   types: any[] | null;
   bids: BidResponse[],

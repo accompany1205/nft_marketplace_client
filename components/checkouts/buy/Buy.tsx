@@ -55,16 +55,16 @@ const Buy: React.FC<Props> = ({ onClose, product }) => {
     setAmount(amount);
     setBidType(type);
 
-    // if (!provider) {
-    //   dispatch(
-    //     showToast({
-    //       message: 'Please connect wallet.',
-    //       type: 'danger',
-    //     }),
-    //   );
+    if (!provider) {
+      dispatch(
+        showToast({
+          message: 'Please connect wallet.',
+          type: 'danger',
+        }),
+      );
 
-    //   return setShowWalletConnectionModal(true);
-    // }
+      return setShowWalletConnectionModal(true);
+    }
     console.log('onNextStep');
     return setActiveStep(CheckoutSteps.SUMMARY);
   };

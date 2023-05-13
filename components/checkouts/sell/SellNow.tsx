@@ -20,9 +20,9 @@ const SellNow: React.FC<Props> = ({ product, onSubmit }) => (
       </span>
       <span className="bold">
         to
-        {' aaa '}
+        {' the Bidder of '}
         {/* {product.highestBid?.first_name} */}
-        {' bbb '}
+        {product.highestBid?.amount}$
         {/* {product.highestBid?.last_name} */}
       </span>
     </p>

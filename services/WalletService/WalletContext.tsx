@@ -23,6 +23,7 @@ export interface WalletContextType {
     transactionBuffer: Uint8Array,
     accountToSign: string
   ) => Promise<string | Uint8Array | undefined>;
+  exeuteContractCall: () => void;
 }
 
 const WalletContext = createContext<WalletContextType>({
@@ -37,6 +38,7 @@ const WalletContext = createContext<WalletContextType>({
   connectWallet: async () => {},
   disconnectWallet: async () => {},
   signTransaction: async () => undefined,
+  exeuteContractCall: () => {}
 });
 
 export default WalletContext;

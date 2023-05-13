@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { useRouter } from 'next/router';
 
-import { OrderType, useMakeOrder } from '../../../hooks';
+import { OrderType, ProcessType, useMakeOrder } from '../../../hooks';
 import { useGetNftOwnerQuery } from '../../../redux/service/appService';
 import WalletContext from '../../../services/WalletService/WalletContext';
 import Loader from '../../Loader';
@@ -37,6 +37,16 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, type, product, onClose }
     onCompleted,
   );
 
+  const handleClickPurchase = (amout: number):void => {
+    if(type === ProcessType.NOW){
+      console.log(ProcessType.NOW);
+      console.log(product)
+    }else{
+      console.log(ProcessType.PROCESSING);
+      handlePlaceAsk(amout);
+    }
+  }
+
   if (!amount || loadingNftValidation) {
     return (
       <div className="d-flex justify-content-center align-items-center">
@@ -61,7 +71,7 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, type, product, onClose }
         type="button"
         className="btn-main lead mb-5"
         // disabled={!isNftOwner || isLoading}
-        onClick={() => handlePlaceAsk(amount)}
+        onClick={() => handleClickPurchase(amount)}
       >
         {/* {!isNftOwner ? 'Invalid NFT Ownership' : 'Complete Purchase'} */}
         Complete Purchase

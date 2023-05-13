@@ -10,11 +10,11 @@ import { createGlobalStyle } from 'styled-components';
 import { Buy, Sell } from '../../components/checkouts';
 import Loader from '../../components/Loader';
 import { Asks, Bids } from '../../components/productDetails';
-import Redirect from '../../components/Redirect';
+// import Redirect from '../../components/Redirect';
 import { useGetProductDetailsQuery } from '../../redux/service/appService';
 import { INFTVariant } from '../../types';
 import useImage from '../../utils/hooks/useImage';
-import { number } from 'prop-types';
+// import { number } from 'prop-types';
 // import useMobileMode from '../../hooks/useMobileMode';
 
 enum Tabs {
@@ -47,8 +47,7 @@ const NftDetail: React.FC = () => {
   const router = useRouter();
   // const width = useWindowWidth();
   // const mobileMode = useMobileMode();
-
-  const productName = router.query.product?.toString();
+  // const productName = router.query.product?.toString();
   const { id, type } = router.query;
   console.log('details', id);
   console.log('details', type);
@@ -329,7 +328,7 @@ const NftDetail: React.FC = () => {
                 {details?.data.specs.colour}
               </div>
 
-              {type === "pool" && (
+              {type === 'pool' && (
                 <div>
                   <div style={{ display: 'inline-block', width: '180px' }}>
                     Size:
@@ -337,6 +336,7 @@ const NftDetail: React.FC = () => {
                   {details?.data.specs.size}
                 </div>
               )}
+
             </div>
           </div>
           <div className="col-md-8">
