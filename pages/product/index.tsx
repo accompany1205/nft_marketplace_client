@@ -47,8 +47,7 @@ const NftDetail: React.FC = () => {
   const router = useRouter();
   // const width = useWindowWidth();
   // const mobileMode = useMobileMode();
-
-  const productName = router.query.product?.toString();
+  // const productName = router.query.product?.toString();
   const { id, type } = router.query;
   console.log('details', id);
   console.log('details', type);
@@ -103,12 +102,12 @@ const NftDetail: React.FC = () => {
     id: details?.data.id,
     pool_id: id,
     lowestAsk: {
-      id: ( details?.data.asks && details?.data.asks.length > 0 ) ? details?.data.asks[0].id : -1,
-      amount: ( details?.data.asks && details?.data.asks.length > 0 ) ? details?.data.asks[0].amount : 0,
+      id: (details?.data.asks && details?.data.asks.length > 0) ? details?.data.asks[0].id : -1,
+      amount: (details?.data.asks && details?.data.asks.length > 0) ? details?.data.asks[0].amount : 0,
     },
     highestBid: {
-      id: ( details?.data.bids && details?.data.bids.length > 0 ) ? details?.data.bids[0].id : -1,
-      amount: ( details?.data.bids && details?.data.bids.length > 0 ) ? details?.data.bids[0].amount : 0,
+      id: (details?.data.bids && details?.data.bids.length > 0) ? details?.data.bids[0].id : -1,
+      amount: (details?.data.bids && details?.data.bids.length > 0) ? details?.data.bids[0].amount : 0,
     },
     ...details?.data.specs,
   };
@@ -116,14 +115,14 @@ const NftDetail: React.FC = () => {
   const priceDetails = [
     {
       label: 'Lowest Ask',
-      amount: ( details?.data.asks && details?.data.asks.length > 0 ) ?  details?.data.asks[0].amount : 0,
+      amount: (details?.data.asks && details?.data.asks.length > 0) ? details?.data.asks[0].amount : 0,
     },
     {
       label: 'Highest Bid',
-      amount: ( details?.data.bids && details?.data.bids.length > 0 )  ? details?.data.bids[0].amount : 0,
+      amount: (details?.data.bids && details?.data.bids.length > 0) ? details?.data.bids[0].amount : 0,
     },
   ];
-  console.log( "priceDetails: ", priceDetails );
+  console.log("priceDetails: ", priceDetails);
   //console.log(details?.data.asks[0].amount)
 
   const GlobalStyles = createGlobalStyle`
@@ -147,29 +146,29 @@ const NftDetail: React.FC = () => {
   const handleAggregateChange = (e: any) => {
     const id = e.target.value;
     console.log("handleAggregateChange", id);
-    router.push({ pathname: `/product`, query: { id: id, type: "pool"}});
+    router.push({ pathname: `/product`, query: { id: id, type: "pool" } });
   }
 
-  const typeConversionBid = ( type: string ) : any[]  => {
-    if(type === 'BID'){
+  const typeConversionBid = (type: string): any[] => {
+    if (type === 'BID') {
       const bids = details && details.data && details.data.bids ? details.data.bids : [];
-      const _bids = bids.map((bid)=> bid.amount);
+      const _bids = bids.map((bid) => bid.amount);
       const _bids_ = [..._bids];
-      _bids.filter((amount, index)=> _bids.indexOf(amount) === index);
-      return _bids.map((amount)=>{
+      _bids.filter((amount, index) => _bids.indexOf(amount) === index);
+      return _bids.map((amount) => {
         return {
-          num: _bids_.filter((_amount)=> _amount === amount).length,
+          num: _bids_.filter((_amount) => _amount === amount).length,
           amount: amount
         }
       })
-    }else{
+    } else {
       const bids = details && details.data && details.data.asks ? details.data.asks : [];
-      const _bids = bids.map((bid)=> bid.amount);
+      const _bids = bids.map((bid) => bid.amount);
       const _bids_ = [..._bids];
-      _bids.filter((amount, index)=> _bids.indexOf(amount) === index);
-      return _bids.map((amount)=>{
+      _bids.filter((amount, index) => _bids.indexOf(amount) === index);
+      return _bids.map((amount) => {
         return {
-          num: _bids_.filter((_amount)=> _amount === amount).length,
+          num: _bids_.filter((_amount) => _amount === amount).length,
           amount: amount
         }
       })
@@ -235,7 +234,7 @@ const NftDetail: React.FC = () => {
                     :
                   </p>
                   <p style={{ fontSize: '28px', color: 'black' }}>
-                    {amount > 0 ? `${amount}`: 'N/A'}
+                    {amount > 0 ? `${amount}` : 'N/A'}
                   </p>
                 </div>
               ))}
@@ -271,17 +270,17 @@ const NftDetail: React.FC = () => {
                   ))}
                 </ul>
                 <div className="de_tab_content mb-3">
-                  
+
                   {currentTab === Tabs.BIDS && (
                     <div className="tab-2 onStep fadeIn">
                       {/* <Bids listingId={variant?.id || product.id} /> */}
-                      <Bids data={ typeConversionBid('BID')} />
+                      <Bids data={typeConversionBid('BID')} />
                     </div>
                   )}
                   {currentTab === Tabs.ASKS && (
                     <div className="tab-3 onStep fadeIn">
                       {/* <Asks listingId={variant?.id || product.id} /> */}
-                      <Asks data={ typeConversionBid('ASK')} />
+                      <Asks data={typeConversionBid('ASK')} />
                     </div>
                   )}
                 </div>
@@ -292,11 +291,11 @@ const NftDetail: React.FC = () => {
             <label htmlFor='pool_id'>Size: </label>
             <select id="pool_id" className='w-full form-control' onChange={(e) => handleAggregateChange(e)}>
               <option value=""> Select a size</option>
-              {details && details.data && details.data.types && details.data.types.map((type, index)=>{
-                  return <option value={type.id} key={index}>{type.size}</option>
+              {details && details.data && details.data.types && details.data.types.map((type, index) => {
+                return <option value={type.id} key={index}>{type.size}</option>
               })}
             </select>
-            </div>}
+          </div>}
         </div>
       </section>
 
@@ -329,12 +328,15 @@ const NftDetail: React.FC = () => {
                 {details?.data.specs.colour}
               </div>
 
-              <div>
-                <div style={{ display: 'inline-block', width: '180px' }}>
-                  Size:
+              {type === 'pool' && (
+                <div>
+                  <div style={{ display: 'inline-block', width: '180px' }}>
+                    Size:
+                  </div>
+                  {details?.data.specs.size}
                 </div>
-                {details?.data.specs.size}
-              </div>
+              )}
+
             </div>
           </div>
           <div className="col-md-8">
@@ -537,7 +539,7 @@ Existing Detail page Design
             // ...variant,
             lowestAsk: product.lowestAsk,
             productId: details?.data.id || -1,
-            id:id ? Number(id): -1,
+            id: id ? Number(id) : -1,
             owner: product.owner,
             productName: product.productName || "",
           }}
@@ -550,7 +552,7 @@ Existing Detail page Design
             // ...variant,
             highestBid: product.highestBid,
             productId: details?.data.id || -1,
-            id:id ? Number(id): -1,
+            id: id ? Number(id) : -1,
             owner: product.owner,
             productName: product.productName || "",
           }}

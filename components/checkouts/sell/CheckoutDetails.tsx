@@ -18,7 +18,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   return (
     <div className="de_tab">
       <ul className="de_nav">
-        { product.highestBid &&product.highestBid.id && (
+        { product.highestBid &&product.highestBid.id > 0 && (
           <li
             className={activeTab === CheckoutType.SELL_NOW ? 'active' : ''}
             key={`tab-${CheckoutType.SELL_NOW}`}
@@ -26,6 +26,17 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab(CheckoutType.SELL_NOW)}
+            >
+              {CheckoutType.SELL_NOW}
+            </button>
+          </li>
+        )}
+        { product.highestBid &&product.highestBid.id < 0 && (
+          <li
+            key={`tab-${CheckoutType.SELL_NOW}`}
+          >
+            <button
+              type="button"
             >
               {CheckoutType.SELL_NOW}
             </button>

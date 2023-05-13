@@ -14,7 +14,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
     product.lowestAsk && product.lowestAsk.id > 0 ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
   );
   // const disableBuyNow = true;
-
+  console.log("product.lowestAsk: ", product.lowestAsk);
   return (
     <div className="de_tab">
       <ul className="de_nav">
@@ -28,6 +28,17 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab(CheckoutType.BUY_NOW)}
+            >
+              {CheckoutType.BUY_NOW}
+            </button>
+          </li>
+        )}
+        {product.lowestAsk && product.lowestAsk.id < 0 && (
+          <li
+            key={`tab-${CheckoutType.BUY_NOW}`}
+          >
+            <button
+              type="button"
             >
               {CheckoutType.BUY_NOW}
             </button>
