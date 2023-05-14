@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { OrderType } from '../../hooks';
 import { Product } from '../../pages/product';
 import { ProcessType } from '../../hooks';
+import { Modal, ModalHeader, ModalBody, ModalTitle, ModalFooter } from 'react-bootstrap';
 
 export interface Props {
   product: Product;
@@ -17,6 +18,31 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
       : product.highestBid?.amount) || 0,
   );
 
+  const [modalIsShow, setModalShow] = useState<boolean>(false);
+  const [depositAmount, setDepositAmount] = useState<number>(0);
+
+  const checkBalance = (amount: number) => {
+    if (orderType === OrderType.BID) {
+      const balance = 100;
+      if (balance < amount) {
+        setModalShow(true);
+        setDepositAmount(amount-balance);
+        return;
+      }
+    }
+    onSubmit(amount, ProcessType.PROCESSING)
+  }
+
+  const hideModal = () => {
+    setModalShow(false);
+  }
+
+  const handleChangeAmount = (amount: string) => {
+    setDepositAmount(Number(amount));
+  }
+  const handleTransaction = () => {
+    console.log("deposit Amount: ", depositAmount);
+  }
   return (
     <div>
       <div className="heading">
@@ -45,16 +71,47 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
           You will
           {orderType === OrderType.ASK ? ' get' : ' pay'}
         </p>
-        <div className="subtotal">{amount? amount: 0}$</div>
+        <div className="subtotal">{amount ? amount : 0}$</div>
       </div>
       <button
         type="button"
         className="btn-main lead mb-5"
         disabled={!amount}
-        onClick={() => onSubmit(amount, ProcessType.PROCESSING)}
+        onClick={() => checkBalance(amount)}
       >
         Checkout
       </button>
+      <Modal show={modalIsShow} onHide={hideModal}>
+        <ModalHeader>
+          <ModalTitle>Your Wallet Balance </ModalTitle>
+        </ModalHeader>
+        <ModalBody>
+          <div className="field-set">
+            <input
+              placeholder="amount"
+              className="form-control"
+              type="number"
+              name="amount"
+              value={depositAmount}
+              min={depositAmount}
+              step={1}
+              onChange={(e) => handleChangeAmount(e.target.value)}
+            />
+          </div>
+
+        </ModalBody>
+        <ModalFooter>
+          <div className="field-set">
+            <input
+              type="submit"
+              id="send_transaction"
+              value="Submit"
+              className="btn btn-main btn-fullwidth color-2"
+              onClick={handleTransaction}
+            />
+          </div>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 };
