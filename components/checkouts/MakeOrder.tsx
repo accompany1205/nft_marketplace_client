@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { showToast } from '../../redux/slices/layoutSlice';
 
 import { OrderType } from '../../hooks';
 import { Product } from '../../pages/product';
 import { ProcessType } from '../../hooks';
+import axios from 'axios';
 import { Modal, ModalHeader, ModalBody, ModalTitle, ModalFooter } from 'react-bootstrap';
+import WalletContext from '../../services/WalletService/WalletContext';
 
 export interface Props {
   product: Product;
@@ -18,18 +23,65 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
       : product.highestBid?.amount) || 0,
   );
 
+  const { accountId } = useContext(WalletContext);
+
+  const dispatch = useDispatch();
+
   const [modalIsShow, setModalShow] = useState<boolean>(false);
   const [depositAmount, setDepositAmount] = useState<number>(0);
+  const [accountBalance, setBalance] = useState<number>(0);
 
-  const checkBalance = (amount: number) => {
+  const checkBalance = async (amount: number) => {
+    if (!accountId) {
+      dispatch(showToast({
+        message: 'Please connect wallet.',
+        type: 'danger',
+      }),)
+      return;
+    }
+
     if (orderType === OrderType.BID) {
-      const balance = 100;
+      const response =
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API_PATH}/marketplace/api/v1/getDepositBalance`,
+          {
+            userAccountId: accountId
+          }
+        );
+      console.log("response getbalance: ", response.data);
+      if (!response.data || !response.data.success) {
+        console.log('server error');
+        return;
+      }
+      const balance = response.data.data;
+      setBalance(Number(balance));
       if (balance < amount) {
         setModalShow(true);
-        setDepositAmount(amount-balance);
+        setDepositAmount(amount - balance);
+        return;
+      }
+
+    } else {
+
+      const response =
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API_PATH}/marketplace/api/v1/nft/getSerialId`,
+          {
+            userAccountId: accountId,
+            NFTTokenId: product.nftTokenId,
+            serialIds: product.variants
+          }
+        );
+      console.log("place ask: getserialId: ", response.data);
+      if(response?.data?.data?.serialId < 0){
+        dispatch(showToast({
+          message: 'You have no NFT here!',
+          type: 'danger',
+        }),)
         return;
       }
     }
+
     onSubmit(amount, ProcessType.PROCESSING)
   }
 
@@ -83,7 +135,7 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
       </button>
       <Modal show={modalIsShow} onHide={hideModal}>
         <ModalHeader>
-          <ModalTitle>Your Wallet Balance </ModalTitle>
+          <ModalTitle>Your Wallet Balance {` ${accountBalance}$`} </ModalTitle>
         </ModalHeader>
         <ModalBody>
           <div className="field-set">

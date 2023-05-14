@@ -71,7 +71,7 @@ const PopularBrands: React.FC = () => {
           { name: 'Luca Faloni', picture: './images/24.jpg' },
           { name: 'Artisan Lab', picture: './images/25.jpg' },
         ].map((item, index) => (
-          <CustomSlide className="itm" index={index}>
+          <CustomSlide className="itm" key={index} index={index}>
             <div
               className="nft_coll"
               style={{ backgroundColor: 'rgba(0,0,0,.1)' }}

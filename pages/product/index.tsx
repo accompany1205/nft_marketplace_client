@@ -38,6 +38,8 @@ export interface Product extends INFTVariant {
   owner: {
     username: string;
   };
+  variants?: number[],
+  nftTokenId: string | undefined,
 }
 
 const tabList = [Tabs.BIDS, Tabs.ASKS];
@@ -542,6 +544,7 @@ Existing Detail page Design
             id: id ? Number(id) : -1,
             owner: product.owner,
             productName: product.productName || "",
+            nftTokenId: details?.data.nft_id,
           }}
         />
       )}
@@ -550,11 +553,13 @@ Existing Detail page Design
           onClose={() => setIsSell(false)}
           product={{
             // ...variant,
+            variants: details?.data.variants,
             highestBid: product.highestBid,
             productId: details?.data.id || -1,
             id: id ? Number(id) : -1,
             owner: product.owner,
             productName: product.productName || "",
+            nftTokenId: details?.data.nft_id,
           }}
         />
       )}
