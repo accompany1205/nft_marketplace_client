@@ -9,6 +9,7 @@ import { ProcessType } from '../../../hooks';
 const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   onNextStep,
   product,
+  rate,
 }) => {
   const [activeTab, setActiveTab] = useState(
     product.lowestAsk && product.lowestAsk.id > 0 ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
@@ -63,6 +64,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
           <div className="onStep fadeIn">
             <BuyNow
               product={product}
+              rate={rate}
               onSubmit={() => product?.lowestAsk && onNextStep(product.lowestAsk.amount, ProcessType.NOW)}
             />
           </div>
@@ -71,6 +73,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
           <MakeOrder
             product={product}
             onSubmit={onNextStep}
+            rate={rate}
             orderType={OrderType.BID}
           />
         )}

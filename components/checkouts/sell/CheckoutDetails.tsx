@@ -9,6 +9,7 @@ import { ProcessType } from '../../../hooks';
 const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   onNextStep,
   product,
+  rate
 }) => {
   const [activeTab, setActiveTab] = useState(
     product.highestBid && product.highestBid.id > 0 ? CheckoutType.SELL_NOW : CheckoutType.PLACE_ASK,
@@ -18,7 +19,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   return (
     <div className="de_tab">
       <ul className="de_nav">
-        { product.highestBid &&product.highestBid.id > 0 && (
+        {product.highestBid && product.highestBid.id > 0 && (
           <li
             className={activeTab === CheckoutType.SELL_NOW ? 'active' : ''}
             key={`tab-${CheckoutType.SELL_NOW}`}
@@ -31,7 +32,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
             </button>
           </li>
         )}
-        { product.highestBid &&product.highestBid.id < 0 && (
+        {product.highestBid && product.highestBid.id < 0 && (
           <li
             key={`tab-${CheckoutType.SELL_NOW}`}
           >
@@ -62,6 +63,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
             {product.highestBid?.id ? (
               <SellNow
                 product={product}
+                rate={rate}
                 onSubmit={() => product?.highestBid && onNextStep(product.highestBid.amount, ProcessType.NOW)}
               />
             ) : (
@@ -79,6 +81,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
         {activeTab === CheckoutType.PLACE_ASK && (
           <MakeOrder
             product={product}
+            rate={rate}
             onSubmit={onNextStep}
             orderType={OrderType.ASK}
           />

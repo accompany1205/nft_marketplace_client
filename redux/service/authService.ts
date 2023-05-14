@@ -26,6 +26,11 @@ export interface IRegisterResponse {
   success: boolean;
 }
 
+export interface GetTokenPrice {
+  "hedera-hashgraph": object,
+  "tether": object, 
+}
+
 export const authApi = createApi({
   baseQuery: designbookAxiosBaseQuery(),
   endpoints: (builder) => ({
@@ -43,7 +48,13 @@ export const authApi = createApi({
         data: user,
       }),
     }),
+    exchange: builder.query<GetTokenPrice, void>({ 
+      query: () => ({
+        url: 'https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph,tether&vs_currencies=usd',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useExchangeQuery } = authApi;

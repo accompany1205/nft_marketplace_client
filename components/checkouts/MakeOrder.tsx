@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { showToast } from '../../redux/slices/layoutSlice';
 
 import { OrderType } from '../../hooks';
@@ -9,14 +9,16 @@ import { ProcessType } from '../../hooks';
 import axios from 'axios';
 import { Modal, ModalHeader, ModalBody, ModalTitle, ModalFooter } from 'react-bootstrap';
 import WalletContext from '../../services/WalletService/WalletContext';
+import useAuth from '../../hooks/useAuth';
 
 export interface Props {
   product: Product;
   onSubmit: (amount: number, bidType: ProcessType) => void;
   orderType: OrderType;
+  rate: number;
 }
 
-const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
+const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType, rate }) => {
   const [amount, setAmount] = useState(
     (orderType === OrderType.ASK
       ? product.lowestAsk?.amount
@@ -53,7 +55,7 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
         console.log('server error');
         return;
       }
-      const balance = response.data.data;
+      const balance = response.data.data * rate;
       setBalance(Number(balance));
       if (balance < amount) {
         setModalShow(true);
@@ -102,7 +104,7 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
       </div>
       <div className="detailcheckout">
         <div className="listcheckout">
-          <h6>Enter amount.</h6>
+          <h6>Enter amount. {}</h6>
           <input
             type="number"
             name="amount"
@@ -123,7 +125,7 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
           You will
           {orderType === OrderType.ASK ? ' get' : ' pay'}
         </p>
-        <div className="subtotal">{amount ? amount : 0}$</div>
+        <div className="subtotal">{amount ? amount : 0}$ {amount ? amount / rate : 0}HBAR</div>
       </div>
       <button
         type="button"
@@ -135,7 +137,7 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
       </button>
       <Modal show={modalIsShow} onHide={hideModal}>
         <ModalHeader>
-          <ModalTitle>Your Wallet Balance {` ${accountBalance}$`} </ModalTitle>
+          <ModalTitle>Your Wallet Balance {` ${accountBalance}$ ${accountBalance / rate}HBAR`} </ModalTitle>
         </ModalHeader>
         <ModalBody>
           <div className="field-set">
@@ -149,8 +151,9 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType }) => {
               step={1}
               onChange={(e) => handleChangeAmount(e.target.value)}
             />
+            <p>{depositAmount}HBAR</p>
           </div>
-
+          
         </ModalBody>
         <ModalFooter>
           <div className="field-set">

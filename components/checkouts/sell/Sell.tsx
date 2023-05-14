@@ -17,6 +17,7 @@ export enum CheckoutType {
 interface Props {
   onClose: () => void;
   product: Product;
+  rate: number;
 }
 
 export enum CheckoutSteps {
@@ -30,6 +31,7 @@ export interface CheckoutStepProps {
   onNextStep: (amount: number, type: ProcessType) => void;
   onClose: () => void;
   product: Product;
+  rate: number;
 }
 
 const checkoutSteps = {
@@ -37,7 +39,7 @@ const checkoutSteps = {
   [CheckoutSteps.SUMMARY]: dynamic(() => import('./Summary')),
 };
 
-const Sell: React.FC<Props> = ({ onClose, product }) => {
+const Sell: React.FC<Props> = ({ onClose, product, rate }) => {
   const [activeStep, setActiveStep] = useState<CheckoutSteps>(
     CheckoutSteps.CHECKOUT_DETAILS,
   );
@@ -86,6 +88,7 @@ const Sell: React.FC<Props> = ({ onClose, product }) => {
           product={product}
           onNextStep={onNextStep}
           onClose={onClose}
+          rate={rate}
         />
         <WalletConnector
           showModal={showWalletConnectionModal}

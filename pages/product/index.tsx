@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { head } from 'lodash';
 import { useRouter } from 'next/router';
 import { createGlobalStyle } from 'styled-components';
+import axios from 'axios';
 // import {
 //   Area, AreaChart, CartesianGrid, XAxis, YAxis,
 // } from 'recharts';
@@ -45,6 +46,7 @@ export interface Product extends INFTVariant {
 const tabList = [Tabs.BIDS, Tabs.ASKS];
 // const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 
+const PRICE_API_URL = process.env.COIN_PRICE_API_URL || `https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph,tether&vs_currencies=usd`;
 const NftDetail: React.FC = () => {
   const router = useRouter();
   // const width = useWindowWidth();
@@ -62,7 +64,12 @@ const NftDetail: React.FC = () => {
 
   const [variant, setVariant] = useState<number | undefined>();
 
+  // useEffect(() => {
+  //   getExchangeRate();
+  // }, []);
+
   useEffect(() => {
+    getExchangeRate();
     if (details?.data?.variants) {
       setVariant(head(details?.data?.variants));
     }
@@ -72,6 +79,7 @@ const NftDetail: React.FC = () => {
   const [isBuy, setIsBuy] = useState(false);
   const [isSell, setIsSell] = useState(false);
   const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.BIDS);
+  const [exchangeRate, setRate] = useState<number>(0);
 
   if (isLoading) {
     return (
@@ -145,6 +153,13 @@ const NftDetail: React.FC = () => {
   }
 `;
 
+  const getExchangeRate = async () => {
+    const res = await axios.get(PRICE_API_URL);
+    console.log("getExchangeRate: ", res);
+    if(res.data['hedera-hashgraph']['usd'] > 0){
+      setRate(res.data['hedera-hashgraph']['usd']);
+    }
+  }
   const handleAggregateChange = (e: any) => {
     const id = e.target.value;
     console.log("handleAggregateChange", id);
@@ -537,6 +552,7 @@ Existing Detail page Design
       {isBuy && variant && (
         <Buy
           onClose={() => setIsBuy(false)}
+          rate = { exchangeRate}
           product={{
             // ...variant,
             lowestAsk: product.lowestAsk,
@@ -551,6 +567,7 @@ Existing Detail page Design
       {isSell && variant && (
         <Sell
           onClose={() => setIsSell(false)}
+          rate = { exchangeRate}
           product={{
             // ...variant,
             variants: details?.data.variants,

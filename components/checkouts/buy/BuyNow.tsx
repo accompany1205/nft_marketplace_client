@@ -4,9 +4,10 @@ import { Product } from '../../../pages/product';
 interface Props {
   product: Product;
   onSubmit: () => void;
+  rate: number;
 }
 
-const BuyNow: React.FC<Props> = ({ product, onSubmit }) => (
+const BuyNow: React.FC<Props> = ({ product, onSubmit, rate }) => (
   <div>
     <div className="heading">
       <h3>Price Computation</h3>

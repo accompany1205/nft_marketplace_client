@@ -42,6 +42,26 @@ const slice = createSlice({
         };
       },
     );
+    builder.addMatcher(
+      authApi.endpoints.exchange.matchFulfilled,
+      (state, { payload }) => {
+        console.log('price hedera: ', payload);
+        return {
+          ...state,
+          //exchangeRate: payload.data.["hedera-hashgraph"]["usd"]
+        }
+      }
+    );
+    builder.addMatcher(
+      authApi.endpoints.exchange.matchRejected,
+      (state, { payload }) => {
+        console.log('price hedera: ', payload);
+        return {
+          ...state,
+          exchangeRate: null
+        }
+      }
+    );
   },
 });
 
@@ -50,3 +70,4 @@ export const { reset } = slice.actions;
 export default slice.reducer;
 
 export const selectCurrentUser = (state: RootState) => state.auth.user;
+

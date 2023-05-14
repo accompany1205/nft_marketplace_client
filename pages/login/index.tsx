@@ -60,11 +60,12 @@ const initialValues = {
 const Login = () => {
   const router = useRouter();
   const { error, token } = useTypedSelector((state) => state.auth);
-  const [login] = useLoginMutation();
+  const [ login ] = useLoginMutation();
 
   const handleSubmitForm = async (values: object) => {
     try {
       await login(values as ILoginRequest);
+      // await exchange();
     } catch (err) {
       alert(err);
     }
