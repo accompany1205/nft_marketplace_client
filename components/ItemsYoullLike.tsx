@@ -71,7 +71,7 @@ const ItemsYoullLike: React.FC = () => {
           { label: 'Watches', picture: './images/10.jpg' },
           { label: 'Sunglasses', picture: './images/13.jpg' },
         ].map((item, index) => (
-          <CustomSlide className="itm" index={index}>
+          <CustomSlide className="itm" key={index} index={index}>
             <div style={{ width: '280px', height: '280px' }}>
               <img
                 src={item.picture}

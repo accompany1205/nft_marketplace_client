@@ -10,6 +10,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
   onNextStep,
   product,
   rate,
+  balance,
 }) => {
   const [activeTab, setActiveTab] = useState(
     product.lowestAsk && product.lowestAsk.id > 0 ? CheckoutType.BUY_NOW : CheckoutType.PLACE_BID,
@@ -65,7 +66,7 @@ const CheckoutDetails: React.FC<CheckoutStepProps> = ({
             <BuyNow
               product={product}
               rate={rate}
-              onSubmit={() => product?.lowestAsk && onNextStep(product.lowestAsk.amount, ProcessType.NOW)}
+              onSubmit={() => product?.lowestAsk && onNextStep(product.lowestAsk.amount, 0, ProcessType.NOW)}
             />
           </div>
         )}

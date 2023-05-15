@@ -55,7 +55,8 @@ export interface BidResponse {
   id: number,
   amount: number,
   pool_id: number,
-  user_id: number
+  user_id: number,
+  account_id: string,
 }
 
 export interface AskResponse {
@@ -65,6 +66,7 @@ export interface AskResponse {
   user_id: number,
   nft_id: string,
   serial_id: string,
+  account_id: string,
 }
 
 export interface INFT {
@@ -107,6 +109,7 @@ export interface BidPayload {
   processing_type: string;
   user_id: number;
   amount: number;
+  accountId: string;
 }
 
 export interface AskPayload {
@@ -116,6 +119,7 @@ export interface AskPayload {
   serial_id: string;
   user_id: number;
   amount: number;
+  accountId: string;
 }
 
 export interface BidResponse1 {

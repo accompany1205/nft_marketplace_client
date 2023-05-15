@@ -31,10 +31,12 @@ export interface Product extends INFTVariant {
   lowestAsk?: {
     id: number,
     amount: number,
+    accountId: string,
   },
   highestBid?: {
     id: number,
     amount: number,
+    accountId: string,
   },
   owner: {
     username: string;
@@ -46,7 +48,7 @@ export interface Product extends INFTVariant {
 const tabList = [Tabs.BIDS, Tabs.ASKS];
 // const tabList = [Tabs.DETAILS, Tabs.BIDS, Tabs.ASKS];
 
-const PRICE_API_URL = process.env.COIN_PRICE_API_URL || `https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph,tether&vs_currencies=usd`;
+const PRICE_API_URL = process.env.NEXT_PUBLIC_COIN_PRICE_API_URL || `https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph,tether&vs_currencies=usd`;
 const NftDetail: React.FC = () => {
   const router = useRouter();
   // const width = useWindowWidth();
@@ -69,9 +71,9 @@ const NftDetail: React.FC = () => {
   // }, []);
 
   useEffect(() => {
-    getExchangeRate();
     if (details?.data?.variants) {
       setVariant(head(details?.data?.variants));
+      getExchangeRate();
     }
   }, [details]);
 
@@ -114,10 +116,13 @@ const NftDetail: React.FC = () => {
     lowestAsk: {
       id: (details?.data.asks && details?.data.asks.length > 0) ? details?.data.asks[0].id : -1,
       amount: (details?.data.asks && details?.data.asks.length > 0) ? details?.data.asks[0].amount : 0,
+      accountId: (details?.data.asks && details?.data.asks.length > 0) ? details?.data.asks[0].account_id : "",
     },
     highestBid: {
       id: (details?.data.bids && details?.data.bids.length > 0) ? details?.data.bids[0].id : -1,
       amount: (details?.data.bids && details?.data.bids.length > 0) ? details?.data.bids[0].amount : 0,
+      accountId: (details?.data.bids && details?.data.bids.length > 0) ? details?.data.bids[0].account_id : "",
+
     },
     ...details?.data.specs,
   };

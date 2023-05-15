@@ -28,10 +28,11 @@ export enum CheckoutSteps {
 export interface CheckoutStepProps {
   amount: number;
   bidType: ProcessType;
-  onNextStep: (amount: number, bidType: ProcessType) => void;
+  onNextStep: (amount: number, balance: number, bidType: ProcessType) => void;
   onClose: () => void;
   product: Product;
   rate: number;
+  balance: number;
 }
 
 const checkoutSteps = {
@@ -50,13 +51,15 @@ const Buy: React.FC<Props> = ({ onClose, product, rate }) => {
   const [bidType, setBidType] = useState<ProcessType>(product.lowestAsk?.amount ? ProcessType.NOW : ProcessType.PROCESSING)
 
   const { provider } = useContext(WalletContext);
+  const [balance, setBalance] = useState<number>(0);
 
   const dispatch = useDispatch();
 
-  const onNextStep = (amount: number, type: ProcessType) => {
+  const onNextStep = (amount: number, _balance: number, type: ProcessType) => {
     setAmount(amount);
     setBidType(type);
-
+    if(type === ProcessType.PROCESSING)
+      setBalance(_balance);
     if (!provider) {
       dispatch(
         showToast({
@@ -84,6 +87,7 @@ const Buy: React.FC<Props> = ({ onClose, product, rate }) => {
           bidType={bidType}
           product={product}
           onNextStep={onNextStep}
+          balance={balance}
           onClose={onClose}
           rate={rate}
         />

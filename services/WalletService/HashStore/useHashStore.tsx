@@ -324,7 +324,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
       return await hashState.hashConnect?.sendTransaction(hashState.pairingData?.topic || '', transaction)
     }
 
-  const sellNow = async (contractId: string, buyerWalletId: string, nftTokenId: string): Promise<ResponseType| undefined> => {
+  const sellNow = async (contractId: string, buyerWalletId: string, nftTokenId: string): Promise<boolean> => {
     try {
       const signingAcct = hashState.pairingData?.accountIds[0].toString()|| "";
       console.log({signingAcct})
@@ -345,10 +345,8 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
       const transactionBytes: Uint8Array = await makeBytes(trans, signingAcct);
       // let transactionBytes: Uint8Array = await this.SigningService.makeBytes(trans, "0.0.3999717");
 
-
       const res = await sendTransaction(transactionBytes, signingAcct, false, false, false);
       // let res = await this.HashconnectService.sendTransaction(transactionBytes, "0.0.3999717", false, false, this.getRecord);
-
       console.log(res)
       //handle response
       const responseData: ResponseType = {
@@ -356,11 +354,48 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
         receipt: null
       }
 
-      if (res && res.success) responseData.receipt = TransactionReceipt.fromBytes(res.receipt as Uint8Array);
+      if (res && res.success) return true;
 
-      return responseData
+      return false;
     } catch (e) {
       console.log(e);
+      return false;
+    }
+  }
+
+  // const deposit = async (contractId: string, depositAmount: number): Promise<ResponseType| undefined> => {
+  const deposit = async (contractId: string, depositAmount: number): Promise<boolean> => {
+    try {
+      const signingAcct = hashState.pairingData?.accountIds[0].toString()|| "";
+      const feeRecipientAccountId: string = AccountId.fromString(contractId).toSolidityAddress();
+      const trans = new ContractExecuteTransaction()
+        .setContractId(contractId)
+        .setGas(100000)
+        .setPayableAmount(new Hbar(depositAmount))
+        .setFunction("deposit")
+        .setMaxTransactionFee(new Hbar(2));
+
+      console.log("----------------- account signingAcct ---------------", signingAcct)
+      const transactionBytes: Uint8Array = await makeBytes(trans, signingAcct);
+      // let transactionBytes: Uint8Array = await this.SigningService.makeBytes(trans, "0.0.3999717");
+
+      const res = await sendTransaction(transactionBytes, signingAcct, false, false, false);
+      // let res = await this.HashconnectService.sendTransaction(transactionBytes, "0.0.3999717", false, false, this.getRecord);
+
+      
+      console.log(res)
+      //handle response
+      // const responseData: ResponseType = {
+      //   response: res,
+      //   receipt: null
+      // }
+
+      if (res && res.success) return true;
+
+      return false;
+    } catch (e) {
+      console.log(e);
+      return false;
     }
   }
 
@@ -377,6 +412,7 @@ const useHashStore = ({ network, debug = false }: PropTypes) => {
     getAccountBalance,
     signTransaction,
     sellNow,
+    deposit,
     initializeHashConnect,
   };
 };

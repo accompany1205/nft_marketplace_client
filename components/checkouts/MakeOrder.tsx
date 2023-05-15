@@ -10,10 +10,11 @@ import axios from 'axios';
 import { Modal, ModalHeader, ModalBody, ModalTitle, ModalFooter } from 'react-bootstrap';
 import WalletContext from '../../services/WalletService/WalletContext';
 import useAuth from '../../hooks/useAuth';
+import WalletConnector from '../WalletConnector';
 
 export interface Props {
   product: Product;
-  onSubmit: (amount: number, bidType: ProcessType) => void;
+  onSubmit: (amount: number, balance: number, bidType: ProcessType) => void;
   orderType: OrderType;
   rate: number;
 }
@@ -25,13 +26,14 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType, rate }) => {
       : product.highestBid?.amount) || 0,
   );
 
-  const { accountId } = useContext(WalletContext);
+  const { accountId, provider, deposit } = useContext(WalletContext);
 
   const dispatch = useDispatch();
 
   const [modalIsShow, setModalShow] = useState<boolean>(false);
   const [depositAmount, setDepositAmount] = useState<number>(0);
   const [accountBalance, setBalance] = useState<number>(0);
+  const [showWalletConnectionModal, setShowWalletConnectionModal] = useState<boolean>(false);
 
   const checkBalance = async (amount: number) => {
     if (!accountId) {
@@ -39,9 +41,9 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType, rate }) => {
         message: 'Please connect wallet.',
         type: 'danger',
       }),)
+      setShowWalletConnectionModal(true);
       return;
     }
-
     if (orderType === OrderType.BID) {
       const response =
         await axios.post(
@@ -55,14 +57,15 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType, rate }) => {
         console.log('server error');
         return;
       }
-      const balance = response.data.data * rate;
-      setBalance(Number(balance));
+      const balance = response.data.data/Math.pow(10, Number(process.env.NEXT_PUBLIC_HBAR_DECIMAL) || 8);
+      setBalance(balance);
+      console.log({balance, amount});
       if (balance < amount) {
         setModalShow(true);
         setDepositAmount(amount - balance);
         return;
       }
-
+      onSubmit(amount, balance, ProcessType.PROCESSING)
     } else {
 
       const response =
@@ -82,9 +85,8 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType, rate }) => {
         }),)
         return;
       }
+      onSubmit(amount, 0, ProcessType.PROCESSING)
     }
-
-    onSubmit(amount, ProcessType.PROCESSING)
   }
 
   const hideModal = () => {
@@ -94,8 +96,20 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType, rate }) => {
   const handleChangeAmount = (amount: string) => {
     setDepositAmount(Number(amount));
   }
-  const handleTransaction = () => {
+  const handleTransaction = async () => {
     console.log("deposit Amount: ", depositAmount);
+    const contractId: string = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ID || "";
+    console.log("contract id", contractId)
+    console.log("contract id", process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ID)
+    if(contractId.length === 0){
+      dispatch(showToast({
+        message: 'no contract!',
+        type: 'danger',
+      }),)
+      return;
+    }
+    const res = await deposit(contractId, depositAmount);
+    console.log("======================", res)
   }
   return (
     <div>
@@ -104,15 +118,16 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType, rate }) => {
       </div>
       <div className="detailcheckout">
         <div className="listcheckout">
-          <h6>Enter amount. {}</h6>
+          <h6>Enter amount. (HBAR)</h6>
           <input
             type="number"
             name="amount"
             id="amount"
-            value={amount}
+            //value={amount}
+            defaultValue={0.000}
             min={0}
-            step={1}
-            onChange={(e) => setAmount(parseInt(e.target.value))}
+            step="0.0001"
+            onChange={(e) => setAmount(Number(e.target.value))}
             className="form-control"
           />
           {!amount && (
@@ -125,7 +140,7 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType, rate }) => {
           You will
           {orderType === OrderType.ASK ? ' get' : ' pay'}
         </p>
-        <div className="subtotal">{amount ? amount : 0}$ {amount ? amount / rate : 0}HBAR</div>
+        <div className="subtotal">{amount ? amount : 0}HBAR ({amount ? Math.floor(amount * rate *10000)/10000 : 0}$)</div>
       </div>
       <button
         type="button"
@@ -137,21 +152,21 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType, rate }) => {
       </button>
       <Modal show={modalIsShow} onHide={hideModal}>
         <ModalHeader>
-          <ModalTitle>Your Wallet Balance {` ${accountBalance}$ ${accountBalance / rate}HBAR`} </ModalTitle>
+          <ModalTitle>Your Wallet Balance {` ${accountBalance}HBAR (${accountBalance * rate}$)`} </ModalTitle>
         </ModalHeader>
         <ModalBody>
           <div className="field-set">
             <input
-              placeholder="amount"
+              placeholder="HBAR"
               className="form-control"
               type="number"
               name="amount"
-              value={depositAmount}
+              defaultValue={depositAmount}
               min={depositAmount}
-              step={1}
+              step={0.0001}
               onChange={(e) => handleChangeAmount(e.target.value)}
             />
-            <p>{depositAmount}HBAR</p>
+            <p>{depositAmount}HBAR ({Math.floor(depositAmount*rate*10000)/10000}$)</p>
           </div>
           
         </ModalBody>
@@ -167,6 +182,10 @@ const MakeOrder: React.FC<Props> = ({ product, onSubmit, orderType, rate }) => {
           </div>
         </ModalFooter>
       </Modal>
+      <WalletConnector
+          showModal={showWalletConnectionModal}
+          setShowModal={setShowWalletConnectionModal}
+        />
     </div>
   );
 };

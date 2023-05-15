@@ -28,10 +28,11 @@ export enum CheckoutSteps {
 export interface CheckoutStepProps {
   amount: number;
   type: ProcessType,
-  onNextStep: (amount: number, type: ProcessType) => void;
+  onNextStep: (amount: number, balance: number, type: ProcessType) => void;
   onClose: () => void;
   product: Product;
   rate: number;
+  royalty: number;
 }
 
 const checkoutSteps = {
@@ -50,16 +51,20 @@ const Sell: React.FC<Props> = ({ onClose, product, rate }) => {
     product.lowestAsk?.amount || 0,
   );
   const [askType, setAskType] = useState<ProcessType>(product.lowestAsk?.amount ? ProcessType.NOW : ProcessType.PROCESSING)
-
+  const [royalty, setRoyalty] = useState<number>(0);
 
   const { provider } = useContext(WalletContext);
 
   const dispatch = useDispatch();
 
-  const onNextStep = (amount: number, type: ProcessType) => {
+  const onNextStep = (amount: number, royalty: number, type: ProcessType) => {
     setAmount(amount);
     setAskType(type);
     console.log("onNextStep: ", amount);
+
+    if(type === ProcessType.NOW){
+      setRoyalty(royalty);
+    }
     if (!provider) {
       dispatch(
         showToast({
@@ -89,6 +94,7 @@ const Sell: React.FC<Props> = ({ onClose, product, rate }) => {
           onNextStep={onNextStep}
           onClose={onClose}
           rate={rate}
+          royalty={royalty}
         />
         <WalletConnector
           showModal={showWalletConnectionModal}

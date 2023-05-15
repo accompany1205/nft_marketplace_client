@@ -1,4 +1,5 @@
 import { get } from 'lodash';
+import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 
@@ -9,6 +10,7 @@ import {
 import { showToast } from '../redux/slices/layoutSlice';
 import { store } from '../redux/store';
 import { BidPayload } from '../types';
+import WalletContext from '../services/WalletService/WalletContext';
 
 export enum OrderType {
   BID = 'Bid',
@@ -42,6 +44,8 @@ const useMakeOrder: UseMakeOrder = (pool_id, processType, nft_id, serial_id, ord
 
   const { user } = store.getState().auth;
 
+  const { accountId } = useContext(WalletContext);
+
   const handleMakeBid = (bid: BidPayload, nft_id: string, serial_id: string): any => {
     if (orderType === OrderType.BID) {
       return makeBid(bid);
@@ -50,7 +54,7 @@ const useMakeOrder: UseMakeOrder = (pool_id, processType, nft_id, serial_id, ord
     return makeAsk({
       ...bid,
       nft_id,
-      serial_id
+      serial_id,
     });
   };
 
@@ -71,6 +75,7 @@ const useMakeOrder: UseMakeOrder = (pool_id, processType, nft_id, serial_id, ord
       processing_type: processType,
       amount,
       user_id: user.id,
+      accountId: accountId?.toString() || "",
     };
 
     try {

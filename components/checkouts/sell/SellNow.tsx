@@ -23,14 +23,14 @@ const SellNow: React.FC<Props> = ({ product, onSubmit, rate }) => (
         to
         {' the Bidder of '}
         {/* {product.highestBid?.first_name} */}
-        {product.highestBid?.amount}$
+        {product.highestBid?.amount}HBAR({Math.floor((product.highestBid?.amount || 0) * rate * 10000) / 10000}$)
         {/* {product.highestBid?.last_name} */}
       </span>
     </p>
     <div>
       <b>Total :</b>
       {' '}
-      {product.highestBid?.amount}
+      {product.highestBid?.amount}HBAR ({Math.floor((product.highestBid?.amount || 0) * rate * 10000) / 10000}$)
     </div>
     <button
       type="button"

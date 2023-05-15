@@ -8,10 +8,10 @@ import WalletContext from '../../../services/WalletService/WalletContext';
 import Loader from '../../Loader';
 import { CheckoutStepProps } from './Buy';
 
-const Summary: React.FC<CheckoutStepProps> = ({ amount, bidType, product, onClose }) => {
+const Summary: React.FC<CheckoutStepProps> = ({ amount, bidType, product, onClose, rate, balance }) => {
   const router = useRouter();
   const { accountId, getAccountBalance } = useContext(WalletContext);
-  const [accountBalance, setAccountBalance] = useState<BigNumber>();
+  const [accountBalance, setAccountBalance] = useState<number>(balance);
 
   const onCompleted = (dealId?: number) => {
     if (!dealId) return onClose();
@@ -30,15 +30,6 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, bidType, product, onClos
     OrderType.BID,
     onCompleted,
   );
-
-  useEffect(() => {
-    const getBalance = async (): Promise<void> => {
-      const balance = await getAccountBalance();
-      if (balance) setAccountBalance(balance);
-    };
-
-    // if (accountId && !accountBalance) getBalance(); /////////////////////
-  }, [accountId]);
 
   // if (!accountBalance || !amount) {
   //   return (
@@ -61,13 +52,13 @@ const Summary: React.FC<CheckoutStepProps> = ({ amount, bidType, product, onClos
         <h3>Price Computation</h3>
       </div>
       <div className="heading">
-        <p>Account balance</p>
+        <p>Deposit balance</p>
         {/* <div className="subtotal">{accountBalance.valueOf()}</div> */}
-        <div className="subtotal">{"accountBalance.valueOf()"}</div>
+        <div className="subtotal">{`${accountBalance}`}HBAR({Math.floor(accountBalance*rate*10000)/10000}$)</div>
       </div>
       <div className="heading">
         <p>You will pay</p>
-        <div className="subtotal">{amount}</div>
+        <div className="subtotal">{amount}HBAR({Math.floor(amount*rate*10000)/10000}$)</div>
       </div>
       <button
         type="button"

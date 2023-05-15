@@ -23,7 +23,8 @@ export interface WalletContextType {
     transactionBuffer: Uint8Array,
     accountToSign: string
   ) => Promise<string | Uint8Array | undefined>;
-  exeuteContractCall: () => void;
+  deposit: (contractId: string, amount: number) => Promise<boolean>;
+  sellNow: (contractId: string, buyerWalletId: string, nftTokenId: string) => Promise<boolean>;
 }
 
 const WalletContext = createContext<WalletContextType>({
@@ -38,7 +39,8 @@ const WalletContext = createContext<WalletContextType>({
   connectWallet: async () => {},
   disconnectWallet: async () => {},
   signTransaction: async () => undefined,
-  exeuteContractCall: () => {}
+  deposit: async () => { return true},
+  sellNow: async () => { return true},
 });
 
 export default WalletContext;

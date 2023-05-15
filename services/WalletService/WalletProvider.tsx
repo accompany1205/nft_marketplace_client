@@ -33,6 +33,8 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
         accountId: hashStore.accountId,
         getAccountBalance: hashStore.getAccountBalance,
         signTransaction: hashStore.signTransaction,
+        deposit: hashStore.deposit,
+        sellNow: hashStore.sellNow,
       };
     }
     if (
@@ -126,6 +128,8 @@ const WalletProvider = (props: { children: React.ReactNode }) => {
       provider: currentlyConnected?.provider,
       getAccountBalance: currentlyConnected?.getAccountBalance,
       signTransaction: currentlyConnected?.signTransaction,
+      deposit: currentlyConnected?.deposit,
+      sellNow: currentlyConnected?.sellNow,
     }),
     [
       connectToExtension,

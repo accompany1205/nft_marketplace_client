@@ -16,11 +16,22 @@ const MarketPlace = () => {
   console.log('data', data?.data);
 
   const nfts: IPOOL[] = map(data?.data, (product) => product);
-  const colors: string[] = [];
-  const brands: string[] = [];
+  let colors: string[] = [];
+  let brands: string[] = [];
+ 
   useEffect(()=>{
-    
-  })
+    colors = [];
+    brands = [];
+    nfts.forEach(element => {
+      if (colors.indexOf(element.color) < 0)
+        colors.push(element.color);
+      if (brands.indexOf(element.brand) < 0) {
+        brands.push(element.brand);
+      }
+    });
+    setSelectedColors(colors);
+    setSelectedBrands(brands);
+  }, [data])
   nfts.forEach(element => {
     if (colors.indexOf(element.color) < 0)
       colors.push(element.color);
@@ -83,13 +94,15 @@ const MarketPlace = () => {
               <h4>Colours</h4>
               <div className="de_form">
                 {colors.length > 0 && colors.map((color, index) => {
+                  console.log({selectedColors, color})
                   return <div key={index} className="de_checkbox">
                     <input
                       id={`onauction_${index}`}
                       type="checkbox"
                       name={color}
                       onChange={(e) => handleClickColorcheckbox(e)}
-                      defaultChecked={selectedColors.indexOf(color) >= 0}
+                      // defaultChecked={selectedColors.indexOf(color) >= 0}
+                      defaultChecked={true}
                     />
                     <label htmlFor={`onauction_${index}`}>{color}</label>
                   </div>
@@ -108,7 +121,8 @@ const MarketPlace = () => {
                       type="checkbox"
                       name={brand}
                       onChange={(e) => handleClickBrandcheckbox(e)}
-                      defaultChecked={selectedBrands.indexOf(brand) >= 0}
+                      // defaultChecked={selectedBrands.indexOf(brand) >= 0}
+                      defaultChecked={true}
                     />
                     <label htmlFor={`sitems_${index}`}>{brand}</label>
                   </div>

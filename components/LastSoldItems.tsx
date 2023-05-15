@@ -104,7 +104,7 @@ const LastSoldItems: React.FC = () => {
             lastSale: '$481',
           },
         ].map((item, index) => (
-          <CustomSlide className="itm" index={index}>
+          <CustomSlide className="itm" key={index} index={index}>
             <div className="nft_coll">
               <div className="nft_wrap">
                 <span>
